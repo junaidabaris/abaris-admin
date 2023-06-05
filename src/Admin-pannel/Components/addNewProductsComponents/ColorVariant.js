@@ -55,6 +55,16 @@ export const ColorVariant = ({ data, pickUp, handleVariant }) => {
                 <input type="text" name="sku" className="form-control" onChange={onChangeHandler} />
             </td>
 
+            <td>
+                <input type="text" name="hsn_code" className="form-control" onChange={onChangeHandler} />
+            </td>
+            <td>
+                <input type="text" name="sale_rp" className="form-control" onChange={onChangeHandler} />
+            </td>
+            <td>
+                <input type="text" name="share_rp" className="form-control" onChange={onChangeHandler} />
+            </td>
+
             {/* <td>
                 <select className="js-example-basic-multiple js-states js-example-responsive demo-select2 w-100 select2-hidden-accessible selectOptions" name="pickupPoints" data-select2-id={20} tabIndex={-1} aria-hidden="true" onChange={onChangeHandler}>
                     {pickUp && pickUp.map((itemPickup) => {
