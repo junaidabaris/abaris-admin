@@ -1,41 +1,28 @@
 // import { SlideshowLightbox } from "lightbox.js-react";
 import { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-import { useDeleteProductMutation, useGetAllProductsQuery, useGetCategoriesQuery } from "./allproductsApi/allProductsApi";
-
-
-const image = [
-  {
-    id: "1",
-    url: "https://mmslfashions.in/public/uploads/all/Wiv7vhbeLmejHSA4L7NNWgfAqundcpdd76tW7OiY.jpg",
-  },
-];
+import { useDeleteProductMutation, useGetAllProductsQuery, useGetCategoriesQuery, useProductActiveMutation } from "./allproductsApi/allProductsApi";
+import { ToastContainer, toast } from "react-toastify";
 
 
 
 function AllProducts() {
   const [inputVal, setInputVal] = useState('');
-  const { data, isLoading } = useGetAllProductsQuery();
-  // const [fData, setFData] = useState(data);
+  const { data, isLoading } = useGetAllProductsQuery()
   const [bArr, setBArr] = useState([]);
+  const params = useParams()
 
 
   useEffect(() => {
     setBArr(data)
   }, [data])
 
-  console.log(data)
-  // const categoryD = useGetCategoriesQuery()
-  // console.log(categoryD.data)
-
   const onChangeHandler = (e) => {
     const inpVal = e.target.value
     setInputVal(inpVal)
   }
-  // console.log(inputVal)
-
   const searchData = () => {
     const filteredData = data?.filter((item) => {
       if (!item.name) {
@@ -45,23 +32,50 @@ function AllProducts() {
         return item
       }
     })
-    console.log(filteredData);
     setBArr(filteredData)
   }
-  // const d = data?.filter((item) => item._id === '640fe77aa0391c8bd2189b0d')
-
-
   const [deleteData, response] = useDeleteProductMutation();
 
   function deleteProductData(id) {
     deleteData(id)
   };
 
-  // console.log('-----all prod res', response);
+  useEffect(() => {
+    if (response.isSuccess === true) {
+      alert("Product deleted Successfully")
+    };
+  }, [response.isSuccess])
 
-  if (response.isSuccess === true) {
-    alert("Product deleted Successfully")
+
+  const [updatePro, { isSuccess, isError }] = useProductActiveMutation()
+  const changeStatus = (item) => {
+    const obj = { id: item._id, data: { approve: !item.approve } }
+    updatePro(obj)
+  }
+
+  const toastSuccessMessage = () => {
+    toast.success("Product Updated Successfully", {
+      position: "top-center"
+    })
   };
+
+  const toastErrorMessage = () => {
+    toast.error("Product Update Faild..", {
+      position: "top-center"
+    })
+  };
+
+  useEffect(() => {
+    if (isSuccess === true) {
+      toastSuccessMessage()
+    };
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (isError === true) {
+      toastErrorMessage()
+    };
+  }, [isError])
 
 
 
@@ -74,6 +88,7 @@ function AllProducts() {
               <div className="col-auto">
                 <h1 className="h3">All products</h1>
               </div>
+              <ToastContainer />
               <div className="col text-right">
                 <Link to="/admin/products/all/products/create" className="btn btn-circle btn-info">
                   <span>Add New Product</span>
@@ -114,15 +129,16 @@ function AllProducts() {
                     </div>
                   </div>
                 </div>
-                <div className="card-body">
+                <div className="card-body" style={{ overflowX: "auto" }}>
 
-                  <table className="table aiz-table mb-0 footable footable-1 breakpoint breakpoint-lg" style={{}}>
+                  <table className="table aiz-table mb-0 footable footable-1 breakpoint breakpoint-lg">
                     <thead>
                       <tr className="footable-header">
                         <th className="footable-first-visible" style={{ display: 'table-cell' }}># </th>
                         <th style={{ display: 'table-cell' }}>Product</th>
                         <th style={{ display: 'table-cell' }}>Category</th>
                         <th style={{ display: 'table-cell' }}>Brand</th>
+                        <th style={{ display: 'table-cell' }}>Block</th>
                         <th data-breakpoints="lg" style={{ display: 'none' }}>Added By</th>
                         <th data-breakpoints="sm" style={{ display: 'table-cell' }}>Info</th>
                         <th data-breakpoints="md" style={{ display: 'table-cell' }}>Total Stock</th>
@@ -141,8 +157,8 @@ function AllProducts() {
                           </td>
                           <td style={{ display: 'table-cell' }}>
                             <div className="row gutters-5 w-200px w-md-300px mw-100">
-                              <div className="col-auto">
-                                <img src="https://mmslfashions.in/public/uploads/all/Wiv7vhbeLmejHSA4L7NNWgfAqundcpdd76tW7OiY.jpg" alt="Image" className="size-50px img-fit" />
+                              <div className="col-auto w-50 ">
+                                {item?.mainimage_url?.url ? <img src={item?.mainimage_url?.url} alt="Image" className="img-fluid" /> : <img src="https://reactfront.mmslfashions.in/uploads/products/main/images/chlor.jpg" alt="Image" className="img-fluid" />}
                               </div>
                               <div className="col">
                                 <span className="text-muted text-truncate-2">{item.name}</span>
@@ -157,6 +173,19 @@ function AllProducts() {
                             {item.brand_id && item.brand_id.name}
 
                           </td>
+
+                          <td style={{ display: "table-cell" }}>
+                            <label className="aiz-switch aiz-switch-success mb-0">
+                              <input
+                                onChange={() => { changeStatus(item) }}
+                                type="checkbox"
+                                checked={item?.approve}
+                              />
+                              <span className="slider round" />
+                            </label>
+                          </td>
+
+
                           <td style={{ display: 'table-cell' }}>
                             <strong>Num of Sale:</strong> 0 Times <br />
                             <strong>Base Price:</strong>{item.unit_price}<br />
@@ -181,13 +210,13 @@ function AllProducts() {
                               <span className="slider round" />
                             </label>
                           </td>
-                          <td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
-                            <a className="btn btn-soft-success btn-icon btn-circle btn-sm" href="https://mmslfashions.in/product/kieserite-mag-sul-in-25-kg-bag-LeWMh" target="_blank" title="View">
+                          <td className="text-right footable-last-visible" style={{ display: 'table-cell', whiteSpace: 'nowrap' }}>
+                            <Link to="#" className="btn btn-soft-success btn-icon btn-circle btn-sm" title="View">
                               <i className="las la-eye" />
-                            </a>
-                            <a className="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://mmslfashions.in/admin/products/admin/73/edit?lang=en" title="Edit">
+                            </Link>
+                            <Link to={`edit/${item._id}`} className="btn btn-soft-primary btn-icon btn-circle btn-sm" title="Edit">
                               <i className="las la-edit" />
-                            </a>
+                            </Link>
                             {/* <a className="btn btn-soft-warning btn-icon btn-circle btn-sm" href="https://mmslfashions.in/admin/products/duplicate/73?type=All" title="Duplicate">
                               <i className="las la-copy" />
                             </a> */}
@@ -202,7 +231,7 @@ function AllProducts() {
                     </tbody>
                   </table>
 
-                  <div className="aiz-pagination">
+                  {/* <div className="aiz-pagination">
                     <nav>
                       <ul className="pagination">
                         <li className="page-item disabled" aria-label="« Previous">
@@ -228,7 +257,8 @@ function AllProducts() {
                         </li>
                       </ul>
                     </nav>
-                  </div>
+                  </div> */}
+
                 </div>
               </form>
             </div>

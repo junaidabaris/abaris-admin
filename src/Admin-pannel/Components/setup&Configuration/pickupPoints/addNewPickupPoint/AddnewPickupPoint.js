@@ -1,14 +1,17 @@
 import { useState } from "react";
-import { useAddPickUpPointMutation } from "../../../all-products/allproductsApi/allProductsApi";
+import { useAddPickUpPointMutation, useGetAllStaffsQuery } from "../../../all-products/allproductsApi/allProductsApi";
 import { toast, ToastContainer } from 'react-toastify';
+import ToggleStatus from "../../../toggleStatus/ToggleStatus";
 
 function AddnewPickupPoint() {
   const [lonLatObj, setLongLatObj] = useState({
     long: '',
     lat: ''
   });
+  const { isLoading, data } = useGetAllStaffsQuery();
 
   const [inputVal, setInputVal] = useState({
+    pickupPoint_name: '',
     address: '',
     location: {},
     province: '',
@@ -17,6 +20,12 @@ function AddnewPickupPoint() {
     PickUpManagerSchema: '',
     email: ''
   });
+
+  const changeStatus = (isStatus, key) => {
+    const clonedInputVal = { ...inputVal }
+    clonedInputVal[key] = isStatus;
+    setInputVal(clonedInputVal)
+  }
 
   const onChangeHandler = (e) => {
     const inpName = e.target.name;
@@ -55,10 +64,6 @@ function AddnewPickupPoint() {
   if (response.isSuccess === true) {
     toastSuccessMessage()
   };
-  console.log(response)
-
-
-
 
   return (
     <>
@@ -74,10 +79,18 @@ function AddnewPickupPoint() {
                 <form id="create-course-form" onSubmit={submitPickUpPointData}>
                   <input type="hidden" name="_token" defaultValue="mA5KQp7HZlXz1fB8P6Hv66tiXkkVBymNn0MEMOHZ" />
                   <div className="card-body">
+
+                    <div className="form-group row row">
+                      <label className="col-sm-3 col-from-label" htmlFor="name">Name</label>
+                      <div className="col-sm-9">
+                        <input type="text" placeholder="Name" id="name" name="pickupPoint_name" className="form-control" required onChange={onChangeHandler} />
+                      </div>
+                    </div>
+
                     <div className="form-group row row">
                       <label className="col-sm-3 col-from-label" htmlFor="address">Address</label>
                       <div className="col-sm-9">
-                        <input type="text" placeholder="Name" id="name" name="address" className="form-control" required onChange={onChangeHandler} />
+                        <input type="text" placeholder="Adress" id="adress" name="address" className="form-control" required onChange={onChangeHandler} />
                       </div>
                     </div>
 
@@ -126,10 +139,11 @@ function AddnewPickupPoint() {
                     <div className="form-group row row">
                       <label className="col-sm-3 col-from-label">Pickup Point Status</label>
                       <div className="col-sm-3">
-                        <label className="aiz-switch aiz-switch-success mb-0" style={{ marginTop: 5 }}>
+                        {/* <label className="aiz-switch aiz-switch-success mb-0" style={{ marginTop: 5 }}>
                           <input defaultValue={1} type="checkbox" name="pickUpPointStatus" onChange={onChangeHandler} />
                           <span className="slider round" />
-                        </label>
+                        </label> */}
+                        <ToggleStatus name="pickUpPointStatus" isStatus={inputVal.pickUpPointStatus} changeStatus={changeStatus} />
                       </div>
                     </div>
 
@@ -138,10 +152,11 @@ function AddnewPickupPoint() {
                       <div className="col-sm-9">
                         <div >
                           <select className="form-select" name="PickUpManagerSchema" aria-label="Default select example" onChange={onChangeHandler}>
-                            <option>Open this select menu</option>
-                            <option>One</option>
-                            <option>Two</option>
-                            <option>Three</option>
+                            <option>Open this select</option>
+                            {data && data.map((item)=>{
+                              return <option>{item.firstname} {item.lastname}</option>
+                            })}
+                           
                           </select>
                         </div>
                       </div>

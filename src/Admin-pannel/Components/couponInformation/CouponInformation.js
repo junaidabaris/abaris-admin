@@ -32,7 +32,9 @@ function CouponInformation() {
                                 <tr >
                                     <th >#</th>
                                     <th >Code</th>
-                                    <th  >Type</th>
+                                    <th  >Category</th>
+                                    <th  >Discount</th>
+                                    <th  >Discount Type</th>
                                     <th >Start Date</th>
                                     <th >End Date</th>
                                     <th >Options</th>
@@ -44,6 +46,8 @@ function CouponInformation() {
                                         <td>{i + 1}</td>
                                         <td>{item.code}</td>
                                         <td>{item.type}</td>
+                                        <td>{item.discount}</td>
+                                        <td>{item.discount_type}</td>
                                         <td >{item.start_date}</td>
                                         <td >{item.end_date}</td>
                                         <td >

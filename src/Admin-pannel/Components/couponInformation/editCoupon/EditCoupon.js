@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 import { useEditCouponMutation, useGetCouponByIdQuery } from '../../all-products/allproductsApi/allProductsApi';
 
 function EditCoupon() {
@@ -18,7 +19,7 @@ function EditCoupon() {
         setInputval(obj)
     }, [data]);
 
-    const [editCoup, respo] = useEditCouponMutation();
+    const [editCoup, response] = useEditCouponMutation();
 
     const onChangeHandler = (e) => {
         const inpName = e.target.name;
@@ -30,10 +31,21 @@ function EditCoupon() {
     const submitEditBrandData = (e) => {
         e.preventDefault();
         editCoup({ id: params.id, data: inputval })
-        console.log(inputval)
         document.getElementById("create-course-form").reset();
     };
 
+    const toastSuccessMessage = () => {
+        toast.success("Coupon Edited Successfully", {
+            position: "top-center"
+        })
+    };
+
+    if (response.isSuccess === true) {
+        toastSuccessMessage()
+    };
+    if (response.isError === true) {
+        alert('!Coupon not edited')
+    };
 
 
     return (
@@ -89,6 +101,7 @@ function EditCoupon() {
                 <div className="bg-white text-center py-3 px-15px px-lg-25px mt-auto">
                     {/*p class="mb-0">&copy;  v6.3.3</p*/}
                 </div>
+                <ToastContainer />
             </div>
         </>
     )

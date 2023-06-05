@@ -1,29 +1,33 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+const seller_id = window.localStorage.getItem('isSellerId')
 export const productsApi = createApi({
     reducerPath: 'productsApi',
-    baseQuery: fetchBaseQuery({ baseUrl: 'https://etg-backend-project-node-abarisapp.vercel.app/api/' }),
-    // tagTypes: ['Post'],
+    baseQuery: fetchBaseQuery({ baseUrl: 'https://onlineparttimejobs.in/api/' }),
+    tagTypes: ['allOrders', 'sellers', 'sellerOwn', 'setList', 'purchaseList', 'reqList', 'allProducts', 'getBrand', 'customer', 'catagary','attribuits'],
     endpoints: (builder) => ({
         getAllProducts: builder.query({
             query: () => ({
                 url: 'product',
                 method: 'GET'
-            })
+            }),
+            providesTags: ['allProducts']
         }),
 
         getCategories: builder.query({
             query: () => ({
                 url: 'category',
                 method: 'GET'
-            })
+            }),
+            providesTags: ['catagary']
         }),
 
         getBrands: builder.query({
             query: () => ({
                 url: 'brand',
                 method: 'GET'
-            })
+            }),
+            providesTags: ['getBrand']
         }),
 
         getSizes: builder.query({
@@ -35,7 +39,7 @@ export const productsApi = createApi({
 
         getBanner: builder.query({
             query: () => ({
-                url: 'banner',
+                url: 'seller_Banner',
                 method: 'GET'
             })
         }),
@@ -51,14 +55,16 @@ export const productsApi = createApi({
             query: () => ({
                 url: 'customer',
                 method: 'GET'
-            })
+            }),
+            providesTags: ['customer']
         }),
 
         getSellers: builder.query({
             query: () => ({
                 url: 'sellerList',
                 method: 'GET'
-            })
+            }),
+            providesTags: ['sellers']
         }),
         getTicketLists: builder.query({
             query: () => ({
@@ -92,7 +98,8 @@ export const productsApi = createApi({
             query: () => ({
                 url: 'order/getallorders',
                 method: 'GET'
-            })
+            }),
+            providesTags: ['allOrders']
         }),
 
         getCoupons: builder.query({
@@ -101,6 +108,43 @@ export const productsApi = createApi({
                 method: 'GET'
             })
         }),
+
+        getBlogs: builder.query({
+            query: () => ({
+                url: 'blogs',
+                method: 'GET'
+            })
+        }),
+
+        getAttributes: builder.query({
+            query: () => ({
+                url: 'attributes',
+                method: 'GET'
+            }),
+            providesTags:['attribuits']
+        }),
+
+        getBlogsCategory: builder.query({
+            query: () => ({
+                url: 'blogsCat',
+                method: 'GET'
+            })
+        }),
+
+        getColors: builder.query({
+            query: () => ({
+                url: 'color',
+                method: 'GET'
+            })
+        }),
+
+        getFlashDeals: builder.query({
+            query: () => ({
+                url: 'flashDeal',
+                method: 'GET'
+            })
+        }),
+
 
         addNewSize: builder.mutation({
             query: (payload) => ({
@@ -115,19 +159,8 @@ export const productsApi = createApi({
 
         addNewBrand: builder.mutation({
             query: (payload) => ({
-                url: 'brand/add_brand',
+                url: 'brand/add',
                 method: 'POST',
-                body: payload,
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
-            }),
-        }),
-
-        editBrand: builder.mutation({
-            query: (payload) => ({
-                url: 'brand/add_brand',
-                method: 'PUT',
                 body: payload,
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -177,6 +210,128 @@ export const productsApi = createApi({
             }),
         }),
 
+        getLanguageById: builder.query({
+            query: (id) => ({
+                url: `language/${id}`,
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        getBrandById: builder.query({
+            query: (id) => ({
+                url: `brand/${id}`,
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        getSupportTicketById: builder.query({
+            query: (id) => ({
+                url: `ticketList/${id}`,
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        getBlogPostById: builder.query({
+            query: (id) => ({
+                url: `blogs/${id}`,
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        getCustomerById: builder.query({
+            query: (id) => ({
+                url: `customer/${id}`,
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        getAttributeById: builder.query({
+            query: (id) => ({
+                url: `attributes/${id}`,
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        getFlashDealById: builder.query({
+            query: (id) => ({
+                url: `flashDeal/${id}`,
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        getProductById: builder.query({
+            query: (id) => ({
+                url: `product/${id}`,
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+
+        getBlogCategoryById: builder.query({
+            query: (id) => ({
+                url: `blogsCat/${id}`,
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        getSellerBannerById: builder.query({
+            query: (id) => ({
+                url: `seller_Banner/${id}`,
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        getCustomerShippingAdressById: builder.query({
+            query: (id) => ({
+                url: `shippingAddress/customer/${id}`,
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        getColorById: builder.query({
+            query: (id) => ({
+                url: `color/${id}`,
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+
         addNewCurrency: builder.mutation({
             query: (payload) => ({
                 url: 'currency/add_Currency',
@@ -210,17 +365,101 @@ export const productsApi = createApi({
             }),
         }),
 
-
-        addNewProduct: builder.mutation({
+        addNewBlogs: builder.mutation({
             query: (payload) => ({
-                url: 'product/add_product',
+                url: 'blogs/add_Blogs',
                 method: 'POST',
                 body: payload,
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2U2NTc5YzQ1NTEwNDQzNDk4MWQ4ZGEiLCJuYW1lIjoiVHVuamkiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaXNBZG1pbiI6dHJ1ZSwiaXNTZWxsZXIiOmZhbHNlLCJpc0Jsb2NrZWQiOmZhbHNlLCJpc0FjY291bnRWZXJpZmllZCI6ZmFsc2UsImlhdCI6MTY3NzU1OTU1MCwiZXhwIjoxNjgwMTUxNTUwfQ.UYCx54AJluZkd1YU3S2nOVr5RQzyW1QcGVB7dTEPQ48'
                 },
             }),
+        }),
+
+        addNewAttribute: builder.mutation({
+            query: (payload) => ({
+                url: 'attributes/add_attributes',
+                method: 'POST',
+                body: payload,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+            invalidatesTags:['attribuits']
+        }),
+
+        addGeneralSetting: builder.mutation({
+            query: (payload) => ({
+                url: 'generalSetting/add_generalSetting',
+                method: 'POST',
+                body: payload,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        addBlogCategory: builder.mutation({
+            query: (payload) => ({
+                url: 'blogsCat/add_blogCat',
+                method: 'POST',
+                body: payload,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        addOrderConfiguration: builder.mutation({
+            query: (payload) => ({
+                url: 'orderConfig/add_OrderConfig',
+                method: 'POST',
+                body: payload,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        addColor: builder.mutation({
+            query: (payload) => ({
+                url: 'color/add_Color',
+                method: 'POST',
+                body: payload,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        addFlasDeal: builder.mutation({
+            query: (payload) => ({
+                url: 'flashDeal/add_FlashDeal',
+                method: 'POST',
+                body: payload,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+
+        addNewProduct: builder.mutation({
+            query: (payload) => {
+
+                return {
+                    url: 'product/add_product',
+                    method: 'POST',
+                    body: {
+                        ...payload,
+                        abc: JSON.stringify(payload.gallery_image)
+                    },
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8',
+                        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2U2NTc5YzQ1NTEwNDQzNDk4MWQ4ZGEiLCJuYW1lIjoiVHVuamkiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaXNBZG1pbiI6dHJ1ZSwiaXNTZWxsZXIiOmZhbHNlLCJpc0Jsb2NrZWQiOmZhbHNlLCJpc0FjY291bnRWZXJpZmllZCI6ZmFsc2UsImlhdCI6MTY3NzU1OTU1MCwiZXhwIjoxNjgwMTUxNTUwfQ.UYCx54AJluZkd1YU3S2nOVr5RQzyW1QcGVB7dTEPQ48'
+                    },
+                }
+            },
         }),
 
         deleteProduct: builder.mutation({
@@ -286,20 +525,67 @@ export const productsApi = createApi({
             }),
         }),
 
-        getPlaceById: builder.query({
+        deleteBlogs: builder.mutation({
             query: (id) => ({
-                url: `brand/${id}`,
-                method: 'GET'
-            })
+                url: `blogs/delete_Blogs/${id}`,
+                method: 'DELETE',
+            }),
+        }),
+
+        deleteAttributes: builder.mutation({
+            query: (id) => ({
+                url: `attributes/delete_attributes/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags:['attribuits']
+        }),
+
+        deleteSellerBanner: builder.mutation({
+            query: (id) => ({
+                url: `seller_Banner/${id}`,
+                method: 'DELETE',
+            }),
+        }),
+
+        deleteBlogCategory: builder.mutation({
+            query: (id) => ({
+                url: `blogsCat/delete_blogCat/${id}`,
+                method: 'DELETE',
+            }),
+        }),
+
+        deleteOrder: builder.mutation({
+            query: (id) => ({
+                url: `order/delete_Order/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['allOrders']
+        }),
+
+        deleteColor: builder.mutation({
+            query: (id) => ({
+                url: `color/delete_Color/${id}`,
+                method: 'DELETE',
+            }),
+        }),
+
+
+        deleteFlashDeal: builder.mutation({
+            query: (id) => ({
+                url: `flashDeal/delete_FlashDeal/${id}`,
+                method: 'DELETE',
+            }),
         }),
 
 
         getSellerProduct: builder.query({
             query: (id) => ({
-                url: 'seller_product',
+                url: `seller_Product/${id}`,
                 method: 'GET'
-            })
+            }),
+            providesTags: ['sellerOwn']
         }),
+
         addPaymentGet: builder.mutation({
             query: (payload) => ({
                 url: 'paymentGate/add_PaymentGates',
@@ -327,7 +613,8 @@ export const productsApi = createApi({
             query: (id) => ({
                 url: `order/getOrderById/${id}`,
                 method: 'GET',
-            })
+            }),
+            // providesTags: ['orderDetail']
         }),
 
 
@@ -348,12 +635,12 @@ export const productsApi = createApi({
             query: (id) => ({
                 url: `pages/delete_Pages/${id}`,
                 method: 'DELETE',
-               
+
             })
         }),
 
         editPageList: builder.mutation({
-            query: (id , data) => ({
+            query: (id, data) => ({
                 url: `pages/update_Pages/${id}`,
                 method: 'PUT',
                 body: data
@@ -383,10 +670,87 @@ export const productsApi = createApi({
         }),
 
         editLanguage: builder.mutation({
-            query: (payload, id) => ({
-                // url: `coupons/update_ Coupons/${id}`,
+            query: (payload) => ({
+                url: `language/update_Language/${payload.id}`,
                 method: 'PUT',
-                body: payload,
+                body: payload.data,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        editBrand: builder.mutation({
+            query: (payload) => ({
+                url: `brand/${payload.id}`,
+                method: 'PUT',
+                body: payload.data,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        editSupportTicket: builder.mutation({
+            query: (payload) => ({
+                url: `ticketList/update_Tickets/${payload.id}`,
+                method: 'PUT',
+                body: payload.data,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        editAllBlogsPost: builder.mutation({
+            query: (payload) => ({
+                url: `blogs/update_Blogs/${payload.id}`,
+                method: 'PUT',
+                body: payload.data,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        editCustomer: builder.mutation({
+            query: (payload) => ({
+                url: `customer/update_Customer/${payload.id}`,
+                method: 'PUT',
+                body: payload.data,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        editAttribute: builder.mutation({
+            query: (payload) => ({
+                url: `attributes/update_attributes/${payload.id}`,
+                method: 'PUT',
+                body: payload.data,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        editBlogCategory: builder.mutation({
+            query: (payload) => ({
+                url: `blogsCat/update_blogCat/${payload.id}`,
+                method: 'PUT',
+                body: payload.data,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        editSellerBanner: builder.mutation({
+            query: (payload) => ({
+                url: `seller_Banner/${payload.id}`,
+                method: 'PUT',
+                body: payload.data,
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
                 },
@@ -394,6 +758,809 @@ export const productsApi = createApi({
         }),
 
 
+        editColor: builder.mutation({
+            query: (payload) => ({
+                url: `color/update_Color/${payload.id}`,
+                method: 'PUT',
+                body: payload.data,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        editFlashDeal: builder.mutation({
+            query: (payload) => ({
+                url: `flashDeal/update_FlashDeal/${payload.id}`,
+                method: 'PUT',
+                body: payload.data,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        editProduct: builder.mutation({
+            query: (payload) => ({
+                url: `product/${payload.id}`,
+                method: 'PUT',
+                body: payload.data,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        // junaid codes
+
+        deleteSellerList: builder.mutation({
+            query: (id) => ({
+                url: `sellerList/delete_sellers/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['sellers']
+        }),
+
+        addSellerList: builder.mutation({
+            query: (payload) => ({
+                url: 'sellerList/add_sellers',
+                method: 'POST',
+                body: payload,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        editSellerList: builder.mutation({
+            query: (data) => ({
+                url: `sellerList/update_sellers/${data.id}`,
+                method: 'PUT',
+                body: data.data
+            })
+        }),
+
+        getSellerDetail: builder.query({
+            query: (id) => ({
+                url: `sellerList/${id}`,
+                method: 'GET',
+            }),
+            providesTags: ['sellers']
+        }),
+        getSmsTemplate: builder.query({
+            query: (id) => ({
+                url: `smsTemplate`,
+                method: 'GET',
+            }),
+            providesTags: ['smsTemplate'],
+        }),
+        addSmsList: builder.mutation({
+            query: (payload) => ({
+                url: 'smsTemplate/add_smsTemplate',
+                method: 'POST',
+                body: payload,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+        editSmsList: builder.mutation({
+            query: (data) => ({
+                url: `smsTemplate/update_smsTemplate/${data.id}`,
+                method: 'PUT',
+                body: data.data
+            })
+        }),
+        smsDelete: builder.mutation({
+            query: (id) => ({
+                url: `smsTemplate/delete_smsTemplate/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['smsTemplate']
+        }),
+
+        deletePickupPoint: builder.mutation({
+            query: (id) => ({
+                url: `pickupPoints/${id}`,
+                method: 'DELETE',
+
+            })
+        }),
+
+        getPickupPointById: builder.query({
+            query: (id) => ({
+                url: `pickupPoints/${id}`,
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        editPickupPoint: builder.mutation({
+            query: (data) => ({
+                url: `pickupPoints/${data.id}`,
+                method: 'PUT',
+                body: data.data
+            })
+        }),
+
+        addStaff: builder.mutation({
+            query: (payload) => ({
+                url: 'staff/add_Staff',
+                method: 'POST',
+                body: payload,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+
+        }),
+
+        getAllStaffs: builder.query({
+            query: () => ({
+                url: 'staff',
+                method: 'GET'
+            })
+        }),
+
+        deleteStaff: builder.mutation({
+            query: (id) => ({
+                url: `staff/delete_Staff/${id}`,
+                method: 'DELETE',
+
+            })
+        }),
+
+        getRoles: builder.query({
+            query: () => ({
+                url: 'roles',
+                method: 'GET'
+            })
+        }),
+
+        deleteRole: builder.mutation({
+            query: (id) => ({
+                url: `roles/delete_Roles/${id}`,
+                method: 'DELETE',
+            })
+        }),
+
+        getStaffById: builder.query({
+            query: (id) => ({
+                url: `staff/${id}`,
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        editStaffData: builder.mutation({
+            query: (data) => ({
+                url: `staff/update_Staff/${data.id}`,
+                method: 'PUT',
+                body: data.data
+            })
+        }),
+
+        addRole: builder.mutation({
+            query: (payload) => ({
+                url: 'roles/add_Roles',
+                method: 'POST',
+                body: payload,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+
+        }),
+
+        getRoleById: builder.query({
+            query: (id) => ({
+                url: `roles/${id}`,
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        editRoleData: builder.mutation({
+            query: (data) => ({
+                url: `roles/update_Roles/${data.id}`,
+                method: 'PUT',
+                body: data.data
+            })
+        }),
+
+        addFileSystem: builder.mutation({
+            query: (payload) => ({
+                url: 'fileSystem/add_FileConfig',
+                method: 'POST',
+                body: payload,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+
+        }),
+
+        addShareReward: builder.mutation({
+            query: (payload) => ({
+                url: 'socialShareReward/add_SocialShareReward',
+                method: 'POST',
+                body: payload,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+
+        }),
+
+        addLikeReward: builder.mutation({
+            query: (payload) => ({
+                url: 'socialLikeReward/add_socialLikeReward',
+                method: 'POST',
+                body: payload,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+
+        }),
+
+        addBulkImportFile: builder.mutation({
+            query: (payload) => ({
+                url: 'bulkimport/products',
+                method: 'POST',
+                body: payload,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+
+        }),
+
+        getOrderStartById: builder.query({
+            query: () => ({
+                url: "orderStatusMaster",
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+            // providesTags: ['orderStatus']
+        }),
+
+        addOrderStatus: builder.mutation({
+            query: (payload) => ({
+                url: 'orderStatusTransaction/add_OrderStatusTrans',
+                method: 'POST',
+                body: payload,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+            // invalidatesTags: ['orderStatus']
+        }),
+
+        getClubPointUserPoint: builder.query({
+            query: () => ({
+                url: `clubPointsUser`,
+                method: 'GET',
+            }),
+
+        }),
+
+        addSetProductPointWithinRange: builder.mutation({
+            query: (payload) => ({
+                url: 'clubPointsProductMulti/add_clubPointsProductMulti',
+                method: 'POST',
+                body: payload
+            }),
+
+        }),
+
+        addPointForAllProducts: builder.mutation({
+            query: (payload) => ({
+                url: 'setClubPointForAllProduct/add_setPointForAllProduct',
+                method: 'POST',
+                body: payload
+            }),
+
+        }),
+
+        getPointToWalletData: builder.query({
+            query: () => ({
+                url: 'setClubPointToWallet',
+                method: 'GET',
+            }),
+
+        }),
+
+        editPointToWallet: builder.mutation({
+            query: (payload) => ({
+                url: 'setClubPointToWallet/update_setPointForAllProduct',
+                method: 'PUT',
+                body: payload
+            }),
+
+        }),
+
+        getClubSetAllPointsTableData: builder.query({
+            query: () => ({
+                url: 'clubPointsProduct',
+                method: 'GET',
+            }),
+
+        }),
+
+        deleteSetAllPoints: builder.mutation({
+            query: (id) => ({
+                url: `clubPointsProduct/delete_clubPointsProduct/${id}`,
+                method: 'DELETE',
+            })
+        }),
+
+        addNewSellerPackage: builder.mutation({
+            query: (payload) => ({
+                url: 'sellerPackage/add_SellerPackages',
+                method: 'POST',
+                body: payload
+            }),
+
+        }),
+
+        getAllPointsTableById: builder.query({
+            query: (id) => ({
+                url: `clubPointsProduct/${id}`,
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        editAllPointsTable: builder.mutation({
+            query: (payload) => ({
+                url: `clubPointsProduct/update_clubPointsProduct/${payload.id}`,
+                method: 'PUT',
+                body: payload.data,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        deleteUserPoints: builder.mutation({
+            query: (id) => ({
+                url: `clubPointsUser/delete_clubPointsUser/${id}`,
+                method: 'DELETE',
+            })
+        }),
+
+        getSellerPackage: builder.query({
+            query: () => ({
+                url: 'sellerPackage',
+                method: 'GET'
+            })
+        }),
+
+        deleteSellerPackage: builder.mutation({
+            query: (id) => ({
+                url: `sellerPackage/delete_SellerPackages/${id}`,
+                method: 'DELETE',
+            })
+        }),
+
+        getSellerPackageById: builder.query({
+            query: (id) => ({
+                url: `sellerPackage/${id}`,
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        editSellerPackage: builder.mutation({
+            query: (payload) => ({
+                url: `sellerPackage/update_SellerPackages/${payload.id}`,
+                method: 'PUT',
+                body: payload.data,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        getUserPointsById: builder.query({
+            query: (id) => ({
+                url: `clubPointsUser/${id}`,
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        editUserPoint: builder.mutation({
+            query: (payload) => ({
+                url: `clubPointsUser/update_clubPointsUser/${payload.id}`,
+                method: 'PUT',
+                body: payload.data,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
+        // atribuits
+        form_variatio: builder.mutation({
+            query: (payload) => ({
+                url: `product/form_variation`,
+                method: 'POST',
+                body: payload,
+            }),
+        }),
+
+        getListPurchase: builder.query({
+            query: () => ({
+                url: 'purchase',
+                method: 'GET'
+            }),
+            providesTags: ['purchaseList']
+        }),
+
+        // delete List
+        deleteRowPurchase: builder.mutation({
+            query: (id) => ({
+                url: `purchase/delete_purchase/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['purchaseList']
+        }),
+
+        addSellerProduct: builder.mutation({
+            query: (payload) => ({
+                url: 'seller_product/admin_add_product_seller',
+                method: 'POST',
+                body: payload
+            }),
+
+        }),
+
+        // all status
+
+        getAllStatusOrders: builder.query({
+            query: () => ({
+                url: 'orderStatusMaster',
+                method: 'GET'
+            })
+        }),
+
+        // get order by order status 
+
+        getOrderByStatus: builder.query({
+            query: (id) => ({
+                url: `orderStatusTransaction/orderStatus/${id}`,
+                method: 'GET'
+            })
+        }),
+
+        // get order by pickupPoints 
+
+        getOrdersByPickups: builder.query({
+            query: () => ({
+                url: `order/getOrderPickup`,
+                method: 'GET'
+            })
+        }),
+
+        getPickupOrderData: builder.mutation({
+            query: (status) => ({
+                url: `order/orderPickupPointList/filter`,
+                method: 'POST',
+                body: status
+            })
+        }),
+
+        //staff login 
+        loginStaffs: builder.mutation({
+            query: (data) => ({
+                url: `staff/login`,
+                method: 'POST',
+                body: data
+            })
+        }),
+
+        // get staff Detail
+        getstaffDetail: builder.query({
+            query: (id) => ({
+                url: `staff/${id}`,
+                method: 'GET',
+            })
+        }),
+
+        // get unitMasterList
+        getUnitMaster: builder.query({
+            query: (id) => ({
+                url: `unitMaster`,
+                method: 'GET',
+            })
+        }),
+
+        //seller login  
+
+        sellerLogin: builder.mutation({
+            query: (data) => ({
+                url: `sellerList/login`,
+                method: 'POST',
+                body: data
+            })
+        }),
+        ownSellerProduct: builder.query({
+            query: (id) => ({
+                url: `order/seller_list/${id}`,
+                method: 'GET',
+            }),
+            providesTags: ['sellerOwn']
+        }),
+
+        deleteSellerProduct: builder.mutation({
+            query: (id) => ({
+                url: `seller_product/seller_delete/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['sellerOwn']
+        }),
+
+
+        // sellerDetail update  
+        updateSeller: builder.mutation({
+            query: (data) => ({
+                url: `sellerList/update_profile_seller`,
+                method: 'PUT',
+                body: {
+                    data
+                }
+            }),
+        }),
+
+        // add Seller Product 
+        addSellerProductNew: builder.mutation({
+            query: (data) => ({
+                url: `seller_product/seller_add_product`,
+                method: 'POST',
+                body: data
+
+            }),
+        }),
+
+
+        // product search
+
+        getProductSearch: builder.query({
+            query: (paylode) => ({
+                url: `product/search/${paylode}`,
+                method: 'GET'
+            })
+        }),
+
+
+
+        // Purchase-Product
+        addPurchaseCart: builder.mutation({
+            query: (val) => ({
+                url: `purchase/purchaseCart/${val.id}`,
+                method: 'POST',
+                body: val.data
+            }),
+            invalidatesTags: ['setList']
+        }),
+
+        deleteCartRow: builder.mutation({
+            query: (val) => ({
+                url: `purchase/deletePurchase/${val.index}`,
+                method: 'DELETE',
+                body: val.data
+            }),
+            invalidatesTags: ['setList']
+        }),
+
+        // delete CartList 
+
+        // Purchase -List
+        getPurchaseLists: builder.query({
+            query: (paylode) => ({
+                url: `purchase/cart`,
+                method: 'GET'
+            }),
+            providesTags: ['setList']
+        }),
+
+        // purchase - add_Purchase
+
+        addPurchaseList: builder.mutation({
+            query: (data) => ({
+                url: `purchase/addPurchase`,
+                method: 'POST',
+                body: data
+            }),
+            invalidatesTags: ['purchaseList']
+        }),
+
+        updateListProducts: builder.mutation({
+            query: (data) => ({
+                url: `purchase/updatePurchase/${data.index}`,
+                method: 'PUT',
+                body: data.data
+            }),
+            invalidatesTags: ['setList']
+        }),
+
+        // Combo ProductAdd 
+
+        addComboProducts: builder.mutation({
+            query: (data) => ({
+                url: `comboDeal/add_ComboDeal`,
+                method: 'POST',
+                body: data
+            }),
+            invalidatesTags: ['ComboProduct']
+        }),
+
+        // /transaction/order
+
+        addTransaction: builder.mutation({
+            query: (data) => ({
+                url: `transaction/order`,
+                method: 'POST',
+                body: data
+            }),
+            invalidatesTags: ['allOrders']
+        }),
+
+        // delivery/add_Delivery
+
+        addDelevery: builder.mutation({
+            query: (data) => ({
+                url: `delivery/add_Delivery`,
+                method: 'POST',
+                body: data
+            }),
+            invalidatesTags: ['allOrders']
+        }),
+
+        // delete Payment
+
+        deletePayment: builder.mutation({
+            query: (id) => ({
+                url: `transaction/delete_Transaction/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['allOrders']
+        }),
+
+        deleteDelevery: builder.mutation({
+            query: (id) => ({
+                url: `delivery/delete_Delivery/${id}`,
+                method: 'DELETE',
+            }),
+        }),
+
+        // update delevery
+        updateDelevery: builder.mutation({
+            query: (val) => ({
+                url: `delivery/update_Delivery/${val.id}`,
+                method: 'PUT',
+                body: val.data
+            }),
+        }),
+
+
+        // get SellerReq List
+        getReqList: builder.query({
+            query: (paylode) => ({
+                url: `brandSeller`,
+                method: 'GET'
+            }),
+            providesTags: ['reqList']
+        }),
+
+
+        updateBrandReq: builder.mutation({
+            query: (val) => ({
+                url: `brandSeller/updateApproval/${val.id}`,
+                method: 'PUT',
+                body: val.data
+            }),
+            invalidatesTags: ['reqList']
+        }),
+
+
+        // seller Avtive 
+
+        sellerActive: builder.mutation({
+            query: (val) => ({
+                url: `sellerList/sellerApprovalStatus/${val.id}`,
+                method: 'PUT',
+                body: val.data
+            }),
+            invalidatesTags: ['sellers']
+        }),
+
+
+        // allProducts Avtive 
+
+        ProductActive: builder.mutation({
+            query: (val) => ({
+                url: `product/approveStatus/${val.id}`,
+                method: 'PUT',
+                body: val.data
+            }),
+            invalidatesTags: ['allProducts']
+        }),
+
+
+        // category/updateStatus Avtive 
+
+        catagaryActive: builder.mutation({
+            query: (val) => ({
+                url: `category/updateStatus/${val.id}`,
+                method: 'PUT',
+                body: val.data
+            }),
+            invalidatesTags: ['catagary']
+        }),
+
+        // getBrands Avtive 
+
+        brandActive: builder.mutation({
+            query: (val) => ({
+                url: `brand/activeStatus/${val.id}`,
+                method: 'PUT',
+                body: val.data
+            }),
+            invalidatesTags: ['getBrand']
+        }),
+
+
+        // customer Avtive 
+
+        customerActive: builder.mutation({
+            query: (val) => ({
+                url: `customer/updateCustomerStatus/${val.id}`,
+                method: 'PUT',
+                body: val.data
+            }),
+            invalidatesTags: ['customer']
+        }),
+
+
+        // add Popups
+
+        postPopup: builder.mutation({
+            query: (data) => ({
+                url: `popup/add_Popup`,
+                method: 'POST',
+                body: data
+            }),
+        }),
+
+        // update Popups
+
+        updatePopups: builder.mutation({
+            query: (val) => ({
+                url: `popup/update_Popup/${val.id}`,
+                method: 'PUT',
+                body: val.data
+            }),
+        }),
+
+
     })
 })
-export const { useGetAllProductsQuery, useGetCategoriesQuery, useGetBrandsQuery, useGetSizesQuery, useAddNewSizeMutation, useAddNewBrandMutation, useAddNewCategoryMutation, useAddNewProductMutation, useGetBannerQuery, useDeleteProductMutation, useDeleteSizeMutation, useDeleteBrandMutation, useDeleteCategoryMutation, useGetPlaceByIdQuery, useGetPickupPointQuery, useGetCustomersQuery, useGetSellersQuery, useGetTicketListsQuery, useGetLanguagesQuery, useAddPickUpPointMutation, useGetPagesQuery, useDeleteCustomerMutation, useGetCurrencyQuery, useGetOrdersQuery, useAddNewCurrencyMutation, useGetCouponsQuery, useDeleteCurrencyMutation, useDeleteLanguageMutation, useDeleteSupportTicketMutation, useDeleteCouponMutation, useAddNewLanguageMutation, useAddNewCouponMutation, useEditCurrencyMutation, useGetCurrencyByIdQuery, useGetCouponByIdQuery, useEditCouponMutation, useGetSellerProductQuery, useAddPaymentGetMutation, useGetOrderDetailQuery, useAddOrderConfigsMutation, useAddPagesMutation  ,useDeletePageListMutation ,useEditPageListMutation} = productsApi
+
+export const {useDeleteRowPurchaseMutation, useDeleteCartRowMutation, useUpdatePopupsMutation, usePostPopupMutation, useCustomerActiveMutation, useBrandActiveMutation, useCatagaryActiveMutation, useProductActiveMutation, useSellerActiveMutation, useGetReqListQuery, useUpdateBrandReqMutation, useUpdateDeleveryMutation, useDeleteDeleveryMutation, useDeletePaymentMutation, useAddDeleveryMutation, useAddTransactionMutation, useAddComboProductsMutation, useUpdateListProductsMutation, useAddPurchaseListMutation, useGetPurchaseListsQuery, useAddPurchaseCartMutation, useGetProductSearchQuery, useAddSellerProductNewMutation, useUpdateSellerMutation, useDeleteSellerProductMutation, useOwnSellerProductQuery, useGetUnitMasterQuery, useSellerLoginMutation, useGetPickupOrderDataMutation, useGetstaffDetailQuery, useLoginStaffsMutation, useGetOrdersByPickupsQuery, useForm_variatioMutation, useGetOrderByStatusQuery, useGetAllStatusOrdersQuery, useGetAllProductsQuery, useGetCategoriesQuery, useGetBrandsQuery, useGetSizesQuery, useAddNewSizeMutation, useAddNewBrandMutation, useAddNewCategoryMutation, useAddNewProductMutation, useGetBannerQuery, useDeleteProductMutation, useDeleteSizeMutation, useDeleteBrandMutation, useDeleteCategoryMutation, useGetPlaceByIdQuery, useGetPickupPointQuery, useGetCustomersQuery, useGetSellersQuery, useGetTicketListsQuery, useGetLanguagesQuery, useAddPickUpPointMutation, useGetPagesQuery, useDeleteCustomerMutation, useGetCurrencyQuery, useGetOrdersQuery, useAddNewCurrencyMutation, useGetCouponsQuery, useDeleteCurrencyMutation, useDeleteLanguageMutation, useDeleteSupportTicketMutation, useDeleteCouponMutation, useAddNewLanguageMutation, useAddNewCouponMutation, useEditCurrencyMutation, useGetCurrencyByIdQuery, useGetCouponByIdQuery, useEditCouponMutation, useGetSellerProductQuery, useAddPaymentGetMutation, useGetOrderDetailQuery, useAddOrderConfigsMutation, useAddPagesMutation, useDeletePageListMutation, useEditPageListMutation, useGetLanguageByIdQuery, useEditLanguageMutation, useGetBrandByIdQuery, useEditBrandMutation, useGetBlogsQuery, useDeleteBlogsMutation, useDeleteAttributesMutation, useEditSupportTicketMutation, useGetSupportTicketByIdQuery, useGetAttributesQuery, useAddNewBlogsMutation, useGetBlogPostByIdQuery, useEditAllBlogsPostMutation, useGetCustomerByIdQuery, useEditCustomerMutation, useAddNewAttributeMutation, useGetAttributeByIdQuery, useEditAttributeMutation, useAddGeneralSettingMutation, useDeleteSellerBannerMutation, useGetBlogsCategoryQuery, useDeleteBlogCategoryMutation, useAddBlogCategoryMutation, useGetBlogCategoryByIdQuery, useEditBlogCategoryMutation, useDeleteOrderMutation, useGetSellerBannerByIdQuery, useEditSellerBannerMutation, useAddOrderConfigurationMutation, useGetCustomerShippingAdressByIdQuery, useGetColorsQuery, useDeleteColorMutation, useAddColorMutation, useGetColorByIdQuery, useEditColorMutation, useGetFlashDealsQuery, useDeleteFlashDealMutation, useAddFlasDealMutation, useGetFlashDealByIdQuery, useEditFlashDealMutation, useGetProductByIdQuery, useEditProductMutation, useDeleteSellerListMutation, useAddSellerListMutation, useEditSellerListMutation, useGetSellerDetailQuery, useGetSmsTemplateQuery, useAddSmsListMutation, useEditSmsListMutation, useSmsDeleteMutation, useDeletePickupPointMutation, useGetPickupPointByIdQuery, useEditPickupPointMutation, useAddStaffMutation, useGetAllStaffsQuery, useDeleteStaffMutation, useGetRolesQuery, useDeleteRoleMutation, useGetStaffByIdQuery, useEditStaffDataMutation, useAddRoleMutation, useGetRoleByIdQuery, useEditRoleDataMutation, useAddFileSystemMutation, useAddShareRewardMutation, useAddLikeRewardMutation, useAddBulkImportFileMutation, useGetOrderStartByIdQuery, useAddOrderStatusMutation, useGetClubPointUserPointQuery, useAddSetProductPointWithinRangeMutation, useAddPointForAllProductsMutation, useGetClubSetAllPointsTableDataQuery, useAddNewSellerPackageMutation, useGetPointToWalletDataQuery, useEditPointToWalletMutation, useEditAllPointsTableMutation, useGetSellerPackageQuery, useDeleteSellerPackageMutation, useGetSellerPackageByIdQuery, useEditSellerPackageMutation, useGetAllPointsTableByIdQuery, useDeleteSetAllPointsMutation, useDeleteUserPointsMutation, useGetUserPointsByIdQuery, useEditUserPointMutation, useGetListPurchaseQuery, useAddSellerProductMutation } = productsApi

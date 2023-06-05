@@ -1,9 +1,29 @@
+import { Link } from "react-router-dom";
+import { useDeleteColorMutation, useGetColorsQuery } from "../all-products/allproductsApi/allProductsApi";
+
 function Colors() {
+
+    const { isLoading, data } = useGetColorsQuery();
+    console.log(data);
+
+    const [deleteData, response] = useDeleteColorMutation();
+
+    function deleteColorData(id) {
+        deleteData(id)
+    };
+
+
+    if (response.isSuccess === true) {
+        alert("Color deleted Successfully")
+    };
+
+
+
     return (
         <>
             <div className=" col-lg-7 ">
                 <div className="card">
-                    <form className id="sort_colors" action method="GET">
+                    <form>
                         <div className="card-header">
                             <h5 className="mb-0 h6">Colors</h5>
                             <div className="col-md-5">
@@ -14,97 +34,44 @@ function Colors() {
                         </div>
                     </form>
                     <div className="card-body">
-                        <table className="table aiz-table mb-0 footable footable-1 breakpoint-xl" style={{}}>
-                            <thead>
-                                <tr className="footable-header">
-                                    <th className="footable-first-visible" style={{ display: 'table-cell' }}>#</th><th style={{ display: 'table-cell' }}>Name</th><th className="text-right footable-last-visible" style={{ display: 'table-cell' }}>Options</th></tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td className="footable-first-visible" style={{ display: 'table-cell' }}>1</td><td style={{ display: 'table-cell' }}>MistyRose</td><td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
-                                        <a className="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://mmslfashions.in/admin/colors/edit/133?lang=en" title="Edit">
-                                            <i className="las la-edit" />
-                                        </a>
-                                        <a href="#" className="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://mmslfashions.in/admin/colors/destroy/133" title="Delete">
-                                            <i className="las la-trash" />
-                                        </a>
-                                    </td></tr><tr>
-                                    <td className="footable-first-visible" style={{ display: 'table-cell' }}>2</td><td style={{ display: 'table-cell' }}>Ivory</td><td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
-                                        <a className="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://mmslfashions.in/admin/colors/edit/129?lang=en" title="Edit">
-                                            <i className="las la-edit" />
-                                        </a>
-                                        <a href="#" className="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://mmslfashions.in/admin/colors/destroy/129" title="Delete">
-                                            <i className="las la-trash" />
-                                        </a>
-                                    </td></tr><tr>
-                                    <td className="footable-first-visible" style={{ display: 'table-cell' }}>3</td><td style={{ display: 'table-cell' }}>Silver</td><td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
-                                        <a className="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://mmslfashions.in/admin/colors/edit/136?lang=en" title="Edit">
-                                            <i className="las la-edit" />
-                                        </a>
-                                        <a href="#" className="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://mmslfashions.in/admin/colors/destroy/136" title="Delete">
-                                            <i className="las la-trash" />
-                                        </a>
-                                    </td></tr><tr>
-                                    <td className="footable-first-visible" style={{ display: 'table-cell' }}>4</td><td style={{ display: 'table-cell' }}>DarkGray</td><td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
-                                        <a className="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://mmslfashions.in/admin/colors/edit/137?lang=en" title="Edit">
-                                            <i className="las la-edit" />
-                                        </a>
-                                        <a href="#" className="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://mmslfashions.in/admin/colors/destroy/137" title="Delete">
-                                            <i className="las la-trash" />
-                                        </a>
-                                    </td></tr><tr>
-                                    <td className="footable-first-visible" style={{ display: 'table-cell' }}>5</td><td style={{ display: 'table-cell' }}>LightGrey</td><td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
-                                        <a className="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://mmslfashions.in/admin/colors/edit/135?lang=en" title="Edit">
-                                            <i className="las la-edit" />
-                                        </a>
-                                        <a href="#" className="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://mmslfashions.in/admin/colors/destroy/135" title="Delete">
-                                            <i className="las la-trash" />
-                                        </a>
-                                    </td></tr><tr>
-                                    <td className="footable-first-visible" style={{ display: 'table-cell' }}>6</td><td style={{ display: 'table-cell' }}>LavenderBlush</td><td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
-                                        <a className="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://mmslfashions.in/admin/colors/edit/132?lang=en" title="Edit">
-                                            <i className="las la-edit" />
-                                        </a>
-                                        <a href="#" className="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://mmslfashions.in/admin/colors/destroy/132" title="Delete">
-                                            <i className="las la-trash" />
-                                        </a>
-                                    </td></tr><tr>
-                                    <td className="footable-first-visible" style={{ display: 'table-cell' }}>7</td><td style={{ display: 'table-cell' }}>Linen</td><td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
-                                        <a className="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://mmslfashions.in/admin/colors/edit/131?lang=en" title="Edit">
-                                            <i className="las la-edit" />
-                                        </a>
-                                        <a href="#" className="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://mmslfashions.in/admin/colors/destroy/131" title="Delete">
-                                            <i className="las la-trash" />
-                                        </a>
-                                    </td></tr><tr>
-                                    <td className="footable-first-visible" style={{ display: 'table-cell' }}>8</td><td style={{ display: 'table-cell' }}>Black</td><td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
-                                        <a className="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://mmslfashions.in/admin/colors/edit/143?lang=en" title="Edit">
-                                            <i className="las la-edit" />
-                                        </a>
-                                        <a href="#" className="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://mmslfashions.in/admin/colors/destroy/143" title="Delete">
-                                            <i className="las la-trash" />
-                                        </a>
-                                    </td></tr><tr>
-                                    <td className="footable-first-visible" style={{ display: 'table-cell' }}>9</td><td style={{ display: 'table-cell' }}>Gainsboro</td><td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
-                                        <a className="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://mmslfashions.in/admin/colors/edit/134?lang=en" title="Edit">
-                                            <i className="las la-edit" />
-                                        </a>
-                                        <a href="#" className="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://mmslfashions.in/admin/colors/destroy/134" title="Delete">
-                                            <i className="las la-trash" />
-                                        </a>
-                                    </td></tr><tr>
-                                    <td className="footable-first-visible" style={{ display: 'table-cell' }}>10</td><td style={{ display: 'table-cell' }}>Gray</td><td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
-                                        <a className="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://mmslfashions.in/admin/colors/edit/138?lang=en" title="Edit">
-                                            <i className="las la-edit" />
-                                        </a>
-                                        <a href="#" className="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://mmslfashions.in/admin/colors/destroy/138" title="Delete">
-                                            <i className="las la-trash" />
-                                        </a>
-                                    </td></tr></tbody>
-                        </table>
+
+                        {isLoading ? <h2>Loading...</h2>
+                            : <table className="table aiz-table mb-0 footable footable-1 breakpoint-xl" style={{}}>
+                                <thead>
+                                    <tr className="footable-header">
+                                        <th className="footable-first-visible" style={{ display: 'table-cell' }}>#</th>
+                                        <th style={{ display: 'table-cell' }}>Name</th>
+                                        <th style={{ display: 'table-cell' }}>Code</th>
+                                        <th className="text-right footable-last-visible" style={{ display: 'table-cell' }}>Options</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {data && data.map((item, i) => {
+                                        return <tr key={item._id}>
+                                            <td className="footable-first-visible" style={{ display: 'table-cell' }}>{i + 1}</td>
+                                            <td style={{ display: 'table-cell' }}>{item.name}</td>
+                                            <td style={{ display: 'table-cell' }}>{item.code}</td>
+                                            <td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
+
+                                                <Link to={`edit/${item._id}`} className="btn btn-soft-primary btn-icon btn-circle btn-sm" title="Edit">
+                                                    <i className="las la-edit" />
+                                                </Link>
+
+                                                <button type="button" onClick={() => { deleteColorData(item._id) }} className="btn btn-soft-danger btn-icon btn-circle btn-sm">
+                                                    <i className="las la-trash" />
+                                                </button>
+
+                                            </td>
+                                        </tr>
+                                    })}
+
+                                </tbody>
+                            </table>
+                        }
+
                         <div className="aiz-pagination">
                             <nav>
-                                <ul className="pagination">
+                                {/* <ul className="pagination">
                                     <li className="page-item disabled" aria-disabled="true" aria-label="« Previous">
                                         <span className="page-link" aria-hidden="true">‹</span>
                                     </li>
@@ -124,7 +91,7 @@ function Colors() {
                                     <li className="page-item">
                                         <a className="page-link" href="https://mmslfashions.in/admin/colors?page=2" rel="next" aria-label="Next »">›</a>
                                     </li>
-                                </ul>
+                                </ul> */}
                             </nav>
                         </div>
                     </div>

@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useDeleteCustomerMutation, useGetCustomersQuery } from "../all-products/allproductsApi/allProductsApi";
-
+import { useCustomerActiveMutation, useDeleteCustomerMutation, useGetCustomersQuery } from "../all-products/allproductsApi/allProductsApi";
+import { ToastContainer, toast } from "react-toastify";
 function CustomerList() {
   const [show, setShow] = useState(false);
 
@@ -10,18 +10,50 @@ function CustomerList() {
   const handleShow = () => setShow(true);
 
   const { isLoading, data } = useGetCustomersQuery();
-  console.log(data);
 
   const [deleteCustomer, response] = useDeleteCustomerMutation();
 
   const deleteCustomerData = (id) => {
     deleteCustomer(id)
   };
-  console.log(response)
 
-  if (response.isSuccess === true) {
-    alert('customer successfully deleted')
+  useEffect(() => {
+    if (response.isSuccess === true) {
+      alert('customer successfully deleted')
+    }
+  }, [response.isSuccess])
+
+
+  const [updateCustomer, { isSuccess, isError }] = useCustomerActiveMutation()
+  const changeStatus = (item) => {
+    const obj = { id: item._id, data: { approve: !item.approve } }
+    updateCustomer(obj)
   }
+
+
+  const toastSuccessMessage = () => {
+    toast.success("Customer Updated Successfully", {
+      position: "top-center"
+    })
+  };
+
+  const toastErrorMessage = () => {
+    toast.error("Customer Update Faild..", {
+      position: "top-center"
+    })
+  };
+
+  useEffect(() => {
+    if (isSuccess === true) {
+      toastSuccessMessage()
+    };
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (isError === true) {
+      toastErrorMessage()
+    };
+  }, [isError])
 
 
   return (
@@ -34,6 +66,7 @@ function CustomerList() {
             </div>
           </div>
           <div className="card">
+            <ToastContainer />
             <form>
               <div className="card-header row gutters-5">
                 <div className="col">
@@ -67,22 +100,12 @@ function CustomerList() {
                   : <table className="table aiz-table mb-0 footable footable-1 breakpoint-xl" style={{}}>
                     <thead>
                       <tr className="footable-header">
-                        {/*<th data-breakpoints="lg">#</th>*/}
-                        {/* <th className="footable-first-visible" style={{ display: 'table-cell' }}>
-                    <div className="form-group">
-                      <div className="aiz-checkbox-inline">
-                        <label className="aiz-checkbox">
-                          <input type="checkbox" className="check-all" />
-                          <span className="aiz-square-check" />
-                        </label>
-                      </div>
-                    </div>
-                  </th> */}
                         <th style={{ display: 'table-cell' }}>#</th>
                         <th style={{ display: 'table-cell' }}>First Name</th>
                         <th style={{ display: 'table-cell' }}>Last Name</th>
                         <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Email Address</th>
                         <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Phone</th>
+                        <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Block</th>
                         <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Package</th>
                         <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Wallet Balance</th>
                         <th className="text-right footable-last-visible" style={{ display: 'table-cell' }}>Options</th>
@@ -92,26 +115,27 @@ function CustomerList() {
 
                       {data && data.map((item, i) => {
                         return <tr key={item._id}>
-                          {/* <td>1</td> */}
-                          {/* <td className="footable-first-visible" style={{ display: 'table-cell' }}>
-                    <div className="form-group">
-                      <div className="aiz-checkbox-inline">
-                        <label className="aiz-checkbox">
-                          <input type="checkbox" className="check-one" name="id[]" defaultValue={12} />
-                          <span className="aiz-square-check" />
-                        </label>
-                      </div>
-                    </div>
-                  </td> */}
                           <td style={{ display: 'table-cell' }}>{i + 1}</td>
                           <td style={{ display: 'table-cell' }}>{item.firstname}</td>
                           <td style={{ display: 'table-cell' }}>{item.lastname}</td>
                           <td style={{ display: 'table-cell' }}>{item.email}</td>
                           <td style={{ display: 'table-cell' }} >{item.mobile}</td>
+
+                          <td style={{ display: "table-cell" }}>
+                            <label className="aiz-switch aiz-switch-success mb-0">
+                              <input
+                                onChange={() => { changeStatus(item) }}
+                                type="checkbox"
+                                checked={item.approve}
+                              />
+                              <span className="slider round" />
+                            </label>
+                          </td>
+
                           <td style={{ display: 'table-cell' }}>-</td>
                           <td style={{ display: 'table-cell' }}>-</td>
                           <td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
-                            <Link to="#" className="btn btn-soft-primary btn-icon btn-circle btn-sm" title="Log in as this Customer">
+                            <Link to={`edit/${item._id}`} className="btn btn-soft-primary btn-icon btn-circle btn-sm" title="Log in as this Customer">
                               <i className="las la-edit" />
                             </Link>
                             <Link to="#" className="btn btn-soft-danger btn-icon btn-circle btn-sm" title="Ban this Customer">

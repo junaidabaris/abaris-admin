@@ -1,9 +1,9 @@
 import SmtpSettings from "../../../Components/setup&Configuration/smtpSetting/SmtpSettings";
 
-function SmtpSettingsPage(){
+function SmtpSettingsPage() {
   return (
     <>
-      <SmtpSettings/>
+      <SmtpSettings />
     </>
   )
 }

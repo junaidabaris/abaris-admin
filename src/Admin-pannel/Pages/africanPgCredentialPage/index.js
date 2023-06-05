@@ -15,8 +15,6 @@ function AfricanPgCredentialPage() {
                     {/*p class="mb-0">&copy;  v6.3.3</p*/}
                 </div>
             </div>
-
-
         </>
     )
 }

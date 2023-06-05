@@ -270,6 +270,45 @@ textarea {
   line-height: inherit;
 }
 
+
+/* Custom Start */
+select.selectOptions {
+  padding: 11px;
+  border-color: #dee2e6;
+  border-radius: 4px;
+  color: #4b4b4b;
+}
+.addressDetailInfo h6{  
+  margin-top: 10px;
+}
+.addressDetailInfo ul{
+  padding: 0 10px;
+}
+.addressDetailInfo ul li{
+  line-height: 28px
+}
+.customerName{
+  text-transform: capitalize;
+}
+.customerName span{
+  color: #5f4cdc;
+}
+.orderStatus label{
+  white-space: nowrap;
+  margin: 0 10px 0 0;
+}
+.card-header.topCardHeader h6{
+  font-size: 15px;
+}
+.addressDetailInfo ul li span {
+  font-size: 16px;
+  display: inline-block;
+  margin-left: 10px;
+  color: #797979;
+}
+/* Custom End */
+
+
 button,
 input {
   overflow: visible;

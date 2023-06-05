@@ -1,11 +1,33 @@
 import { Link } from "react-router-dom";
-import { useGetOrdersQuery } from "../all-products/allproductsApi/allProductsApi";
+import { GrUnorderedList } from 'react-icons/gr';
+import { useDeleteOrderMutation, useGetOrdersQuery } from "../all-products/allproductsApi/allProductsApi";
+import { useEffect, useState } from "react";
+import Actions from "../allSeller/Actions";
 
 function AllOrders() {
 
 
+
+
   const { isLoading, data } = useGetOrdersQuery();
-  console.log(data);
+
+  const [deleteOrder, response] = useDeleteOrderMutation();
+
+  const deleteOrderData = (id) => {
+    deleteOrder(id)
+  };
+
+
+
+  useEffect(() => {
+    if (response.isSuccess === true) {
+      alert('Order deleted Successfully')
+    }
+  }, [response])
+
+  window.localStorage.setItem("invoice", "")
+
+  let allTotal = 0;
 
   return (
     <>
@@ -15,7 +37,7 @@ function AllOrders() {
             <form id="sort_orders" method="GET">
               <div className="card-header row gutters-5">
                 <div className="col">
-                  <h5 className="mb-md-0 h6">All Orders</h5>
+                  <h5 className="mb-md-0 h6">All Orders {data?.length}</h5>
                 </div>
                 <div className="col-lg-2 dropdown mb-2 mb-md-0">
                   <select
@@ -77,153 +99,169 @@ function AllOrders() {
               <div className="card-body">
 
                 {isLoading ? <h2>Loading...</h2>
-                  : <table className="table aiz-table mb-0 footable footable-1 breakpoint-xl" style={{}}  >
+                  : <table className="table table-responsive aiz-table mb-0 footable footable-1 breakpoint-xl" >
                     <thead>
                       <tr className="footable-header">
-                        {/*<th>#</th>*/}
+
                         <th
                           className="footable-first-visible"
                           style={{ display: "table-cell" }}
                         >
-                          <div className="form-group">
-                            <div className="aiz-checkbox-inline">
-                              <label className="aiz-checkbox">
-                                <input type="checkbox" className="check-all" />
-                                <span className="aiz-square-check" />
-                              </label>
-                            </div>
-                          </div>
+                          S.No
                         </th>
-                        <th style={{ display: "table-cell" }}>Order Code:</th>
+                        {/* <th style={{ display: "table-cell" }}>Master Order Id</th> */}
+                        <th style={{ display: "table-cell" }}>Order Code</th>
+                        <th style={{ display: "table-cell" }}>Order No</th>
+
                         <th
                           data-breakpoints="md"
                           style={{ display: "table-cell" }}
                         >
-                          Num. of Products
+                          Order Date
                         </th>
                         <th
                           data-breakpoints="md"
                           style={{ display: "table-cell" }}
                         >
-                          Customer
+                          Buyer Name
                         </th>
                         <th
                           data-breakpoints="md"
                           style={{ display: "table-cell" }}
                         >
-                          Seller
+                          Seller Name
                         </th>
                         <th
                           data-breakpoints="md"
                           style={{ display: "table-cell" }}
                         >
-                          Amount
+                          Order Net Amount
                         </th>
                         <th
                           data-breakpoints="md"
                           style={{ display: "table-cell" }}
                         >
-                          Delivery Status
+                          Payment Mode
+                        </th>
+                        {/* <th
+                          data-breakpoints="md"
+                          style={{ display: "table-cell" }}
+                        >
+                          Delivery Type
+                        </th> */}
+                        <th
+                          data-breakpoints="md"
+                          style={{ display: "table-cell" }}
+                        >
+                          Order Delivery Status
                         </th>
                         <th
                           data-breakpoints="md"
                           style={{ display: "table-cell" }}
                         >
-                          Payment method
+                          Paid
                         </th>
                         <th
                           data-breakpoints="md"
                           style={{ display: "table-cell" }}
                         >
-                          Payment Status
+                          Balance
                         </th>
-                        <th style={{ display: "table-cell" }}>Refund</th>
                         <th
-                          className="text-right footable-last-visible"
-                          width="15%"
+                          data-breakpoints="md"
                           style={{ display: "table-cell" }}
+                        >
+                          Delivery Type
+                        </th>
+
+                        {/* <th
+                          data-breakpoints="md"
+                          style={{ display: "table-cell" }}
+                        >
+                          Delivery Type
+                        </th> */}
+
+                        <th
+                          className="footable-last-visible"
+                          style={{}}
                         >
                           Options
                         </th>
+
                       </tr>
                     </thead>
 
                     <tbody>
 
-                      {data && data.map((item, i) => {
+                      {data && data?.alluserorders?.map((item, i) => {
+                        if (item?.grandTotal) {
+                          allTotal = allTotal + +item?.grandTotal
+                        }
+
+                        if (!item?.orderStatusTrans) {
+                          console.log(item);
+                        }
+
                         return <tr key={item._id}>
                           <td
                             className="footable-first-visible"
                             style={{ display: "table-cell" }}
                           >
-                            <div className="form-group">
-                              <div className="aiz-checkbox-inline">
-                                <label className="aiz-checkbox">
-                                  <input
-                                    type="checkbox"
-                                    className="check-one"
-                                    name="id[]"
-                                    defaultValue={8}
-                                  />
-                                  <span className="aiz-square-check" />
-                                </label>
-                              </div>
-                            </div>
+                            {i + 1}
+                          </td>
+                          {/* <td style={{ display: "table-cell" }}>
+                            {item.parent_id}
+                          </td> */}
+                          <td style={{ display: "table-cell" }}>
+                            {item._id}
                           </td>
                           <td style={{ display: "table-cell" }}>
-                            20230130-10174545{" "}
-                            <span className="badge badge-inline badge-info">
-                              new
-                            </span>{" "}
+                            {item.order_referenceNo}
                           </td>
-                          <td style={{ display: "table-cell" }}>2</td>
+
+
+                          <td style={{ display: "table-cell" }}>{item.createdAt}</td>
                           <td style={{ display: "table-cell" }}>
-                            Azharuddin Shamim
+                            {item?.user?.firstname + item?.user?.lastname}
                           </td>
-                          <td style={{ display: "table-cell" }}>Abaris Products</td>
-                          <td style={{ display: "table-cell" }}>{item.grandTotal}</td>
                           <td style={{ display: "table-cell" }}>
-                            {item.isDelivered === false && (<span>Pending</span>)}
-                            {item.isDelivered === true && (<span>Delivered</span>)}
+                            {item?.Seller[0]?.firstname} {item?.Seller[0]?.lastname}
                           </td>
-                          <td style={{ display: "table-cell" }}>-</td>
+
                           <td style={{ display: "table-cell" }}>
-                            {item.isPaid === true && (<span className="badge badge-inline badge-danger">
-                              Paid
-                            </span>)}
+                            {item?.currency?.symbol ? item?.currency?.symbol : 'ZK'} {item.grandTotal}
                           </td>
-                          <td style={{ display: "table-cell" }}>No Refund</td>
+
+                          <td style={{ display: "table-cell" }}>COD</td>
+
+                          <td style={{ display: "table-cell" }}>
+                            {item?.orderStatusTrans[item.orderStatusTrans.length - 1]?.orderStatusId?.orderStatusName}
+                          </td>
+                          <td style={{ display: "table-cell" }}>
+                            {item?.Paid}
+                          </td>
+                          <td style={{ display: "table-cell" }}>
+                            {item?.Balance}
+                          </td>
+                          <td style={{ display: "table-cell" }}>
+                            {item.pickupAddress ? "Pick Up Piont" + " " + item.pickupAddress.pickupPoint_name : "HOME DELEVERY"}
+                          </td>
+
+
+
                           <td
                             className="text-right footable-last-visible"
-                            style={{ display: "table-cell" }}
+                            style={{ display: "inline-flex" }}
                           >
-                            <Link
-                              className="btn btn-soft-primary btn-icon btn-circle btn-sm"
-                              to={`/admin/all_orders/order-Details/${item._id}`}
-                              title="View"
-                            >
-                              <i className="las la-eye" />
-                            </Link>
-                            <a
-                              className="btn btn-soft-info btn-icon btn-circle btn-sm"
-                              href="https://mmslfashions.in/invoice/8"
-                              title="Download Invoice"
-                            >
-                              <i className="las la-download" />
-                            </a>
-                            {/* <a
-                        href="#"
-                        className="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete"
-                        data-href="https://mmslfashions.in/admin/orders/destroy/8"
-                        title="Delete"
-                      >
-                        <i className="las la-trash" />
-                      </a> */}
+
+                            <Actions item={item} deleteOrderData={deleteOrderData} />
+
                           </td>
                         </tr>
                       })}
 
                     </tbody>
+                    <div style={{ fontSize: "medium", display: "flex", justifyContent: "center" }}>Total Net Amount : ZK {allTotal}</div>
                   </table>
                 }
 

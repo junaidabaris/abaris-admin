@@ -1,9 +1,24 @@
 import { Link } from "react-router-dom";
+import { useDeleteBlogsMutation, useGetBlogsQuery } from "../all-products/allproductsApi/allProductsApi";
 
 function AllPost() {
+
+  const { isLoading, data } = useGetBlogsQuery();
+  console.log(data);
+
+  const [deleteBlogs, response] = useDeleteBlogsMutation();
+
+  const deleteBlogsData = (id) => {
+    deleteBlogs(id)
+  };
+
+  if (response.isSuccess == true) {
+    alert('Blog deleted Successfully')
+  }
+
   return (
     <>
-      <div className="aiz-main-content" style={{ backgroundColor:"#F2F3F8",marginTop:"0px"}}>
+      <div className="aiz-main-content" style={{ backgroundColor: "#F2F3F8", marginTop: "0px" }}>
         <div className="px-15px px-lg-25px">
           <div className="aiz-titlebar text-left mt-2 mb-3">
             <div className="row align-items-center">
@@ -19,7 +34,7 @@ function AllPost() {
           </div>
           <br />
           <div className="card">
-            <form className id="sort_blogs" action method="GET">
+            <form >
               <div className="card-header row gutters-5">
                 <div className="col text-center text-md-left">
                   <h5 className="mb-md-0 h6">All blog posts</h5>
@@ -32,14 +47,48 @@ function AllPost() {
               </div>
             </form>
             <div className="card-body">
-              <table className="table mb-0 aiz-table footable footable-1 breakpoint breakpoint-lg" style={{}}>
-                <thead>
-                  <tr className="footable-header">
-                    <th style={{ display: 'table-cell' }}>#</th><th style={{ display: 'table-cell' }}>Title</th><th data-breakpoints="lg" style={{ display: 'none' }}>Category</th><th data-breakpoints="lg" style={{ display: 'none' }}>Short Description</th><th data-breakpoints="lg" style={{ display: 'none' }}>Status</th><th className="text-right" style={{ display: 'table-cell' }}>Options</th></tr>
-                </thead>
-                <tbody>
-                  <tr className="footable-empty"><td colSpan={3}>Nothing found</td></tr></tbody>
-              </table>
+
+              {isLoading ? <h2>Loading...</h2>
+                : <table className="table aiz-table mb-0 footable footable-1 breakpoint breakpoint-lg" style={{}}>
+                  <thead>
+                    <tr className="footable-header">
+                      <th className="footable-first-visible" style={{ display: 'table-cell' }}># </th>
+                      <th style={{ display: 'table-cell' }}>Title</th>
+                      <th style={{ display: 'table-cell' }}>Category</th>
+                      <th style={{ display: 'table-cell' }}>Short Description</th>
+                      <th style={{ display: 'table-cell' }}>Description</th>
+                      <th data-breakpoints="sm" className="text-right footable-last-visible" style={{ display: 'table-cell' }}>Options</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    {data && data.map((item, i) => {
+                      return <tr key={item._id}>
+                        <td className="footable-first-visible" style={{ display: 'table-cell' }} key={item._id}>{i + 1}</td>
+
+                        <td style={{ display: 'table-cell' }}>{item.short_description}</td>
+
+                        <td style={{ display: 'table-cell' }}>hello</td>
+                        <td style={{ display: 'table-cell' }}>{item.short_description}</td>
+                        <td style={{ display: 'table-cell' }}>{item.description && item.description}</td>
+
+                        <td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
+                          <Link to="#" className="btn btn-soft-success btn-icon btn-circle btn-sm">
+                            <i className="las la-eye" />
+                          </Link>
+                          <Link to={`edit/${item._id}`} className="btn btn-soft-primary btn-icon btn-circle btn-sm">
+                            <i className="las la-edit" />
+                          </Link>
+                          <button type="button" onClick={() => deleteBlogsData(item._id)} className="btn btn-soft-danger btn-icon btn-circle btn-sm">
+                            <i className="las la-trash" />
+                          </button>
+                        </td>
+                      </tr>
+                    })}
+                  </tbody>
+                </table>
+              }
+
               <div className="aiz-pagination">
               </div>
             </div>

@@ -1,4 +1,23 @@
+import { Link } from "react-router-dom";
+import { useDeleteAttributesMutation, useGetAttributesQuery } from "../all-products/allproductsApi/allProductsApi";
+import { useEffect } from "react";
+
 function AttributesAdmin() {
+
+    const { isLoading, data } = useGetAttributesQuery();
+
+    const [deleteAttribute, response] = useDeleteAttributesMutation();
+
+    const deleteAttributeData = (id) => {
+        deleteAttribute(id)
+    };
+
+   useEffect(()=>{
+    if (response.isSuccess === true) {
+        alert('Attribute Deleted Successfully')
+    }
+   },[response.isSuccess])
+
     return (
         <>
             <div className=" col-lg-7 ">
@@ -8,7 +27,7 @@ function AttributesAdmin() {
                             <h5 className="mb-md-0 h6">Attributes</h5>
                         </div>
                         <div className="col-md-4">
-                            <form className id="sort_brands" action method="GET">
+                            <form >
                                 <div className="input-group input-group-sm">
                                     <input type="text" className="form-control" id="search" name="search" placeholder="Search" fdprocessedid="jv5p0d" />
                                 </div>
@@ -17,38 +36,38 @@ function AttributesAdmin() {
                     </div>
 
                     <div className="card-body">
-                        <table className="table aiz-table mb-0 footable footable-1 breakpoint-xl" style={{}}>
-                            <thead>
-                                <tr className="footable-header">
-                                    <th className="footable-first-visible" style={{ display: 'table-cell' }}>#</th><th style={{ display: 'table-cell' }}>Name</th><th style={{ display: 'table-cell' }}>Values</th><th className="text-right footable-last-visible" style={{ display: 'table-cell' }}>Options</th></tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td className="footable-first-visible" style={{ display: 'table-cell' }}>1</td><td style={{ display: 'table-cell' }}>Fabric</td><td style={{ display: 'table-cell' }}>
-                                    </td><td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
-                                        <a className="btn btn-soft-info btn-icon btn-circle btn-sm" href="https://mmslfashions.in/admin/attributes/2" title="Attribute values">
-                                            <i className="las la-cog" />
-                                        </a>
-                                        <a className="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://mmslfashions.in/admin/attributes/edit/2?lang=en" title="Edit">
-                                            <i className="las la-edit" />
-                                        </a>
-                                        {/* <a href="#" className="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://mmslfashions.in/admin/attributes/destroy/2" title="Delete">
-                                            <i className="las la-trash" />
-                                        </a> */}
-                                    </td></tr><tr>
-                                    <td className="footable-first-visible" style={{ display: 'table-cell' }}>2</td><td style={{ display: 'table-cell' }}>Size</td><td style={{ display: 'table-cell' }}>
-                                    </td><td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
-                                        <a className="btn btn-soft-info btn-icon btn-circle btn-sm" href="https://mmslfashions.in/admin/attributes/1" title="Attribute values">
-                                            <i className="las la-cog" />
-                                        </a>
-                                        <a className="btn btn-soft-primary btn-icon btn-circle btn-sm" href="https://mmslfashions.in/admin/attributes/edit/1?lang=en" title="Edit">
-                                            <i className="las la-edit" />
-                                        </a>
-                                        {/* <a href="#" className="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="https://mmslfashions.in/admin/attributes/destroy/1" title="Delete">
-                                            <i className="las la-trash" />
-                                        </a> */}
-                                    </td></tr></tbody>
-                        </table>
+
+                        {isLoading ? <h2>Loading...</h2>
+                            : <table className="table aiz-table mb-0 footable footable-1 breakpoint-xl" style={{}}>
+                                <thead>
+                                    <tr className="footable-header">
+                                        <th className="footable-first-visible" style={{ display: 'table-cell' }}>#</th><th style={{ display: 'table-cell' }}>Name</th><th style={{ display: 'table-cell' }}>Values</th><th className="text-right footable-last-visible" style={{ display: 'table-cell' }}>Options</th></tr>
+                                </thead>
+                                <tbody>
+
+                                    {data && data.map((item, i) => {
+                                        return <tr key={item._id}>
+                                            <td className="footable-first-visible" style={{ display: 'table-cell' }}>{i + 1}</td>
+                                            <td style={{ display: 'table-cell' }}>{item.name}</td>
+                                            <td style={{ display: 'table-cell' }}>
+                                            </td>
+                                            <td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
+                                                {/* <Link to="#" className="btn btn-soft-info btn-icon btn-circle btn-sm">
+                                    <i className="las la-cog" />
+                                </Link> */}
+                                                <Link to={`edit/${item._id}`} className="btn btn-soft-primary btn-icon btn-circle btn-sm">
+                                                    <i className="las la-edit" />
+                                                </Link>
+                                                <button type="button" onClick={() => deleteAttributeData(item._id)} className="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete">
+                                                    <i className="las la-trash" />
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    })}
+
+                                </tbody>
+                            </table>
+                        }
                     </div>
                 </div>
             </div>

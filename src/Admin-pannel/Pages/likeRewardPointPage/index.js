@@ -1,18 +1,11 @@
+import LikeRewardPoint from "../../Components/shareRewardPoints/LikeRewardPoint";
 import ShareRewardPoints from "../../Components/shareRewardPoints/ShareRewardPoints";
 
-function LikeRewardPointsPage(){
-  const data = {
-    title: "Social Like Reward Points",
-    facebook: "Facebook Share",
-    twitter: "Twitter Share",
-    linkedin: "Linkedin Share",
-    instagram: "Instagram Share",
-    youtube: "Youtube Share",
+function LikeRewardPointsPage() {
 
-  }
-  return(
+  return (
     <>
-      <ShareRewardPoints data={data}/>
+      <LikeRewardPoint />
     </>
   )
 }

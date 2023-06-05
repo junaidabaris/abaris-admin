@@ -204,18 +204,6 @@ function AddNewWholesaleProductsPage() {
                                         </div>
                                     </div>
                                 </div>
-
-                                {/* <div className="col-12">
-                                    <div className="btn-toolbar float-right mb-3" role="toolbar" aria-label="Toolbar with button groups">
-                                        <div className="btn-group mr-2" role="group" aria-label="Third group">
-                                            <button type="submit" name="button" value="unpublish" className="btn btn-primary action-btn" fdprocessedid="g0kx9r">Save &amp; Unpublish</button>
-                                        </div>
-                                        <div className="btn-group" role="group" aria-label="Second group">
-                                            <button type="submit" name="button" value="publish" className="btn btn-success action-btn" fdprocessedid="spajja">Save &amp; Publish</button>
-                                        </div>
-                                    </div>
-                                </div> */}
-
                             </div>
                         </form>
                     </div>
