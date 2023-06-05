@@ -1,23 +1,35 @@
 import { useEffect, useRef, useState } from "react";
 import { Spinner } from "react-bootstrap";
-import { useAddComboProductsMutation, useAddPurchaseCartMutation, useGetProductSearchQuery } from "../../Components/all-products/allproductsApi/allProductsApi";
+import { useGetProductSearchQuery, usePostQuotationMutation } from "../../Components/all-products/allproductsApi/allProductsApi";
 import { RxCross1 } from "react-icons/rx";
 import { AiFillDelete } from "react-icons/ai";
-import ModalCombo from "./ModalCombo";
+import ModalCombo from "../addComboProduct/ModalCombo";
 
-function AddComboProduct() {
+function Add_quotation() {
 
     const [show, setShow] = useState(true)
     const [modalShow, setModalShow] = useState(false);
 
     const [searchs, setSearch] = useState('')
     const [cartData, setcartData] = useState(null)
+    const [values, setValues] = useState(
+        {
+            date: "",
+            referenceNo: "",
+            biller: "",
+            order_tax: "",
+            discount: "",
+            status: "",
+            shipping: "",
+            supplier: "",
+        }
+    )
 
     const { data: searchPro } = useGetProductSearchQuery(searchs)
     const [showCombo, setShowCombo] = useState([])
     const [comboRate, setComboRate] = useState(0)
 
-    const [addComboPro, { isError, isSuccess, isLoading: addCOmbLoad }] = useAddComboProductsMutation()
+    const [addQuotation, { isError, isSuccess, isLoading: addCOmbLoad }] = usePostQuotationMutation()
 
     const [storeValue, setStoreValue] = useState({
         date: "",
@@ -32,6 +44,8 @@ function AddComboProduct() {
     }
 
 
+
+
     const handelChange = (e) => {
         if (e.key === 'Enter') {
             const clone = e.target.value
@@ -40,12 +54,10 @@ function AddComboProduct() {
         }
     }
     const changeHandelVal = (e) => {
-        const clone = { ...storeValue }
+        const clone = { ...values }
         clone[e.target.name] = e.target.value
-        setStoreValue(clone)
+        setValues(clone)
     }
-
-    let total = 0
 
     const SaveData = (val) => {
         setModalShow(false)
@@ -58,38 +70,34 @@ function AddComboProduct() {
             return { productId: item.productId, variant: item._id, price: item?.mrp }
         })
         const obj = {
+            ...values,
             products: getData,
             isActive: true,
-            offer_Price: +comboRate
         }
 
-        addComboPro(obj)
+        addQuotation(obj)
     }
 
     useEffect(() => {
         if (isSuccess) {
-            alert('Combo Product Added')
+            alert('Quotation Added')
         }
     }, [isSuccess]);
 
     useEffect(() => {
         if (isError) {
-            alert('Product Not Added')
+            alert('Quotation Not Added')
         };
     }, [isError])
 
 
-    const changehandelRate = (e) => {
-        setComboRate(e.target.value)
-    }
-
 
     const deleteItem = (index) => {
-        const filterd = showCombo.filter((item , i) => {
+        const filterd = showCombo.filter((item, i) => {
             if (i !== index) {
                 return item
             }
-           
+
         })
         setShowCombo(filterd);
     }
@@ -108,6 +116,7 @@ function AddComboProduct() {
         <>
             <div className="aiz-main-content">
                 <div className="px-15px px-lg-25px">
+                    <h3>Add Quotation</h3>
                     <div className="card" style={{ padding: "10px" }}>
 
                         {addCOmbLoad && <div className="preloaderCount">
@@ -121,7 +130,73 @@ function AddComboProduct() {
                                 <div className="col-4 d-block">
                                     <div>
                                         <label>Date *</label>
-                                        <input value={storeValue.date} onChange={changeHandelVal} name="date" className="form-control" type="date" />
+                                        <input value={values.date} onChange={changeHandelVal} name="date" className="form-control" type="date" />
+                                    </div>
+                                </div>
+
+                                <div className="col-4 d-block">
+                                    <div>
+                                        <label>Reference No *</label>
+                                        <input value={values.referenceNo} onChange={changeHandelVal} name="referenceNo" className="form-control" type="text" />
+                                    </div>
+                                </div>
+
+                                <div className="col-4 d-block">
+                                    <div>
+                                        <label>Biller *</label>
+                                        <select name="biller" className="form-select" aria-label="Default select example" onChange={changeHandelVal} >
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div className="col-4 d-block">
+                                    <div>
+                                        <label>Order Tax *</label>
+                                        <select name="order_tax" className="form-select" aria-label="Default select example" onChange={changeHandelVal} >
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="col-4 d-block">
+                                    <div>
+                                        <label>Supplier</label>
+                                        <select name="supplier" className="form-select" aria-label="Default select example" onChange={changeHandelVal} >
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div className="col-4 d-block">
+                                    <div>
+                                        <label>Status</label>
+                                        <select name="status" className="form-select" aria-label="Default select example" onChange={changeHandelVal} >
+                                            <option selected value="active">Active</option>
+                                            <option value="in_active">In Active</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div className="col-4 d-block">
+                                    <div>
+                                        <label>Discount</label>
+                                        <input value={values.discount} onChange={changeHandelVal} name="discount" className="form-control" type="number" />
+                                    </div>
+                                </div>
+
+                                <div className="col-4 d-block">
+                                    <div>
+                                        <label>Shipping</label>
+                                        <input value={values.shipping} onChange={changeHandelVal} name="shipping" className="form-control" type="number" />
                                     </div>
                                 </div>
 
@@ -150,7 +225,7 @@ function AddComboProduct() {
 
                         <div className="container-fluid">
                             <div className="card-header" style={{ padding: "0", marginTop: "10px" }}>
-                                <h4 className="mb-0">Add Combo Product</h4>
+                                <h4 className="mb-0">Add Product</h4>
                             </div>
                             <div className="card mt-2 rest-part col-lg-12">
                                 <div className="card-body">
@@ -201,11 +276,6 @@ function AddComboProduct() {
                                         </div>
                                     </div>
 
-                                    <div>
-                                        <label>Combo Rate</label>
-                                        <input type="text" value={comboRate} style={{ width: '250px' }} onChange={changehandelRate} placeholder="Combo Rate" className="form-control" />
-                                    </div>
-
                                 </div>
 
                             </div>
@@ -228,4 +298,4 @@ function AddComboProduct() {
         </>
     </div>
 }
-export default AddComboProduct
+export default Add_quotation

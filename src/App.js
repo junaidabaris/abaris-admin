@@ -242,6 +242,8 @@ import ManifestPage from "./Admin-pannel/Pages/booking/manifest/Index";
 import DeliveryRunListPage from "./Admin-pannel/Pages/booking/deliveryRunList/Index";
 import DeliveryRunSheetPage from "./Admin-pannel/Pages/booking/deliveryRunSheet/Index";
 import AllCancelOrders from "./Admin-pannel/Pages/allCancelOrder/AllCancelOrders";
+import Add_quotation from "./Admin-pannel/Pages/quotation/Add_quotation";
+import ListQuatation from "./Admin-pannel/Pages/quotation/ListQuatation";
 
 
 function App() {
@@ -522,6 +524,11 @@ function App() {
           <Route path="menifest-entry" element={<ManifestPage />} />
           <Route path="delivery-run-list" element={<DeliveryRunListPage />} />
           <Route path="delivery-run-sheet" element={<DeliveryRunSheetPage />} />
+
+
+          <Route path="list_quotation" element={<ListQuatation/>} />
+          <Route path="add_quotation" element={<Add_quotation/>} />
+
 
         </Route>
 
