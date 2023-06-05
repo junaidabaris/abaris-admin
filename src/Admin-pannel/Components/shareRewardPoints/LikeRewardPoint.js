@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast, ToastContainer } from 'react-toastify';
-import { useAddLikeRewardMutation, useAddShareRewardMutation } from "../all-products/allproductsApi/allProductsApi";
+import { useAddLikeRewardMutation} from "../all-products/allproductsApi/allProductsApi";
 
 function LikeRewardPoint() {
 
