@@ -2,20 +2,19 @@ import Form from 'react-bootstrap/Form';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetCategoriesQuery } from '../../all-products/allproductsApi/allProductsApi';
+import axios from 'axios';
 function EditCategories() {
-  const [editData, setEditData] = useState(null)
   const [inputval, setInputVal] = useState({
     name: "",
     parent_category: "",
     ordering_number: "",
     type: "",
-    banner: "",
-    icon: "",
+    image: "",
+    image1: "",
     meta_title: "",
     meta_description: "",
     commision_rate: "",
     filtering_attribute: "",
-
   });
 
   const onChangeHandler = (e) => {
@@ -23,32 +22,69 @@ function EditCategories() {
     const inpVal = e.target.value;
     const clonedObj = { ...inputval }
     clonedObj[inpName] = inpVal
-    // setInputVal(clonedObj)
+    setInputVal(clonedObj)
   };
 
-  const submitEditCategoryData = () => {
-    // console.log(inputval)
-    document.getElementById("create-course-form").reset();
+
+  const onchengePhotoHandel = (e) => {
+    const clonedObj = { ...inputval };
+    const inpName = e.target.name;
+    const inpVal = e.target.files[0];
+    clonedObj[inpName] = inpVal;
+    setInputVal(clonedObj)
+}
+
+
+  const submitEditCategoryData = async () => {
+
+    const url = `https://onlineparttimejobs.in/api/category/${params.id}`
+    const formData = new FormData();
+
+    formData.append('name', inputval.name);
+    // formData.append('image1', inputval.image1);
+    formData.append('image', inputval.image);
+    formData.append('meta_title', inputval.meta_title);
+    formData.append('meta_description', inputval.meta_description);
+    formData.append('parent_category', inputval.parent_category);
+    formData.append('commision_rate', inputval.commision_rate);
+
+    try {
+      const res = await axios.put(url, formData);
+      alert('Edit Catagary Successfully')
+    } catch (error) {
+      alert('Catagary not Edit')
+    }
+
+    // document.getElementById("create-course-form").reset();
   }
 
   const params = useParams()
-  const { data } = useGetCategoriesQuery()
-  // console.log(params.id)
-  // console.log(data)
 
-  const filterCategory = () => {
-    const filteredData = data && data.filter((item) => {
-      if (item._id === params.id) {
-        return true
-      }
-    })
-    setEditData(filteredData)
-    // console.log(filteredData)
+  const getDetailCat = async () => {
+    try {
+      const res = await axios.get(`https://onlineparttimejobs.in/api/category/${params.id}`)
+      setInputVal({
+        name: res?.data?.name,
+        parent_category: "",
+        ordering_number: "",
+        type: "",
+        image: "",
+        image1: "",
+        meta_title: res?.data?.meta_title,
+        meta_description: res?.data?.meta_description,
+        commision_rate: res?.data?.commision_rate,
+        filtering_attribute: "",
+      })
+    } catch (error) {
+      alert('Server Error !')
+    }
   }
-  // console.log(editData[0].name)
+
 
   useEffect(() => {
-    filterCategory();
+    if (params.id) {
+      getDetailCat()
+    }
   }, [params.id])
 
   return (
@@ -69,7 +105,7 @@ function EditCategories() {
                     <div className="form-group row">
                       <label className="col-md-3 col-form-label">Name</label>
                       <div className="col-md-9">
-                        <input type="text" placeholder={'name'} id="name" name="name" className="form-control" required onChange={onChangeHandler} />
+                        <input type="text" placeholder={'name'} value={inputval?.name} id="name" name="name" className="form-control" required onChange={onChangeHandler} />
                       </div>
                     </div>
 
@@ -109,14 +145,14 @@ function EditCategories() {
                     </div>
 
                     <div className="form-group row">
-                      <label className="col-md-3 col-form-label" htmlFor="signinSrEmail">Banner <small>(200x200)</small></label>
+                      <label className="col-md-3 col-form-label" htmlFor="signinSrEmail">image <small>(200x200)</small></label>
                       <div className="col-md-9">
                         <div className="input-group" data-type="image">
                           <div className="input-group-prepend">
                             <div className="input-group-text bg-soft-secondary font-weight-medium">Browse</div>
                           </div>
                           <div className="form-control file-amount">
-                            <input type="file" name="banner" className="selected-files" onChange={onChangeHandler} />
+                            <input type="file" name="image" className="selected-files" onChange={onchengePhotoHandel} />
                           </div>
                         </div>
                         <div className="file-preview box sm">
@@ -132,7 +168,7 @@ function EditCategories() {
                             <div className="input-group-text bg-soft-secondary font-weight-medium">Browse</div>
                           </div>
                           <div className="form-control file-amount">
-                            <input type="file" name="icon" className="selected-files" onChange={onChangeHandler} />
+                            <input type="file" name="image1" className="selected-files" onChange={onchengePhotoHandel} />
                           </div>
                         </div>
                         <div className="file-preview box sm">
@@ -143,21 +179,21 @@ function EditCategories() {
                     <div className="form-group row">
                       <label className="col-md-3 col-form-label">Meta Title</label>
                       <div className="col-md-9">
-                        <input type="text" className="form-control" name="meta_title" placeholder="Meta Title" onChange={onChangeHandler} />
+                        <input type="text" className="form-control" value={inputval?.meta_title} name="meta_title" placeholder="Meta Title" onChange={onChangeHandler} />
                       </div>
                     </div>
 
                     <div className="form-group row">
                       <label className="col-md-3 col-form-label">Meta description</label>
                       <div className="col-md-9">
-                        <textarea name="meta_description" rows={5} className="form-control" defaultValue={""} onChange={onChangeHandler} />
+                        <textarea name="meta_description" rows={5} className="form-control" value={inputval?.meta_description} onChange={onChangeHandler} />
                       </div>
                     </div>
 
                     <div className="form-group row">
                       <label className="col-md-3 col-form-label">Commission Rate</label>
                       <div className="col-md-9 input-group">
-                        <input type="number" lang="en" min={0} step="0.01" placeholder="Commission Rate" id="commision_rate" name="commision_rate" className="form-control" onChange={onChangeHandler} />
+                        <input type="number" lang="en" min={0} step="0.01" placeholder="Commission Rate" value={inputval?.commision_rate} id="commision_rate" name="commision_rate" className="form-control" onChange={onChangeHandler} />
                         <div className="input-group-append">
                           <span className="input-group-text">%</span>
                         </div>

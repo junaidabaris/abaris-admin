@@ -1,5 +1,57 @@
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify';
+import { useAddStaffMutation, useGetRolesQuery } from "../../all-products/allproductsApi/allProductsApi";
 
 function StaffInformation() {
+
+  const [inputVal, setInputVal] = useState({
+    firstname: '',
+    lastname: '',
+    email: '',
+    mobile: '',
+    password: '',
+    role_id: '63fb963aba4c5193700943b0',
+  });
+  const params = useParams();
+
+  const onChangeHandler = (e) => {
+    const inpName = e.target.name;
+    const inpVal = e.target.value;
+    const clonedObj = { ...inputVal };
+    clonedObj[inpName] = inpVal;
+    setInputVal(clonedObj)
+  };
+
+
+  const { data } = useGetRolesQuery(params.id);
+  console.log('role data', data);
+
+  const [addAllStaffsD, response] = useAddStaffMutation();
+
+
+  const submitStaffData = (e) => {
+    e.preventDefault();
+    const clone = { ...inputVal }
+    addAllStaffsD(clone)
+    console.log(inputVal)
+    document.getElementById("create-course-form").reset();
+  };
+
+
+  const toastSuccessMessage = () => {
+    toast.success("Staff added Successfully", {
+      position: "top-center"
+    })
+  };
+
+  if (response.isSuccess === true) {
+    toastSuccessMessage()
+  };
+  console.log(response)
+  console.log(inputVal)
+
+
   return (
     <>
       <div className="aiz-main-content">
@@ -10,39 +62,59 @@ function StaffInformation() {
                 <div className="card-header">
                   <h5 className="mb-0 h6">Staff Information</h5>
                 </div>
-                <form className="form-horizontal" action="https://mmslfashions.in/admin/staffs" method="POST" encType="multipart/form-data">
-                  <input type="hidden" name="_token" defaultValue="S0f7vDDtqJ5NbxPupX86gbiFGZumqx0Q8PyryILc" />                <div className="card-body">
+                <form className="form-horizontal" id="create-course-form" onSubmit={submitStaffData}>
+                  <input type="hidden" name="_token" defaultValue="S0f7vDDtqJ5NbxPupX86gbiFGZumqx0Q8PyryILc" />
+                  <div className="card-body">
+
                     <div className="form-group row">
-                      <label className="col-sm-3 col-from-label" htmlFor="name">Name</label>
+                      <label className="col-sm-3 col-from-label" htmlFor="first name">First Name</label>
                       <div className="col-sm-9">
-                        <input type="text" placeholder="Name" id="name" name="name" className="form-control" required />
+                        <input type="text" placeholder="First Name" name="firstname" className="form-control" required onChange={onChangeHandler} />
                       </div>
                     </div>
+
+                    <div className="form-group row">
+                      <label className="col-sm-3 col-from-label" htmlFor="last name">Last Name</label>
+                      <div className="col-sm-9">
+                        <input type="text" placeholder="Last Name" name="lastname" className="form-control" required onChange={onChangeHandler} />
+                      </div>
+                    </div>
+
                     <div className="form-group row">
                       <label className="col-sm-3 col-from-label" htmlFor="email">Email</label>
                       <div className="col-sm-9">
-                        <input type="text" placeholder="Email" id="email" name="email" className="form-control" required />
+                        <input type="email" placeholder="abc@gmail.com" autoComplete="off" name="email" className="form-control" required onChange={onChangeHandler} />
                       </div>
                     </div>
+
                     <div className="form-group row">
                       <label className="col-sm-3 col-from-label" htmlFor="mobile">Phone</label>
                       <div className="col-sm-9">
-                        <input type="text" placeholder="Phone" id="mobile" name="mobile" className="form-control" required />
+                        <input type="text" placeholder="Phone" name="mobile" className="form-control" required onChange={onChangeHandler} />
                       </div>
                     </div>
+
                     <div className="form-group row">
                       <label className="col-sm-3 col-from-label" htmlFor="password">Password</label>
                       <div className="col-sm-9">
-                        <input type="password" placeholder="Password" id="password" name="password" className="form-control" required />
+                        <input type="password" placeholder="Password" name="password" className="form-control" required onChange={onChangeHandler} />
                       </div>
                     </div>
+
                     <div className="form-group row">
                       <label className="col-sm-3 col-from-label" htmlFor="name">Role</label>
                       <div className="col-sm-9">
-                        <div className="dropdown bootstrap-select form-control aiz-"><select name="role_id" required className="form-control aiz-selectpicker" tabIndex={-98}>
-                        </select><button type="button" className="btn dropdown-toggle btn-light bs-placeholder" data-toggle="dropdown" role="combobox" aria-owns="bs-select-1" aria-haspopup="listbox" aria-expanded="false" title="Nothing selected"><div className="filter-option"><div className="filter-option-inner"><div className="filter-option-inner-inner">Nothing selected</div></div> </div></button><div className="dropdown-menu "><div className="inner show" role="listbox" id="bs-select-1" tabIndex={-1}><ul className="dropdown-menu inner show" role="presentation" /></div></div></div>
+                        <div >
+                          <select className="form-select" name="role_id" aria-label="Default select example" onChange={onChangeHandler}>
+                            {data && data.map((item, i) => {
+                              return <option value={item._id} key={item._id}>{item.name || item.role_name}</option>
+                            })}
+                          </select>
+                        </div>
                       </div>
                     </div>
+
+
                     <div className="form-group mb-0 text-right">
                       <button type="submit" className="btn btn-sm btn-primary">Save</button>
                     </div>
@@ -53,6 +125,7 @@ function StaffInformation() {
           </div>
         </div>
         <div className="bg-white text-center py-3 px-15px px-lg-25px mt-auto"></div>
+        <ToastContainer />
       </div>
 
     </>

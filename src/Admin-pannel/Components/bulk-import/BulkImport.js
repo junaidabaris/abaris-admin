@@ -1,5 +1,33 @@
 
+import FileUploadCom from "../../common/FileUploadCom";
+
 function BulkImport() {
+
+
+  // const [UploadedFile, response] = useAddBulkImportFileMutation();
+
+  const submitFileData = (e) => {
+    // e.preventDefault();
+    // console.log(handleFile)
+    // let formData = new FormData();
+
+    // formData.append('product', handleFile);
+    // console.log('handle file', handleFile)
+    // console.log('form data', formData?.get('product'))
+
+    // axios({
+    //   url: "https://etg-backend-project-node-abarisapp.vercel.app/api/bulkimport/products",
+    //   method: 'POST',
+    //   headers: { 'content-type': 'multipart/form-data' },
+    //   body: formData
+    // }).then(response => {
+    //   console.log(response);
+    // })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
+  };
+
   return (
     <>
       <div className="aiz-main-content">
@@ -17,7 +45,7 @@ function BulkImport() {
                 <p>4. After uploading products you need to edit them and set product's images and choices.</p>
               </div>
               <br />
-              <div className>
+              <div>
                 <a href="https://mmslfashions.in/public/download/product_bulk_demo.xlsx" download>
                   <button className="btn btn-info">Download CSV</button>
                 </a>
@@ -28,7 +56,7 @@ function BulkImport() {
                 <p>2. You can download the pdf to get Category and Brand id.</p>
               </div>
               <br />
-              <div className>
+              <div>
                 <a href="https://mmslfashions.in/admin/bulk-upload/download/category" className="mr-2">
                   <button className="btn btn-info">Download Category</button>
                 </a>
@@ -44,22 +72,9 @@ function BulkImport() {
               <h5 className="mb-0 h6"><strong>Upload Product File</strong></h5>
             </div>
             <div className="card-body">
-              <form className="form-horizontal" action="https://mmslfashions.in/admin/bulk-product-upload" method="POST" encType="multipart/form-data">
-                <input type="hidden" name="_token" defaultValue="TDO0psPwnveoEbSKCuD0wUGwakRWcYZllh1vZ3Gt" />
-                <div className="form-group row">
-                  <div className="col-sm-9">
-                    <div className="custom-file">
-                      <label className="custom-file-label">
-                        <input type="file" name="bulk_file" className="custom-file-input" required />
-                        <span className="custom-file-name">Choose File</span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div className="form-group mb-0">
-                  <button type="submit" className="btn btn-info">Upload CSV</button>
-                </div>
-              </form>
+              <FileUploadCom url={"https://onlineparttimejobs.in/api/bulkimport/products_latest"} />
+
+              
             </div>
           </div>
         </div>

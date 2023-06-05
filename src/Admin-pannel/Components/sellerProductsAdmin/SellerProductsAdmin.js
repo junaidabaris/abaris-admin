@@ -1,6 +1,42 @@
-import { useGetSellerProductQuery } from "../all-products/allproductsApi/allProductsApi"
+import { useEffect, useState } from "react";
+import { useDeleteSellerProductMutation, useGetSellerProductQuery, useGetSellersQuery } from "../all-products/allproductsApi/allProductsApi"
+import ToggleStatus from "../toggleStatus/ToggleStatus";
+
+const EtgId = "64269f0df127906d53878d3d";
 function SellerProductsAdmin() {
-    const { data } = useGetSellerProductQuery()
+    const sellerid = window.localStorage.getItem('isSellerId')
+    const sellerName = window.localStorage.getItem('isSellerName')
+    const isSuperAdminLogin = window.localStorage.getItem('showMainadmin')
+    
+    const [idProduct, setIdProduct] = useState({ id: sellerid ? sellerid : EtgId, name: sellerName ? sellerName : 'ETG' })
+
+    const [inputval, setInputVal] = useState({
+        todays_deal: false,
+        featured: false,
+        published: false,
+        approved: false
+    });
+
+
+    const changeStatus = (isStatus, key) => {
+        const clonedInputVal = { ...inputval }
+        clonedInputVal[key] = isStatus;
+        setInputVal(clonedInputVal)
+    };
+    const [showDrop, setShowDrop] = useState(false)
+
+    const { isLoading, data, isFetching } = useGetSellerProductQuery(idProduct.id);
+    const { data: sellerData } = useGetSellersQuery()
+
+    const [deleteSellerPro] = useDeleteSellerProductMutation()
+    const deletePro = (id)=>{
+        deleteSellerPro(id)
+    }
+
+    const onchangeClick = (item) => {
+        setIdProduct({ id: item._id, name: item.firstname + " " + item.lastname })
+        setShowDrop(false)
+    }
     return (
         <>
             <div className="aiz-main-content">
@@ -13,6 +49,16 @@ function SellerProductsAdmin() {
                         </div>
                     </div>
                     <br />
+                    {isFetching && <div className="preloaderCount">
+                        <div className="spinner-border" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </div>
+                    </div>}
+                    {isLoading && <div className="preloaderCount">
+                        <div className="spinner-border" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </div>
+                    </div>}
                     <div className="card">
                         <form className id="sort_products" action method="GET">
                             <div className="card-header row gutters-5">
@@ -24,21 +70,45 @@ function SellerProductsAdmin() {
                                         Bulk Action
                                     </button>
                                     <div className="dropdown-menu dropdown-menu-right">
-                                        <a className="dropdown-item" href="#" onclick="bulk_delete()"> Delete selection</a>
+                                        <a className="dropdown-item" href="#" onClick="bulk_delete()"> Delete selection</a>
                                     </div>
                                 </div>
                                 <div className="col-md-2 ml-auto">
-                                    <div className="dropdown bootstrap-select form-control form-control-sm aiz- mb-2 mb-md-0"><select className="form-control form-control-sm aiz-selectpicker mb-2 mb-md-0" id="user_id" name="user_id" onchange="sort_products()" tabIndex={-98}>
-                                        <option value>All Sellers</option>
-                                        <option value={3}>
-                                            Abaris Products (Abaris Seller)
-                                        </option>
-                                    </select><button type="button" className="btn dropdown-toggle btn-light" data-toggle="dropdown" role="combobox" aria-owns="bs-select-1" aria-haspopup="listbox" aria-expanded="false" data-id="user_id" title="All Sellers" fdprocessedid="zskgyv"><div className="filter-option"><div className="filter-option-inner"><div className="filter-option-inner-inner">All Sellers</div></div> </div></button><div className="dropdown-menu " style={{ overflow: 'hidden' }}><div className="inner show" role="listbox" id="bs-select-1" tabIndex={-1} aria-activedescendant="bs-select-1-0" style={{ overflowY: 'auto' }}><ul className="dropdown-menu inner show" role="presentation" style={{ marginTop: 0, marginBottom: 0 }}><li className="selected active"><a role="option" className="dropdown-item active selected" id="bs-select-1-0" tabIndex={0} aria-setsize={2} aria-posinset={1} aria-selected="true"><span className="text">All Sellers</span></a></li><li><a role="option" className="dropdown-item" id="bs-select-1-1" tabIndex={0}><span className="text">
-                                        Abaris Products (Abaris Seller)
-                                    </span></a></li></ul></div></div></div>
+                                    <div className="dropdown bootstrap-select form-control form-control-sm aiz- mb-2 mb-md-0">
+                                        <select className="form-control form-control-sm aiz-selectpicker mb-2 mb-md-0" id="user_id" name="user_id" tabIndex={-98}>
+                                            <option value>All Sellers</option>
+                                            <option value={3}>
+                                                Abaris Products (Abaris Seller)
+                                            </option>
+                                        </select>
+
+                                        <button type="button" className="btn dropdown-toggle btn-light" onClick={() => { setShowDrop(!showDrop) }} data-toggle="dropdown" role="combobox" aria-owns="bs-select-1" aria-haspopup="listbox" aria-expanded="false" data-id="user_id" title="All Sellers" fdprocessedid="zskgyv">
+                                            <div className="filter-option">
+                                                <div className="filter-option-inner">
+                                                    <div className="filter-option-inner-inner">{idProduct.name}</div>
+                                                </div>
+                                            </div>
+                                        </button>
+
+                                        <div className={`dropdown-menu ${showDrop && 'show'}`}>
+                                            <div className="inner show" role="listbox" id="bs-select-1" tabIndex={-1} aria-activedescendant="bs-select-1-0" style={{ overflowY: 'auto' }}>
+                                                <ul className="dropdown-menu inner show" role="presentation" style={{ marginTop: 0, marginBottom: 0 }}>
+                                                    {sellerData?.map((item) => {
+                                                        return <li key={item._id} className="selected" onClick={() => onchangeClick(item)}>
+                                                            <a role="option" className="dropdown-item" id="bs-select-1-0" tabIndex={0} aria-setsize={2} aria-posinset={1} aria-selected="true">
+                                                                <span className="text">{item?.firstname} {item.lastname}</span>
+                                                            </a>
+                                                        </li>
+                                                    })}
+
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="col-md-2 ml-auto">
-                                    <div className="dropdown bootstrap-select form-control form-control-sm aiz- mb-2 mb-md-0"><select className="form-control form-control-sm aiz-selectpicker mb-2 mb-md-0" name="type" id="type" onchange="sort_products()" tabIndex={-98}>
+                                    <div className="dropdown bootstrap-select form-control form-control-sm aiz- mb-2 mb-md-0"><select className="form-control form-control-sm aiz-selectpicker mb-2 mb-md-0" name="type" id="type" tabIndex={-98}>
                                         <option value>Sort by</option>
                                         <option value="rating,desc">Rating (High &gt; Low)</option>
                                         <option value="rating,asc">Rating (Low &gt; High)</option>
@@ -55,35 +125,38 @@ function SellerProductsAdmin() {
                                 </div>
                             </div>
                             <div className="card-body">
-                                <table className="table aiz-table mb-0 footable footable-1 breakpoint-xl" style={{}}>
-                                    <thead>
-                                        <tr className="footable-header">
-                                            <th className="footable-first-visible" style={{ display: 'table-cell' }}>
-                                                <div className="form-group">
-                                                    <div className="aiz-checkbox-inline">
-                                                        <label className="aiz-checkbox">
-                                                            <input type="checkbox" className="check-all" />
-                                                            <span className="aiz-square-check" />
-                                                        </label>
+
+                                {isLoading ? <h2>Loading...</h2>
+                                    : <table className="table aiz-table mb-0 footable footable-1 breakpoint-xl" style={{}}>
+                                        <thead>
+                                            <tr className="footable-header">
+                                                <th className="footable-first-visible" style={{ display: 'table-cell' }}>
+                                                    <div className="form-group">
+                                                        <div className="aiz-checkbox-inline">
+                                                            <label className="aiz-checkbox">
+                                                                <input type="checkbox" className="check-all" />
+                                                                <span className="aiz-square-check" />
+                                                            </label>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </th>
-                                            <th style={{ display: 'table-cell' }}>Name</th>
-                                            <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Added By</th>
-                                            <th data-breakpoints="sm" style={{ display: 'table-cell' }}>Info</th>
-                                            <th data-breakpoints="md" style={{ display: 'table-cell' }}>Total Stock</th>
-                                            <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Todays Deal</th>
-                                            <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Published</th>
-                                            <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Approved</th>
-                                            <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Featured</th>
-                                            <th data-breakpoints="sm" className="text-right footable-last-visible" style={{ display: 'table-cell' }}>Options</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            data ? data.map((item) => {
-                                                console.log(item);
-                                                return <tr key={item.id}>
+                                                </th>
+                                                <th style={{ display: 'table-cell' }}>Name</th>
+                                                <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Added By</th>
+                                                <th data-breakpoints="sm" style={{ display: 'table-cell' }}>Info</th>
+                                                <th data-breakpoints="md" style={{ display: 'table-cell' }}>Total Stock</th>
+                                                <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Todays Deal</th>
+                                                <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Published</th>
+                                                <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Approved</th>
+                                                <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Featured</th>
+                                                <th data-breakpoints="sm" className="text-right footable-last-visible" style={{ display: 'table-cell' }}>Options</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+
+                                            {data && data?.getallProduct?.map((item, i) => {
+                                               
+                                                return <tr key={i}>
                                                     <td className="footable-first-visible" style={{ display: 'table-cell' }}>
                                                         <div className="form-group d-inline-block">
                                                             <label className="aiz-checkbox">
@@ -98,42 +171,30 @@ function SellerProductsAdmin() {
                                                                 <img src="https://mmslfashions.in/public/uploads/all/Wiv7vhbeLmejHSA4L7NNWgfAqundcpdd76tW7OiY.jpg" alt="Image" className="size-50px img-fit" />
                                                             </div>
                                                             <div className="col">
-                                                                <span className="text-muted text-truncate-2">{item.name}</span>
+                                                                <span className="text-muted text-truncate-2"><strong>{item?.name}</strong></span>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td style={{ display: 'table-cell' }}>Abaris Seller</td>
+                                                    <td style={{ display: 'table-cell' }}>{item.seller_id?.firstname}  {item.seller_id?.lastname}</td>
                                                     <td style={{ display: 'table-cell' }}>
-                                                        <strong>Num of Sale:</strong> 1 Times <br />
-                                                        <strong>Base Price:</strong> ZK220.00 <br />
-                                                        <strong>Rating:</strong> 0 <br />
+                                                        <strong>Num of Sale:</strong>sdsds<br />
+                                                        <strong>Base Price:</strong>-------<br />
+                                                        <strong>Rating:</strong>------<br />
                                                     </td>
                                                     <td style={{ display: 'table-cell' }}>
-                                                        99
+                                                        {/* {item.variations.current_qty} */}99
                                                     </td>
                                                     <td style={{ display: 'table-cell' }}>
-                                                        <label className="aiz-switch aiz-switch-success mb-0">
-                                                            <input onchange="update_todays_deal(this)" defaultValue={75} type="checkbox" defaultChecked />
-                                                            <span className="slider round" />
-                                                        </label>
+                                                        <ToggleStatus name="todays_deal" isStatus={item.todays_deal} changeStatus={changeStatus} />
                                                     </td>
                                                     <td style={{ display: 'table-cell' }}>
-                                                        <label className="aiz-switch aiz-switch-success mb-0">
-                                                            <input onchange="update_published(this)" defaultValue={75} type="checkbox" defaultChecked />
-                                                            <span className="slider round" />
-                                                        </label>
+                                                        <ToggleStatus name="published" isStatus={inputval.published} changeStatus={changeStatus} />
                                                     </td>
                                                     <td style={{ display: 'table-cell' }}>
-                                                        <label className="aiz-switch aiz-switch-success mb-0">
-                                                            <input onchange="update_approved(this)" defaultValue={75} type="checkbox" defaultChecked />
-                                                            <span className="slider round" />
-                                                        </label>
+                                                        <ToggleStatus name="approved" isStatus={inputval.approved} changeStatus={changeStatus} />
                                                     </td>
                                                     <td style={{ display: 'table-cell' }}>
-                                                        <label className="aiz-switch aiz-switch-success mb-0">
-                                                            <input onchange="update_featured(this)" defaultValue={75} type="checkbox" />
-                                                            <span className="slider round" />
-                                                        </label>
+                                                        <ToggleStatus name="featured" isStatus={inputval.featured} changeStatus={changeStatus} />
                                                     </td>
                                                     <td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
                                                         <a className="btn btn-soft-success btn-icon btn-circle btn-sm" href="#" target="_blank" title="View">
@@ -142,15 +203,19 @@ function SellerProductsAdmin() {
                                                         <a className="btn btn-soft-primary btn-icon btn-circle btn-sm" href="#" title="Edit">
                                                             <i className="las la-edit" />
                                                         </a>
-                                                        <button type="button" class="btn btn-soft-danger btn-icon btn-circle btn-sm">
-                                                            <i class="las la-trash"></i>
+                                                        <button type="button" onClick={()=>{deletePro(item._id)}} className="btn btn-soft-danger btn-icon btn-circle btn-sm">
+                                                            <i className="las la-trash"></i>
                                                         </button>
 
                                                     </td>
                                                 </tr>
-                                            }) : <h1>Loading.....</h1>}
-                                    </tbody>
-                                </table>
+                                            })}
+
+                                        </tbody>
+                                        {data?.length === 0 && <h3>No Product</h3>}
+                                    </table>
+                                }
+
                                 <div className="aiz-pagination">
                                 </div>
                             </div>

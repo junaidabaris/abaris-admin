@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { useDeleteBrandMutation, useGetBrandsQuery, useEditDataBrandMutation, useDeleteCategoryMutation, useGetPlaceByIdQuery } from '../all-products/allproductsApi/allProductsApi';
+import { toast, ToastContainer } from 'react-toastify';
+import { useEditBrandMutation, useGetBrandByIdQuery } from '../all-products/allproductsApi/allProductsApi';
 
 function EditBrand() {
     const [inputval, setInputval] = useState({
@@ -11,6 +12,10 @@ function EditBrand() {
         slug: ''
     });
 
+    const params = useParams();
+    const { data } = useGetBrandByIdQuery(params.id);
+    console.log(data)
+
     const onChangeHandler = (e) => {
         const inpName = e.target.name;
         const inpval = e.target.value;
@@ -18,21 +23,32 @@ function EditBrand() {
         clonedObj[inpName] = inpval;
         setInputval(clonedObj)
     };
-    const submitEditBrandData = () => {
-        // addNewBrand(inputval)
-        console.log(inputval)
+
+    const [editBrand, response] = useEditBrandMutation();
+
+    const submitEditBrandData = (e) => {
+        e.preventDefault()
+        editBrand({ id: params.id, data: inputval })
         document.getElementById("create-course-form").reset();
     };
 
-    const params = useParams()
-    console.log(params.id);
-
-    const { data, res } = useGetPlaceByIdQuery(params.id);
-    console.log(data)
     useEffect(() => {
-        // editF(params.id);
+        const brandIdData = { ...data }
+        setInputval(brandIdData)
+    }, [data]);
 
-    }, [params.id])
+    const toastSuccessMessage = () => {
+        toast.success("Brand Edited Successfully", {
+            position: "top-center"
+        })
+    };
+
+    if (response.isSuccess === true) {
+        toastSuccessMessage()
+    };
+    if (response.isError === true) {
+        alert('!Brand not edited')
+    };
 
 
     return (
@@ -51,7 +67,7 @@ function EditBrand() {
                                         <label className="col-sm-3 col-from-label" htmlFor="name">Name <i className="las la-language text-danger" title="Translatable" />
                                         </label>
                                         <div className="col-sm-9">
-                                            <input type="text" placeholder="Name" id="name" name="name" defaultValue="ETG" className="form-control" required fdprocessedid="zp6g3o" onChange={onChangeHandler} />
+                                            <input type="text" value={inputval?.name} placeholder="Name" id="name" name="name" className="form-control" required fdprocessedid="zp6g3o" onChange={onChangeHandler} />
                                         </div>
                                     </div>
 
@@ -88,21 +104,21 @@ function EditBrand() {
                                     <div className="form-group row">
                                         <label className="col-sm-3 col-from-label">Meta Title</label>
                                         <div className="col-sm-9">
-                                            <input type="text" className="form-control" name="meta_title" defaultValue="ETG" placeholder="Meta Title" fdprocessedid="vrvrin" onChange={onChangeHandler} />
+                                            <input type="text" value={inputval?.meta_title} className="form-control" name="meta_title" placeholder="Meta Title" fdprocessedid="vrvrin" onChange={onChangeHandler} />
                                         </div>
                                     </div>
 
                                     <div className="form-group row">
                                         <label className="col-sm-3 col-from-label">Meta description</label>
                                         <div className="col-sm-9">
-                                            <textarea name="meta_description" rows={8} className="form-control" defaultValue={"ETG"} onChange={onChangeHandler} />
+                                            <textarea name="meta_description" value={inputval?.meta_description} rows={8} className="form-control" onChange={onChangeHandler} />
                                         </div>
                                     </div>
 
                                     <div className="form-group row">
                                         <label className="col-sm-3 col-from-label" htmlFor="name">Slug</label>
                                         <div className="col-sm-9">
-                                            <input type="text" placeholder="Slug" id="slug" name="slug" defaultValue="etg-brand" className="form-control" fdprocessedid="8y6egs" onChange={onChangeHandler} />
+                                            <input type="text" value={inputval?.slug} placeholder="Slug" id="slug" name="slug" className="form-control" fdprocessedid="8y6egs" onChange={onChangeHandler} />
                                         </div>
                                     </div>
 
@@ -118,6 +134,7 @@ function EditBrand() {
                 <div className="bg-white text-center py-3 px-15px px-lg-25px mt-auto">
                     {/*p class="mb-0">&copy;  v6.3.3</p*/}
                 </div>
+                <ToastContainer />
             </div>
 
         </>

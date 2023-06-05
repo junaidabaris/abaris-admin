@@ -3,17 +3,13 @@ import { useDeleteLanguageMutation, useGetLanguagesQuery } from "../../all-produ
 
 function Language() {
 
-
-    const { data, res } = useGetLanguagesQuery();
-    console.log(data);
+    const { data } = useGetLanguagesQuery();
 
     const [deleteLang, response] = useDeleteLanguageMutation();
 
     const deleteLanguageData = (id) => {
         deleteLang(id)
     };
-
-    console.log(response)
 
     if (response.isSuccess === true) {
         alert('Language deleted successfully')

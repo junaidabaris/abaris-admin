@@ -11,31 +11,15 @@ function SmtpSettings() {
                 <div className="card-header">
                   <h5 className="mb-0 h6">SMTP Settings</h5>
                 </div>
+
                 <div className="card-body">
+
                   <form className="form-horizontal" action="https://mmslfashions.in/admin/env_key_update" method="POST">
-                    <input type="hidden" name="_token" defaultValue="mA5KQp7HZlXz1fB8P6Hv66tiXkkVBymNn0MEMOHZ" />                    <div className="form-group row">
+                    <input type="hidden" name="_token" defaultValue="mA5KQp7HZlXz1fB8P6Hv66tiXkkVBymNn0MEMOHZ" />
+                    <div className="form-group row">
                       <input type="hidden" name="types[]" defaultValue="MAIL_DRIVER" />
                       <label className="col-md-3 col-form-label">Type</label>
                       <div className="col-md-9">
-                        {/* <div className="dropdown bootstrap-select form-control aiz- mb-2 mb-md-0">
-                          <select className="form-control aiz-selectpicker mb-2 mb-md-0" name="MAIL_DRIVER" onchange="checkMailDriver()" tabIndex={-98}>
-                            <option value="sendmail">Sendmail</option>
-                            <option value="smtp" selected>SMTP</option>
-                            <option value="mailgun">Mailgun</option>
-                          </select>
-                          <button type="button" className="btn dropdown-toggle btn-light" data-toggle="dropdown" role="combobox" aria-owns="bs-select-1" aria-haspopup="listbox" aria-expanded="false" title="SMTP">
-                            <div className="filter-option">
-                              <div className="filter-option-inner">
-                                <div className="filter-option-inner-inner">SMTP</div>
-                              </div>
-                            </div>
-                          </button>
-                          <div className="dropdown-menu ">
-                            <div className="inner show" role="listbox" id="bs-select-1" tabIndex={-1}>
-                              <ul className="dropdown-menu inner show" role="presentation" />
-                            </div>
-                          </div>
-                        </div> */}
                         <Form.Select aria-label="Default select example">
                           <option>SMTP</option>
                           <option value="1" className='suc'>Send Mail</option>
@@ -133,17 +117,21 @@ function SmtpSettings() {
                       <button type="submit" className="btn btn-primary">Save Configuration</button>
                     </div>
                   </form>
+
                 </div>
               </div>
             </div>
+
             <div className="col-md-6">
               <div className="card">
                 <div className="card-header">
                   <h5 className="mb-0 h6">Test SMTP configuration</h5>
                 </div>
                 <div className="card-body">
+
                   <form action="https://mmslfashions.in/admin/newsletter/test/smtp" method="post">
-                    <input type="hidden" name="_token" defaultValue="mA5KQp7HZlXz1fB8P6Hv66tiXkkVBymNn0MEMOHZ" />                    <div className="row">
+                    <input type="hidden" name="_token" defaultValue="mA5KQp7HZlXz1fB8P6Hv66tiXkkVBymNn0MEMOHZ" />
+                    <div className="row">
                       <div className="col">
                         <input type="email" className="form-control" name="email" defaultValue="seoabaris@gmail.com" placeholder="Enter your email address" />
                       </div>
@@ -152,6 +140,7 @@ function SmtpSettings() {
                       </div>
                     </div>
                   </form>
+
                 </div>
               </div>
               <div className="card">

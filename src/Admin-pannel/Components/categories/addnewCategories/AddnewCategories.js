@@ -1,14 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { toast, ToastContainer } from 'react-toastify';
 import { useAddNewCategoryMutation, useGetCategoriesQuery } from '../../all-products/allproductsApi/allProductsApi';
+import axios from 'axios';
+
+// import Button from 'react-bootstrap/Button';
+// import Col from 'react-bootstrap/Col';
+// import Form from 'react-bootstrap/Form';
+// import InputGroup from 'react-bootstrap/InputGroup';
+// import Row from 'react-bootstrap/Row';
 
 
 function AddnewCategories() {
-  const [inputval, setInputVal] = useState({ name: '', parent_id: '', order_level: '', type: '', banner: '', icon: '', meta_title: '', meta_description: '', commision_rate: '', filtering_attributes: '', });
+  // const [validated, setValidated] = useState(false);
+
+  const [inputval, setInputVal] = useState({ name: '', parent_id: null, order_level: '', type: '', banner: '', image: '', meta_title: '', meta_description: '', commision_rate: '', filtering_attributes: '', level: '', top: '', featured: '' });
 
   const { data } = useGetCategoriesQuery();
   const [addCategory, response] = useAddNewCategoryMutation();
+
+
+
+  const [file, setFile] = useState(null);
+
+  const handleFile = (event) => {
+    setFile(event.target.files[0])
+  }
 
   const onChangeHandler = (e) => {
     const inpName = e.target.name;
@@ -18,11 +35,36 @@ function AddnewCategories() {
     setInputVal(clonedObj)
   };
 
-  const addNewCategory = (e) => {
-    e.preventDefault();
-    addCategory(inputval);
-    document.getElementById("create-course-form").reset();
-    console.log(inputval)
+  const addNewCategory = async (event) => {
+    event.preventDefault();
+    // addCategory(inputval);.
+
+    const clonedObj = { ...inputval };
+
+    const url = 'https://onlineparttimejobs.in/api/category/add_category'
+    const formData = new FormData();
+
+    formData.append('name', clonedObj.name);
+    formData.append('parent_id', clonedObj.parent_id);
+    formData.append('order_level', clonedObj.order_level);
+    formData.append('type', clonedObj.type);
+    formData.append('banner', clonedObj.banner);
+    formData.append('meta_title', clonedObj.meta_title);
+    formData.append('meta_description', clonedObj.meta_description);
+    formData.append('commision_rate', clonedObj.filtering_attributes);
+    formData.append('level', clonedObj.level);
+    formData.append('top', clonedObj.top);
+    formData.append('featured', clonedObj.featured);
+    formData.append('image', file);
+
+    try {
+      const res = await axios.post(url, formData);
+      alert('Category Request Send Successfully')
+      document.getElementById("create-course-form").reset();
+    } catch (error) {
+      alert('Category Request Send Fail !')
+    }
+
   };
 
 
@@ -32,14 +74,15 @@ function AddnewCategories() {
     })
   };
 
-  console.log(response)
-
-  if (response.isSuccess === true) {
-    toastSuccessMessage()
-  };
-  if (response.isError === true) {
-    alert('!Category not added')
-  };
+  useEffect(() => {
+    if (response.isSuccess === true) {
+      toastSuccessMessage()
+    };
+    if (response.isError === true) {
+      alert('!Category not added')
+    };
+  }, [response])
+  
 
   return (
     <>
@@ -52,13 +95,14 @@ function AddnewCategories() {
                   <h5 className="mb-0 h6">Category Information</h5>
                 </div>
                 <div className="card-body">
-                  <form className="form-horizontal" encType="multipart/form-data" id="create-course-form" onSubmit={addNewCategory}>
+
+                  <form className="form-horizontal" id="create-course-form" onSubmit={addNewCategory}>
                     <input type="hidden" name="_token" defaultValue="JX7Efxc0fWnjgSTDtnGEP5Yd23Vk7icCfLqqxizf" />
 
                     <div className="form-group row">
                       <label className="col-md-3 col-form-label">Name</label>
                       <div className="col-md-9">
-                        <input type="text" placeholder="Name" id="name" name="name" className="form-control" onChange={onChangeHandler} required />
+                        <input type="text" placeholder="Name" name="name" className="form-control" onChange={onChangeHandler} required />
                       </div>
                     </div>
 
@@ -67,6 +111,8 @@ function AddnewCategories() {
 
                       <div className="col-md-9">
                         <select className="form-select" name='parent_id' onChange={onChangeHandler} required>
+                          <option>Select Perent Catagary</option>
+                          <option value='null'>Null</option>
                           {data && data.map((item, i) => {
                             return <option key={item._id} value={item._id}>{item.name}</option>
                           })}
@@ -79,7 +125,7 @@ function AddnewCategories() {
                         Ordering Number
                       </label>
                       <div className="col-md-9">
-                        <input type="number" name="order_level" className="form-control" id="order_level" placeholder="Order Level" onChange={onChangeHandler} required />
+                        <input type="number" name="order_level" className="form-control" placeholder="Order Level" onChange={onChangeHandler} required />
                         <small>Higher number has high priority</small>
                       </div>
                     </div>
@@ -96,7 +142,7 @@ function AddnewCategories() {
                       </div>
                     </div>
 
-                    <div className="form-group row">
+                    {/* <div className="form-group row">
                       <label className="col-md-3 col-form-label" htmlFor="signinSrEmail">Banner <small>(200x200)</small></label>
                       <div className="col-md-9">
                         <div className="input-group" data-type="image">
@@ -104,23 +150,24 @@ function AddnewCategories() {
                             <div className="input-group-text bg-soft-secondary font-weight-medium">Browse</div>
                           </div>
                           <div className="form-control file-amount">
-                            {/* Choose File */}
                             <input type="file" name="banner" className="selected-files" onChange={onChangeHandler} required />
                           </div>
                         </div>
                         <div className="file-preview box sm">
                         </div>
                       </div>
-                    </div>
+                    </div> */}
+
+
                     <div className="form-group row">
-                      <label className="col-md-3 col-form-label" htmlFor="signinSrEmail">Icon <small>(32x32)</small></label>
+                      <label className="col-md-3 col-form-label">Icon <small>(32x32)</small></label>
                       <div className="col-md-9">
                         <div className="input-group" data-type="image">
                           <div className="input-group-prepend">
                             <div className="input-group-text bg-soft-secondary font-weight-medium">Browse</div>
                           </div>
                           <div className="form-control file-amount">
-                            <input type="file" name="icon" className="selected-files" onChange={onChangeHandler} required />
+                            <input type="file" name="image" className="selected-files" onChange={handleFile} />
                           </div>
                         </div>
                         <div className="file-preview box sm">
@@ -164,6 +211,27 @@ function AddnewCategories() {
                       </div>
                     </div>
 
+                    <div className="form-group row">
+                      <label className="col-md-3 col-form-label">Level</label>
+                      <div className="col-md-9">
+                        <input type="number" className="form-control" name="level" placeholder="level" onChange={onChangeHandler} required />
+                      </div>
+                    </div>
+
+                    <div className="form-group row">
+                      <label className="col-md-3 col-form-label">Top</label>
+                      <div className="col-md-9">
+                        <input type="text" className="form-control" name="top" placeholder="top" onChange={onChangeHandler} required />
+                      </div>
+                    </div>
+
+                    <div className="form-group row">
+                      <label className="col-md-3 col-form-label">Featured</label>
+                      <div className="col-md-9">
+                        <input type="text" className="form-control" name="featured" placeholder="featured" onChange={onChangeHandler} required />
+                      </div>
+                    </div>
+
                     <div className="form-group mb-0 text-right">
                       <button type="submit" className="btn btn-primary">Save</button>
                     </div>
@@ -178,6 +246,7 @@ function AddnewCategories() {
         </div>
       </div>
       <ToastContainer />
+
     </>
   )
 }

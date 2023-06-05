@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useDeleteBrandMutation, useGetBrandsQuery } from "../all-products/allproductsApi/allProductsApi"
+import { useBrandActiveMutation, useDeleteBrandMutation, useGetBrandsQuery } from "../all-products/allproductsApi/allProductsApi"
+import { ToastContainer, toast } from "react-toastify";
 
 function Brands() {
     const [inputVal, setInputVal] = useState({ search: '' });
@@ -8,8 +9,6 @@ function Brands() {
     const copiedData = { ...data }
     const [blankArr, setBlankArr] = useState([])
 
-
-    console.log(copiedData)
 
     useEffect(() => {
         setBlankArr(data)
@@ -35,13 +34,43 @@ function Brands() {
         deleteBrand(id)
     }
 
-    if (response.isSuccess === true) {
-        alert('Brand deleted Successfully')
+    useEffect(() => {
+        if (response.isSuccess === true) {
+            alert('Brand deleted Successfully')
+        }
+    }, [response.isSuccess])
+
+    const [updateActive, { isSuccess, isError }] = useBrandActiveMutation()
+
+    const changeStatus = (item) => {
+        const obj = { id: item._id, data: { active: !item.active } }
+        updateActive(obj)
     }
 
 
+    const toastSuccessMessage = () => {
+        toast.success("Brand Updated Successfully", {
+            position: "top-center"
+        })
+    };
 
-    // console.log('-----------brand resp', response)
+    const toastErrorMessage = () => {
+        toast.error("Brand Update Faild..", {
+            position: "top-center"
+        })
+    };
+
+    useEffect(() => {
+        if (isSuccess === true) {
+            toastSuccessMessage()
+        };
+    }, [isSuccess]);
+
+    useEffect(() => {
+        if (isError === true) {
+            toastErrorMessage()
+        };
+    }, [isError])
 
     return (
         <>
@@ -51,6 +80,7 @@ function Brands() {
                         <div className="col text-center text-md-left">
                             <h5 className="mb-md-0 h6">Brands</h5>
                         </div>
+                        <ToastContainer />
                         <div className="col-md-4">
                             <form >
                                 <div className="input-group input-group-sm">
@@ -68,6 +98,7 @@ function Brands() {
                                         <th className="footable-first-visible" style={{ display: 'table-cell' }}>#</th>
                                         <th style={{ display: 'table-cell' }}>Name</th>
                                         <th style={{ display: 'table-cell' }}>Logo</th>
+                                        <th style={{ display: 'table-cell' }}>Block</th>
                                         <th className="text-right footable-last-visible" style={{ display: 'table-cell' }}>Options</th>
                                     </tr>
                                 </thead>
@@ -78,7 +109,18 @@ function Brands() {
                                             <td className="footable-first-visible" style={{ display: 'table-cell' }}>{i + 1}</td>
                                             <td style={{ display: 'table-cell' }}>{item.name || item.brand}</td>
                                             <td style={{ display: 'table-cell' }}>
-                                                {/* <img src="https://mmslfashions.in/public/uploads/all/AkvOmGh1LRAnHZmlVDsgPA5f5jgYesnZxVtONnhX.png" alt="Brand" className="h-50px" /> */}
+                                                <img src={item?.logo?.url} alt="Brand" className="h-50px" />
+                                            </td>
+
+                                            <td style={{ display: "table-cell" }}>
+                                                <label className="aiz-switch aiz-switch-success mb-0">
+                                                    <input
+                                                        onChange={() => { changeStatus(item) }}
+                                                        type="checkbox"
+                                                        checked={item.active}
+                                                    />
+                                                    <span className="slider round" />
+                                                </label>
                                             </td>
 
                                             <td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>

@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { useDeleteSupportTicketMutation, useGetTicketListsQuery } from "../all-products/allproductsApi/allProductsApi";
+import { useEffect } from "react";
 
 function SupportTicketDesk() {
 
     const { isLoading, data } = useGetTicketListsQuery();
-    console.log(data);
 
     const [deleteSuppTicket, response] = useDeleteSupportTicketMutation();
 
@@ -12,10 +12,12 @@ function SupportTicketDesk() {
     const deleteSupportticketData = (id) => {
         deleteSuppTicket(id)
     };
-    console.log(response);
-    if (response.isSuccess === true) {
-        alert('Support Ticket Successfully deleted')
-    };
+
+    useEffect(() => {
+        if (response.isSuccess === true) {
+            alert('Support Ticket Successfully deleted')
+        };
+    }, [response.isSuccess])
 
 
     return (
@@ -57,7 +59,10 @@ function SupportTicketDesk() {
                                                     2023-02-08 13:26:43
                                                 </td>
                                                 <td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
-                                                    <Link to="/admin/support_ticket/detail" className="btn btn-soft-primary btn-icon btn-circle btn-sm" title="View Details">
+                                                    <Link to={`edit/${item._id}`} className="btn btn-soft-primary btn-icon btn-circle btn-sm" title="Edit">
+                                                        <i className="las la-edit" />
+                                                    </Link>
+                                                    <Link to={`/admin/support_ticket/detail/${item._id}`} className="btn btn-soft-primary btn-icon btn-circle btn-sm" title="View Details">
                                                         <i className="las la-eye" />
                                                     </Link>
                                                     <button type="button" onClick={() => deleteSupportticketData(item._id)} className="btn btn-soft-danger btn-icon btn-circle btn-sm">

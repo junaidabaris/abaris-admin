@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useDeleteCategoryMutation, useGetCategoriesQuery } from "../all-products/allproductsApi/allProductsApi";
-
+import { useCatagaryActiveMutation, useDeleteCategoryMutation, useGetCategoriesQuery } from "../all-products/allproductsApi/allProductsApi";
+import { ToastContainer, toast } from "react-toastify";
 function CategoriesAdmin() {
   const [inputVal, setInputVal] = useState({ search: '' });
   const [blankArr, setBlankArr] = useState([]);
 
   const { isLoading, data } = useGetCategoriesQuery();
-  console.log('categories data--', data)
 
   const onChangeHandler = (e) => {
     const inpVal = e.target.value;
@@ -36,9 +35,43 @@ function CategoriesAdmin() {
     deleteCategory(id)
   };
 
-  if (res.isSuccess == true) {
-    alert('Category deleted successfully')
+  useEffect(() => {
+    if (res.isSuccess == true) {
+      alert('Category deleted successfully')
+    }
+  }, [res.isSuccess])
+
+
+  const [updateCat, { isSuccess, isError }] = useCatagaryActiveMutation()
+  const changeStatus = (item) => {
+    const obj = { id: item._id, data: { approve: !item.approve } }
+    updateCat(obj)
   }
+
+
+  const toastSuccessMessage = () => {
+    toast.success("Categorie Updated Successfully", {
+      position: "top-center"
+    })
+  };
+
+  const toastErrorMessage = () => {
+    toast.error("Categorie Update Faild..", {
+      position: "top-center"
+    })
+  };
+
+  useEffect(() => {
+    if (isSuccess === true) {
+      toastSuccessMessage()
+    };
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (isError === true) {
+      toastErrorMessage()
+    };
+  }, [isError])
 
   return (
     <>
@@ -57,6 +90,7 @@ function CategoriesAdmin() {
             </div>
           </div>
           <div className="card">
+            <ToastContainer />
             <div className="card-header d-block d-md-flex">
               <h5 className="mb-0 h6">Categories</h5>
               <form >
@@ -77,9 +111,9 @@ function CategoriesAdmin() {
                       <th data-breakpoints="lg" className="footable-first-visible" style={{ display: 'table-cell' }}>#</th>
                       <th style={{ display: 'table-cell' }}>Ctegory Name</th>
                       <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Parent Category</th>
-                      {/* <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Brand</th> */}
                       <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Order Level</th>
                       <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Level</th>
+                      <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Block</th>
                       <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Banner</th>
                       <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Icon</th>
                       <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Featured</th>
@@ -94,9 +128,20 @@ function CategoriesAdmin() {
                         <td className="footable-first-visible" style={{ display: 'table-cell' }}>{i + 1}</td>
                         <td style={{ display: 'table-cell' }}>{item.name}</td>
                         <td style={{ display: 'table-cell' }}>{item.parent_id && (item.parent_id.name)}</td>
-                        {/* <td style={{ display: 'table-cell' }}> Brand</td> */}
                         <td style={{ display: 'table-cell' }}>{item.order_level}</td>
                         <td style={{ display: 'table-cell' }}>{item.level}</td>
+
+                        <td style={{ display: "table-cell" }}>
+                          <label className="aiz-switch aiz-switch-success mb-0">
+                            <input
+                              onChange={() => { changeStatus(item) }}
+                              type="checkbox"
+                              checked={item.approve}
+                            />
+                            <span className="slider round" />
+                          </label>
+                        </td>
+
                         <td style={{ display: 'table-cell' }}>
                           <img src="https://mmslfashions.in/public/uploads/all/0fszFBvsXqbAUVAsKTXrOAVHBnuvUvHsVeWjuqji.png" alt="Banner" className="h-50px" />
                         </td>

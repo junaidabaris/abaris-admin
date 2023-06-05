@@ -1,5 +1,7 @@
-import { useState } from "react";
-import { useGetLanguagesQuery } from "../all-products/allproductsApi/allProductsApi";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify';
+import { useEditLanguageMutation, useGetLanguageByIdQuery, useGetLanguagesQuery } from "../all-products/allproductsApi/allProductsApi";
 
 function LanguageEdit() {
     const [inputval, setInputval] = useState({
@@ -7,6 +9,18 @@ function LanguageEdit() {
         code: '',
         app_lang_code: ''
     });
+    const params = useParams();
+
+    const comboLangData = useGetLanguagesQuery();
+
+    const { data } = useGetLanguageByIdQuery(params.id);
+
+    useEffect(() => {
+        const storeData = { ...data }
+        setInputval(storeData)
+    }, [data]);
+
+    const [editLanguage, response] = useEditLanguageMutation();
 
     const onChangeHandler = (e) => {
         const inpName = e.target.name;
@@ -17,12 +31,23 @@ function LanguageEdit() {
     };
     const submitEditBrandData = (e) => {
         e.preventDefault();
-        // addNewBrand(inputval)
+        editLanguage({ id: params.id, data: inputval })
         console.log(inputval)
         document.getElementById("create-course-form").reset();
     };
-    const { data } = useGetLanguagesQuery();
-    console.log(data)
+
+    const toastSuccessMessage = () => {
+        toast.success("Language Edited Successfully", {
+            position: "top-center"
+        })
+    };
+
+    if (response.isSuccess === true) {
+        toastSuccessMessage()
+    };
+    if (response.isError === true) {
+        alert('!Language not edited')
+    };
 
     return (
         <>
@@ -45,7 +70,7 @@ function LanguageEdit() {
                                                 <label className="control-label">Name</label>
                                             </div>
                                             <div className="col-lg-9">
-                                                <input type="text" className="form-control" name="name" placeholder="Name" required fdprocessedid="g899eg" onChange={onChangeHandler} />
+                                                <input type="text" className="form-control" name="name" placeholder="Name" required fdprocessedid="g899eg" value={inputval?.name} onChange={onChangeHandler} />
                                             </div>
                                         </div>
                                         <div className="form-group row">
@@ -55,7 +80,7 @@ function LanguageEdit() {
                                             <div className="col-lg-9">
                                                 <div >
                                                     <select className="form-select" name="code" aria-label="Default select example" onChange={onChangeHandler}>
-                                                        {data && data.map((item) => {
+                                                        {comboLangData.data && comboLangData.data.map((item) => {
                                                             return <option value={item.code} key={item._id}>{item.code}</option>
                                                         })}
                                                     </select>
@@ -68,7 +93,7 @@ function LanguageEdit() {
                                                 <code><a target="_blank" href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">Links for ISO 639-1 codes</a></code>
                                             </div>
                                             <div className="col-lg-9">
-                                                <input type="text" className="form-control" name="app_lang_code" placeholder="Put ISO 639-1 code for your language" required fdprocessedid="mhu1n7" onChange={onChangeHandler} />
+                                                <input type="text" value={inputval?.app_lang_code} className="form-control" name="app_lang_code" placeholder="Put ISO 639-1 code for your language" required fdprocessedid="mhu1n7" onChange={onChangeHandler} />
                                             </div>
                                         </div>
                                         <div className="form-group mb-0 text-right">
@@ -83,6 +108,7 @@ function LanguageEdit() {
                 <div className="bg-white text-center py-3 px-15px px-lg-25px mt-auto">
                     {/*p class="mb-0">&copy;  v6.3.3</p*/}
                 </div>
+                <ToastContainer />
             </div>
 
         </>

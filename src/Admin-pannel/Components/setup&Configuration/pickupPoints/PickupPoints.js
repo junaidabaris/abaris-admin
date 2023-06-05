@@ -1,13 +1,23 @@
 import { Link } from "react-router-dom"
 import john from "../../../../assets/img/blog-details/1.jpg"
-import mike from "../../../../assets/img/blog-details/2.jpg";
-import { useGetPickupPointQuery } from "../../all-products/allproductsApi/allProductsApi";
+import { useDeletePickupPointMutation, useGetPickupPointQuery } from "../../all-products/allproductsApi/allProductsApi";
 
 
 function PickupPoints() {
 
-  const { isLoading, data, isSuccess, response } = useGetPickupPointQuery();
-  console.log(data)
+  const { isLoading, data } = useGetPickupPointQuery();
+  console.log(data);
+
+  const [deletePickupPoint, res] = useDeletePickupPointMutation();
+
+  function deletePickUpPointData(id) {
+    deletePickupPoint(id)
+  };
+
+  if (res.isSuccess === true) {
+    alert("PickupPoint deleted Successfully")
+  };
+
 
   return (
     <>
@@ -41,11 +51,12 @@ function PickupPoints() {
             <div className="card-body">
 
               {isLoading ? <h2>Loading...</h2>
-                : <table className="table aiz-table mb-0 footable footable-1 breakpoint breakpoint-lg" style={{}}>
+                : <table className="table table-responsive aiz-table mb-0 footable footable-1 breakpoint breakpoint-lg" style={{}}>
                   <thead>
                     <tr className="footable-header">
                       <th width="10%" style={{ display: 'table-cell' }}>ID</th>
-                      <th width="30%" style={{ display: 'table-cell' }}>Avatar</th>
+                      {/* <th width="20%" style={{ display: 'table-cell' }}>Avatar</th> */}
+                      <th width="20%" style={{ display: 'table-cell' }}>Name</th>
                       <th style={{ display: 'table-cell' }}>Address</th>
                       <th style={{ display: 'table-cell' }}>Longitude</th>
                       <th style={{ display: 'table-cell' }}>Latitude</th>
@@ -53,8 +64,8 @@ function PickupPoints() {
                       <th style={{ display: 'table-cell' }}>Phone</th>
                       <th style={{ display: 'table-cell' }}>Email</th>
                       {/* <th style={{ display: 'table-cell' }}>Status</th> */}
-                      <th style={{ display: 'table-cell' }}>Pick Up Points Manager</th>
-                      <th width="10%" style={{ display: 'table-cell' }}>Options</th>
+                      <th width="20%" style={{ display: 'table-cell' }}>Pick Up Points Manager</th>
+                      <th width="30%" style={{ display: 'table-cell' }}>Options</th>
                     </tr>
                   </thead>
 
@@ -63,9 +74,10 @@ function PickupPoints() {
                     {data && data.map((item, i) => {
                       return <tr className="footable-empty footableIcon " key={item._id}>
                         <td >{i + 1}</td>
-                        <td >
+                        {/* <td >
                           <img src={john} className="ferti" />
-                        </td>
+                        </td> */}
+                        <td >{item.pickupPoint_name}</td>
                         <td >{item.address}</td>
                         <td >{item.location.long}</td>
                         <td >{item.location.lat}</td>
@@ -73,8 +85,17 @@ function PickupPoints() {
                         <td >{item.phone}</td>
                         <td >{item.email}</td>
                         {/* <td >{item.pickUpPointStatus}</td> */}
-                        <td >{item.pickUpManagerSchema}</td>
-                        <td >-</td>
+                        <td >{item.pickUpManagerSchema?.firstname} {item.pickUpManagerSchema?.lastname}</td>
+                        <td >
+                          <Link to={`edit/${item._id}`} className="btn btn-soft-primary btn-icon btn-circle btn-sm" title="Edit">
+                            <i className="las la-edit" />
+                          </Link>
+
+                          <button type="button" onClick={() => { deletePickUpPointData(item._id) }} className="btn btn-soft-danger btn-icon btn-circle btn-sm">
+                            <i className="las la-trash" />
+                          </button>
+
+                        </td>
                       </tr>
                     })}
 
