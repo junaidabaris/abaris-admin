@@ -34,6 +34,7 @@ function AsideAdmin() {
   const [saleMod, setSaleMod] = useState(false);
   const [productsManagement, setProductsManagement] = useState(false);
   const [front, setFront] = useState(false);
+  const [quotations, setQuotations] = useState(false);
   const [booking, setBooking] = useState(false);
 
   const { data, isLoading } = useGetAllStatusOrdersQuery()
@@ -289,6 +290,45 @@ function AsideAdmin() {
               </li>
 
 
+
+
+
+              <li className="aiz-side-nav-item">
+                <Link to="#" className="aiz-side-nav-link"  onClick={() => { setWholsale(!wholeSale) }}>
+                  <i className="las la-shopping-cart aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Wholesale Products</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                {/*Submenu*/}
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${wholeSale ? "mm-show" : "extra"}`} id="product">
+                  <li className="aiz-side-nav-item">
+                    <Link to="wholesale-product/create" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Add New Wholesale Products</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="wholesale/all-products" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">All Wholesale Products</span>
+                    </Link>
+                  </li>
+                  {/* <li className="aiz-side-nav-item">
+                    <Link to="sizechart" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Size Chart</span>
+                    </Link>
+                  </li> */}
+
+
+                </ul>
+              </li>
+
+
+
+
+
+
+
+
+
               <li className="aiz-side-nav-item" onClick={() => { setProductsManagement(!productsManagement) }}>
                 <Link to="#" className="aiz-side-nav-link" >
                   <i className="las la-shopping-cart aiz-side-nav-icon" />
@@ -350,7 +390,25 @@ function AsideAdmin() {
               </li>
 
 
-
+              <li className="aiz-side-nav-item" >
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setQuotations(!quotations) }} >
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Quotations </span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${quotations ? "mm-show" : "extra"}`}>
+                  <li className="aiz-side-nav-item">
+                    <Link to="list_quotation" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">List Quotation</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="add_quotation" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Add Quotation</span>
+                    </Link>
+                  </li>
+                </ul>
+              </li>
 
 
 

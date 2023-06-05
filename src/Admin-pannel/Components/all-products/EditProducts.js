@@ -191,6 +191,9 @@ function EditProducts() {
         formData.append('tags', clonedObj.tags);
         formData.append('category_id', clonedObj.category_id);
         formData.append('slug', clonedObj.slug);
+        formData.append('hsn_code', clonedObj.hsn_code);
+        formData.append('sale_rp', clonedObj.sale_rp);
+        formData.append('share_rp', clonedObj.share_rp);
 
         formData.append('variations', JSON.stringify(clonedObj.variations));
         formData.append('variation_Form', JSON.stringify(clonedObj.variation_Form));
