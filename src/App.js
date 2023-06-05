@@ -380,6 +380,7 @@ function App() {
           <Route path="verification/form" element={<VerificationFormPage />} />
           <Route path="seller-banners" element={<SellerBannerPage />} />
           <Route path="seller-banners/edit/:id" element={<EditSellerBanner />} />
+
           <Route path="affiliate" element={<AffiliatePage />} />
           <Route path="affiliate-cofiguration" element={<AfiliatedConfigurationPage />} />
           <Route path="affiliate-users" element={<AffiliateUserPage />} />
@@ -389,6 +390,7 @@ function App() {
           <Route path="uploaded-files/create" element={<UploadCreate />} />
           <Route path="affiliate/withdraw_requests" element={<AffiliateWithdrowPage />} />
           <Route path="affiliate/logs" element={<AffliateLogsPage />} />
+          
           <Route path="coupon" element={<CouponPage />} />
           <Route path="coupon/create" element={<CouponInformationAddingPage />} />
           <Route path="coupon/edit/:id" element={<EditCoupon />} />

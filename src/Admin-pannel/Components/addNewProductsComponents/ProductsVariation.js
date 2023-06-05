@@ -186,6 +186,9 @@ function ProductsVariation({ handleVariantData, productData ,setattributesVal}) 
                                             <td><label className="control-label">Discount</label></td>
                                             <td><label className="control-label">Discount Type</label></td>
                                             <td><label className="control-label">SKU</label></td>
+                                            <td><label className="control-label">HSN Code</label></td>
+                                            <td><label className="control-label">Sale Reward Point</label></td>
+                                            <td><label className="control-label">Share Reward Point</label></td>
                                             {/* <td><label className="control-label">Pickup Point</label></td>
                                             <td><label className="control-label">Quantity</label></td> */}
                                         </tr>
