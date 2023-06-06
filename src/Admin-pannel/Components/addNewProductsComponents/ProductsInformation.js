@@ -1,33 +1,66 @@
 import { useState } from "react";
+import ModalCombo from "../../Pages/addComboProduct/ModalCombo";
+import { useGetProductSearchQuery } from "../all-products/allproductsApi/allProductsApi";
+import { RxCross1 } from "react-icons/rx";
+import { AiFillDelete } from "react-icons/ai";
 
-function ProductsInformationAdmin() {
-    const [prodInfoInpVal, setProdInfoInpVal] = useState({
-        prodName: '',
-        category: '',
-        brand: '',
-        unit: '',
-        weight: '',
-        minQuantity: '',
-        tags: '',
-        barcode: '',
-        refundable: ''
+function ProductsInformationAdmin({ dataSetNext }) {
+    const [show, setShow] = useState(true)
+    const [modalShow, setModalShow] = useState(false);
+    const [cartData, setcartData] = useState(null)
+    const [showCombo, setShowCombo] = useState([])
+    const [searchs, setSearch] = useState('')
 
-    });
+    const { data: searchPro } = useGetProductSearchQuery(searchs)
 
-    const onChangeHandler = (e) => {
-        const inpName = e.target.name;
-        const inpVal = e.target.value;
-        const clonedObj = { ...prodInfoInpVal };
-        clonedObj[inpName] = inpVal;
-        // setProdInfoInpVal(clonedObj)
-    };
+    const SaveData = (val) => {
+        setModalShow(false)
+        const arr = [...showCombo, ...val]
+        setShowCombo(arr)
+    }
 
-    const getInpData = () => {
-        // console.log(prodInfoInpVal)
+    const handelChange = (e) => {
+        if (e.key === 'Enter') {
+            const clone = e.target.value
+            setSearch(clone);
+            setShow(true)
+        }
+    }
+
+    const setTableItem = (item) => {
+        setcartData(item);
+        setModalShow(true)
+        setShow(false)
+    }
+
+
+    const deleteItem = (index) => {
+        const filterd = showCombo.filter((item, i) => {
+            if (i !== index) {
+                return item
+            }
+
+        })
+        setShowCombo(filterd);
+    }
+
+    const sendValues = ()=>{
+        dataSetNext(showCombo)
     }
 
     return (
         <>
+
+
+            {modalShow && <ModalCombo
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                cartData={cartData}
+                SaveData={SaveData}
+                showCombo={showCombo}
+            />}
+
+
             <div className="card">
                 <div className="card-header">
                     <h5 className="mb-0 h6">Product Information</h5>
@@ -36,7 +69,13 @@ function ProductsInformationAdmin() {
                     <div className="form-group row">
                         <label className="col-md-3 col-from-label">Product Name <span className="text-danger">*</span></label>
                         <div className="col-md-8">
-                            <input type="text" className="form-control" name="prodName" placeholder="Product Name" required fdprocessedid="3bss68" onChange={onChangeHandler} />
+                            <input className="form-control" onKeyDown={handelChange} placeholder="Please add products to order list" />
+                            {show && searchPro?.getSearchedProduct?.length > 0 && <div className="showList">
+                                <div style={{ fontSize: "19px" }} onClick={() => { setShow(false) }}><RxCross1 /></div>
+                                {searchPro?.getSearchedProduct.map((item) => {
+                                    return <h6 key={item._id} style={{ cursor: "pointer" }} onClick={() => setTableItem(item)}>{item.name}</h6>
+                                })}
+                            </div>}
                         </div>
                     </div>
 
@@ -50,29 +89,30 @@ function ProductsInformationAdmin() {
                                         <td><label className="control-label">Product Name</label></td>
                                         <td><label className="control-label">SKU</label></td>
                                         <td><label className="control-label">Variant</label></td>
+                                        <td><label className="control-label">MRP</label></td>
                                     </tr>
 
                                 </thead>
 
                                 <tbody>
 
-                                    {true && [1,2].map((item, i) => {
+                                    {showCombo && showCombo.map((item, i) => {
                                         return <tr key={i}>
                                             <td>
-                                                {/* <AiFillDelete onClick={() => { deleteItem(i) }} /> */}1
+                                                <AiFillDelete onClick={() => { deleteItem(i) }} />
                                             </td>
                                             <td>
-                                                {/* <label name="productName" className="control-label">{item?.productName}</label> */}sss
+                                                <label name="productName" className="control-label">{item?.productName}</label>
                                             </td>
                                             <td>
-                                                {/* <input type="text" disabled value={item?.sku} name="sku" className="form-control" /> */}
-                                                sss
+                                                <input type="text" disabled value={item?.sku} name="sku" className="form-control" />
                                             </td>
                                             <td>
-                                                {/* <input type="text" disabled value={item?.weight} name="rate" className="form-control" /> */}
-                                                ss
+                                                <input type="text" disabled value={item?.weight} name="rate" className="form-control" />
                                             </td>
-                                           
+                                            <td>
+                                                <input type="text" disabled value={item?.mrp} name="actual_rate" className="form-control" />
+                                            </td>
 
                                         </tr>
                                     })}
@@ -82,83 +122,7 @@ function ProductsInformationAdmin() {
                         </div>
                     </div>
 
-
-
-
-
-                    {/* <div className="form-group row" id="category">
-                        <label className="col-md-3 col-from-label">Category <span className="text-danger">*</span></label>
-                        <div className="col-md-8">
-                            <select className="form-select" aria-label="Default select example" name="category" onChange={onChangeHandler}>
-                                <option>Fertilizer</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="form-group row" id="brand">
-                        <label className="col-md-3 col-from-label">Brand</label>
-                        <div className="col-md-8">
-                            <select className="form-select" aria-label="Default select example" name="brand" onChange={onChangeHandler}>
-                                <option>Select Brand</option>
-                                <option value={1}>One</option>
-                                <option value={2}>Two</option>
-                                <option value={3}>Three</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="form-group row">
-                        <label className="col-md-3 col-from-label">Unit</label>
-                        <div className="col-md-8">
-                            <input type="text" className="form-control" name="unit" placeholder="Unit (e.g. KG, Pc etc)" required fdprocessedid="nnwct" onChange={onChangeHandler} />
-                        </div>
-                    </div>
-
-                    <div className="form-group row">
-                        <label className="col-md-3 col-from-label">Weight <small>(In Kg)</small></label>
-                        <div className="col-md-8">
-                            <input type="number" className="form-control" name="weight" step="0.01" defaultValue={0.00} placeholder={0.00} fdprocessedid="sq5qc3" onChange={onChangeHandler} />
-                        </div>
-                    </div>
-
-                    <div className="form-group row">
-                        <label className="col-md-3 col-from-label">Minimum Purchase Qty <span className="text-danger">*</span></label>
-                        <div className="col-md-8">
-                            <input type="number" lang="en" className="form-control" name="minQuantity" defaultValue={1} min={1} required fdprocessedid="d0gl3m" onChange={onChangeHandler} />
-                        </div>
-                    </div>
-
-                    <div className="form-group row">
-                        <label className="col-md-3 col-from-label">Tags <span className="text-danger">*</span></label>
-                        <div className="col-md-8">
-                            <tags className="tagify  form-control aiz-tag-input" aria-haspopup="listbox" aria-expanded="false" role="tagslist" tabIndex={-1}>
-                                <span contentEditable data-placeholder="Type and hit enter to add a tag" aria-placeholder="Type and hit enter to add a tag" className="tagify__input" role="textbox" aria-autocomplete="both" aria-multiline="false" />
-                            </tags>
-                            <input type="text" className="form-control aiz-tag-input" name="tags" placeholder="Type and hit enter to add a tag" onChange={onChangeHandler} />
-                            <small className="text-muted">This is used for search. Input those words by which cutomer can find this product.</small>
-                        </div>
-                    </div>
-
-                    <div className="form-group row">
-                        <label className="col-md-3 col-from-label">Barcode</label>
-                        <div className="col-md-8">
-                            <input type="text" className="form-control" name="barcode" placeholder="Barcode" fdprocessedid="ifjwoo" onChange={onChangeHandler} />
-                        </div>
-                    </div>
-
-                    <div className="form-group row">
-                        <label className="col-md-3 col-from-label">Refundable</label>
-                        <div className="col-md-8">
-                            <label className="aiz-switch aiz-switch-success mb-0">
-                                <input type="checkbox" name="refundable" defaultChecked defaultValue={1} onChange={onChangeHandler} />
-                                <span />
-                            </label>
-                        </div>
-                    </div> */}
-                    {/* <button type="button" onClick={getInpData}>click</button> */}
+                    <button type="button" class="btn btn-success" onClick={sendValues}>Next ..</button>
                 </div>
 
             </div>

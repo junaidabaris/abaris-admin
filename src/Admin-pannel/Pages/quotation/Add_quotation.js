@@ -19,9 +19,9 @@ function Add_quotation() {
             biller: "",
             order_tax: "",
             discount: "",
-            status: "",
+            // status: "",
             shipping: "",
-            supplier: "",
+            // supplier: "",
         }
     )
 
@@ -67,7 +67,7 @@ function Add_quotation() {
 
     const sendComboData = () => {
         const getData = showCombo.map((item) => {
-            return { productId: item.productId, variant: item._id, price: item?.mrp }
+            return { product_id: item.productId, variant_id: item._id, price: item?.mrp }
         })
         const obj = {
             ...values,
@@ -164,7 +164,7 @@ function Add_quotation() {
                                         </select>
                                     </div>
                                 </div>
-                                <div className="col-4 d-block">
+                                {/* <div className="col-4 d-block">
                                     <div>
                                         <label>Supplier</label>
                                         <select name="supplier" className="form-select" aria-label="Default select example" onChange={changeHandelVal} >
@@ -174,9 +174,9 @@ function Add_quotation() {
                                             <option value="3">Three</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> */}
 
-                                <div className="col-4 d-block">
+                                {/* <div className="col-4 d-block">
                                     <div>
                                         <label>Status</label>
                                         <select name="status" className="form-select" aria-label="Default select example" onChange={changeHandelVal} >
@@ -184,7 +184,7 @@ function Add_quotation() {
                                             <option value="in_active">In Active</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 <div className="col-4 d-block">
                                     <div>
