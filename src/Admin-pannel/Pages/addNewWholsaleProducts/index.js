@@ -19,19 +19,20 @@ function AddNewWholesaleProductsPage() {
                     </div>
                     <div className>
                         {/* Error Meassages */}
-                        <form className="form form-horizontal mar-top" action="https://mmslfashions.in/admin/products/store" method="POST" encType="multipart/form-data" id="choice_form">
+                        <form className="form form-horizontal mar-top" id="choice_form">
                             <div className="row gutters-5">
                                 <div className="col-lg-8">
                                     <input type="hidden" name="_token" defaultValue="6klBhNOhEcSYzHAP1WU8ctR90lIocmkKBETVGkNx" />                <input type="hidden" name="added_by" defaultValue="admin" />
                                     <ProductsInformationAdmin />
-                                    <ProductsImages />
-                                    <ProductsVedios />
+                                    {/* <ProductsImages /> */}
+                                    {/* <ProductsVedios /> */}
                                     {/* <ProductsVariation /> */}
                                     {/* <ProductsPriceStock /> */}
                                     <PriceStocCompkWholsaleProducts />
-                                    <ProductsDescriptionAdmin />
-                                    <PdfSpecificationAdmin />
-                                    <SeoMetaTagsAdmin />
+                                    <PriceStocCompkWholsaleProducts />
+                                    {/* <ProductsDescriptionAdmin /> */}
+                                    {/* <PdfSpecificationAdmin /> */}
+                                    {/* <SeoMetaTagsAdmin /> */}
                                 </div>
                                 <div className="col-lg-4">
                                     <ShippingConfigurationAdmin />

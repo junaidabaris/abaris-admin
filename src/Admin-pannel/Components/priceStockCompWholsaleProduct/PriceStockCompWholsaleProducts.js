@@ -1,4 +1,26 @@
+import { useState } from "react";
+
 function PriceStocCompkWholsaleProducts() {
+    const [row, setRow] = useState([{ id: 12 }])
+
+    const incRows = () => {
+        const clone = [...row]
+        clone.push({ id: Math.random() })
+        setRow(clone)
+    }
+
+    const removeRow = (_id) => {
+        const filterdRow = row.filter((item) => {
+           if (item.id === _id) {
+
+           } else {
+            return item
+           }
+        })
+
+        setRow(filterdRow)
+    }
+
     return (
         <>
             <div className="card">
@@ -40,53 +62,85 @@ function PriceStocCompkWholsaleProducts() {
                         <label className="col-md-3 col-from-label">
                             Wholesale Prices
                         </label>
+
+
+
+                        <div className="row align-items-end">
+                            <div className="col-12 sku_combination table-responsive form-group" id="sku_combination">
+                                <table className="table table-bordered physical_product_show">
+                                    <thead>
+
+                                        <tr>
+                                            <td><label className="control-label">#</label></td>
+                                            <td><label className="control-label">Product Name</label></td>
+                                            <td><label className="control-label">SKU</label></td>
+                                            <td><label className="control-label">Variant</label></td>
+                                        </tr>
+
+                                    </thead>
+
+                                    <tbody>
+
+                                        {true && [1].map((item, i) => {
+                                            return <tr key={i}>
+                                                <td>
+                                                    {/* <AiFillDelete onClick={() => { deleteItem(i) }} /> */}1
+                                                </td>
+                                                <td>
+                                                    {/* <label name="productName" className="control-label">{item?.productName}</label> */}sss
+                                                </td>
+                                                <td>
+                                                    {/* <input type="text" disabled value={item?.sku} name="sku" className="form-control" /> */}
+                                                    sss
+                                                </td>
+                                                <td>
+                                                    {/* <input type="text" disabled value={item?.weight} name="rate" className="form-control" /> */}
+                                                    ss
+                                                </td>
+
+
+                                            </tr>
+                                        })}
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
                         <div className="col-md-6">
                             <div className="qunatity-price">
-                                <div className="row gutters-5">
-                                    <div className="col-3">
-                                        <div className="form-group">
-                                            <input type="text" className="form-control" placeholder="Min QTY" name="wholesale_min_qty[]" required fdprocessedid="qotckq" />
+                                {row.map((item) => {
+                                    return <div className="row gutters-5">
+                                        <div className="col-3">
+                                            <div className="form-group">
+                                                <input type="text" className="form-control" placeholder="Min QTY" name="wholesale_min_qty[]" required fdprocessedid="qotckq" />
+                                            </div>
+                                        </div>
+                                        <div className="col-3">
+                                            <div className="form-group">
+                                                <input type="text" className="form-control" placeholder="Max QTY" name="wholesale_max_qty[]" required fdprocessedid="h58k6x" />
+                                            </div>
+                                        </div>
+                                        <div className="col">
+                                            <div className="form-group">
+                                                <input type="text" className="form-control" placeholder="Price per piece" name="wholesale_price[]" required fdprocessedid="sw6gj4" />
+                                            </div>
+                                        </div>
+                                        <div className="col-auto">
+                                            <button type="button" className="mt-1 btn btn-icon btn-circle btn-sm btn-soft-danger" onClick={() => { removeRow(item.id) }}>
+                                                <i className="las la-times" />
+                                            </button>
                                         </div>
                                     </div>
-                                    <div className="col-3">
-                                        <div className="form-group">
-                                            <input type="text" className="form-control" placeholder="Max QTY" name="wholesale_max_qty[]" required fdprocessedid="h58k6x" />
-                                        </div>
-                                    </div>
-                                    <div className="col">
-                                        <div className="form-group">
-                                            <input type="text" className="form-control" placeholder="Price per piece" name="wholesale_price[]" required fdprocessedid="sw6gj4" />
-                                        </div>
-                                    </div>
-                                    <div className="col-auto">
-                                        <button type="button" className="mt-1 btn btn-icon btn-circle btn-sm btn-soft-danger" data-toggle="remove-parent" data-parent=".row" fdprocessedid="wypyj">
-                                            <i className="las la-times" />
-                                        </button>
-                                    </div>
-                                </div>
+                                })}
                             </div>
-                            <button type="button" className="btn btn-soft-secondary btn-sm" data-toggle="add-more" data-content="<div class=&quot;row gutters-5&quot;>
-                                  <div class=&quot;col-3&quot;>
-                                      <div class=&quot;form-group&quot;>
-                                          <input type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;Min QTY&quot; name=&quot;wholesale_min_qty[]&quot; required>
-                                      </div>
-                                  </div>
-                                  <div class=&quot;col-3&quot;>
-                                      <div class=&quot;form-group&quot;>
-                                          <input type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;Max QTY&quot; name=&quot;wholesale_max_qty[]&quot; required>
-                                      </div>
-                                  </div>
-                                  <div class=&quot;col&quot;>
-                                      <div class=&quot;form-group&quot;>
-                                          <input type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;Price per piece&quot; name=&quot;wholesale_price[]&quot; required>
-                                      </div>
-                                  </div>
-                                  <div class=&quot;col-auto&quot;>
-                                      <button type=&quot;button&quot; class=&quot;mt-1 btn btn-icon btn-circle btn-sm btn-soft-danger&quot; data-toggle=&quot;remove-parent&quot; data-parent=&quot;.row&quot;>
-                                          <i class=&quot;las la-times&quot;></i>
-                                      </button>
-                                  </div>
-                              </div>" data-target=".qunatity-price" fdprocessedid="422mc">
+                            <button type="button" className="btn btn-soft-secondary btn-sm" onClick={incRows}>
                                 Add More
                             </button>
                         </div>

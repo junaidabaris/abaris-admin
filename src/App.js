@@ -243,6 +243,8 @@ import DeliveryRunListPage from "./Admin-pannel/Pages/booking/deliveryRunList/In
 import DeliveryRunSheetPage from "./Admin-pannel/Pages/booking/deliveryRunSheet/Index";
 import AllCancelOrders from "./Admin-pannel/Pages/allCancelOrder/AllCancelOrders";
 import AffilliateUserVerification from "./Admin-pannel/Components/affliateUser/AffilliateUserVerification";
+import Add_quotation from "./Admin-pannel/Pages/quotation/Add_quotation";
+import ListQuatation from "./Admin-pannel/Pages/quotation/ListQuatation";
 
 
 function App() {
@@ -381,6 +383,7 @@ function App() {
           <Route path="verification/form" element={<VerificationFormPage />} />
           <Route path="seller-banners" element={<SellerBannerPage />} />
           <Route path="seller-banners/edit/:id" element={<EditSellerBanner />} />
+
           <Route path="affiliate" element={<AffiliatePage />} />
           <Route path="affiliate-cofiguration" element={<AfiliatedConfigurationPage />} />
           <Route path="affiliate-users" element={<AffiliateUserPage />} />
@@ -391,6 +394,7 @@ function App() {
           <Route path="uploaded-files/create" element={<UploadCreate />} />
           <Route path="affiliate/withdraw_requests" element={<AffiliateWithdrowPage />} />
           <Route path="affiliate/logs" element={<AffliateLogsPage />} />
+          
           <Route path="coupon" element={<CouponPage />} />
           <Route path="coupon/create" element={<CouponInformationAddingPage />} />
           <Route path="coupon/edit/:id" element={<EditCoupon />} />
@@ -522,6 +526,11 @@ function App() {
           <Route path="menifest-entry" element={<ManifestPage />} />
           <Route path="delivery-run-list" element={<DeliveryRunListPage />} />
           <Route path="delivery-run-sheet" element={<DeliveryRunSheetPage />} />
+
+
+          <Route path="list_quotation" element={<ListQuatation/>} />
+          <Route path="add_quotation" element={<Add_quotation/>} />
+
 
         </Route>
 

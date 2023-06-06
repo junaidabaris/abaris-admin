@@ -97,6 +97,9 @@ function EditProducts() {
         minimum_purchase_qty: '',
         tags: [],
         barcode: '',
+        hsn_code: '',
+        sale_rp: '',
+        share_rp: '',
         refundable: '',
         // products images
         gallery_image: '',
@@ -188,6 +191,9 @@ function EditProducts() {
         formData.append('tags', clonedObj.tags);
         formData.append('category_id', clonedObj.category_id);
         formData.append('slug', clonedObj.slug);
+        formData.append('hsn_code', clonedObj.hsn_code);
+        formData.append('sale_rp', clonedObj.sale_rp);
+        formData.append('share_rp', clonedObj.share_rp);
 
         formData.append('variations', JSON.stringify(clonedObj.variations));
         formData.append('variation_Form', JSON.stringify(clonedObj.variation_Form));
@@ -713,6 +719,9 @@ function EditProducts() {
                                                             <td className="text-center">
                                                                 <label className="control-label">SKU</label>
                                                             </td>
+                                                            <td><label className="control-label">HSN Code</label></td>
+                                                            <td><label className="control-label">Sale Reward Point</label></td>
+                                                            <td><label className="control-label">Share Reward Point</label></td>
                                                             {/* <td className="text-center">
                                                                 <label className="control-label">Pickup Point</label>
                                                             </td> */}
@@ -765,6 +774,17 @@ function EditProducts() {
                                                                 <td>
                                                                     <input data_id={item._id} type="text" name="sku" className="form-control" required onChange={onChangeHandler} value={item.sku} />
                                                                 </td>
+
+                                                                <td>
+                                                                    <input type="text" name="hsn_code" value={item?.hsn_code} className="form-control" onChange={onChangeHandler} />
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" name="sale_rp" value={item?.sale_rp} className="form-control" onChange={onChangeHandler} />
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" name="share_rp" value={item?.share_rp} className="form-control" onChange={onChangeHandler} />
+                                                                </td>
+
                                                                 {/* <td>
                                                                     <select data_id={item._id} className="js-example-basic-multiple js-states js-example-responsive demo-select2 w-100 select2-hidden-accessible selectOptions" name="pickup_points" data-select2-id={20} tabIndex={-1} aria-hidden="true" onChange={onChangeHandler}>
                                                                         {pickUp && pickUp.map((item) => {

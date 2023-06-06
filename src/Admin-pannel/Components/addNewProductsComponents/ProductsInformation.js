@@ -40,7 +40,53 @@ function ProductsInformationAdmin() {
                         </div>
                     </div>
 
-                    <div className="form-group row" id="category">
+                    <div className="row align-items-end">
+                        <div className="col-12 sku_combination table-responsive form-group" id="sku_combination">
+                            <table className="table table-bordered physical_product_show">
+                                <thead>
+
+                                    <tr>
+                                        <td><label className="control-label">#</label></td>
+                                        <td><label className="control-label">Product Name</label></td>
+                                        <td><label className="control-label">SKU</label></td>
+                                        <td><label className="control-label">Variant</label></td>
+                                    </tr>
+
+                                </thead>
+
+                                <tbody>
+
+                                    {true && [1,2].map((item, i) => {
+                                        return <tr key={i}>
+                                            <td>
+                                                {/* <AiFillDelete onClick={() => { deleteItem(i) }} /> */}1
+                                            </td>
+                                            <td>
+                                                {/* <label name="productName" className="control-label">{item?.productName}</label> */}sss
+                                            </td>
+                                            <td>
+                                                {/* <input type="text" disabled value={item?.sku} name="sku" className="form-control" /> */}
+                                                sss
+                                            </td>
+                                            <td>
+                                                {/* <input type="text" disabled value={item?.weight} name="rate" className="form-control" /> */}
+                                                ss
+                                            </td>
+                                           
+
+                                        </tr>
+                                    })}
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+
+
+
+
+
+                    {/* <div className="form-group row" id="category">
                         <label className="col-md-3 col-from-label">Category <span className="text-danger">*</span></label>
                         <div className="col-md-8">
                             <select className="form-select" aria-label="Default select example" name="category" onChange={onChangeHandler}>
@@ -111,8 +157,8 @@ function ProductsInformationAdmin() {
                                 <span />
                             </label>
                         </div>
-                    </div>
-                    <button type="button" onClick={getInpData}>click</button>
+                    </div> */}
+                    {/* <button type="button" onClick={getInpData}>click</button> */}
                 </div>
 
             </div>

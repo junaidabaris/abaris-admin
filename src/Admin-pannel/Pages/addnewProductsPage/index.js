@@ -52,7 +52,10 @@ const addFile = async (clonedObj, payload) => {
     formData.append('shipping_coast', clonedObj.shipping_coast);
     formData.append('tags', clonedObj.tags);
     formData.append('category_id', clonedObj.category_id);
-    formData.append('slug', clonedObj.slug);
+    formData.append('slug', clonedObj.slug)
+    formData.append('hsn_code', clonedObj.hsn_code);
+    formData.append('sale_rp', clonedObj.sale_rp);
+    formData.append('share_rp', clonedObj.share_rp);
 
     formData.append('flashDeal', JSON.stringify(clonedObj.flashDeal));
     formData.append('images', JSON.stringify(arr));
@@ -105,6 +108,9 @@ function AddNewProductsPage() {
         category_id: [],
         // brand_id: '',
         unit_price: '',
+        hsn_code: '',
+        sale_rp: '',
+        share_rp: '',
         // weight: "",
         minimum_purchase_qty: '',
         tags: [],
@@ -201,7 +207,6 @@ function AddNewProductsPage() {
         const brand_id = brandData.data && brandData.data[0]._id;
         const slug = 'youtube' + new Date().getUTCMilliseconds();
         const clonedObj = { ...inputval, variations: varianstData, flashDeal: flashDeal, variation_Form: attributesVal, tags: tags, category_id: finalCatD, seller_id, brand_id, slug, productDescription: productDescription };
-
 
         addFile(clonedObj, clonedObj.gallery_image)
 
