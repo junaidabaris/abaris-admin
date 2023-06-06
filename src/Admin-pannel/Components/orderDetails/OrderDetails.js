@@ -73,7 +73,7 @@ function OrderDetails() {
   useEffect(() => {
     getPickupPoint()
   }, [])
-  
+
   const isSuperAdminLogin = window.localStorage.getItem('adminId')
   const isLogin = window.localStorage.getItem('showMainadmin')
 
@@ -94,7 +94,7 @@ function OrderDetails() {
         if (item.pickupPoint_name === val) {
           return item
         }
-      
+
       })
 
       if (obj?.pickUpManagerSchema === null) {
@@ -124,7 +124,7 @@ function OrderDetails() {
     }
   }
 
-  
+
   return (
     <>
       {isLoading && (

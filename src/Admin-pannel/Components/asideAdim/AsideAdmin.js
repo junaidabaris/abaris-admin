@@ -36,6 +36,7 @@ function AsideAdmin() {
   const [front, setFront] = useState(false);
   const [quotations, setQuotations] = useState(false);
   const [booking, setBooking] = useState(false);
+  const [affiliate, setAffiliate] = useState(false);
 
   const { data, isLoading } = useGetAllStatusOrdersQuery()
   const { data: pickup, isLoading: isLoadingPick } = useGetPickupPointQuery()
@@ -883,6 +884,54 @@ function AsideAdmin() {
                       <span className="aiz-side-nav-text">Product Queries</span>
                     </Link>
                   </li>
+                </ul>
+              </li>
+
+              {/* affilliate */}
+
+              <li className="aiz-side-nav-item">
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setAffiliate(!affiliate) }}>
+                  <i className="las la-link aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Affiliate System</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${affiliate ? "mm-show" : "extra"}`}>
+                <li className="aiz-side-nav-item">
+                    <Link to="affiliate" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Affiliate Registration Form</span>
+                    </Link>
+                  </li>
+
+                  <li className="aiz-side-nav-item">
+                    <Link to="affiliate-cofiguration" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Affiliate Configuration</span>
+                    </Link>
+                  </li>
+                 
+                  <li className="aiz-side-nav-item">
+                    <Link to="affiliate-users" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Affiliate Users</span>
+                    </Link>
+                  </li>
+
+                  <li className="aiz-side-nav-item">
+                    <Link to="refferal/users" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Referral Users</span>
+                    </Link>
+                  </li>
+
+                  <li className="aiz-side-nav-item">
+                    <Link to="affiliate/withdraw_requests" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Affiliate Withdraw Requests</span>
+                    </Link>
+                  </li>
+
+                  <li className="aiz-side-nav-item">
+                    <Link to="affiliate/logs" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Affiliate Logs</span>
+                    </Link>
+                  </li>
+
                 </ul>
               </li>
 

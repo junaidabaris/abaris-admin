@@ -42,16 +42,16 @@ function StockReport() {
                             console.log(item);
                             if (item.name) {
                                 return <tr key={item._id}>
-                                <td>{1 + i}</td>
-                                <td>{item.name}</td>
-                                <td>
-                                    {item?.variant?.map((item) => {
-                                        return <span>{item?.weight}</span>
-                                    })}
-                                </td>
-                                <td>{item?.pickupPoints?.pickupPoint_name}</td>
-                                <td>{item.qty}</td>
-                            </tr>
+                                    <td>{1 + i}</td>
+                                    <td>{item.name}</td>
+                                    <td>
+                                        {item?.variant?.map((item) => {
+                                            return <span>{item?.weight}</span>
+                                        })}
+                                    </td>
+                                    <td>{item?.pickupPoints?.pickupPoint_name}</td>
+                                    <td>{item.qty}</td>
+                                </tr>
                             }
                         }) : <tr><td><h5>No Data</h5></td></tr>}
 
