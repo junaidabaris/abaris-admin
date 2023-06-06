@@ -8,16 +8,21 @@ function ProductSharingAffiliate() {
         percentage: '',
         status: null
     });
+    const [sharingStatusD, setSharingStatusD] = useState()
 
     const { data } = useGetBasicAffiliateQuery();
     useEffect(() => {
         const obj = { ...data }
-        setInputval(obj[0]?.category_sharing_affiliate)
+        if (data) {
+            setInputval(obj[0]?.product_sharing_affiliate);
+            setSharingStatusD(obj[0]?.product_sharing_affiliate.status)
+        }
     }, [data]);
 
     console.log('sharingData--', data);
 
     const onChangeHandler = (e) => {
+        setSharingStatusD(!sharingStatusD)
         const inpName = e.target.name;
         const inpval = e.target.value;
         const clonedObj = { ...inputval };
@@ -29,9 +34,11 @@ function ProductSharingAffiliate() {
 
     const submitUpdateProductSharing = (e) => {
         e.preventDefault();
-        updateProductSharing(inputval)
+        const abc = { ...inputval, status: sharingStatusD }
+        updateProductSharing({ product_sharing_affiliate: abc })
         document.getElementById("create-course-form").reset();
     };
+
 
     const toastSuccessMessage = () => {
         toast.success("Product Sharing Affiliate Updated Successfully !", {
@@ -56,6 +63,7 @@ function ProductSharingAffiliate() {
             toastErrorMessage()
         };
     }, [response])
+
 
     return (
         <>
@@ -85,7 +93,7 @@ function ProductSharingAffiliate() {
                                 <div className="col-md-3">
 
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>
                                 </div>
@@ -97,10 +105,11 @@ function ProductSharingAffiliate() {
                                 <div className="col-lg-8">
                                     <label className="aiz-switch aiz-switch-success mb-0">
                                         <input
-                                            defaultValue={1}
+                                            value={1}
                                             name="status"
                                             type="checkbox"
-                                            checked={inputval?.status}
+                                            checked={sharingStatusD}
+                                            onChange={onChangeHandler}
                                         />
                                         <span className="slider round" />
                                     </label>

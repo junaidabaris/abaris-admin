@@ -1,6 +1,64 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useGetBasicAffiliateQuery, useUpdateCategoryWiseAffilliateMutation } from '../all-products/allproductsApi/allProductsApi';
+import { ToastContainer, toast } from 'react-toastify';
 
 function SharingAffiliateCategoryWise() {
+    const [inputval, setInputval] = useState({
+        status: null
+    });
+    const [categoryWisestatusD, setCategoryWiseStatusD] = useState()
+
+    const { data } = useGetBasicAffiliateQuery();
+    useEffect(() => {
+        const obj = { ...data }
+        if (data) {
+            setInputval(obj[0]?.category_sharing_affiliate)
+            setCategoryWiseStatusD(obj[0]?.category_sharing_affiliate.status)
+        }
+    }, [data]);
+
+    const onChangeHandler = (e) => {
+        setCategoryWiseStatusD(!categoryWisestatusD)
+        const inpName = e.target.name;
+        const inpval = e.target.value;
+        const clonedObj = { ...inputval };
+        clonedObj[inpName] = inpval;
+        setInputval(clonedObj)
+    };
+
+    const [updateCategoryWiseAffilliate, response] = useUpdateCategoryWiseAffilliateMutation();
+
+    const submitUpdateCategoryWiseAffiliate = (e) => {
+        e.preventDefault();
+        const abc = { status: categoryWisestatusD }
+        updateCategoryWiseAffilliate({ category_sharing_affiliate: abc })
+        document.getElementById("create-course-form").reset();
+    };
+
+    const toastSuccessMessage = () => {
+        toast.success("CategoryWise Sharing Affiliate Updated Successfully !", {
+            position: "top-center"
+        })
+    };
+
+    const toastErrorMessage = () => {
+        toast.error("CategoryWise Sharing Affiliate not Updated !", {
+            position: "top-center"
+        })
+    }
+
+    useEffect(() => {
+        if (response.isSuccess === true) {
+            toastSuccessMessage()
+        };
+    }, [response]);
+
+    useEffect(() => {
+        if (response.isError === true) {
+            toastErrorMessage()
+        };
+    }, [response])
+
     return (
         <>
             <div className="col-lg-6">
@@ -11,16 +69,7 @@ function SharingAffiliateCategoryWise() {
                         </h3>
                     </div>
                     <div className="card-body">
-                        <form
-                            className="form-horizontal"
-                            action="https://mmslfashions.in/admin/affiliate/affiliate_option_store"
-                            method="POST"
-                        >
-                            <input
-                                type="hidden"
-                                name="_token"
-                                defaultValue="G4bUXBNF3wIuVAGVelAixJHRc1jUI9aDURGaNALg"
-                            />{" "}
+                        <form className="form-horizontal" onSubmit={submitUpdateCategoryWiseAffiliate}>
                             <div className="form-group row">
                                 <div className="col-lg-4">
                                     <label className="control-label">Status</label>
@@ -31,7 +80,8 @@ function SharingAffiliateCategoryWise() {
                                             defaultValue={1}
                                             name="status"
                                             type="checkbox"
-                                            defaultChecked
+                                            checked={categoryWisestatusD}
+                                            onChange={onChangeHandler}
                                         />
                                         <span className="slider round" />
                                     </label>
@@ -69,7 +119,7 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                  
+
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
                                         <option selected>$</option>
                                         <option value="1">%</option>
@@ -103,7 +153,7 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                   
+
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
                                         <option selected>$</option>
                                         <option value="1">%</option>
@@ -137,9 +187,9 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                   
+
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>
                                 </div>
@@ -171,9 +221,9 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                   
+
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>
                                 </div>
@@ -205,9 +255,9 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                  
+
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>
                                 </div>
@@ -239,9 +289,9 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                 
+
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>
                                 </div>
@@ -273,9 +323,9 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                  
+
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>
                                 </div>
@@ -307,9 +357,9 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                  
-                        <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+
+                                    <select className="form-select  form-control aiz-" aria-label="Default select example">
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>                      </div>
                             </div>
@@ -340,9 +390,9 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                   
+
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>
                                 </div>
@@ -374,9 +424,9 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                   
+
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>
                                 </div>
@@ -408,9 +458,9 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                   
+
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>
                                 </div>
@@ -442,9 +492,9 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                  
+
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>
                                 </div>
@@ -476,9 +526,9 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                  
+
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>
                                 </div>
@@ -510,9 +560,9 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                  
+
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>
                                 </div>
@@ -544,9 +594,9 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                  
+
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>
                                 </div>
@@ -578,9 +628,9 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                  
+
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>
                                 </div>
@@ -612,9 +662,9 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                   
+
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>
                                 </div>
@@ -646,10 +696,10 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                 
+
 
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>
                                 </div>
@@ -681,9 +731,9 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                   
+
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>
                                 </div>
@@ -715,9 +765,9 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                  
+
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>
                                 </div>
@@ -749,9 +799,9 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                   
+
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>
                                 </div>
@@ -783,9 +833,9 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                   
+
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>
                                 </div>
@@ -817,9 +867,9 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                   
+
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>
                                 </div>
@@ -851,9 +901,9 @@ function SharingAffiliateCategoryWise() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                  
+
                                     <select className="form-select  form-control aiz-" aria-label="Default select example">
-                                        <option selected>$</option>
+                                        <option >$</option>
                                         <option value="1">%</option>
                                     </select>
                                 </div>
@@ -870,6 +920,7 @@ function SharingAffiliateCategoryWise() {
                         </form>
                     </div>
                 </div>
+                <ToastContainer />
             </div>
         </>
     )

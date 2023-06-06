@@ -6,6 +6,7 @@ import { useGetAffiliateUsersQuery } from "../all-products/allproductsApi/allPro
 function AffiliateUser() {
 
   const [show, setShow] = useState(false);
+  const [idData, setIdData] = useState(null);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -64,15 +65,15 @@ function AffiliateUser() {
                     data?.map((item, i) => {
                       return <tr key={i}>
                         <td className="footable-first-visible" style={{ display: "table-cell" }}>{i + 1}</td>
-                        <td style={{ display: "table-cell" }}>{item.user_id?.firstname + " "+ item.user_id?.lastname}</td>
+                        <td style={{ display: "table-cell" }}>{item.user_id?.firstname + " " + item.user_id?.lastname}</td>
                         <td style={{ display: "table-cell" }}>{item.user_id?.mobile}</td>
                         <td style={{ display: "table-cell" }}>{item.user_id.email}</td>
                         <td style={{ display: "table-cell" }}>
-                          <a href="https://mmslfashions.in/admin/affiliate/verification/1">
+                          <Link to={`verification/${item._id}`} onClick={() => setIdData(item)}>
                             <span className="badge badge-inline badge-info">
                               Show
                             </span>
-                          </a>
+                          </Link>
                         </td>
                         <td style={{ display: "table-cell" }}>
                           <label className="aiz-switch aiz-switch-success mb-0">
@@ -80,7 +81,7 @@ function AffiliateUser() {
                               onChange="update_approved(this)"
                               defaultValue={1}
                               type="checkbox"
-                              checked = {item.status}
+                              checked={item.approval}
                             />
                             <span className="slider round" />
                           </label>
@@ -149,99 +150,8 @@ function AffiliateUser() {
                                     Payment method
                                   </label>
                                   <div className="col-sm-9">
-                                    {/* <div className="dropdown bootstrap-select form-control aiz-">
-                                        <select
-                                          name="payment_method"
-                                          id="payment_method"
-                                          className="form-control aiz-selectpicker"
-                                          required
-                                          tabIndex={-98}
-                                        >
-                                          <option value>Select Payment Method</option>
-                                          <option value="Paypal">Paypal</option>
-                                          <option value="Bank">Bank</option>
-                                        </select>
-                                        <button
-                                          type="button"
-                                          className="btn dropdown-toggle btn-light"
-                                          data-toggle="dropdown"
-                                          role="combobox"
-                                          aria-owns="bs-select-3"
-                                          aria-haspopup="listbox"
-                                          aria-expanded="false"
-                                          data-id="payment_method"
-                                          title="Select Payment Method"
-                                          fdprocessedid="6ivv4"
-                                        >
-                                          <div className="filter-option">
-                                            <div className="filter-option-inner">
-                                              <div className="filter-option-inner-inner">
-                                                Select Payment Method
-                                              </div>
-                                            </div>{" "}
-                                          </div>
-                                        </button>
-                                        <div
-                                          className="dropdown-menu "
-                                          style={{ overflow: "hidden" }}
-                                        >
-                                          <div
-                                            className="inner show"
-                                            role="listbox"
-                                            id="bs-select-3"
-                                            tabIndex={-1}
-                                            aria-activedescendant="bs-select-3-0"
-                                            style={{ overflowY: "auto" }}
-                                          >
-                                            <ul
-                                              className="dropdown-menu inner show"
-                                              role="presentation"
-                                              style={{
-                                                marginTop: 0,
-                                                marginBottom: 0,
-                                              }}
-                                            >
-                                              <li className="selected active">
-                                                <a
-                                                  role="option"
-                                                  className="dropdown-item active selected"
-                                                  id="bs-select-3-0"
-                                                  tabIndex={0}
-                                                  aria-setsize={3}
-                                                  aria-posinset={1}
-                                                  aria-selected="true"
-                                                >
-                                                  <span className="text">
-                                                    Select Payment Method
-                                                  </span>
-                                                </a>
-                                              </li>
-                                              <li>
-                                                <a
-                                                  role="option"
-                                                  className="dropdown-item"
-                                                  id="bs-select-3-1"
-                                                  tabIndex={0}
-                                                >
-                                                  <span className="text">Paypal</span>
-                                                </a>
-                                              </li>
-                                              <li>
-                                                <a
-                                                  role="option"
-                                                  className="dropdown-item"
-                                                  id="bs-select-3-2"
-                                                  tabIndex={0}
-                                                >
-                                                  <span className="text">Bank</span>
-                                                </a>
-                                              </li>
-                                            </ul>
-                                          </div>
-                                        </div>
-                                      </div> */}
                                     <select className="form-select" aria-label="Default select example">
-                                      <option selected>Select Payment Method</option>
+                                      <option>Select Payment Method</option>
                                       <option value="1">Paypal</option>
                                       <option value="2">Bank</option>
                                     </select>

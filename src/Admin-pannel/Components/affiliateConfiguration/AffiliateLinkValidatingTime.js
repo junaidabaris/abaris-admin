@@ -5,13 +5,15 @@ import { ToastContainer, toast } from 'react-toastify';
 function AffiliateLinkValidatingTime() {
 
     const [inputval, setInputval] = useState({
-        validation_time: ''
+        validation_time: ""
     });
 
     const { data } = useGetBasicAffiliateQuery();
     useEffect(() => {
         const obj = { ...data }
-        setInputval(obj[0].affiliate_Link)
+        if (data) {
+            setInputval(obj[0].affiliate_Link)
+        }
     }, [data]);
 
     console.log('linkData---', data)
@@ -20,7 +22,7 @@ function AffiliateLinkValidatingTime() {
         const inpName = e.target.name;
         const inpval = e.target.value;
         const clonedObj = { ...inputval };
-        clonedObj[inpName] = inpval;
+        clonedObj[inpName] = +inpval;
         setInputval(clonedObj)
     };
 
@@ -28,6 +30,7 @@ function AffiliateLinkValidatingTime() {
 
     const submitUpdateLinkValidationTime = (e) => {
         e.preventDefault();
+        // const abc = { ...inputval }
         updateLinkValidationTime(inputval)
         document.getElementById("create-course-form").reset();
     };
@@ -81,7 +84,7 @@ function AffiliateLinkValidatingTime() {
                                 <div className="col-lg-8">
                                     <div className="input-group mb-3">
                                         <input
-                                            type="text"
+                                            type="number"
                                             className="form-control"
                                             placeholder="No of Days"
                                             name="validation_time"

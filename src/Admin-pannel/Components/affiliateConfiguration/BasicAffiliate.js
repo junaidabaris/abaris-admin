@@ -6,17 +6,23 @@ function BasicAffiliate() {
 
     const [inputval, setInputval] = useState({
         userFirst_Purchase: '',
+        status: null
     });
+    const [statusD, setStatusD] = useState()
 
     const { data } = useGetBasicAffiliateQuery();
     useEffect(() => {
         const obj = { ...data }
-        setInputval(obj[0]?.basic_affiliate)
+        if (data) {
+            setInputval(obj[0]?.basic_affiliate)
+            setStatusD(obj[0]?.basic_affiliate.status)
+        }
     }, [data]);
 
     console.log('basicData---', data)
 
     const onChangeHandler = (e) => {
+        setStatusD(!statusD)
         const inpName = e.target.name;
         const inpval = e.target.value;
         const clonedObj = { ...inputval };
@@ -28,7 +34,8 @@ function BasicAffiliate() {
 
     const submitUpdateAffiliateBasic = (e) => {
         e.preventDefault();
-        editAffiliateBasic(inputval)
+        const abc = { ...inputval, status: statusD }
+        editAffiliateBasic({ basic_affiliate: abc })
         document.getElementById("create-course-form").reset();
     };
 
@@ -56,9 +63,6 @@ function BasicAffiliate() {
             toastErrorMessage()
         };
     }, [response])
-
-
-
 
 
     console.log('response--', response)
@@ -101,10 +105,11 @@ function BasicAffiliate() {
                                 <div className="col-lg-8">
                                     <label className="aiz-switch aiz-switch-success mb-0">
                                         <input
-                                            defaultValue={1}
+                                            // value={1}
                                             name="status"
                                             type="checkbox"
-                                            checked={data && data[0].basic_affiliate.status}
+                                            checked={statusD}
+                                            onChange={onChangeHandler}
                                         />
                                         <span className="slider round" />
                                     </label>

@@ -242,6 +242,7 @@ import ManifestPage from "./Admin-pannel/Pages/booking/manifest/Index";
 import DeliveryRunListPage from "./Admin-pannel/Pages/booking/deliveryRunList/Index";
 import DeliveryRunSheetPage from "./Admin-pannel/Pages/booking/deliveryRunSheet/Index";
 import AllCancelOrders from "./Admin-pannel/Pages/allCancelOrder/AllCancelOrders";
+import AffilliateUserVerification from "./Admin-pannel/Components/affliateUser/AffilliateUserVerification";
 
 
 function App() {
@@ -341,7 +342,7 @@ function App() {
 
           <Route path="orders/status/:id" element={<OrderByStatus />} />
 
-          <Route path="all_cancel_orders" element={<AllCancelOrders/>} />
+          <Route path="all_cancel_orders" element={<AllCancelOrders />} />
 
 
           <Route path="orders/PickupPints/:id" element={<OrderByPickupPoints />} />
@@ -383,6 +384,7 @@ function App() {
           <Route path="affiliate" element={<AffiliatePage />} />
           <Route path="affiliate-cofiguration" element={<AfiliatedConfigurationPage />} />
           <Route path="affiliate-users" element={<AffiliateUserPage />} />
+          <Route path="affiliate-users/verification/:id" element={<AffilliateUserVerification />} />
           <Route path="affiliate-users/deatails" element={<AffiliateUserDetailsPage />} />
           <Route path="refferal/users" element={<RefferalUsersPage />} />
           <Route path="uploaded-files" element={<UploadedFilePages />} />
