@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import PdfSpecificationAdmin from "../../Components/addNewProductsComponents/PdfSpecificationAdmn";
 import ProductsDescriptionAdmin from "../../Components/addNewProductsComponents/ProductsDescriptionAdmin";
 import ProductsImages from "../../Components/addNewProductsComponents/ProductsImages";
@@ -8,11 +9,65 @@ import ProductsVedios from "../../Components/addNewProductsComponents/ProductsVe
 import SeoMetaTagsAdmin from "../../Components/addNewProductsComponents/SeoMetaTagsAdmin";
 import ShippingConfigurationAdmin from "../../Components/addNewProductsComponents/ShippingConfigurationAdmin";
 import PriceStocCompkWholsaleProducts from "../../Components/priceStockCompWholsaleProduct/PriceStockCompWholsaleProducts";
-
+import { useAddWholeSaleMutation } from "../../Components/all-products/allproductsApi/allProductsApi";
+import { ToastContainer, toast } from "react-toastify";
 function AddNewWholesaleProductsPage() {
+    const [main, setMainVal] = useState({ products: [] })
+    const [data, setData] = useState([])
+    const issellerLog = window.localStorage.getItem('isSellerLogin')
+    const id = window.localStorage.getItem('isSellerId')
+
+    let sellid = "64269f0df127906d53878d3d"
+    if(issellerLog === 'true'){
+        sellid = id
+    }
+
+    const dataSetNext = (value) => {
+        setData(value)
+    }
+    const [sendDatas, { isLoading, isError, isSuccess }] = useAddWholeSaleMutation()
+
+    const sendData = () => {
+        const val = { seller_id: sellid, productId: data[0]?.productId, products: main.products }
+
+        // console.log(val);
+
+        sendDatas(val)
+
+    }
+
+    const toastSuccessMessage2 = () => {
+        toast.success("Wholsale Product Add Successfully", {
+            position: "top-center"
+        })
+    };
+
+    const toastErrorMessage2 = () => {
+        toast.error("Wholsale Product Not Added", {
+            position: "top-center"
+        })
+    };
+
+    useEffect(() => {
+        if (isSuccess === true) {
+            toastSuccessMessage2()
+        };
+    }, [isSuccess]);
+
+    useEffect(() => {
+        if (isError === true) {
+            toastErrorMessage2()
+        };
+    }, [isError])
     return (
         <>
             <div className="aiz-main-content">
+                {isLoading && <div className="preloaderCount">
+                    <div className="spinner-border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                </div>}
+                <ToastContainer />
                 <div className="px-15px px-lg-25px">
                     <div className="aiz-titlebar text-left mt-2 mb-3">
                         <h5 className="mb-0 h6">Add New Wholsale Product</h5>
@@ -23,13 +78,21 @@ function AddNewWholesaleProductsPage() {
                             <div className="row gutters-5">
                                 <div className="col-lg-8">
                                     <input type="hidden" name="_token" defaultValue="6klBhNOhEcSYzHAP1WU8ctR90lIocmkKBETVGkNx" />                <input type="hidden" name="added_by" defaultValue="admin" />
-                                    <ProductsInformationAdmin />
+                                    <ProductsInformationAdmin dataSetNext={dataSetNext} />
                                     {/* <ProductsImages /> */}
                                     {/* <ProductsVedios /> */}
                                     {/* <ProductsVariation /> */}
                                     {/* <ProductsPriceStock /> */}
-                                    <PriceStocCompkWholsaleProducts />
-                                    <PriceStocCompkWholsaleProducts />
+
+                                    {data && data.map((item, i) => {
+                                        return <PriceStocCompkWholsaleProducts key={i} item={item} setMainVal={setMainVal} main={main} data={data} />
+                                    })}
+
+                                    <button style={{ margin: "15px 0", width: "200px" }} type="button" class="btn btn-success" onClick={sendData}>Submit</button>
+
+                                    {/* <PriceStocCompkWholsaleProducts />
+                                    <PriceStocCompkWholsaleProducts /> */}
+
                                     {/* <ProductsDescriptionAdmin /> */}
                                     {/* <PdfSpecificationAdmin /> */}
                                     {/* <SeoMetaTagsAdmin /> */}
@@ -205,6 +268,7 @@ function AddNewWholesaleProductsPage() {
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </form>
                     </div>
