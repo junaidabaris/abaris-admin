@@ -1,25 +1,90 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function PriceStocCompkWholsaleProducts() {
-    const [row, setRow] = useState([{ id: 12 }])
+function PriceStocCompkWholsaleProducts({ item, setMainVal, main, data }) {
+    const [row, setRow] = useState([])
+    const [state, setState] = useState({
+        unit_price: item?.unit_price,
+        sku: item?.sku,
+        setPoint: 1,
+        qty: 1,
+    })
+
+    useEffect(() => {
+        setState({
+            unit_price: item?.sale_rate,
+            sku: item?.sku,
+            setPoint: 1,
+            qty: 1,
+        })
+    }, [])
+
+    const changeHandle = (e) => {
+        const clone = { ...state }
+        clone[e.target.name] = e.target.value
+        setState(clone)
+    }
 
     const incRows = () => {
         const clone = [...row]
-        clone.push({ id: Math.random() })
+        clone.push({ id: Math.random().toString(), min_qty: '', max_qty: '', sale_price: '' })
         setRow(clone)
     }
 
     const removeRow = (_id) => {
         const filterdRow = row.filter((item) => {
-           if (item.id === _id) {
+            if (item.id === _id) {
 
-           } else {
-            return item
-           }
+            } else {
+                return item
+            }
         })
-
         setRow(filterdRow)
+        // console.log(filterdRow);
     }
+
+
+    useEffect(() => {
+        const clone = [...row]
+        const obj = { id: item?._id.toString(), min_qty: 1, max_qty: 10, sale_price: item?.mrp }
+        clone.push(obj)
+        setRow(clone)
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    }, [])
+
+    const handelChange = (e) => {
+        const val = e.target.value
+        const idVal = e.target.id
+
+        const fillData = row.map((item) => {
+            if (item.id === idVal) {
+                return { ...item, [e.target.name]: val }
+            } else {
+                return item
+            }
+        })
+        setRow(fillData);
+
+    }
+
+    const saveToArr = () => {
+        const clone = { ...main }
+        const obj = {
+            product_id: data[0]?.productId,
+            variant_id: item._id,
+            ...state,
+            wholesale: row
+        }
+        const arr = clone.products
+        arr.push(obj)
+        clone.products = arr
+        console.log(obj);
+        setMainVal(clone)
+    }
+
+
 
     return (
         <>
@@ -31,7 +96,7 @@ function PriceStocCompkWholsaleProducts() {
                     <div className="form-group row">
                         <label className="col-md-3 col-from-label">Unit price <span className="text-danger">*</span></label>
                         <div className="col-md-6">
-                            <input type="number" lang="en" min={0} defaultValue={0} step="0.01" placeholder="Unit price" name="unit_price" className="form-control" required fdprocessedid="jjt0ap" />
+                            <input type="number" lang="en" onChange={changeHandle} value={state?.unit_price} min={0} defaultValue={0} step="0.01" placeholder="Unit price" name="unit_price" className="form-control" required fdprocessedid="jjt0ap" />
                         </div>
                     </div>
                     <div className="form-group row">
@@ -39,14 +104,14 @@ function PriceStocCompkWholsaleProducts() {
                             Set Point
                         </label>
                         <div className="col-md-6">
-                            <input type="number" lang="en" min={0} defaultValue={0} step={1} placeholder={1} name="earn_point" className="form-control" fdprocessedid="i4cfrb" />
+                            <input type="number" lang="en" onChange={changeHandle} value={state?.setPoint} min={0} defaultValue={0} step={1} placeholder={1} name="setPoint" className="form-control" fdprocessedid="i4cfrb" />
                         </div>
                     </div>
                     <div>
                         <div className="form-group row">
                             <label className="col-md-3 col-from-label">Quantity <span className="text-danger">*</span></label>
                             <div className="col-md-6">
-                                <input type="number" lang="en" min={0} defaultValue={0} step={1} placeholder="Quantity" name="current_stock" className="form-control" required fdprocessedid="f90buo" />
+                                <input type="number" lang="en" onChange={changeHandle} value={state?.qty} min={0} defaultValue={0} step={1} placeholder="Quantity" name="qty" className="form-control" required fdprocessedid="f90buo" />
                             </div>
                         </div>
                         <div className="form-group row">
@@ -54,7 +119,7 @@ function PriceStocCompkWholsaleProducts() {
                                 SKU
                             </label>
                             <div className="col-md-6">
-                                <input type="text" placeholder="SKU" name="sku" className="form-control" fdprocessedid="jlbx79" />
+                                <input type="text" placeholder="SKU" onChange={changeHandle} value={state?.sku} name="sku" className="form-control" fdprocessedid="jlbx79" />
                             </div>
                         </div>
                     </div>
@@ -74,33 +139,30 @@ function PriceStocCompkWholsaleProducts() {
                                             <td><label className="control-label">#</label></td>
                                             <td><label className="control-label">Product Name</label></td>
                                             <td><label className="control-label">SKU</label></td>
-                                            <td><label className="control-label">Variant</label></td>
+                                            <td><label className="control-label">MRP</label></td>
                                         </tr>
 
                                     </thead>
 
                                     <tbody>
 
-                                        {true && [1].map((item, i) => {
-                                            return <tr key={i}>
-                                                <td>
-                                                    {/* <AiFillDelete onClick={() => { deleteItem(i) }} /> */}1
-                                                </td>
-                                                <td>
-                                                    {/* <label name="productName" className="control-label">{item?.productName}</label> */}sss
-                                                </td>
-                                                <td>
-                                                    {/* <input type="text" disabled value={item?.sku} name="sku" className="form-control" /> */}
-                                                    sss
-                                                </td>
-                                                <td>
-                                                    {/* <input type="text" disabled value={item?.weight} name="rate" className="form-control" /> */}
-                                                    ss
-                                                </td>
+                                        <tr>
+                                            <td>
+                                                1
+                                            </td>
+                                            <td>
+                                                {item?.productName}
+                                            </td>
+                                            <td>
+                                                {item?.sku}
+                                            </td>
+                                            <td>
+
+                                                {item?.mrp}
+                                            </td>
 
 
-                                            </tr>
-                                        })}
+                                        </tr>
                                     </tbody>
 
                                 </table>
@@ -110,26 +172,23 @@ function PriceStocCompkWholsaleProducts() {
 
 
 
-
-
-
                         <div className="col-md-6">
                             <div className="qunatity-price">
-                                {row.map((item) => {
-                                    return <div className="row gutters-5">
+                                {row.map((item, i) => {
+                                    return <div key={i} className="row gutters-5">
                                         <div className="col-3">
                                             <div className="form-group">
-                                                <input type="text" className="form-control" placeholder="Min QTY" name="wholesale_min_qty[]" required fdprocessedid="qotckq" />
+                                                <input type="text" className="form-control" value={item?.min_qty} id={item.id} onChange={handelChange} placeholder="Min QTY" name="min_qty" required fdprocessedid="qotckq" />
                                             </div>
                                         </div>
                                         <div className="col-3">
                                             <div className="form-group">
-                                                <input type="text" className="form-control" placeholder="Max QTY" name="wholesale_max_qty[]" required fdprocessedid="h58k6x" />
+                                                <input type="text" className="form-control" value={item?.max_qty} id={item.id} onChange={handelChange} placeholder="Max QTY" name="max_qty" required fdprocessedid="h58k6x" />
                                             </div>
                                         </div>
                                         <div className="col">
                                             <div className="form-group">
-                                                <input type="text" className="form-control" placeholder="Price per piece" name="wholesale_price[]" required fdprocessedid="sw6gj4" />
+                                                <input type="text" className="form-control" value={item?.sale_price} id={item.id} onChange={handelChange} placeholder="Price per piece" name="sale_price" required fdprocessedid="sw6gj4" />
                                             </div>
                                         </div>
                                         <div className="col-auto">
@@ -143,10 +202,17 @@ function PriceStocCompkWholsaleProducts() {
                             <button type="button" className="btn btn-soft-secondary btn-sm" onClick={incRows}>
                                 Add More
                             </button>
+                            <div class="form-check" style={{ marginTop: "10px" }}>
+                                <input style={{ width: "20px", height: "20px" }} onClick={saveToArr} class="form-check-input" type="checkbox" value="" id={`flexCheckIndeterminate${item._id}`} />
+                                <label class="form-check-label" style={{ margin: "4px" }} htmlFor={`flexCheckIndeterminate${item._id}`}>
+                                    This Is Mendetry Filed
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
 
         </>
     )
