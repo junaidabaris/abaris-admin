@@ -12,9 +12,9 @@ function AppearancesPage() {
                     <div className="row">
                         <div className="col-lg-8 mx-auto">
                             <General />
-                            <GlobalSEO />
-                            <CookiesAgreement />
-                            <WebsitePopUp />
+                            {/* <GlobalSEO /> */}
+                            {/* <CookiesAgreement />
+                            <WebsitePopUp /> */}
                             <CustomScript />
                         </div>
                     </div>
