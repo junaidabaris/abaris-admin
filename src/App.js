@@ -427,7 +427,7 @@ function App() {
           <Route path="manual_payment_methods/create" element={<ManualPaymentMethordCreate />} />
           <Route path="manual_payment_methods/Information" element={<ManualPaymentMethordInformation />} />
           <Route path="otp-configuration" element={<OtpConfigurationPage />} />
-          {/* <Route path="sms-templates" element={<SmsTemplatesPage />} /> */}
+          <Route path="sms-templates" element={<SmsTemplatesPage />} />
           <Route path="otp-credentials-configuration" element={<SetOtpCredentialPage />} />
           <Route path="club-points/configuration" element={<ClubPointConfigurationPage />} />
           <Route path="club-points/index" element={<UserPointPage />} />

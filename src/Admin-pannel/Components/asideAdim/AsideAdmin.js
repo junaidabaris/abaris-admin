@@ -1004,8 +1004,8 @@ function AsideAdmin() {
               </li>
 
 
-              <li className="aiz-side-nav-item" onClick={() => { setClubPointsystem(!clubPointsystem) }}>
-                <Link to="#" className="aiz-side-nav-link" >
+              <li className="aiz-side-nav-item">
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setClubPointsystem(!clubPointsystem) }}>
                   <i className="lab la-btc aiz-side-nav-icon" />
                   <span className="aiz-side-nav-text">Club Point System</span>
                   <span className="aiz-side-nav-arrow" />
@@ -1030,8 +1030,8 @@ function AsideAdmin() {
               </li>
 
               {/* reward Point Addon*/}
-              <li className="aiz-side-nav-item" onClick={() => { setRewardPoints(!rewardPoints) }}>
-                <Link to="#" className="aiz-side-nav-link" >
+              <li className="aiz-side-nav-item">
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setRewardPoints(!rewardPoints) }}>
                   <i className="lab la-btc aiz-side-nav-icon" />
                   <span className="aiz-side-nav-text">Reward Point System</span>
                   <span className="aiz-side-nav-arrow" />
@@ -1051,6 +1051,31 @@ function AsideAdmin() {
               </li>
 
               {/*OTP addon */}
+
+              <li className="aiz-side-nav-item">
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setOtpSystem(!otpSystem) }}>
+                  <i className="las la-phone aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">OTP System</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${otpSystem ? "mm-show" : "extra"}`}>
+                  <li className="aiz-side-nav-item">
+                    <Link to="otp-configuration" className="aiz-side-nav-link">
+                      <span className="aiz-side-nav-text">OTP Configurations</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="sms-templates" className="aiz-side-nav-link">
+                      <span className="aiz-side-nav-text">SMS Templates</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="otp-credentials-configuration" className="aiz-side-nav-link">
+                      <span className="aiz-side-nav-text">Set OTP Credentials</span>
+                    </Link>
+                  </li>
+                </ul>
+              </li>
 
               {/* {african payment gateway} */}
 

@@ -4,17 +4,10 @@ import OtpTypes from "../../Components/otpConfiguration/OtpTypes";
 function OtpConfigurationPage() {
     return (
         <>
-
             <div className="aiz-main-content">
                 <div className="px-15px px-lg-25px">
                     <h4 className="text-center text-muted">Activate OTP</h4>
                     <div className="row">
-                        <OtpTypes />
-                        <OtpTypes />
-                        <OtpTypes />
-                        <OtpTypes />
-                        <OtpTypes />
-                        <OtpTypes />
                         <OtpTypes />
                     </div>
                 </div>
@@ -22,7 +15,6 @@ function OtpConfigurationPage() {
                     {/*p class="mb-0">&copy;  v6.3.3</p*/}
                 </div>
             </div>
-
             {/* <OtpConfiguration /> */}
         </>
     )

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from "react-toastify";
 import { useAddPointForAllProductsMutation } from '../../all-products/allproductsApi/allProductsApi';
 
@@ -13,11 +13,11 @@ function SetPointForAllProduct() {
         clonedObj[inpName] = inpVal
         setInputval(clonedObj)
     };
-    const [addPointsForAllProductD, response] = useAddPointForAllProductsMutation();
+    const [addPointsForAllProductData, response] = useAddPointForAllProductsMutation();
 
     const submitPointForAllProdData = (e) => {
         e.preventDefault();
-        addPointsForAllProductD(inputVal)
+        addPointsForAllProductData(inputVal)
         console.log(inputVal)
         document.getElementById("create-course-form").reset();
     };
@@ -28,13 +28,21 @@ function SetPointForAllProduct() {
         })
     };
 
-    if (response.isSuccess === true) {
-        toastSuccessMessage()
+    const toastErroeMessage = () => {
+        toast.error("!Error PointForAllProducts not added")
     };
 
-    if (response.isError === true) {
-        alert('!Error PointForAllProducts not added')
-    };
+    useEffect(() => {
+        if (response.isSuccess === true) {
+            toastSuccessMessage()
+        };
+    }, [response]);
+
+    useEffect(() => {
+        if (response.isError === true) {
+            toastErroeMessage()
+        };
+    }, [response]);
 
 
     return (
