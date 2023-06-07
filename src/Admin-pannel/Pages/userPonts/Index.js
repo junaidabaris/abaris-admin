@@ -3,7 +3,7 @@ import UserPoints from "../../Components/userPoint/UserPoint"
 function UserPointPage() {
     return (
         <>
-        <UserPoints/>
+            <UserPoints />
         </>
     )
 }

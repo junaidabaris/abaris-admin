@@ -4,18 +4,24 @@ import { useDeleteUserPointsMutation, useGetClubPointUserPointQuery } from "../a
 import { useEffect } from "react";
 
 function UserPoints() {
-
   const { isLoading, data } = useGetClubPointUserPointQuery();
-  console.log('club use d', data);
 
-  const [deleteUserPointsD, response] = useDeleteUserPointsMutation();
+  console.log('clubPointsUserData', data);
+
+  const [deleteUserPointData, response] = useDeleteUserPointsMutation();
 
   const deleteUserPoitsData = (id) => {
-    deleteUserPointsD(id)
+    deleteUserPointData(id)
   };
 
   const toastSuccessMessage = () => {
-    toast.success("UserPoints Deleted Successfully", {
+    toast.success("UserPoints Deleted Successfully !", {
+      position: "top-center"
+    })
+  };
+
+  const toastErrorMessage = () => {
+    toast.error("UserPoints Not Deleted !", {
       position: "top-center"
     })
   };
@@ -24,10 +30,13 @@ function UserPoints() {
     if (response.isSuccess === true) {
       toastSuccessMessage()
     };
+  }, [response]);
+
+  useEffect(() => {
     if (response.isError === true) {
-      alert('!UserPoints not deleted')
+      toastErrorMessage()
     };
-  }, [response])
+  });
 
   return (
     <>
@@ -56,7 +65,7 @@ function UserPoints() {
                           console.log('item', item)
                           return <tr key={item._id}>
                             <td className="footable-first-visible" style={{ display: 'table-cell' }}>{i + 1}</td>
-                            <td style={{ display: 'table-cell' }}>----</td>
+                            <td style={{ display: 'table-cell' }}>{item.order_id?.order_referenceNo}</td>
                             <td style={{ display: 'table-cell' }}>{item.order_id?.user?.firstname + item.order_id?.user?.lastname}</td>
                             <td style={{ display: 'table-cell' }}>{item.point}</td>
                             <td style={{ display: 'table-cell' }}>

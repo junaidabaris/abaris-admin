@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from "react-toastify";
 import { useAddSetProductPointWithinRangeMutation } from '../../all-products/allproductsApi/allProductsApi';
 
@@ -13,28 +13,36 @@ function SetPointWithinRange() {
         clonedObj[inpName] = inpVal
         setInputval(clonedObj)
     };
-    const [setPointWithinRangeD, response] = useAddSetProductPointWithinRangeMutation();
+    const [sendSetPointWithinRangeD, response] = useAddSetProductPointWithinRangeMutation();
 
     const submitSetPointWithinRangeData = (e) => {
         e.preventDefault();
-        setPointWithinRangeD(inputVal)
+        sendSetPointWithinRangeD(inputVal)
         console.log(inputVal)
         document.getElementById("create-course-form").reset();
     };
 
     const toastSuccessMessage = () => {
-        toast.success("ProductPointWithinRange added Successfully", {
+        toast.success("ProductPointWithinRange added Successfully !", {
             position: "top-center"
         })
     };
 
-    if (response.isSuccess === true) {
-        toastSuccessMessage()
+    const toastErrorMessage = () => {
+        toast.error("ProductPointWithinRange not added !")
     };
 
-    if (response.isError === true) {
-        alert('!Error ProductPointWithinRange not added')
-    };
+    useEffect(() => {
+        if (response.isSuccess === true) {
+            toastSuccessMessage()
+        };
+    }, [response]);
+
+    useEffect(() => {
+        if (response.isError === true) {
+            toastErrorMessage()
+        };
+    }, [response]);
 
 
     return (
