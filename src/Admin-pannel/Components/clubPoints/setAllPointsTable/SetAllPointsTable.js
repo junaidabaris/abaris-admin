@@ -4,31 +4,35 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useDeleteSetAllPointsMutation, useGetClubSetAllPointsTableDataQuery } from '../../all-products/allproductsApi/allProductsApi'
 
 function SetAllPointsTable() {
-
     const { isLoading, data } = useGetClubSetAllPointsTableDataQuery();
+
     console.log('setPointsData--', data);
 
-    const [deleteSetPointsD, response] = useDeleteSetAllPointsMutation();
-
-
+    const [deleteSetPointData, response] = useDeleteSetAllPointsMutation();
 
     const deleteSetPointsData = (id) => {
-        deleteSetPointsD(id)
+        deleteSetPointData(id)
     };
-    console.log('resp--', response);
 
     const toastSuccessMessage = () => {
-        toast.success("Set All Points Deleted Successfully", {
+        toast.success("Set All Points Deleted Successfully !", {
             position: "top-center"
         })
     };
+
+    const toastErrorMessage = () => {
+        toast.error("Set All Points Not Deleted !")
+    }
 
     useEffect(() => {
         if (response.isSuccess === true) {
             toastSuccessMessage()
         };
+    }, [response]);
+
+    useEffect(() => {
         if (response.isError === true) {
-            alert('!Set All Points not deleted')
+            toastErrorMessage()
         };
     }, [response])
 
@@ -47,11 +51,12 @@ function SetAllPointsTable() {
                                         <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Owner</th>
                                         <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Price</th>
                                         <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Point</th>
-                                        <th className="footable-last-visible" style={{ display: 'table-cell' }}>Options</th>
+                                        <th className="text-right footable-last-visible" style={{ display: 'table-cell' }}>Options</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {data && data.map((item, i) => {
+                                        console.log("item----", item)
                                         return <tr key={item._id}>
                                             <td className="footable-first-visible" style={{ display: 'table-cell' }}>{i + 1}</td>
                                             <td style={{ display: 'table-cell' }}>
@@ -61,7 +66,7 @@ function SetAllPointsTable() {
                                                             <img src="https://mmslfashions.in/public/assets/img/placeholder.jpg" alt="Image" className="size-50px" />
                                                         </div>
                                                         <div className="col">
-                                                            <span className="text-muted text-truncate-2">{item.product_id.name}</span>
+                                                            <span className="text-muted text-truncate-2">{item.product_id?.name}</span>
                                                         </div>
                                                     </div>
                                                 </Link>
@@ -102,6 +107,7 @@ function SetAllPointsTable() {
                                 </ul>
                             </nav>
                         </div> */}
+
                     </div>
                 </div>
                 <ToastContainer />

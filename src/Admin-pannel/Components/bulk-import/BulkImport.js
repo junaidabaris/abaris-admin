@@ -46,7 +46,7 @@ function BulkImport() {
               </div>
               <br />
               <div>
-                <a href="https://mmslfashions.in/public/download/product_bulk_demo.xlsx" download>
+                <a href="https://onlineparttimejobs.in/api/bulkimport/productFormat" download>
                   <button className="btn btn-info">Download CSV</button>
                 </a>
               </div>
@@ -74,7 +74,7 @@ function BulkImport() {
             <div className="card-body">
               <FileUploadCom url={"https://onlineparttimejobs.in/api/bulkimport/products_latest"} />
 
-              
+
             </div>
           </div>
         </div>

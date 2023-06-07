@@ -4,7 +4,6 @@ import { useEditPointToWalletMutation, useGetPointToWalletDataQuery } from "../a
 
 function ClubPointConfiguration() {
 
-
   const [inputVal, setInputval] = useState({ Points: "" });
 
   const changeHandler = (e) => {
@@ -14,35 +13,49 @@ function ClubPointConfiguration() {
     clonedObj[inpName] = inpVal
     setInputval(clonedObj)
   };
+
   const [editPoinToWalletD, response] = useEditPointToWalletMutation();
 
   const submitPointToWalletData = (e) => {
     e.preventDefault();
     editPoinToWalletD(inputVal)
-    console.log(inputVal)
     document.getElementById("create-course-form").reset();
   };
 
   const { data } = useGetPointToWalletDataQuery();
-  console.log('clubInputData', data)
+
+  console.log('clubInputData', data);
+
   useEffect(() => {
     const clon = { ...data }
     setInputval(clon)
-  }, [data])
+  }, [data]);
+
 
   const toastSuccessMessage = () => {
-    toast.success("PointToWallet Edited Successfully", {
+    toast.success("PointToWallet Edited Successfully !", {
       position: "top-center"
     })
   };
 
-  if (response.isSuccess === true) {
-    toastSuccessMessage()
-  };
+  const toastErroeMessage = () => {
+    toast.error("Error PointToWallet not Edited !", {
+      position: "top-center"
+    })
+  }
 
-  if (response.isError === true) {
-    alert('!Error PointToWallet not Edited')
-  };
+  useEffect(() => {
+    if (response.isSuccess === true) {
+      toastSuccessMessage()
+    };
+  }, [response]);
+
+  useEffect(() => {
+    if (response.isError === true) {
+      toastErroeMessage()
+    };
+  }, [response]);
+
 
   return (
     <>

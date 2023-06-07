@@ -180,7 +180,6 @@ function AffiliateUser() {
                     })
                   }
 
-
                 </tbody>
               </table>
               <div className="aiz-pagination"></div>
