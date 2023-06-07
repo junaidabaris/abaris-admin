@@ -30,8 +30,6 @@ function AddNewWholesaleProductsPage() {
     const sendData = () => {
         const val = { seller_id: sellid, productId: data[0]?.productId, products: main.products }
 
-        // console.log(val);
-
         sendDatas(val)
 
     }
