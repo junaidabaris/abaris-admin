@@ -245,6 +245,8 @@ import AllCancelOrders from "./Admin-pannel/Pages/allCancelOrder/AllCancelOrders
 import AffilliateUserVerification from "./Admin-pannel/Components/affliateUser/AffilliateUserVerification";
 import Add_quotation from "./Admin-pannel/Pages/quotation/Add_quotation";
 import ListQuatation from "./Admin-pannel/Pages/quotation/ListQuatation";
+import EtgAddMember from "./Admin-pannel/Pages/etgmembers/EtgAddMember";
+import ListEtgMember from "./Admin-pannel/Pages/etgmembers/ListEtgMember";
 
 
 function App() {
@@ -530,6 +532,9 @@ function App() {
 
           <Route path="list_quotation" element={<ListQuatation />} />
           <Route path="add_quotation" element={<Add_quotation />} />
+
+          <Route path="add_member" element={<EtgAddMember/>} />
+          <Route path="list_members" element={<ListEtgMember/>} />
 
 
         </Route>

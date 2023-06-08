@@ -377,6 +377,12 @@ function OrderDetails() {
                           </li>
 
                           <li>
+                            <strong>Name:</strong>
+                            <span>{data?.getaOrderById?.shippingAddress_save?.firstname + " " + data?.getaOrderById?.shippingAddress_save?.lastname}</span>
+
+
+                          </li>
+                          <li>
                             <strong>Email:</strong>
                             <span>{data?.getaOrderById?.shippingAddress_save?.email ? data?.getaOrderById?.shippingAddress_save?.email : data?.getaOrderById?.billingAddress?.email}</span>
 

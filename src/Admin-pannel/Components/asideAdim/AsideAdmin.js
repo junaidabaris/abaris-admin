@@ -37,6 +37,7 @@ function AsideAdmin() {
   const [quotations, setQuotations] = useState(false);
   const [booking, setBooking] = useState(false);
   const [affiliate, setAffiliate] = useState(false);
+  const [member, setMember] = useState(false);
 
   const { data, isLoading } = useGetAllStatusOrdersQuery()
   const { data: pickup, isLoading: isLoadingPick } = useGetPickupPointQuery()
@@ -542,10 +543,77 @@ function AsideAdmin() {
                     </Link>
                   </li>
 
+                </ul>
+              </li>
+
+
+              <li className="aiz-side-nav-item" >
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setMember(!member) }}>
+                  <i className="las la-shopping-cart aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">EGT Members</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${member ? "mm-show" : "extra"}`} id="product">
+                  <li className="aiz-side-nav-item">
+                    <Link to="add_member" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Add Member</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="list_members" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">List Members</span>
+                    </Link>
+                  </li>
+                 
+                </ul>
+              </li>
+
+
+
+
+
+
+
+              <li className="aiz-side-nav-item">
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setWholsale(!wholeSale) }}>
+                  <i className="las la-shopping-cart aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Web Setting</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                {/*Submenu*/}
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${wholeSale ? "mm-show" : "extra"}`} id="product">
+                  <li className="aiz-side-nav-item">
+                    <Link to="website-pages" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">website-pages</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="website-pages/custom-pages/create" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Add New Page</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="website/appearance" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Website Setting</span>
+                    </Link>
+                  </li>
+                  {/* <li className="aiz-side-nav-item">
+                    <Link to="website-footer" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Website-footer</span>
+                    </Link>
+                  </li> */}
+                  {/* <li className="aiz-side-nav-item">
+                    <Link to="sizechart" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Size Chart</span>
+                    </Link>
+                  </li> */}
 
 
                 </ul>
               </li>
+
+
+
 
 
 
