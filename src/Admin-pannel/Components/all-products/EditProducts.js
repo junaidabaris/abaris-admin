@@ -33,6 +33,7 @@ function EditProducts() {
 
     const [allAttributes, setAllAttributes] = useState(null);
     const getAttributes = (attributes) => {
+        console.log(allAttributes);
         setAllAttributes([...attributes])
     }
 
@@ -62,16 +63,18 @@ function EditProducts() {
     }
 
     useEffect(() => {
-        if (variationsData) {
-            setVariationArr(variationsData)
-        }
-    }, [])
-
-    useEffect(() => {
         if (sussVari) {
             setVariationArr(variationsData)
+            return
         }
+        setVariationArr(variationsData)
     }, [sussVari])
+
+    // useEffect(() => {
+    //     if (sussVari) {
+    //         setVariationArr(variationsData)
+    //     }
+    // }, [sussVari])
 
 
 

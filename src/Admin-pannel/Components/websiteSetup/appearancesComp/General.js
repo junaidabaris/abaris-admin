@@ -1,11 +1,26 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
 function General() {
 
     const [state, setState] = useState({
-        message: "",
-        photo: "",
+        front_top_message: "",
+        icon: "",
     })
+
+    const getData = async () => {
+        const res = await axios.get(`https://onlineparttimejobs.in/api/adminFrontMessage/id`)
+        setState({
+            front_top_message: res.data.front_top_message,
+            icon: res.data.icon,
+        })
+    }
+
+    useEffect(() => {
+        getData()
+    }, [])
+
+
 
     const [file, setFile] = useState()
     const changephoto = (e) => {
@@ -19,8 +34,23 @@ function General() {
     }
 
     const sendData = async () => {
+        const formData = new FormData();
+     
 
+        formData.append('front_top_message', state.front_top_message);
+        formData.append('image', file ? file : state.icon.url);
+        try {
+            const res = await axios.put(`https://onlineparttimejobs.in/api/adminFrontMessage/update_AdminGeneralMessages`, formData)
+            alert('FRONT HEADER SETTING UPDATED')
+            setState({
+                front_top_message: res.data.front_top_message,
+                icon: res.data.icon,
+            })
+        } catch (error) {
+            alert('SERVER ERROR FRONT HEADER SETTING NOT UPDATED')
+        }
     }
+
 
     return (
         <>
@@ -33,7 +63,7 @@ function General() {
                         <div className="form-group row">
                             <label className="col-md-3 col-from-label">Front Top Message</label>
                             <div className="col-md-8">
-                                <input type="text" name="message" onChange={changeHandel} className="form-control" placeholder="Front Top Message" fdprocessedid="t2ds68j" />
+                                <input type="text" name="front_top_message" value={state?.front_top_message} onChange={changeHandel} className="form-control" placeholder="Front Top Message" fdprocessedid="t2ds68j" />
                             </div>
                         </div>
 
@@ -47,7 +77,8 @@ function General() {
                         <div className="form-group row">
                             <label className="col-md-3 col-from-label">Site Icon</label>
                             <div className="col-md-8">
-                                <input type='file' name='photo' onChange={changephoto} className='form-control' />
+                                <input type='file' name='icon' onChange={changephoto} className='form-control' />
+                                <img style={{ width: "150px", margin: "10px 0", border: "1px solid black", padding: "10px", objectFit: "cover" }} src={state?.icon?.url} />
                             </div>
                         </div>
 

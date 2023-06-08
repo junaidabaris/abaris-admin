@@ -89,7 +89,6 @@ function AffiliateLinkValidatingTime() {
                                             placeholder="No of Days"
                                             name="validation_time"
                                             value={inputval?.validation_time}
-                                            fdprocessedid="8ymtui"
                                             onChange={onChangeHandler}
                                         />
                                         <div className="input-group-prepend">
