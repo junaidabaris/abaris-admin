@@ -1,4 +1,7 @@
 import ActivationTypes from "../../Components/africanPgConfiguration/ActivationTypes";
+import FlutterActivation from "./FlutterActivation";
+import PayFastActivation from "./PayFastActivation";
+import TingoActivation from "./TingoActivation";
 
 function AfricanPgConfigurationPage() {
 
@@ -19,8 +22,12 @@ function AfricanPgConfigurationPage() {
             <div className="aiz-main-content">
                 <div className="px-15px px-lg-25px">
                     <div className="row">
-                        <ActivationTypes data={activationData} />
+                        <FlutterActivation />
+                        <PayFastActivation />
+                        <TingoActivation />
+                        {/* <ActivationTypes data={activationData} />
                         <ActivationTypes data={activationData2} />
+                        <ActivationTypes data={activationData2} /> */}
                     </div>
                 </div>
                 <div className="bg-white text-center py-3 px-15px px-lg-25px mt-auto">
