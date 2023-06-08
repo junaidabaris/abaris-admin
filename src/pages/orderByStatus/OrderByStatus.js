@@ -29,7 +29,7 @@ function OrderByStatus() {
         }
     }
     useEffect(() => {
-        if (isLoginPickup) {
+        if (isLoginPickup === 'true') {
             getData()
         }
     }, [params])

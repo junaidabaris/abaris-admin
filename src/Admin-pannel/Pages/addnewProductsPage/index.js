@@ -26,27 +26,30 @@ const toastErrorMessage = () => {
 };
 
 const addFile = async (clonedObj, payload) => {
+    console.log(clonedObj.thumbnail_image);
     const url = 'https://onlineparttimejobs.in/api/product/add_product'
     const formData = new FormData();
     const images = new FormData();
 
     // formData.append('gallery_image', payload);
     const arr = []
-    for (const iterator of payload) {
-        images.append('image', iterator);
-        try {
-            const res = await axios.post(`https://onlineparttimejobs.in/api/cloudinaryImage/addImage`, images)
-            const obj = { public_id: res.data.public_id, url: res.data.url }
-            arr.push(obj)
-        } catch (error) {
-            alert('Somthing Went Wrong Image Not Up ')
+    if (payload) {
+        for (const iterator of payload) {
+            images.append('image', iterator);
+            try {
+                const res = await axios.post(`https://onlineparttimejobs.in/api/cloudinaryImage/addImage`, images)
+                const obj = { public_id: res.data.public_id, url: res.data.url }
+                arr.push(obj)
+            } catch (error) {
+                alert('Somthing Went Wrong Image Not Up ')
+            }
+            images.delete('image');
         }
-        images.delete('image');
     }
 
 
     formData.append('name', clonedObj.name);
-    formData.append('thumbnail_image', clonedObj.thumbnail_image[0]);
+    formData.append('thumbnail_image', clonedObj.thumbnail_image ? clonedObj.thumbnail_image[0] : '');
     formData.append('brand_id', clonedObj.brand_id);
     formData.append('seller_id', clonedObj.seller_id);
     formData.append('shipping_coast', clonedObj.shipping_coast);
@@ -402,7 +405,7 @@ function AddNewProductsPage() {
                                                     </div>
                                                     <div className="file-preview box sm">
                                                     </div>
-                                                    <small className="text-muted"> <span style={{color:"red"}}>(Select 4 Image Atleast)</span> These images are visible in product details page gallery. Use 600x600 sizes images.</small>
+                                                    <small className="text-muted"> <span style={{ color: "red" }}>(Select 4 Image Atleast)</span> These images are visible in product details page gallery. Use 600x600 sizes images.</small>
                                                 </div>
                                             </div>
                                             <div className="form-group row">
