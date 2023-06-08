@@ -394,7 +394,7 @@ function App() {
           <Route path="uploaded-files/create" element={<UploadCreate />} />
           <Route path="affiliate/withdraw_requests" element={<AffiliateWithdrowPage />} />
           <Route path="affiliate/logs" element={<AffliateLogsPage />} />
-          
+
           <Route path="coupon" element={<CouponPage />} />
           <Route path="coupon/create" element={<CouponInformationAddingPage />} />
           <Route path="coupon/edit/:id" element={<EditCoupon />} />
@@ -528,8 +528,8 @@ function App() {
           <Route path="delivery-run-sheet" element={<DeliveryRunSheetPage />} />
 
 
-          <Route path="list_quotation" element={<ListQuatation/>} />
-          <Route path="add_quotation" element={<Add_quotation/>} />
+          <Route path="list_quotation" element={<ListQuatation />} />
+          <Route path="add_quotation" element={<Add_quotation />} />
 
 
         </Route>
