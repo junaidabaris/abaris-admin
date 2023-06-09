@@ -82,7 +82,7 @@ function PayFastCredential() {
                                 <div className="col-lg-8">
                                     <input type="text" className="form-control" value={inputVal?.PAYFAST_MERCHANT_ID} name="PAYFAST_MERCHANT_ID" required fdprocessedid="3b7pv6" onChange={onChangeHandler} />
                                 </div>
-                            </div>
+                            </div>  
 
                             <div className="form-group row">
                                 <input type="hidden" name="types[]" />
