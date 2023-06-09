@@ -1,6 +1,43 @@
 import React from 'react'
 
 function TingoCredential() {
+
+
+    // const [inputVal, setInputval] = useState({
+    //     PAYFAST_Sandbox_Mode: null, PAYFAST_MERCHANT_ID: '', PAYFAST_MERCHANT_KEY: ''
+    // });
+
+    // const [statusD, setStatusD] = useState()
+
+    // const { isLoading, data } = useGetPayFastCredentialQuery();
+    // // console.log('payfastD---', data)
+
+    // useEffect(() => {
+    //     const clon = { ...data }
+    //     if (data) {
+    //         setInputval(clon);
+    //         setStatusD(clon.PAYFAST_Sandbox_Mode)
+    //     }
+    // }, [data]);
+
+    // const onChangeHandler = (e) => {
+    //     setStatusD(!statusD)
+    //     const inpName = e.target.name;
+    //     const inpval = e.target.value;
+    //     const clonedObj = { ...inputVal };
+    //     clonedObj[inpName] = inpval;
+    //     setInputval(clonedObj)
+    // };
+
+    // const [updatePayFastD, response] = useUpdatePayFastCredentialMutation();
+
+    // const submitUpdatePayFastCredential = (e) => {
+    //     e.preventDefault();
+    //     const abc = { ...inputVal, PAYFAST_Sandbox_Mode: statusD }
+    //     updatePayFastD(abc)
+    //     document.getElementById("create-course-form").reset();
+    // };
+
     return (
         <>
             <div className="col-lg-6">

@@ -13,27 +13,7 @@ function SetOtpCredential() {
                 <div className="px-15px px-lg-25px">
                     <div className="row">
                         <TwillioCredential />
-                        {/* <NexmoCredential />
-
-                        <SSLWirelessCredential />
-                        <FastMsCredential />
-
-
-                        <MimoCredential />
-                        <MimSmsCredential />
-
-                        <MSegatCredential /> */}
-
                     </div>
-                    {/* <div className="row">
-
-                    </div>
-                    <div className="row">
-
-                    </div>
-                    <div className="row">
-
-                    </div> */}
                 </div>
                 <div className="bg-white text-center py-3 px-15px px-lg-25px mt-auto">
                     {/*p class="mb-0">&copy;  v6.3.3</p*/}

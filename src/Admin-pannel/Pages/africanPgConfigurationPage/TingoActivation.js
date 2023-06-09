@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import tingo from './../../../assets/img/tingo.jpg'
+import tingo from './../../../assets/img/tingo.jpg';
 
 function TingoActivation() {
     return (
@@ -18,7 +18,7 @@ function TingoActivation() {
                                 <span className="slider round" />
                             </label>
                         </div>
-                        <div className="alert" style={{ color: '#004085', backgroundColor: '#cce5ff', borderColor: '#b8daff', marginBottom: 0, marginTop: 10 }}>You need to configure payfast correctly to enable this feature. Configure Now<Link to="/admin/african/configuration/payment-method">Configure Now</Link> </div>
+                        <div className="alert" style={{ color: '#004085', backgroundColor: '#cce5ff', borderColor: '#b8daff', marginBottom: 0, marginTop: 10 }}>You need to configure payfast correctly to enable this feature. Configure Now<Link to="#">Configure Now</Link> </div>
                     </div>
                 </div>
             </div>
