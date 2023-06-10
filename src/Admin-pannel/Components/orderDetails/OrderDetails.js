@@ -13,6 +13,9 @@ import axios from "axios";
 function OrderDetails() {
   const [modalShow, setModalShow] = useState(false);
   const invoice = window.localStorage.getItem("invoice");
+  const isPickupManagerId = window.localStorage.getItem("isPickupManagerId");
+  const adminId = window.localStorage.getItem("adminId");
+
   const param = useParams();
   const [inputVal, setInputVal] = useState({
     orderId: param.id,
@@ -120,7 +123,57 @@ function OrderDetails() {
       const res = await axios.post(`https://onlineparttimejobs.in/api/orderStatusTransaction/add_OrderStatusTrans`, pickupData)
       alert('Assign To PickUp Point Manager Successfully')
     } catch (error) {
-      alert('Faild To Assign PickUp Point Manager Successfully !!')
+      alert('Faild To Assign PickUp Point Manager !!')
+    }
+  }
+
+
+
+
+
+  // DELEVERY BOY
+
+  const [dataBoy, setdataBoy] = useState(null)
+
+  const [boyBody, setBoyBody] = useState({
+    orderId: param.id,
+    deliveryBoy: '',
+    staff_id: adminId ? adminId : isPickupManagerId,
+    note: ""
+  })
+
+  const getData = async () => {
+    const res = await axios.get(`https://onlineparttimejobs.in/api/deliveryBoy`)
+    setdataBoy(res.data)
+  }
+
+  useEffect(() => {
+    getData()
+  }, [])
+
+
+  const changeHandleBoy = (e) => {
+
+    const clone = { ...boyBody }
+    console.log(e.target.value);
+
+    if (e.target.name === 'deliveryBoy') {
+      const obj2 = { ...boyBody, deliveryBoy: e.target.value }
+      setBoyBody(obj2)
+
+    } else {
+      clone[e.target.name] = e.target.value
+      setBoyBody(clone)
+    }
+  }
+
+  const sendAssignBoy = async () => {
+    console.log(boyBody);
+    try {
+      const res = await axios.post('https://onlineparttimejobs.in/api/assignDeliveryBoy/add_AssignDeliveryBoy', boyBody)
+      alert('Assign To Delevery Boy Successfully')
+    } catch (error) {
+      alert('Assign To Delevery Boy Failed')
     }
   }
 
@@ -297,16 +350,15 @@ function OrderDetails() {
                       </label>
                       <select
                         className="form-select"
-                        name="managerId"
+                        name="deliveryBoy"
                         aria-label="Default select example"
                         defaultValue={""}
-                        // onChange={handelChange}
-
+                        onChange={changeHandleBoy}
                         style={{ height: 38 + "px", fontSize: 13 + "px" }}>
-
-                        {pickups && pickups.map((item) => {
-                          return <option key={item._id} id={item._id} >
-                            {item.pickupPoint_name}
+                        <option>Select Delevery Boy</option>
+                        {dataBoy && dataBoy.map((item) => {
+                          return <option key={item._id} id={item._id} value={item._id}>
+                            {item.firstname} {item?.lastname}
                           </option>
                         })}
 
@@ -315,14 +367,14 @@ function OrderDetails() {
 
                     <h6>Note..</h6>
                     <div className="form-floating" style={{ margin: "8px 0" }}>
-                      <textarea name="note" onChange={handelChange} className="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                      <textarea name="note" onChange={changeHandleBoy} className="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
                     </div>
 
-                    <div style={{display:"flex" ,justifyContent:"end"}}>
+                    <div style={{ display: "flex", justifyContent: "end" }}>
                       <button
                         type="button"
                         className="btn btn-primary"
-                      // onClick={sendAssign}
+                        onClick={sendAssignBoy}
                       >
                         Send
                       </button>

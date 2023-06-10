@@ -7,6 +7,7 @@ import { FaFacebookF } from "react-icons/fa";
 import { useLoginStaffsMutation, useSellerLoginMutation } from "../Admin-pannel/Components/all-products/allproductsApi/allProductsApi";
 import { Spinner } from "react-bootstrap";
 import img2 from "../assets/img/login.png"
+import axios from "axios";
 
 function LoginSection({ setshow }) {
 
@@ -51,27 +52,30 @@ function LoginSection({ setshow }) {
     const setAllData = (data) => {
         // window.localStorage.setItem('adminId', data.findStaff._id)
         // window.localStorage.setItem('adminToken', data.token)
+        if (data?.finddeliveryBoy?.role_id.role_name === 'delevery boy') {
+            window.localStorage.setItem('isDeleveryBoy', true)
+            window.localStorage.setItem('DeleveryBoyId', data?.finddeliveryBoy?._id)
+            window.localStorage.setItem('DeleveryBoyName', data?.finddeliveryBoy?.firstname + " " + data?.finddeliveryBoy?.lastname)
 
+        }
 
-        if (data?.findStaff?.role_id.role_name === 'Pickup Point Manager') {
+        else if (data?.findStaff?.role_id.role_name === 'Pickup Point Manager') {
             window.localStorage.setItem('isPickupManagerLogin', true)
             window.localStorage.setItem('isPickupManagerId', data?.findStaff?._id)
             window.localStorage.setItem('pickIds', data?.pickIds[0])
             window.localStorage.setItem('isPickupManagerName', data?.findStaff?.firstname + " " + data?.findStaff?.lastname)
 
         }
-        if (!data?.findStaff?.role_id) {
-            window.localStorage.setItem('isSellerLogin', true)
-            window.localStorage.setItem('isSellerId', data?.findSeller?._id)
-            window.localStorage.setItem('isSellerName', data?.findSeller?.firstname + " " + data?.findSeller?.lastname)
-        }
-        if (data?.findStaff?.role_id.name === 'Super Admin') {
+        else if (data?.findStaff?.role_id.name === 'Super Admin') {
             window.localStorage.setItem('showMainadmin', true)
             window.localStorage.setItem('adminId', data?.findStaff?._id)
             window.localStorage.setItem('superAdminName', data?.findStaff?.firstname + " " + data?.findStaff?.lastname)
-        } else {
-            window.localStorage.setItem('showMainadmin', false)
-            window.localStorage.setItem('adminId', data?.findStaff?._id)
+        }
+
+        else {
+            window.localStorage.setItem('isSellerLogin', true)
+            window.localStorage.setItem('isSellerId', data?.findSeller?._id)
+            window.localStorage.setItem('isSellerName', data?.findSeller?.firstname + " " + data?.findSeller?.lastname)
         }
         setTimeout(() => {
             navigate('/admin')
@@ -100,6 +104,19 @@ function LoginSection({ setshow }) {
         sellerLog(loginForm)
     }
 
+    const [delevery, setDelevry] = useState(true)
+    const showDelvery = () => {
+        setDelevry(!delevery)
+    }
+
+    const sendDelevery = async () => {
+        try {
+            const res = await axios.post('https://onlineparttimejobs.in/api/deliveryBoy/login', loginForm)
+            setAllData(res.data)
+        } catch (error) {
+            alert('Login Fail')
+        }
+    }
 
 
     return <div className="registrationDetail">
@@ -160,19 +177,25 @@ function LoginSection({ setshow }) {
                         {isSuccess && <h4>login Successfully !</h4>}
                         {isSellerErr && <h4 style={{ color: "red" }}>login Fail ! </h4>}
                         {isSellerSucc && <h4>login Successfully !</h4>}
-                        {showSeller ? <button className="btn btn-primary createAccount" type="button" onClick={SendSellerInfo} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        {!delevery ? <button className="btn btn-primary createAccount" type="button" onClick={sendDelevery} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            login Delevery Boy
+                        </button> : showSeller ? <button className="btn btn-primary createAccount" type="button" onClick={SendSellerInfo} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                             login Seller
                             {sellerLoading && <Spinner style={{ marginLeft: "7px" }} animation="border" />}
                         </button> : <button className="btn btn-primary createAccount" type="button" onClick={handleLoginSubmit} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                             login
                             {isLoading && <Spinner style={{ marginLeft: "7px" }} animation="border" />}
                         </button>}
+
                     </form>
                     {!showSeller ? <div className="forgotText" style={{ marginTop: "10px", display: "flex", justifyContent: "center" }}>
                         <Link to="#" onClick={ShowSellerLogin}>Login Seller</Link>
+
                     </div> : <div className="forgotText" style={{ marginTop: "10px", display: "flex", justifyContent: "center" }}>
                         <Link to="#" onClick={ShowSellerLogin}>Login Admin</Link>
                     </div>}
+
+                    {!delevery ? <Link to="#" onClick={showDelvery}>Login Admin</Link> : <Link to="#" onClick={showDelvery}>Login As Delevery Boy</Link>}
                     <div className="joinWith">
                         <span>or login with</span>
                     </div>
@@ -201,7 +224,7 @@ function LoginSection({ setshow }) {
                 </div>
             </div>
         </div>
-    </div>
+    </div >
 
     // return <div className="aiz-main-wrapper d-flex">
     //     <div className="flex-grow-1">

@@ -70,7 +70,7 @@ function PayFastCredential() {
             <div className="col-lg-6">
                 <div className="card">
                     <div className="card-header">
-                        <h3 className="mb-0 h6">PAYFAST Credential</h3>
+                        <h3 className="mb-0 h6">PAYFAST</h3>
                     </div>
                     <div className="card-body">
                         <form className="form-horizontal" id="create-course-form" onSubmit={submitUpdatePayFastCredential}>
