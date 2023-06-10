@@ -24,7 +24,7 @@ function RefferalUsers() {
                     <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Email(Reffered to)</th>
                     <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Mobile(Reffered to)</th>
                     {/* <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Reffered By</th> */}
-                    </tr>
+                  </tr>
                 </thead>
                 <tbody>
 
@@ -37,14 +37,14 @@ function RefferalUsers() {
                         >
                           {i + 1}
                         </td>
-                        <td style={{ display: "table-cell" }}>{item.reffered_by?.firstname + " " + item.reffered_by?.lastname}</td>
+                        <td style={{ display: "table-cell" }}>{item.reffered_by?.user_id?.firstname + " " + item.reffered_by?.user_id?.lastname}</td>
                         <td style={{ display: "table-cell" }}>{item.reffered_by?.email}</td>
                         <td style={{ display: "table-cell" }}>{item.reffered_by?.mobile}</td>
                         <td style={{ display: "table-cell" }}>{item.reffered_to?.firstname + " " + item.reffered_to?.lastname}</td>
                         <td style={{ display: "table-cell" }}>{item.reffered_to?.email}</td>
                         <td style={{ display: "table-cell" }}>{item.reffered_to?.mobile}</td>
                         {/* <td style={{ display: "table-cell" }}>---</td> */}
-                  
+
                         {/* <td style={{ display: "table-cell" }}>
                           <a href="https://mmslfashions.in/admin/affiliate/verification/1">
                             <span className="badge badge-inline badge-info">

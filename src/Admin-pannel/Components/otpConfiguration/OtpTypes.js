@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useGetOtpConfigurationListQuery, useUpdateOTPConfigurationMutation } from "../all-products/allproductsApi/allProductsApi";
+import { ToastContainer, toast } from "react-toastify";
 
 function OtpTypes() {
 
@@ -17,12 +18,12 @@ function OtpTypes() {
         clonedObj[inpName] = inpval
     };
 
-    // const [updateOTPData, response] = useUpdateOTPConfigurationMutation();
+    const [updateOTPData, response] = useUpdateOTPConfigurationMutation();
 
     const submitStatusValue = (id) => {
         const sendData = { value: statusD, id: id }
         console.log('sendData----', sendData)
-        // updateOTPData(sendData)
+        updateOTPData(sendData)
     }
 
     const { isLoading, data } = useGetOtpConfigurationListQuery();
@@ -38,7 +39,32 @@ function OtpTypes() {
     }, [data]);
 
     console.log('inputVal----', inputVal.type)
-    console.log('statusD----', statusD)
+    console.log('statusD----', statusD);
+
+    const toastSuccessMessage = () => {
+        toast.success("OTP Type Updated Successfully !", {
+            position: "top-center"
+        })
+    };
+
+    const toastErrorMessage = () => {
+        toast.error("OTP Type Not Updated !", {
+            position: "top-center"
+        })
+    }
+
+    useEffect(() => {
+        if (response.isSuccess === true) {
+            toastSuccessMessage()
+        };
+    }, [response]);
+
+    useEffect(() => {
+        if (response.isError === true) {
+            toastErrorMessage()
+        };
+    }, [response])
+
 
     return (
         <>
@@ -55,6 +81,7 @@ function OtpTypes() {
                             </label>
                         </div>
                     </div>
+                    <ToastContainer />
                 </div>
             })}
         </>

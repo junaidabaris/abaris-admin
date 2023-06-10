@@ -1,5 +1,6 @@
 import FlutterCredential from "../../Components/africanCredential/FlutterCredential";
 import PayFastCredential from "../../Components/africanCredential/PayFastCredential";
+import TingoCredential from "../../Components/africanCredential/TingoCredential";
 
 function AfricanPgCredentialPage() {
     return (
@@ -9,6 +10,7 @@ function AfricanPgCredentialPage() {
                     <div className="row">
                         <FlutterCredential />
                         <PayFastCredential />
+                        <TingoCredential />
                     </div>
                 </div>
                 <div className="bg-white text-center py-3 px-15px px-lg-25px mt-auto">
