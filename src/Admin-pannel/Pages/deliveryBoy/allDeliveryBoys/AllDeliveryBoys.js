@@ -1,21 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { useDeleteStaffMutation, useGetAllStaffsQuery } from '../../../Components/all-products/allproductsApi/allProductsApi';
+import axios from 'axios';
 
 
 function AllDeliveryBoys() {
 
-    const { isLoading, data } = useGetAllStaffsQuery();
+    const [data, setdata] = useState(null)
 
-    const [deleteDeliveryBoyD, response] = useDeleteStaffMutation();
+    const getData = async () => {
+        const res = await axios.get(`https://onlineparttimejobs.in/api/deliveryBoy`)
+        setdata(res.data)
+    }
+
+    useEffect(() => {
+        getData()
+    }, [])
 
     const deleteDeliveryBoyData = (id) => {
-        deleteDeliveryBoyD(id)
+        // deleteDeliveryBoyD(id)
     };
 
-    if (response.isSuccess === true) {
-        alert('Delivery Boy deleted Successfully')
-    }
+    // if (response.isSuccess === true) {
+    //     alert('Delivery Boy deleted Successfully')
+    // }
 
     return (
         <>
@@ -38,41 +46,48 @@ function AllDeliveryBoys() {
                             <h5 className="mb-0 h6">Delivery Boys</h5>
                         </div>
                         <div className="card-body">
-                            {isLoading ? <h2>Loading...</h2>
-                                : <table className="table aiz-table footable footable-1 breakpoint-lg" style={{}}>
-                                    <thead>
-                                        <tr className="footable-header">
-                                            <th width="10%" style={{ display: 'table-cell' }}>#</th>
-                                            <th style={{ display: 'table-cell' }}>Name</th>
-                                            <th style={{ display: 'table-cell' }}>Email</th>
-                                            <th style={{ display: 'table-cell' }}>Phone</th>
-                                            <th style={{ display: 'table-cell' }}>Earnings</th>
-                                            <th style={{ display: 'table-cell' }}>Collections</th>
-                                            <th width="10%" style={{ display: 'table-cell' }}>Options</th>
+
+                            <table className="table aiz-table footable footable-1 breakpoint-lg" style={{}}>
+                                <thead>
+                                    <tr className="footable-header">
+                                        <th width="10%" style={{ display: 'table-cell' }}>#</th>
+                                        <th style={{ display: 'table-cell' }}>Name</th>
+                                        <th style={{ display: 'table-cell' }}>Photo</th>
+                                        <th style={{ display: 'table-cell' }}>Email</th>
+                                        <th style={{ display: 'table-cell' }}>Phone</th>
+                                        <th style={{ display: 'table-cell' }}>Earnings</th>
+                                        <th style={{ display: 'table-cell' }}>Address</th>
+                                        <th width="10%" style={{ display: 'table-cell' }}>Options</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {data && data.map((item, i) => {
+                                        return <tr className="footable-empty footableIcon" key={item._id}>
+                                            <td >{i + 1}</td>
+                                            <td >{item.firstname} {item.lastname}</td>
+                                            <td >
+                                                <img style={{width:"100px",height:"100px",objectFit:"cover"}} src={item?.profilePhoto?.url}/>
+                                            </td>
+                                            <td >{item.email}</td>
+                                            <td >{item.mobile}</td>
+                                            <td >000</td>
+                                            <td >
+                                                <div>{item?.country} {item?.state}</div>
+                                                <div> {item?.city} {item?.province} {item?.pin}</div>
+                                            </td>
+                                            <td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
+                                                <Link to={`edit/${item._id}`} className="btn btn-soft-primary btn-icon btn-circle btn-sm" title="Edit">
+                                                    <i className="las la-edit" />
+                                                </Link>
+                                                <button type="button" onClick={() => deleteDeliveryBoyData(item._id)} className="btn btn-soft-danger btn-icon btn-circle btn-sm">
+                                                    <i className="las la-trash" />
+                                                </button>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {data && data.map((item, i) => {
-                                            return <tr className="footable-empty footableIcon" key={item._id}>
-                                                <td >{i + 1}</td>
-                                                <td >{item.firstname}</td>
-                                                <td >{item.lastname}</td>
-                                                <td >{item.email}</td>
-                                                <td >{item.mobile}</td>
-                                                <td >{item.role_id?.role_name}</td>
-                                                <td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
-                                                    <Link to={`edit/${item._id}`} className="btn btn-soft-primary btn-icon btn-circle btn-sm" title="Edit">
-                                                        <i className="las la-edit" />
-                                                    </Link>
-                                                    <button type="button" onClick={() => deleteDeliveryBoyData(item._id)} className="btn btn-soft-danger btn-icon btn-circle btn-sm">
-                                                        <i className="las la-trash" />
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        })}
-                                    </tbody>
-                                </table>
-                            }
+                                    })}
+                                </tbody>
+                            </table>
+
                             <div className="aiz-pagination">
                             </div>
                         </div>

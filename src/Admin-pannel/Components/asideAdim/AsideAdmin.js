@@ -45,6 +45,139 @@ function AsideAdmin() {
 
   const isSuperAdminLogin = window.localStorage.getItem('showMainadmin')
   const isSellerLogin = window.localStorage.getItem('isSellerLogin')
+  const isDelevery = window.localStorage.getItem('isDeleveryBoy')
+
+
+
+  if (isDelevery === 'true') {
+    return <div className="aiz-sidebar left c-scrollbar c-scrollbar-2" style={{ backgroundColor: "#e1e1db" }}>
+      <div className="aiz-side-nav-logo-wrap">
+        <a href="https://mmslfashions.in/admin" className="d-block text-left">
+          {/* <img className="mw-100" src={"https://mmslfashions.in/public/assets/img/logo.png"} alt /> */}
+        </a>
+      </div>
+      <div className="aiz-side-nav-wrap">
+        <div className="px-20px mb-3">
+          <input className="form-control bg-soft-secondary border-0 form-control-sm text-white" type="text" placeholder="Search in menu" id="menu-search" fdprocessedid="axe2ae" />
+        </div>
+        <ul className="aiz-side-nav-list" id="search-menu">
+        </ul>
+        <ul className="aiz-side-nav-list metismenu" id="main-menu" data-toggle="aiz-side-menu">
+
+
+
+          <li className="aiz-side-nav-item">
+            <Link to="" className="aiz-side-nav-link ">
+              <span className="aiz-side-nav-text">Dashboard</span>
+            </Link>
+          </li>
+
+          <li className="aiz-side-nav-item">
+            <Link to="assign_order" className="aiz-side-nav-link ">
+              <span className="aiz-side-nav-text">Assign Orders List</span>
+            </Link>
+          </li>
+
+
+          {data && data.map((item) => {
+            if (item.orderStatusName === 'Pending' || item.orderStatusName === 'Delivered' || item.orderStatusName === 'Cancelled' || item.orderStatusName === 'Rejected') {
+              return <li key={item._id} className="aiz-side-nav-item" onClick={() => window.localStorage.setItem('orderName', item.orderStatusName)}>
+                <Link to={`assign_orders/status/${item._id}`} className="aiz-side-nav-link">
+                  <span className="aiz-side-nav-text">Assign {item.orderStatusName}</span>
+                </Link>
+              </li>
+            }
+          })}
+
+
+
+
+          {isLoading && <div className="preloaderCount">
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>}
+
+
+
+          {/* <li className="aiz-side-nav-item">
+                <Link to="inhouse-orders" className="aiz-side-nav-link ">
+                  <span className="aiz-side-nav-text">Inhouse orders</span>
+                </Link>
+              </li> */}
+
+          {/* <li className="aiz-side-nav-item">
+                <Link to="seller-orders" className="aiz-side-nav-link ">
+                  <span className="aiz-side-nav-text">Seller Orders</span>
+                </Link>
+              </li> */}
+
+
+          <li className="aiz-side-nav-item" onClick={() => window.localStorage.setItem('orderName', 'All Pick-up Point Order')}>
+            <Link to="orders_by_pickup_point" className="aiz-side-nav-link ">
+              <span className="aiz-side-nav-text" style={{ fontSize: "15px", color: "indigo" }}>All Pick-up Point Order</span>
+            </Link>
+          </li>
+
+
+          {data && data.map((item) => {
+            if (item.orderStatusName === 'Pending' || item.orderStatusName === 'Delivered' || item.orderStatusName === 'Cancelled' || item.orderStatusName === 'Rejected') {
+              return <li key={item._id} className="aiz-side-nav-item" onClick={() => window.localStorage.setItem('orderName', item.orderStatusName)}>
+                <Link to={`orders/status/${item._id}`} className="aiz-side-nav-link">
+                  <span className="aiz-side-nav-text">{item.orderStatusName}</span>
+                </Link>
+              </li>
+            }
+          })}
+
+
+          {/* 
+              {data && data.map((item) => {
+                if (item.orderStatusName === 'Pending' || item.orderStatusName === 'Delivered' || item.orderStatusName === 'Canceled' || item.orderStatusName === 'Rejected') {
+                  return <li key={item._id} className="aiz-side-nav-item" onClick={() => window.localStorage.setItem('orderName', item.orderStatusName)}>
+                    <Link to={`orders/PickupPints/${item._id}`} className="aiz-side-nav-link">
+                      <span className="aiz-side-nav-text">{item.orderStatusName}</span>
+                    </Link>
+                  </li>
+                }
+
+              })} */}
+
+          {isLoadingPick && <div className="preloaderCount">
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>}
+
+          {/* Staffs */}
+
+          {/* <li className="aiz-side-nav-item">
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setAllStaffs(!allStaffs) }}>
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Staffs</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${allStaffs ? "mm-show" : "extra"}`}>
+                  <li className="aiz-side-nav-item">
+                    <Link to="staffs" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">All staffs</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="roles" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Staff permissions</span>
+                    </Link>
+                  </li>
+                </ul>
+              </li> */}
+
+
+        </ul>{/* .aiz-side-nav */}
+      </div>{/* .aiz-side-nav-wrap */}
+    </div>
+  }
+
+
 
 
   if (isSellerLogin === 'true') {
@@ -226,6 +359,11 @@ function AsideAdmin() {
                   <li className="aiz-side-nav-item">
                     <Link to="products/all" className="aiz-side-nav-link">
                       <span className="aiz-side-nav-text">All products</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="all/reviews" className="aiz-side-nav-link">
+                      <span className="aiz-side-nav-text">All products Reviews</span>
                     </Link>
                   </li>
                   <li className="aiz-side-nav-item">
@@ -1343,7 +1481,8 @@ function AsideAdmin() {
 
       </>
     )
-  } else {
+  }
+  else {
     return (
       <>
         <div className="aiz-sidebar left c-scrollbar c-scrollbar-2" style={{ backgroundColor: "#e1e1db" }}>

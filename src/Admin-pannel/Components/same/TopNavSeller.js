@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom"
 
 function TopNavSeller({ showSidebar }) {
     const stafId = window.localStorage.getItem('adminId')
+    const DeleveryBoyName = window.localStorage.getItem('DeleveryBoyName')
     const sellerName = window.localStorage.getItem('isSellerName')
     const showMainadmin = window.localStorage.getItem('showMainadmin')
     const superAdminName = window.localStorage.getItem('superAdminName')
@@ -13,7 +14,7 @@ function TopNavSeller({ showSidebar }) {
     const [showToster, setShowToster] = useState(false)
     const isLoginPickup = window.localStorage.getItem('isPickupManagerLogin')
     const isPickupManagerName = window.localStorage.getItem('isPickupManagerName')
-
+    const isDelevery = window.localStorage.getItem('isDeleveryBoy')
 
     const logOutAdmin = () => {
         setShow(false)
@@ -26,6 +27,9 @@ function TopNavSeller({ showSidebar }) {
         window.localStorage.setItem('isPickupManagerName', null)
         window.localStorage.setItem('adminId', '')
         window.localStorage.setItem('isSellerId', null)
+        window.localStorage.setItem('isDeleveryBoy', false)
+        window.localStorage.setItem('DeleveryBoyId', null)
+        window.localStorage.setItem('DeleveryBoyName', null)
         setShowToster(true)
         setTimeout(() => {
             setShowToster(false)
@@ -206,6 +210,11 @@ function TopNavSeller({ showSidebar }) {
                                         <span className="d-block fw-500">{superAdminName}</span>
                                         <span className="d-block small opacity-60">Super Admin</span>
                                     </>}
+                                    {isDelevery === 'true' && <>
+                                        <span className="d-block fw-500">{DeleveryBoyName}</span>
+                                        <span className="d-block small opacity-60">Delevery Boy</span>
+                                    </>}
+
 
                                     {/* {stafId ? <>
                                         <span className="d-block fw-500">{sellerName}</span>

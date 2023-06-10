@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 import { useAddStaffMutation, useGetRolesQuery } from '../../../Components/all-products/allproductsApi/allProductsApi';
+import axios from 'axios';
 
 function AddNewDeliveryBoy() {
 
@@ -12,9 +13,14 @@ function AddNewDeliveryBoy() {
         email: '',
         mobile: '',
         password: '',
-        role_id: '63fb963aba4c5193700943b0',
+        country: '',
+        state: '',
+        city: '',
+        province: '',
+        pin: '',
     });
-    const params = useParams();
+
+    const [file, setfile] = useState(null)
 
     const onChangeHandler = (e) => {
         const inpName = e.target.name;
@@ -24,33 +30,48 @@ function AddNewDeliveryBoy() {
         setInputVal(clonedObj)
     };
 
-
-    const { data } = useGetRolesQuery(params.id);
-    console.log('role data', data);
-
-    const [addAllStaffsD, response] = useAddStaffMutation();
-
-
-    const submitStaffData = (e) => {
-        e.preventDefault();
-        const clone = { ...inputVal }
-        addAllStaffsD(clone)
-        console.log(inputVal)
-        document.getElementById("create-course-form").reset();
-    };
+    const onchangephoto = (e) => {
+        setfile(e.target.files[0])
+    }
 
 
     const toastSuccessMessage = () => {
-        toast.success("Staff added Successfully", {
+        toast.success("Delevery Boy Added Successfully", {
             position: "top-center"
         })
     };
 
-    if (response.isSuccess === true) {
-        toastSuccessMessage()
+    const toastErrorMessage = () => {
+        toast.error("Delevery Boy  not added", {
+            position: "top-center"
+        })
     };
-    console.log(response)
-    console.log(inputVal)
+
+    const submitStaffData = async (e) => {
+        const formData = new FormData();
+
+        formData.append('firstname', inputVal.firstname);
+        formData.append('lastname', inputVal.lastname);
+        formData.append('email', inputVal.email);
+        formData.append('mobile', inputVal.mobile);
+        formData.append('state', inputVal.state);
+        formData.append('country', inputVal.country);
+        formData.append('city', inputVal.city);
+        formData.append('province', inputVal.province);
+        formData.append('pin', inputVal.pin);
+        formData.append('password', inputVal.password);
+        formData.append('image', file);
+
+        try {
+            const res = await axios.post(`https://onlineparttimejobs.in/api/deliveryBoy/add_deliveryBoy`,formData)
+            toastSuccessMessage()
+          
+        } catch (error) {
+            toastErrorMessage()
+        }
+    };
+
+
 
     return (
         <>
@@ -62,14 +83,20 @@ function AddNewDeliveryBoy() {
                                 <div className="card-header">
                                     <h5 className="mb-0 h6">Delivery Boy Information</h5>
                                 </div>
-                                <form className="form-horizontal" id="create-course-form" onSubmit={submitStaffData}>
+                                <form className="form-horizontal" id="create-course-form">
                                     <input type="hidden" name="_token" defaultValue="S0f7vDDtqJ5NbxPupX86gbiFGZumqx0Q8PyryILc" />
                                     <div className="card-body">
 
                                         <div className="form-group row">
-                                            <label className="col-sm-3 col-from-label" htmlFor="first name">Name</label>
+                                            <label className="col-sm-3 col-from-label" htmlFor="first name">First Name</label>
                                             <div className="col-sm-9">
                                                 <input type="text" placeholder="First Name" name="firstname" className="form-control" required onChange={onChangeHandler} />
+                                            </div>
+                                        </div>
+                                        <div className="form-group row">
+                                            <label className="col-sm-3 col-from-label" htmlFor="first name">Last Name</label>
+                                            <div className="col-sm-9">
+                                                <input type="text" placeholder="last Name" name="lastname" className="form-control" required onChange={onChangeHandler} />
                                             </div>
                                         </div>
 
@@ -97,34 +124,52 @@ function AddNewDeliveryBoy() {
                                         <div className="form-group row">
                                             <label className="col-sm-3 col-from-label" htmlFor="password">Country</label>
                                             <div className="col-sm-9">
+                                                <input type="text" placeholder="country" name="country" className="form-control" required onChange={onChangeHandler} />
+                                            </div>
+                                            {/* <div className="col-sm-9">
                                                 <select class="form-select" aria-label="Default select example" name='country' onChange={onChangeHandler}>
                                                     <option value="1">Zambia</option>
                                                     <option value="2">Africa</option>
                                                     <option value="3">India</option>
                                                 </select>
-                                            </div>
+                                            </div> */}
                                         </div>
 
                                         <div className="form-group row">
                                             <label className="col-sm-3 col-from-label" htmlFor="password">State</label>
                                             <div className="col-sm-9">
+                                                <input type="text" placeholder="state" name="state" className="form-control" required onChange={onChangeHandler} />
+                                            </div>
+                                            {/* <div className="col-sm-9">
                                                 <select class="form-select" aria-label="Default select example" name='state' onChange={onChangeHandler}>
                                                     <option value="1">One</option>
                                                     <option value="2">Two</option>
                                                     <option value="3">Three</option>
                                                 </select>
-                                            </div>
+                                            </div> */}
                                         </div>
 
                                         <div className="form-group row">
                                             <label className="col-sm-3 col-from-label" htmlFor="password">City</label>
                                             <div className="col-sm-9">
-                                                <select class="form-select" aria-label="Default select example" name='city' onChange={onChangeHandler}>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
-                                                </select>
+                                                <input type="text" placeholder="city" name="city" className="form-control" required onChange={onChangeHandler} />
                                             </div>
+
+                                        </div>
+
+                                        <div className="form-group row">
+                                            <label className="col-sm-3 col-from-label" htmlFor="password">Province</label>
+                                            <div className="col-sm-9">
+                                                <input type="text" placeholder="Province" name="province" className="form-control" required onChange={onChangeHandler} />
+                                            </div>
+
+                                        </div>
+                                        <div className="form-group row">
+                                            <label className="col-sm-3 col-from-label" htmlFor="password">Pin</label>
+                                            <div className="col-sm-9">
+                                                <input type="text" placeholder="Pin" name="pin" className="form-control" required onChange={onChangeHandler} />
+                                            </div>
+
                                         </div>
 
                                         <div className="form-group row">
@@ -139,7 +184,7 @@ function AddNewDeliveryBoy() {
                                                         </div>
                                                     </div>
                                                     <div className="form-control file-amount">
-                                                        <input type="file" name="banner" className="selected-files" onChange={onChangeHandler} />
+                                                        <input type="file" name="banner" className="selected-files" onChange={onchangephoto} />
                                                     </div>
                                                 </div>
                                                 <div className="file-preview box sm">
@@ -148,16 +193,16 @@ function AddNewDeliveryBoy() {
                                         </div>
 
 
-                                        <div className="form-group row">
+                                        {/* <div className="form-group row">
                                             <label className="col-sm-3 col-from-label" htmlFor="password">Adress</label>
                                             <div className="col-sm-9">
                                                 <textarea placeholder="Adress" name="city" className="form-control" required onChange={onChangeHandler} rows="3" cols="50">
                                                 </textarea>
                                             </div>
-                                        </div>
+                                        </div> */}
 
                                         <div className="form-group mb-0 text-right">
-                                            <button type="submit" className="btn btn-sm btn-primary">Save</button>
+                                            <button type="button" onClick={submitStaffData} className="btn btn-sm btn-primary">Save</button>
                                         </div>
                                     </div>
                                 </form>
