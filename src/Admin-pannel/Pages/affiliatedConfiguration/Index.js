@@ -1,10 +1,10 @@
 import AffiliateConfiguration from "../../Components/affiliateConfiguration/AffiliateConfiguration"
 import AffiliateForm from "../../Components/AffiliatedForm/AffiliatedForm"
 
-function AfiliatedConfigurationPage () {
+function AfiliatedConfigurationPage() {
     return (
         <>
-        <AffiliateConfiguration/>
+            <AffiliateConfiguration />
         </>
     )
 }

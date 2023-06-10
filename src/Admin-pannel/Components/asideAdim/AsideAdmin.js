@@ -324,8 +324,6 @@ function AsideAdmin() {
                 </ul>
               </li>
 
-
-
               {/* Delevery Boy start */}
 
               <li className="aiz-side-nav-item">
@@ -336,32 +334,32 @@ function AsideAdmin() {
                 </Link>
                 <ul className={`aiz-side-nav-list level-2 mm-collapse ${deliveryBoy ? "mm-show" : "extra"}`} id="product">
                   <li className="aiz-side-nav-item">
-                    <Link to="#" className="aiz-side-nav-link ">
+                    <Link to="delivery-boys" className="aiz-side-nav-link ">
                       <span className="aiz-side-nav-text">Delivery Boys</span>
                     </Link>
                   </li>
                   <li className="aiz-side-nav-item">
-                    <Link to="#" className="aiz-side-nav-link ">
+                    <Link to="/admin/delivery-boys/create" className="aiz-side-nav-link ">
                       <span className="aiz-side-nav-text">Add New Delivery Boys</span>
                     </Link>
                   </li>
                   <li className="aiz-side-nav-item">
-                    <Link to="#" className="aiz-side-nav-link ">
+                    <Link to="payment-history" className="aiz-side-nav-link ">
                       <span className="aiz-side-nav-text">Delivery Boys Payment History</span>
                     </Link>
                   </li>
                   <li className="aiz-side-nav-item">
-                    <Link to="#" className="aiz-side-nav-link ">
+                    <Link to="delivery-collection-list" className="aiz-side-nav-link ">
                       <span className="aiz-side-nav-text">Delivery Boys Collection List</span>
                     </Link>
                   </li>
                   <li className="aiz-side-nav-item">
-                    <Link to="#" className="aiz-side-nav-link ">
+                    <Link to="delivery-cancel-request" className="aiz-side-nav-link ">
                       <span className="aiz-side-nav-text">Delivery Boys Cancel List</span>
                     </Link>
                   </li>
                   <li className="aiz-side-nav-item">
-                    <Link to="#" className="aiz-side-nav-link ">
+                    <Link to="delivery-payment-configuration" className="aiz-side-nav-link ">
                       <span className="aiz-side-nav-text">Delivery Boy Configuration</span>
                     </Link>
                   </li>

@@ -247,6 +247,13 @@ import Add_quotation from "./Admin-pannel/Pages/quotation/Add_quotation";
 import ListQuatation from "./Admin-pannel/Pages/quotation/ListQuatation";
 import EtgAddMember from "./Admin-pannel/Pages/etgmembers/EtgAddMember";
 import ListEtgMember from "./Admin-pannel/Pages/etgmembers/ListEtgMember";
+import AllDeliveryBoys from "./Admin-pannel/Pages/deliveryBoy/allDeliveryBoys/AllDeliveryBoys";
+import AddNewDeliveryBoy from "./Admin-pannel/Pages/deliveryBoy/addNewDeliveryBoys/AddNewDeliveryBoy";
+import DeliveryBoyPaymentList from "./Admin-pannel/Pages/deliveryBoy/deliveryBoyPaymentHistory/DeliveryBoyPaymentHistory";
+import DeliveryBoyPaymentHistory from "./Admin-pannel/Pages/deliveryBoy/deliveryBoyPaymentHistory/DeliveryBoyPaymentHistory";
+import DeliveryCollectionList from "./Admin-pannel/Pages/deliveryBoy/deliveryCollectionList/DeliveryCollectionList";
+import DeliveryBoyCancelRequest from "./Admin-pannel/Pages/deliveryBoy/deliveryBoyCancelRequest/DeliveryBoyCancelRequest";
+import DeliveryBoyConfiguration from "./Admin-pannel/Pages/deliveryBoy/deliveryBoyConfiguration/DeliveryBoyConfiguration";
 
 
 function App() {
@@ -535,6 +542,12 @@ function App() {
 
           <Route path="add_member" element={<EtgAddMember />} />
           <Route path="list_members" element={<ListEtgMember />} />
+          <Route path="delivery-boys" element={<AllDeliveryBoys />} />
+          <Route path="/admin/delivery-boys/create" element={<AddNewDeliveryBoy />} />
+          <Route path="payment-history" element={<DeliveryBoyPaymentHistory />} />
+          <Route path="delivery-collection-list" element={<DeliveryCollectionList />} />
+          <Route path="delivery-cancel-request" element={<DeliveryBoyCancelRequest />} />
+          <Route path="delivery-payment-configuration" element={<DeliveryBoyConfiguration />} />
 
 
         </Route>
