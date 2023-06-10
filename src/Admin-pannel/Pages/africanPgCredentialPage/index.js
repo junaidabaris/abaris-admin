@@ -1,5 +1,8 @@
 import FlutterCredential from "../../Components/africanCredential/FlutterCredential";
 import PayFastCredential from "../../Components/africanCredential/PayFastCredential";
+import PayTmCredential from "../../Components/africanCredential/PayTmCredential";
+import PayuMoneyCredential from "../../Components/africanCredential/PayuMoneyCredential";
+import RazorPayCredential from "../../Components/africanCredential/RazorPayCredential";
 import TingoCredential from "../../Components/africanCredential/TingoCredential";
 
 function AfricanPgCredentialPage() {
@@ -11,6 +14,10 @@ function AfricanPgCredentialPage() {
                         <FlutterCredential />
                         <PayFastCredential />
                         <TingoCredential />
+                        <RazorPayCredential />
+                        <PayuMoneyCredential />
+                        <PayuMoneyCredential />
+                        <PayTmCredential />
                     </div>
                 </div>
                 <div className="bg-white text-center py-3 px-15px px-lg-25px mt-auto">
