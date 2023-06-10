@@ -74,7 +74,7 @@ function FlutterActivation() {
                         <div className="clearfix activation-type-image">
                             <img className="float-left" src='https://mmslfashions.in/public/assets/img/cards/flutterwave.png' />
                             <label className="aiz-switch aiz-switch-success mb-0 float-right">
-                                <input type="checkbox" name='status' value={''} checked={statusD} onChange={onChangeHandler} />
+                                <input type="checkbox" name='status' value={''} checked={statusD?.status} onChange={onChangeHandler} />
                                 <span className="slider round" />
                             </label>
                         </div>

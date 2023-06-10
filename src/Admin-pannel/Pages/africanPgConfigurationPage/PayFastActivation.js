@@ -74,7 +74,7 @@ function PayFastActivation() {
                         <div className="clearfix activation-type-image">
                             <img className="float-left" src='https://mmslfashions.in/public/assets/img/cards/payfast.png' />
                             <label className="aiz-switch aiz-switch-success mb-0 float-right">
-                                <input type="checkbox" name='status' checked={statusD} onChange={onChangeHandler} />
+                                <input type="checkbox" name='status' checked={statusD?.status} onChange={onChangeHandler} />
                                 <span className="slider round" />
                             </label>
                         </div>

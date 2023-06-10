@@ -87,7 +87,7 @@ function NotificationConfiguration() {
                                             // value={1}
                                             name="status"
                                             type="checkbox"
-                                            checked={statusD}
+                                            checked={false}
                                             onChange={onChangeHandler}
                                         />
                                         <span className="slider round" />
@@ -105,7 +105,7 @@ function NotificationConfiguration() {
                                             // value={1}
                                             name="status"
                                             type="checkbox"
-                                            checked={statusD}
+                                            checked={false}
                                             onChange={onChangeHandler}
                                         />
                                         <span className="slider round" />

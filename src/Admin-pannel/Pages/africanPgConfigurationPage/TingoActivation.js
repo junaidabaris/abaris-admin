@@ -76,7 +76,7 @@ function TingoActivation() {
                         <div className="clearfix activation-type-image">
                             <img className="float-left" src={tingo} />
                             <label className="aiz-switch aiz-switch-success mb-0 float-right">
-                                <input type="checkbox" name='status' onChange={onChangeHandler} checked={statusD} />
+                                <input type="checkbox" name='status' onChange={onChangeHandler} checked={statusD?.status} />
                                 <span className="slider round" />
                             </label>
 
