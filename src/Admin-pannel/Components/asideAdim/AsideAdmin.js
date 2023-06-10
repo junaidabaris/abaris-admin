@@ -38,6 +38,7 @@ function AsideAdmin() {
   const [booking, setBooking] = useState(false);
   const [affiliate, setAffiliate] = useState(false);
   const [member, setMember] = useState(false);
+  const [deliveryBoy, setDeliveryBoy] = useState(false);
 
   const { data, isLoading } = useGetAllStatusOrdersQuery()
   const { data: pickup, isLoading: isLoadingPick } = useGetPickupPointQuery()
@@ -325,9 +326,48 @@ function AsideAdmin() {
 
 
 
+              {/* Delevery Boy start */}
 
-
-
+              <li className="aiz-side-nav-item">
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setDeliveryBoy(!deliveryBoy) }}>
+                  <i className="las la-shopping-cart aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Delivery Boy</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${deliveryBoy ? "mm-show" : "extra"}`} id="product">
+                  <li className="aiz-side-nav-item">
+                    <Link to="#" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Delivery Boys</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="#" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Add New Delivery Boys</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="#" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Delivery Boys Payment History</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="#" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Delivery Boys Collection List</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="#" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Delivery Boys Cancel List</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="#" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Delivery Boy Configuration</span>
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+              {/* Delivery Boy end */}
 
 
 
@@ -564,7 +604,7 @@ function AsideAdmin() {
                       <span className="aiz-side-nav-text">List Members</span>
                     </Link>
                   </li>
-                 
+
                 </ul>
               </li>
 

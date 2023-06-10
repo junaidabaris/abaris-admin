@@ -65,7 +65,7 @@ function FlutterCredential() {
             <div className="col-lg-6">
                 <div className="card">
                     <div className="card-header">
-                        <h3 className="mb-0 h6">Flutterwave Credential</h3>
+                        <h3 className="mb-0 h6">Flutterwave</h3>
                     </div>
                     <div className="card-body">
                         <form className="form-horizontal" id="create-course-form" onSubmit={submitUpdateFlutterCredential}>

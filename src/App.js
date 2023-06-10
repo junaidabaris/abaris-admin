@@ -533,8 +533,8 @@ function App() {
           <Route path="list_quotation" element={<ListQuatation />} />
           <Route path="add_quotation" element={<Add_quotation />} />
 
-          <Route path="add_member" element={<EtgAddMember/>} />
-          <Route path="list_members" element={<ListEtgMember/>} />
+          <Route path="add_member" element={<EtgAddMember />} />
+          <Route path="list_members" element={<ListEtgMember />} />
 
 
         </Route>
