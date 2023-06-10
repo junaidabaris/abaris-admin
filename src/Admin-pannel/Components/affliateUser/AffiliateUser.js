@@ -67,7 +67,7 @@ function AffiliateUser() {
                         <td className="footable-first-visible" style={{ display: "table-cell" }}>{i + 1}</td>
                         <td style={{ display: "table-cell" }}>{item.user_id?.firstname + " " + item.user_id?.lastname}</td>
                         <td style={{ display: "table-cell" }}>{item.user_id?.mobile}</td>
-                        <td style={{ display: "table-cell" }}>{item.user_id.email}</td>
+                        <td style={{ display: "table-cell" }}>{item.user_id?.email}</td>
                         <td style={{ display: "table-cell" }}>
                           <Link to={`verification/${item._id}`} onClick={() => setIdData(item)}>
                             <span className="badge badge-inline badge-info">
