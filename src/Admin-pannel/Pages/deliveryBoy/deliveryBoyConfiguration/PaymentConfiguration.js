@@ -88,7 +88,7 @@ function PaymentConfiguration() {
                                             // value={1}
                                             name="status"
                                             type="checkbox"
-                                            checked={statusD}
+                                            checked={false}
                                             onChange={onChangeHandler}
                                         />
                                         <span className="slider round" />
@@ -106,7 +106,7 @@ function PaymentConfiguration() {
                                             // value={1}
                                             name="status"
                                             type="checkbox"
-                                            checked={statusD}
+                                            checked={false}
                                             onChange={onChangeHandler}
                                         />
                                         <span className="slider round" />
@@ -127,8 +127,8 @@ function PaymentConfiguration() {
                                 </div>
                                 <div className="col-lg-6">
 
-                                    <input type="number" className="form-control" name="userFirst_Purchase" value={inputval?.userFirst_Purchase}
-                                        placeholder="Percentage of Order Amount" required fdprocessedid="k81gnb" onChange={onChangeHandler} />
+                                    <input type="number" className="form-control" name="userFirst_Purchase" value={''}
+                                        placeholder="" required fdprocessedid="k81gnb" onChange={onChangeHandler} />
                                 </div>
 
                                 <div className="col-lg-2">

@@ -1,6 +1,9 @@
 import ActivationTypes from "../../Components/africanPgConfiguration/ActivationTypes";
 import FlutterActivation from "./FlutterActivation";
 import PayFastActivation from "./PayFastActivation";
+import PayTmActivation from "./PayTmActivation";
+import PayUMoneyActivation from "./PayUMoneyActivation";
+import RazorPayActivation from "./RazorPayActivation";
 import TingoActivation from "./TingoActivation";
 
 function AfricanPgConfigurationPage() {
@@ -13,6 +16,9 @@ function AfricanPgConfigurationPage() {
                         <FlutterActivation />
                         <PayFastActivation />
                         <TingoActivation />
+                        <RazorPayActivation />
+                        <PayUMoneyActivation />
+                        <PayTmActivation />
                     </div>
                 </div>
                 <div className="bg-white text-center py-3 px-15px px-lg-25px mt-auto">

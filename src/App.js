@@ -294,7 +294,7 @@ function App() {
           <Route path="purchases_report" element={<PurchasesReport />} />
           <Route path="expenses_report" element={<ExpensesReport />} />
           <Route path="customer_report" element={<CustomerReport />} />
-          <Route path="suppliers_report" element={<SuppliersReport />} />
+          <Route path="suppliers_report" element={<SuppliersReport />} /> 
           <Route path="staffs_report" element={<StaffsReport />} />
           <Route path="profit_loss" element={<ProfitLossReport />} />
           <Route path="mostViewed_products" element={<MostViewedProducts />} />
