@@ -71,7 +71,7 @@ function TingoCredential() {
             <div className="col-lg-6">
                 <div className="card">
                     <div className="card-header">
-                        <h3 className="mb-0 h6">Cellular Tingo Payment Credential</h3>
+                        <h3 className="mb-0 h6">Cellular Tingo Payment</h3>
                     </div>
                     <div className="card-body">
                         <form className="form-horizontal" onSubmit={submitUpdateTingoCredential}>
