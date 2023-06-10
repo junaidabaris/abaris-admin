@@ -228,6 +228,11 @@ function AsideAdmin() {
                     </Link>
                   </li>
                   <li className="aiz-side-nav-item">
+                    <Link to="all/reviews" className="aiz-side-nav-link">
+                      <span className="aiz-side-nav-text">All products Reviews</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
                     <Link to="products/all/products/create/comboProduct" className="aiz-side-nav-link">
                       <span className="aiz-side-nav-text">Add Combo Product</span>
                     </Link>

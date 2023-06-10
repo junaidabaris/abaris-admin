@@ -241,6 +241,8 @@ function OrderDetails() {
 
 
 
+
+
                   </div>
                   <div className="btn-wrapper">
                     <button
@@ -283,6 +285,54 @@ function OrderDetails() {
                       Submit
                     </button>
                   </div>
+
+
+                  {/* DELEVRY BOY */}
+
+                  {isLogin === 'true' && <div className="assignPickup">
+                    <h6>Assign To Delevery Boy</h6>
+                    <div className="d-flex align-items-center form-group">
+                      <label htmlFor="update_delivery_status">
+                        Delevery Boy:
+                      </label>
+                      <select
+                        className="form-select"
+                        name="managerId"
+                        aria-label="Default select example"
+                        defaultValue={""}
+                        // onChange={handelChange}
+
+                        style={{ height: 38 + "px", fontSize: 13 + "px" }}>
+
+                        {pickups && pickups.map((item) => {
+                          return <option key={item._id} id={item._id} >
+                            {item.pickupPoint_name}
+                          </option>
+                        })}
+
+                      </select>
+                    </div>
+
+                    <h6>Note..</h6>
+                    <div className="form-floating" style={{ margin: "8px 0" }}>
+                      <textarea name="note" onChange={handelChange} className="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                    </div>
+
+                    <div style={{display:"flex" ,justifyContent:"end"}}>
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                      // onClick={sendAssign}
+                      >
+                        Send
+                      </button>
+                    </div>
+
+                  </div>}
+
+
+
+
                 </div>
 
                 {/* Billing */}

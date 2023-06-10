@@ -247,6 +247,7 @@ import Add_quotation from "./Admin-pannel/Pages/quotation/Add_quotation";
 import ListQuatation from "./Admin-pannel/Pages/quotation/ListQuatation";
 import EtgAddMember from "./Admin-pannel/Pages/etgmembers/EtgAddMember";
 import ListEtgMember from "./Admin-pannel/Pages/etgmembers/ListEtgMember";
+import AllReviewsProducts from "./Admin-pannel/Pages/allReviews/AllReviewsProducts";
 
 
 function App() {
@@ -535,6 +536,8 @@ function App() {
 
           <Route path="add_member" element={<EtgAddMember/>} />
           <Route path="list_members" element={<ListEtgMember/>} />
+
+          <Route path="all/reviews" element={<AllReviewsProducts/>} />
 
 
         </Route>
