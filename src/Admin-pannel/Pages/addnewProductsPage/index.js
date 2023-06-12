@@ -109,7 +109,7 @@ function AddNewProductsPage() {
         user_id: '63e6579c455104434981d8da',
         // category_id: '',
         category_id: [],
-        // brand_id: '',
+        brand_id: '642d520da94153a958c06be6',
         unit_price: '',
         hsn_code: '',
         sale_rp: '',
@@ -209,7 +209,7 @@ function AddNewProductsPage() {
         const seller_id = sellerD && sellerD[0]._id;
         const brand_id = brandData.data && brandData.data[0]._id;
         const slug = 'youtube' + new Date().getUTCMilliseconds();
-        const clonedObj = { ...inputval, variations: varianstData, flashDeal: flashDeal, variation_Form: attributesVal, tags: tags, category_id: finalCatD, seller_id, brand_id, slug, productDescription: productDescription };
+        const clonedObj = { ...inputval, variations: varianstData, flashDeal: flashDeal, variation_Form: attributesVal, tags: tags, category_id: finalCatD, seller_id, slug, productDescription: productDescription };
 
         addFile(clonedObj, clonedObj.gallery_image)
 
