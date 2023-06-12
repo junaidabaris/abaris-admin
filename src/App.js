@@ -255,6 +255,7 @@ import DeliveryBoyPaymentHistory from "./Admin-pannel/Pages/deliveryBoy/delivery
 import DeliveryCollectionList from "./Admin-pannel/Pages/deliveryBoy/deliveryCollectionList/DeliveryCollectionList";
 import DeliveryBoyCancelRequest from "./Admin-pannel/Pages/deliveryBoy/deliveryBoyCancelRequest/DeliveryBoyCancelRequest";
 import DeliveryBoyConfiguration from "./Admin-pannel/Pages/deliveryBoy/deliveryBoyConfiguration/DeliveryBoyConfiguration";
+import DeliveryBoyStatus from "./Admin-pannel/Pages/deliveryBoy/deliveryBoyStatus/DeliveryBoyStatus";
 
 
 function App() {
@@ -294,7 +295,7 @@ function App() {
           <Route path="purchases_report" element={<PurchasesReport />} />
           <Route path="expenses_report" element={<ExpensesReport />} />
           <Route path="customer_report" element={<CustomerReport />} />
-          <Route path="suppliers_report" element={<SuppliersReport />} /> 
+          <Route path="suppliers_report" element={<SuppliersReport />} />
           <Route path="staffs_report" element={<StaffsReport />} />
           <Route path="profit_loss" element={<ProfitLossReport />} />
           <Route path="mostViewed_products" element={<MostViewedProducts />} />
@@ -543,7 +544,7 @@ function App() {
 
           <Route path="add_member" element={<EtgAddMember />} />
           <Route path="list_members" element={<ListEtgMember />} />
-          
+
           <Route path="delivery-boys" element={<AllDeliveryBoys />} />
           <Route path="/admin/delivery-boys/create" element={<AddNewDeliveryBoy />} />
           <Route path="/admin/delivery-boys/edit/:id" element={<AddNewDeliveryBoy />} />
@@ -551,8 +552,9 @@ function App() {
           <Route path="delivery-collection-list" element={<DeliveryCollectionList />} />
           <Route path="delivery-cancel-request" element={<DeliveryBoyCancelRequest />} />
           <Route path="delivery-payment-configuration" element={<DeliveryBoyConfiguration />} />
+          <Route path="delivery-boy-status" element={<DeliveryBoyStatus />} />
 
-          <Route path="all/reviews" element={<AllReviewsProducts/>} />
+          <Route path="all/reviews" element={<AllReviewsProducts />} />
 
 
         </Route>
