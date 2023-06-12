@@ -44,7 +44,8 @@ function OrderDetails() {
   };
 
   const { data, isSuccess, isLoading, error } = useGetOrderDetailQuery(param.id);
-  const { data: orderStatusD } = useGetOrderStartByIdQuery();
+  const { data: orderStatusData } = useGetOrderStartByIdQuery();
+  const [orderStatusD, setorderStatusD] = useState(orderStatusData)
 
   const toastSuccessMessage = () => {
     toast.success("Order Status Updated Successfully", {
@@ -147,7 +148,22 @@ function OrderDetails() {
     setdataBoy(res.data)
   }
 
+  const isDelevery = window.localStorage.getItem('isDeleveryBoy')
+
+  const getData1 = async () => {
+    try {
+      const res = await axios.get(`https://onlineparttimejobs.in/api/orderStatusMaster/delivery`)
+      setorderStatusD(res.data)
+
+    } catch (error) {
+      alert('Status Not Load')
+    }
+  }
+  
   useEffect(() => {
+    if (isDelevery === 'true') {
+      getData1()
+    }
     getData()
   }, [])
 
@@ -155,8 +171,6 @@ function OrderDetails() {
   const changeHandleBoy = (e) => {
 
     const clone = { ...boyBody }
-    console.log(e.target.value);
-
     if (e.target.name === 'deliveryBoy') {
       const obj2 = { ...boyBody, deliveryBoy: e.target.value }
       setBoyBody(obj2)
@@ -168,7 +182,6 @@ function OrderDetails() {
   }
 
   const sendAssignBoy = async () => {
-    console.log(boyBody);
     try {
       const res = await axios.post('https://onlineparttimejobs.in/api/assignDeliveryBoy/add_AssignDeliveryBoy', boyBody)
       alert('Assign To Delevery Boy Successfully')
@@ -233,8 +246,6 @@ function OrderDetails() {
                                 {item.orderStatusName}
                               </option>
                             );
-
-
                           })}
                       </select>
                     </div>

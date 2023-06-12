@@ -9,6 +9,9 @@ function AssighOrderStatus() {
     const isLoginPickupId = window.localStorage.getItem('pickIds')
     const params = useParams()
 
+    const isDelevery = window.localStorage.getItem('isDeleveryBoy')
+    const DeleveryBoyId = window.localStorage.getItem('DeleveryBoyId')
+
     const nameOrder = window.localStorage.getItem('orderName')
     const getData = async () => {
         try {
@@ -19,8 +22,22 @@ function AssighOrderStatus() {
         }
     }
 
+    const getDataDelevry = async () => {
+        try {
+            const res = await axios.get(`https://onlineparttimejobs.in/api/assignDeliveryBoy/deliveryBoy/status/${DeleveryBoyId + '&' + params.id}`)
+            setData(res.data)
+        } catch (error) {
+            alert('Server Error Fail to load Assign Order')
+        }
+    }
+
     useEffect(() => {
-        getData()
+        if (isDelevery === 'true') {
+            getDataDelevry()
+        } else {
+
+            getData()
+        }
     }, [params])
 
     const deleteOrderData = (id) => {

@@ -113,7 +113,7 @@ function AsideAdmin() {
               </li> */}
 
 
-          <li className="aiz-side-nav-item" onClick={() => window.localStorage.setItem('orderName', 'All Pick-up Point Order')}>
+          {/* <li className="aiz-side-nav-item" onClick={() => window.localStorage.setItem('orderName', 'All Pick-up Point Order')}>
             <Link to="orders_by_pickup_point" className="aiz-side-nav-link ">
               <span className="aiz-side-nav-text" style={{ fontSize: "15px", color: "indigo" }}>All Pick-up Point Order</span>
             </Link>
@@ -128,7 +128,7 @@ function AsideAdmin() {
                 </Link>
               </li>
             }
-          })}
+          })} */}
 
 
           {/* 
@@ -143,11 +143,11 @@ function AsideAdmin() {
 
               })} */}
 
-          {isLoadingPick && <div className="preloaderCount">
+          {/* {isLoadingPick && <div className="preloaderCount">
             <div className="spinner-border" role="status">
               <span className="visually-hidden">Loading...</span>
             </div>
-          </div>}
+          </div>} */}
 
           {/* Staffs */}
 
