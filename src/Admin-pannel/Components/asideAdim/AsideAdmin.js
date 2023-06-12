@@ -476,6 +476,7 @@ function AsideAdmin() {
                       <span className="aiz-side-nav-text">Delivery Boys</span>
                     </Link>
                   </li>
+
                   <li className="aiz-side-nav-item">
                     <Link to="/admin/delivery-boys/create" className="aiz-side-nav-link ">
                       <span className="aiz-side-nav-text">Add New Delivery Boys</span>
@@ -501,6 +502,13 @@ function AsideAdmin() {
                       <span className="aiz-side-nav-text">Delivery Boy Configuration</span>
                     </Link>
                   </li>
+
+                  <li className="aiz-side-nav-item">
+                    <Link to="delivery-boy-status" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Delivery Boys Status</span>
+                    </Link>
+                  </li>
+
                 </ul>
               </li>
               {/* Delivery Boy end */}
