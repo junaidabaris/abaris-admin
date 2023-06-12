@@ -205,7 +205,7 @@ function PriceStocCompkWholsaleProducts({ item, setMainVal, main, data }) {
                             <div class="form-check" style={{ marginTop: "10px" }}>
                                 <input style={{ width: "20px", height: "20px" }} onClick={saveToArr} class="form-check-input" type="checkbox" value="" id={`flexCheckIndeterminate${item._id}`} />
                                 <label class="form-check-label" style={{ margin: "4px" }} htmlFor={`flexCheckIndeterminate${item._id}`}>
-                                    This Is Mendetry Filed
+                                    This Is Mandatory  Filed
                                 </label>
                             </div>
                         </div>
