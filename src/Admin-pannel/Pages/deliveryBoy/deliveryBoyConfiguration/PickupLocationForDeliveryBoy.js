@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
-import { useGetBasicAffiliateQuery, useUpdateAffiliateBasicMutation } from '../../../Components/all-products/allproductsApi/allProductsApi';
+import { useGetBasicAffiliateQuery, useGetPickupLocationForDeliveryQuery, useUpdateAffiliateBasicMutation } from '../../../Components/all-products/allproductsApi/allProductsApi';
 
 function PickupLocationForDeliveryBoy() {
 
 
     const [inputval, setInputval] = useState({
-        userFirst_Purchase: '',
-        status: null
+        lat: '',
+        long: ''
     });
     const [statusD, setStatusD] = useState()
 
-    const { data } = useGetBasicAffiliateQuery();
+    const { data } = useGetPickupLocationForDeliveryQuery();
     useEffect(() => {
         const obj = { ...data }
         if (data) {
-            setInputval(obj[0]?.basic_affiliate)
-            setStatusD(obj[0]?.basic_affiliate.status)
+            setInputval(obj)
+            // setStatusD(obj)
         }
     }, [data]);
 
-    console.log('basicData---', data)
+    console.log('LocationDeliveryData---', data)
 
     const onChangeHandler = (e) => {
-        setStatusD(!statusD)
+        // setStatusD(!statusD)
         const inpName = e.target.name;
         const inpval = e.target.value;
         const clonedObj = { ...inputval };
@@ -31,24 +31,24 @@ function PickupLocationForDeliveryBoy() {
         setInputval(clonedObj)
     };
 
-    const [editAffiliateBasic, response] = useUpdateAffiliateBasicMutation();
+    const [editLocationForDeliveryBoyD, response] = useUpdateAffiliateBasicMutation();
 
-    const submitUpdateAffiliateBasic = (e) => {
+    const submitUpdateLocationForDeliveryBoy = (e) => {
         e.preventDefault();
-        const abc = { ...inputval, status: statusD }
-        editAffiliateBasic({ basic_affiliate: abc })
+        const abc = { ...inputval }
+        editLocationForDeliveryBoyD(abc)
         document.getElementById("create-course-form").reset();
     };
 
 
     const toastSuccessMessage = () => {
-        toast.success("Basic Affiliate Updated Successfully !", {
+        toast.success("Location Updated Successfully !", {
             position: "top-center"
         })
     };
 
     const toastErrorMessage = () => {
-        toast.error("Basic Affiliate not Updated !", {
+        toast.error("Location not Updated !", {
             position: "top-center"
         })
     }
@@ -76,7 +76,7 @@ function PickupLocationForDeliveryBoy() {
                         <h6 className="mb-0 h6">Pickup Location For Delivery Boy</h6>
                     </div>
                     <div className="card-body">
-                        <form className="form-horizontal" id='create-course-form' onSubmit={submitUpdateAffiliateBasic}>
+                        <form className="form-horizontal" id='create-course-form' onSubmit={submitUpdateLocationForDeliveryBoy}>
 
                             <div className="form-group row">
                                 <input
@@ -91,7 +91,7 @@ function PickupLocationForDeliveryBoy() {
                                 </div>
                                 <div className="col-lg-6">
 
-                                    <input type="number" className="form-control" name="userFirst_Purchase" value=""
+                                    <input type="number" className="form-control" name="lat" value={inputval?.lat}
                                         placeholder="" required fdprocessedid="k81gnb" onChange={onChangeHandler} />
                                 </div>
                             </div>
@@ -109,7 +109,7 @@ function PickupLocationForDeliveryBoy() {
                                 </div>
                                 <div className="col-lg-6">
 
-                                    <input type="number" className="form-control" name="userFirst_Purchase" value=""
+                                    <input type="number" className="form-control" name="long" value={inputval?.long}
                                         placeholder="" required fdprocessedid="k81gnb" onChange={onChangeHandler} />
                                 </div>
                             </div>
