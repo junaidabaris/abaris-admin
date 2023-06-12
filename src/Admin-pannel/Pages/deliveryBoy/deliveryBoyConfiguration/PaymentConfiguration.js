@@ -1,29 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
-import { useGetBasicAffiliateQuery, useUpdateAffiliateBasicMutation } from '../../../Components/all-products/allproductsApi/allProductsApi';
+import { useGetBasicAffiliateQuery, useGetDeliveryboyPaymentConfigurationQuery, useUpdateAffiliateBasicMutation, useUpdateDeliveryboyPaymentConfigurationMutation } from '../../../Components/all-products/allproductsApi/allProductsApi';
 
 function PaymentConfiguration() {
 
 
     const [inputval, setInputval] = useState({
-        userFirst_Purchase: '',
-        status: null
+        commisionRate: '',
+        monthlySalary: null,
+        perOrderComissionRate: null
     });
     const [statusD, setStatusD] = useState()
+    const [statusD2, setStatusD2] = useState()
 
-    const { data } = useGetBasicAffiliateQuery();
+    const { data } = useGetDeliveryboyPaymentConfigurationQuery();
     useEffect(() => {
         const obj = { ...data }
         if (data) {
-            setInputval(obj[0]?.basic_affiliate)
-            setStatusD(obj[0]?.basic_affiliate.status)
+            setInputval(obj)
+            setStatusD(obj.monthlySalary)
+            setStatusD2(obj)
         }
     }, [data]);
 
-    console.log('basicData---', data)
+    console.log('Paymnet confggData---', data)
 
     const onChangeHandler = (e) => {
-        setStatusD(!statusD)
+        
         const inpName = e.target.name;
         const inpval = e.target.value;
         const clonedObj = { ...inputval };
@@ -31,24 +34,26 @@ function PaymentConfiguration() {
         setInputval(clonedObj)
     };
 
-    const [editAffiliateBasic, response] = useUpdateAffiliateBasicMutation();
+    const [editadeliveryBoyPaymentStatusD, response] = useUpdateDeliveryboyPaymentConfigurationMutation();
 
-    const submitUpdateAffiliateBasic = (e) => {
+    const submitUpdateDeliveryBoyPaymnet = (e) => {
         e.preventDefault();
-        const abc = { ...inputval, status: statusD }
-        editAffiliateBasic({ basic_affiliate: abc })
+        setStatusD(!statusD)
+        // setStatusD2(!statusD2)
+        const abc = { ...inputval, monthlySalary: statusD }
+        editadeliveryBoyPaymentStatusD(abc)
         document.getElementById("create-course-form").reset();
     };
 
 
     const toastSuccessMessage = () => {
-        toast.success("Basic Affiliate Updated Successfully !", {
+        toast.success("Payment Status Updated Successfully !", {
             position: "top-center"
         })
     };
 
     const toastErrorMessage = () => {
-        toast.error("Basic Affiliate not Updated !", {
+        toast.error("Payment Status not Updated !", {
             position: "top-center"
         })
     }
@@ -76,7 +81,7 @@ function PaymentConfiguration() {
                         <h6 className="mb-0 h6">Payment Configuration</h6>
                     </div>
                     <div className="card-body">
-                        <form className="form-horizontal" id='create-course-form' onSubmit={submitUpdateAffiliateBasic}>
+                        <form className="form-horizontal" id='create-course-form' onSubmit={submitUpdateDeliveryBoyPaymnet}>
 
                             <div className="form-group row">
                                 <div className="col-lg-4">
@@ -86,9 +91,9 @@ function PaymentConfiguration() {
                                     <label className="aiz-switch aiz-switch-success mb-0">
                                         <input
                                             // value={1}
-                                            name="status"
+                                            name="monthlySalary"
                                             type="checkbox"
-                                            checked={false}
+                                            checked={statusD}
                                             onChange={onChangeHandler}
                                         />
                                         <span className="slider round" />
@@ -96,23 +101,23 @@ function PaymentConfiguration() {
                                 </div>
                             </div>
 
-                            <div className="form-group row">
+                            {/* <div className="form-group row">
                                 <div className="col-lg-4">
                                     <label className="control-label">Per Order Comission</label>
                                 </div>
                                 <div className="col-lg-8">
                                     <label className="aiz-switch aiz-switch-success mb-0">
                                         <input
-                                            // value={1}
-                                            name="status"
+                                            value={1}
+                                            name="perOrderComissionRate"
                                             type="checkbox"
-                                            checked={false}
+                                            checked={statusD2}
                                             onChange={onChangeHandler}
                                         />
                                         <span className="slider round" />
                                     </label>
                                 </div>
-                            </div>
+                            </div> */}
 
                             <div className="form-group row">
                                 <input
@@ -122,12 +127,12 @@ function PaymentConfiguration() {
                                 />
                                 <div className="col-lg-4">
                                     <label className="control-label">
-                                       Commission Rate
+                                        Commission Rate
                                     </label>
                                 </div>
                                 <div className="col-lg-6">
 
-                                    <input type="number" className="form-control" name="userFirst_Purchase" value={''}
+                                    <input type="number" className="form-control" name="commisionRate" value={inputval?.commisionRate}
                                         placeholder="" required fdprocessedid="k81gnb" onChange={onChangeHandler} />
                                 </div>
 

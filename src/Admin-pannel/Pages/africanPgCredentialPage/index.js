@@ -16,7 +16,7 @@ function AfricanPgCredentialPage() {
                         <TingoCredential />
                         <RazorPayCredential />
                         <PayuMoneyCredential />
-                        <PayuMoneyCredential />
+                        {/* <PayuMoneyCredential /> */}
                         <PayTmCredential />
                     </div>
                 </div>

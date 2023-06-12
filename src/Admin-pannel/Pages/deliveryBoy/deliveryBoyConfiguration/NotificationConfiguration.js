@@ -1,28 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import { useGetBasicAffiliateQuery, useUpdateAffiliateBasicMutation } from '../../../Components/all-products/allproductsApi/allProductsApi';
+import { useGetBasicAffiliateQuery, useGetNotificationConfigurationForDeliveryQuery, useUpdateAffiliateBasicMutation, useUpdateNotificationConfigurationForDeliveryMutation } from '../../../Components/all-products/allproductsApi/allProductsApi';
 import { ToastContainer, toast } from 'react-toastify';
 
 function NotificationConfiguration() {
 
     const [inputval, setInputval] = useState({
-        userFirst_Purchase: '',
-        status: null
+        sendMail: null, sendOtp: null
     });
-    const [statusD, setStatusD] = useState()
+    const [statusMailD, setStatusMailD] = useState()
+    const [statusOTPD, setStatusOTPD] = useState()
+    console.log('statusMailD------------------', statusMailD)
 
-    const { data } = useGetBasicAffiliateQuery();
+    const { data } = useGetNotificationConfigurationForDeliveryQuery();
     useEffect(() => {
         const obj = { ...data }
         if (data) {
-            setInputval(obj[0]?.basic_affiliate)
-            setStatusD(obj[0]?.basic_affiliate.status)
+            setInputval(obj)
+            setStatusMailD(obj)
+            setStatusOTPD(obj)
         }
     }, [data]);
 
-    console.log('basicData---', data)
+    console.log('NotificationData---', data)
 
     const onChangeHandler = (e) => {
-        setStatusD(!statusD)
+        setStatusMailD(!statusMailD)
+        setStatusOTPD(!statusOTPD)
         const inpName = e.target.name;
         const inpval = e.target.value;
         const clonedObj = { ...inputval };
@@ -30,24 +33,24 @@ function NotificationConfiguration() {
         setInputval(clonedObj)
     };
 
-    const [editAffiliateBasic, response] = useUpdateAffiliateBasicMutation();
+    const [editNotificationConfigD, response] = useUpdateNotificationConfigurationForDeliveryMutation();
 
-    const submitUpdateAffiliateBasic = (e) => {
+    const submitUpdateNotificationConfig = (e) => {
         e.preventDefault();
-        const abc = { ...inputval, status: statusD }
-        editAffiliateBasic({ basic_affiliate: abc })
+        const abc = { ...inputval}
+        editNotificationConfigD(abc)
         document.getElementById("create-course-form").reset();
     };
 
 
     const toastSuccessMessage = () => {
-        toast.success("Basic Affiliate Updated Successfully !", {
+        toast.success("Notification Updated Successfully !", {
             position: "top-center"
         })
     };
 
     const toastErrorMessage = () => {
-        toast.error("Basic Affiliate not Updated !", {
+        toast.error("Notification not Updated !", {
             position: "top-center"
         })
     }
@@ -75,7 +78,7 @@ function NotificationConfiguration() {
                         <h6 className="mb-0 h6">Notification Configuration</h6>
                     </div>
                     <div className="card-body">
-                        <form className="form-horizontal" id='create-course-form' onSubmit={submitUpdateAffiliateBasic}>
+                        <form className="form-horizontal" id='create-course-form' onSubmit={submitUpdateNotificationConfig}>
 
                             <div className="form-group row">
                                 <div className="col-lg-4">
@@ -85,9 +88,9 @@ function NotificationConfiguration() {
                                     <label className="aiz-switch aiz-switch-success mb-0">
                                         <input
                                             // value={1}
-                                            name="status"
+                                            name="sendMail"
                                             type="checkbox"
-                                            checked={false}
+                                            checked={statusMailD?.sendMail}
                                             onChange={onChangeHandler}
                                         />
                                         <span className="slider round" />
@@ -102,10 +105,10 @@ function NotificationConfiguration() {
                                 <div className="col-lg-8">
                                     <label className="aiz-switch aiz-switch-success mb-0">
                                         <input
-                                            // value={1}
-                                            name="status"
+                                            value={1}
+                                            name="sendOtp"
                                             type="checkbox"
-                                            checked={false}
+                                            checked={statusOTPD?.sendOtp}
                                             onChange={onChangeHandler}
                                         />
                                         <span className="slider round" />
