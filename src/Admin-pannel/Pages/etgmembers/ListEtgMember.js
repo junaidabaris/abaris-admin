@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { Table } from "react-bootstrap"
+import { MdDelete } from "react-icons/md"
 
 function ListEtgMember() {
 
@@ -15,6 +16,16 @@ function ListEtgMember() {
     useEffect(() => {
         getData()
     }, [])
+
+    const DeleteMember = async (id) => {
+        try {
+            await axios.delete(`https://onlineparttimejobs.in/api/adminMemberWidget/delete_adminMembers/${id}`)
+            alert('ETG Member Deleted!')
+            getData()
+        } catch (error) {
+            alert('ETG Member Not Deleted')
+        }
+    }
 
 
 
@@ -38,19 +49,21 @@ function ListEtgMember() {
                             <th>Department</th>
                             <th>Designation</th>
                             <th>Description</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {data && data.map((item,i)=>{
+                        {data && data.map((item, i) => {
                             return <tr key={item?._id}>
                                 <td>{i + 1}</td>
                                 <td>{item.name}</td>
                                 <td>
-                                    <img style={{width:"120px",height:"120px"}} src={item?.photo ? item?.photo.url : ''}/>
+                                    <img style={{ width: "120px", height: "120px" }} src={item?.photo ? item?.photo.url : ''} />
                                 </td>
                                 <td>{item.department}</td>
                                 <td>{item.designation}</td>
                                 <td>{item.description}</td>
+                                <td><MdDelete style={{fontSize:"22px"}} onClick={() => DeleteMember(item._id)} /></td>
                             </tr>
                         })}
 

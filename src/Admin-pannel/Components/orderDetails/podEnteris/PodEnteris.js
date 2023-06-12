@@ -36,6 +36,9 @@ function PodEnteris(props) {
         image: "",
     })
 
+    const isDelevery = window.localStorage.getItem('isDeleveryBoy')
+    const DeleveryBoyId = window.localStorage.getItem('DeleveryBoyId')
+
     const [file, setFile] = useState(null)
     const photoChange = (e) => {
         setFile(e.target.files[0])
@@ -58,9 +61,22 @@ function PodEnteris(props) {
             alert('Status Not Load')
         }
     }
+    const getData1 = async () => {
+        try {
+            const res = await axios.get(`https://onlineparttimejobs.in/api/orderStatusMaster/delivery`)
+            setData(res.data)
+
+        } catch (error) {
+            alert('Status Not Load')
+        }
+    }
 
     useEffect(() => {
-        getData()
+        if (isDelevery === 'true') {
+            getData1()
+        } else {
+            getData()
+        }
     }, [])
 
 
