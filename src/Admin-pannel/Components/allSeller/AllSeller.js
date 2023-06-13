@@ -27,7 +27,9 @@ const image = [
 ];
 
 function AllSeller() {
-  const { data } = useGetSellersQuery()
+  const { data } = useGetSellersQuery();
+
+  console.log('sellerListData-----',data)
 
 
   const [deleteItem, { isLoading }] = useDeleteSellerListMutation()
@@ -160,6 +162,9 @@ function AllSeller() {
                       </th>
                       <th style={{ display: "table-cell" }}>Image</th>
                       <th style={{ display: "table-cell" }}>Name</th>
+                      <th style={{ display: "table-cell" }}>Country</th>
+                      <th style={{ display: "table-cell" }}>State</th>
+                      <th style={{ display: "table-cell" }}>City</th>
                       <th
                         data-breakpoints="lg"
                         style={{ display: "table-cell" }}
@@ -172,19 +177,26 @@ function AllSeller() {
                       >
                         Email Address
                       </th>
-                      <th
+                      {/* <th
                         data-breakpoints="lg"
                         style={{ display: "table-cell" }}
                       >
                         Verification Info
+                      </th> */}
+                      <th
+                        data-breakpoints="lg"
+                        style={{ display: "table-cell" }}
+                      >
+                        Active
                       </th>
                       <th
                         data-breakpoints="lg"
                         style={{ display: "table-cell" }}
                       >
-                        Block
+                        Current Wallet Balance
                       </th>
-                      <th
+
+                      {/* <th
                         data-breakpoints="lg"
                         style={{ display: "table-cell" }}
                       >
@@ -195,10 +207,10 @@ function AllSeller() {
                         style={{ display: "table-cell" }}
                       >
                         Due to seller
-                      </th>
+                      </th> */}
                       <th
                         width="10%"
-                        className="footable-last-visible"
+                        className="text-right footable-last-visible"
                         style={{ display: "table-cell" }}
                       >
                         Options
@@ -245,18 +257,21 @@ function AllSeller() {
                           {" "}
                           {item?.firstname}  {item?.lastname}
                         </td>
+                        <td style={{ display: "table-cell" }}>{item?.country}</td>
+                        <td style={{ display: "table-cell" }}>{item?.state}</td>
+                        <td style={{ display: "table-cell" }}>{item?.city}</td>
                         <td style={{ display: "table-cell" }}>{item?.mobile}</td>
                         <td style={{ display: "table-cell" }}>
                           {item?.email}
                         </td>
-                        <td style={{ display: "table-cell" }}>
+                        {/* <td style={{ display: "table-cell" }}>
                           {item.verification_status ? <a href="#">
                             <span className="badge badge-inline badge-info">
                               verified
                             </span>
                           </a> : <>not verified</>}
 
-                        </td>
+                        </td> */}
                         <td style={{ display: "table-cell" }}>
                           <label className="aiz-switch aiz-switch-success mb-0">
                             <input
@@ -267,8 +282,8 @@ function AllSeller() {
                             <span className="slider round" />
                           </label>
                         </td>
-                        <td style={{ display: "table-cell" }}>{item.num_of_sale}</td>
-                        <td style={{ display: "table-cell" }}>ZK{item.admin_to_pay}.0</td>
+                        <td style={{ display: "table-cell" }}>00</td>
+                        {/* <td style={{ display: "table-cell" }}>ZK{item.admin_to_pay}.0</td> */}
                         <td className="text-right footable-last-visible" style={{ display: "table-cell" }}>
                           <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm" title="View" to={`detail/${item._id}`}>
                             <i className="las la-eye"></i>
