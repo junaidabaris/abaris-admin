@@ -10379,6 +10379,7 @@ label.form-check-label.agreeCheck,
 .language-settings {
   padding: 10px;
 }
+
 pre {
   display: block;
   padding: 9.5px;
@@ -10392,29 +10393,35 @@ pre {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
 /* .langu {
   position: relative;
 } */
 .ql-snow {
   position: relative !important;
 }
+
 .language {
   position: absolute;
   /* top: -2px;
   right: 300px */
   top: 42px;
-    /* right: 300px; */
-    left:15px;
+  /* right: 300px; */
+  left: 15px;
 }
+
 .email-link {
   color: #000;
 }
+
 .language .form-select {
   /* border: none !important; */
 }
+
 .language .form-select:focus {
   border: none !important;
 }
+
 /* .tabbbs {
   border: 1px solid black;
 } */
@@ -10422,22 +10429,38 @@ pre {
 table tbody tr .show-table {
   display: block !important;
 }
+
 .mainn .mr-3 {
   margin-right: 10px !important;
 }
+
 .mainn {
   align-items: center;
 }
+
 .mb-0-0 {
   background-color: gray;
   padding: 10px;
 }
+
 .text-md-right-2 {
   width: 100px !important;
 }
+
 .btn-info-2 {
   width: 180px;
 }
+
 .langu .tab-content {
   margin-top: 60px !important;
+}
+
+.innerbuyPackage>div>div {
+  height: 310px;
+}
+.innerbuyPackagepay>div>div {
+  height: 510px;
+}
+.borderColorss{
+  border: 1px solid #2E294E;
 }

@@ -52,6 +52,19 @@ function LoginSection({ setshow }) {
     const setAllData = (data) => {
         // window.localStorage.setItem('adminId', data.findStaff._id)
         // window.localStorage.setItem('adminToken', data.token)
+        window.localStorage.setItem('adminIslogin', false)
+        window.localStorage.setItem('showMainadmin', false)
+        window.localStorage.setItem('isSellerLogin', false)
+        window.localStorage.setItem('isSellerName', null)
+        window.localStorage.setItem('isPickupManagerLogin', false)
+        window.localStorage.setItem('isPickupManagerId', null)
+        window.localStorage.setItem('isPickupManagerName', null)
+        window.localStorage.setItem('adminId', '')
+        window.localStorage.setItem('isSellerId', null)
+        window.localStorage.setItem('isDeleveryBoy', false)
+        window.localStorage.setItem('DeleveryBoyId', null)
+        window.localStorage.setItem('DeleveryBoyName', null)
+        
         if (data?.finddeliveryBoy?.role_id.role_name === 'delevery boy') {
             window.localStorage.setItem('isDeleveryBoy', true)
             window.localStorage.setItem('DeleveryBoyId', data?.finddeliveryBoy?._id)

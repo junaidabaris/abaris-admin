@@ -1,20 +1,21 @@
 import { Link } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 import { useDeleteSellerPackageMutation, useGetSellerPackageQuery } from "../all-products/allproductsApi/allProductsApi";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import PerchasePackage from "./PerchasePackage";
+import OnlinePerchase from "./OnlinePerchase";
+import OfflinePerchase from "./OfflinePerchase";
 
 function SellerPackage() {
+  const isSellerLogin = window.localStorage.getItem('isSellerLogin')
 
   const { isLoading, data } = useGetSellerPackageQuery();
-  console.log('seller-package-data---', data);
 
   const [deleteSellerPackageD, response] = useDeleteSellerPackageMutation();
 
   const deleteSellerPackageData = (id) => {
     deleteSellerPackageD(id)
   };
-  console.log('resp--', response);
-
   const toastSuccessMessage = () => {
     toast.success("Seller Package Deleted Successfully", {
       position: "top-center"
@@ -30,6 +31,25 @@ function SellerPackage() {
     };
   }, [response])
 
+  const [modalShow, setModalShow] = useState(false);
+  const [items, setItem] = useState(null);
+  const [modalShowinner, setModalShowinner] = useState(false);
+  const [modalShowouter, setModalShowouter] = useState(false);
+
+  const onlineShow = () => {
+    setModalShow(false)
+    setModalShowinner(true)
+  }
+
+  const offlineShow = () => {
+    setModalShow(false)
+    setModalShowouter(true)
+  }
+
+  const sendData = (item)=>{
+    setItem(item)
+    setModalShow(true)
+  }
 
   return (
     <>
@@ -67,15 +87,39 @@ function SellerPackage() {
                       <p className="fs-15">Package Duration:
                         <b className="text-bold">{item.duration}</b>
                       </p>
+                      {isSellerLogin === 'true' ?
 
-                      <div className="mar-top">
-                        <Link to={`edit/${item._id}`} className="btn btn-sm btn-info mr-1">Edit</Link>
-                        <button type="button" onClick={() => deleteSellerPackageData(item._id)} className="btn btn-sm btn-danger confirm-delete">Delete</button>
-                      </div>
+                        <button type="button" class="btn btn-info" onClick={() => sendData(item)}>Purchase Package</button>
+                        : <div className="mar-top">
+                          <Link to={`edit/${item._id}`} className="btn btn-sm btn-info mr-1">Edit</Link>
+                          <button type="button" onClick={() => deleteSellerPackageData(item._id)} className="btn btn-sm btn-danger confirm-delete">Delete</button>
+                        </div>}
+
                     </div>
                   </div>
                 </div>
               })}
+
+            {modalShow && <PerchasePackage
+              show={modalShow}
+              offlineShow={offlineShow}
+              onlineShow={onlineShow}
+              onHide={() => setModalShow(false)}
+            />}
+
+
+            {modalShowinner && <OnlinePerchase
+              show={modalShowinner}
+              onHide={() => setModalShowinner(false)}
+              items={items}
+            />}
+
+            {modalShowouter && <OfflinePerchase
+              show={modalShowouter}
+              items={items}
+              onHide={() => setModalShowouter(false)}
+            />}
+
 
           </div>
         </div>
@@ -84,6 +128,8 @@ function SellerPackage() {
         </div>
         <ToastContainer />
       </div>
+
+
 
     </>
   )
