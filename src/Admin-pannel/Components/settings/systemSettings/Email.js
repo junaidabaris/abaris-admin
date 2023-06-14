@@ -1,6 +1,64 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useGetSettingMoneyAndNumberFormatQuery, useUpdateMoneyFormatMutation } from '../../all-products/allproductsApi/allProductsApi';
+import { ToastContainer, toast } from 'react-toastify';
 
 function Email() {
+
+    const [inputVal, setInputval] = useState({
+        EmailProtocol: ""
+    });
+
+    const { isLoading, data } = useGetSettingMoneyAndNumberFormatQuery();
+    console.log('emailD----', data)
+
+    useEffect(() => {
+        const clon = { ...data }
+        if (data) {
+            setInputval(clon);
+        }
+    }, [data]);
+
+    const onChangeHandler = (e) => {
+        const inpName = e.target.name;
+        const inpval = e.target.value;
+        const clonedObj = { ...inputVal };
+        clonedObj[inpName] = inpval;
+        setInputval(clonedObj)
+    };
+
+    const [updateEmailD, response] = useUpdateMoneyFormatMutation();
+
+    const submitUpdatEmailD = () => {
+        const abc = { ...inputVal }
+        console.log('abc----', abc)
+        updateEmailD(abc)
+        document.getElementById("create-course-form").reset();
+    };
+
+    const toastSuccessMessage = () => {
+        toast.success("EmailStting Updated Successfully !", {
+            position: "top-center"
+        })
+    };
+
+    const toastErrorMessage = () => {
+        toast.error("EmailStting not Updated !", {
+            position: "top-center"
+        })
+    }
+
+    useEffect(() => {
+        if (response.isSuccess === true) {
+            toastSuccessMessage()
+        };
+    }, [response]);
+
+    useEffect(() => {
+        if (response.isError === true) {
+            toastErrorMessage()
+        };
+    }, [response])
+
     return (
         <>
             <div className="scheduler-border">
@@ -8,14 +66,15 @@ function Email() {
                 <div className="row">
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Email Protocol *</label>
-                        <select name="rows_per_page" id="rows_per_page" className="form-select">
-                            <option value={0} >PHP Mail Function</option>
-                            <option value={1} >Send Mail</option>
-                            <option value={1} >SMTP</option>
+                        <select name="EmailProtocol" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
+                            <option value={'phpMailFUnction'} >PHP Mail Function</option>
+                            <option value={'send mail'} >Send Mail</option>
+                            <option value={'smtp'} >SMTP</option>
                         </select>
                     </div>
                 </div>
-                <button className="btn btn-primary m-3 pe-5" style={{ width: '60px', textAlign: 'end' }}>Save</button>
+                <button className="btn btn-primary m-3 pe-5" type='button' onClick={submitUpdatEmailD} style={{ width: '60px', textAlign: 'end' }}>Save</button>
+                <ToastContainer />
             </div>
         </>
     )
