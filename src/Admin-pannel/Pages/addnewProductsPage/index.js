@@ -59,6 +59,8 @@ const addFile = async (clonedObj, payload) => {
     formData.append('hsn_code', clonedObj.hsn_code);
     formData.append('sale_rp', clonedObj.sale_rp);
     formData.append('share_rp', clonedObj.share_rp);
+    formData.append('meta_title', clonedObj.meta_title);
+    formData.append('meta_description', clonedObj.meta_description);
 
     formData.append('flashDeal', JSON.stringify(clonedObj.flashDeal));
     formData.append('images', JSON.stringify(arr));

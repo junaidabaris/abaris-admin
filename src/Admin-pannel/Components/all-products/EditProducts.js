@@ -188,7 +188,7 @@ function EditProducts() {
         formData.append('name', clonedObj.name);
         formData.append('gallery_image', clonedObj.gallery_image);
         formData.append('thumbnail_image', clonedObj.thumbnail_image);
-        formData.append('brand_id', clonedObj.brand_id);
+        formData.append('brand_id', inputval.brand_id);
         formData.append('seller_id', clonedObj.seller_id);
         formData.append('shipping_coast', clonedObj.shipping_coast);
         formData.append('tags', clonedObj.tags);

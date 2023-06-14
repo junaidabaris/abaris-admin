@@ -256,6 +256,8 @@ import DeliveryCollectionList from "./Admin-pannel/Pages/deliveryBoy/deliveryCol
 import DeliveryBoyCancelRequest from "./Admin-pannel/Pages/deliveryBoy/deliveryBoyCancelRequest/DeliveryBoyCancelRequest";
 import DeliveryBoyConfiguration from "./Admin-pannel/Pages/deliveryBoy/deliveryBoyConfiguration/DeliveryBoyConfiguration";
 import DeliveryBoyStatus from "./Admin-pannel/Pages/deliveryBoy/deliveryBoyStatus/DeliveryBoyStatus";
+import ListParchaseList from "./Admin-pannel/Components/sellerPackage/ListParchaseList";
+import Seller_packages_purchase_list from "./Admin-pannel/Pages/seller_packages_purchase_list/Seller_packages_purchase_list";
 
 
 function App() {
@@ -275,8 +277,6 @@ function App() {
           <Route path="products/all/comboProduct" element={<ListComboProdust />} />
 
 
-          {/* reports */}
-          {/* test hubs */}
           <Route path="stock_report" element={<StockReport />} />
           <Route path="sales_report" element={<SalesReport />} />
           <Route path="register_report" element={<RegisterReport />} />
@@ -555,6 +555,9 @@ function App() {
           <Route path="delivery-boy-status" element={<DeliveryBoyStatus />} />
 
           <Route path="all/reviews" element={<AllReviewsProducts />} />
+
+          <Route path="seller_packages_list" element={<ListParchaseList />} />
+          <Route path="seller_packages_purchase_list" element={<Seller_packages_purchase_list />} />
 
 
         </Route>

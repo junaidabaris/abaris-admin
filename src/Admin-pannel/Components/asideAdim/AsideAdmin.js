@@ -286,6 +286,11 @@ function AsideAdmin() {
                   <span className="aiz-side-nav-text">Seller Packages</span>
                 </Link>
               </li>
+              <li className="aiz-side-nav-item">
+                <Link to="seller_packages_list" className="aiz-side-nav-link ">
+                  <span className="aiz-side-nav-text">Seller Packages List</span>
+                </Link>
+              </li>
 
               <li className="aiz-side-nav-item">
                 <Link to="seller-banners" className="aiz-side-nav-link">
@@ -1043,6 +1048,11 @@ function AsideAdmin() {
                   <li className="aiz-side-nav-item">
                     <Link to="seller_packages" className="aiz-side-nav-link ">
                       <span className="aiz-side-nav-text">Seller Packages</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="seller_packages_purchase_list" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Seller Packages Purchase List</span>
                     </Link>
                   </li>
                   {/* <li className="aiz-side-nav-item">
