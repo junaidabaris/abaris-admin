@@ -159,7 +159,7 @@ function OrderDetails() {
       alert('Status Not Load')
     }
   }
-  
+
   useEffect(() => {
     if (isDelevery === 'true') {
       getData1()
@@ -189,7 +189,6 @@ function OrderDetails() {
       alert('Assign To Delevery Boy Failed')
     }
   }
-
 
   return (
     <>
@@ -239,8 +238,8 @@ function OrderDetails() {
 
                         style={{ height: 38 + "px", fontSize: 13 + "px" }}>
 
-                        {orderStatusD &&
-                          orderStatusD.map((item, i) => {
+                        {orderStatusData &&
+                          orderStatusData.map((item, i) => {
                             return (
                               <option value={item._id} key={i}>
                                 {item.orderStatusName}
@@ -709,6 +708,20 @@ function OrderDetails() {
                         >
                           TAX
                         </th>
+                        {/* <th
+                          data-breakpoints="lg"
+                          className="min-col text-uppercase text-center"
+                          style={{ display: "table-cell" }}
+                        >
+                          COUPON CODE
+                        </th>
+                        <th
+                          data-breakpoints="lg"
+                          className="min-col text-uppercase text-center"
+                          style={{ display: "table-cell" }}
+                        >
+                          COUPON Discount
+                        </th> */}
 
                         <th
                           data-breakpoints="lg"
@@ -741,7 +754,7 @@ function OrderDetails() {
                                 <Link to="#">
                                   <img
                                     height={50}
-                                    src="https://mmslfashions.in/public/uploads/all/g7ZiaWNvwkLwNhl67jtfbUaIcwSzVarNuc7T8dLP.jpg"
+                                    src={item?.product_image?.url}
                                   />
                                 </Link>
                               </td>
@@ -778,6 +791,18 @@ function OrderDetails() {
                                 {data?.getaOrderById?.products[i]?.tax}
                               </td>
 
+                              {/* <td
+                                className="text-right footable-last-visible"
+                                style={{ display: "table-cell" }}
+                              >
+                                {data?.getaOrderById?.coupon_id?.code}
+                              </td>
+                              <td
+                                className="text-right footable-last-visible"
+                                style={{ display: "table-cell" }}
+                              >
+                                {data?.getaOrderById?.coupon_id?.discount} in (  {data?.getaOrderById?.coupon_id?.discount_type})
+                              </td> */}
                               <td
                                 className="text-right footable-last-visible"
                                 style={{ display: "table-cell" }}
@@ -798,6 +823,10 @@ function OrderDetails() {
                   </table>
                 </div>
                 <div className="text-right">
+                  {data?.getaOrderById?.coupon_id?.code && <div className="mb-2">
+                    <div className="pr-2">COUPON CODE : <strong> {data?.getaOrderById?.coupon_id?.code}</strong></div>
+                    <div className="pr-2">COUPON Discount : <strong>  {data?.getaOrderById?.coupon_id?.discount} ({data?.getaOrderById?.coupon_id?.discount_type === 'Percent' ? 'Percent':'Amount'})</strong></div>
+                  </div>}
                   <div className="mb-2"><big className="pr-2">Shipping Cost:<strong> {data?.getaOrderById?.shippingCost}</strong></big></div>
                   <div><big className="pr-2">Grand Total:  <strong>{data?.getaOrderById?.grandTotal}</strong></big></div>
                 </div>

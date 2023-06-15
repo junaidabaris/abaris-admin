@@ -21,25 +21,33 @@ function EditProducts() {
     const [sizeTags, setSizeTags] = useState([]);
     const [variationArr, setVariationArr] = useState([]);
     // const [categ, setCateg] = useState([]);
-    const [finalCatD, setFinalCatD] = useState([]);
+    const [finalCatD, setFinalCatD] = useState();
     const { data: categ } = useGetCategoriesQuery();
     const { data: sellerD } = useGetSellersQuery()
     const { data: unitMast } = useGetUnitMasterQuery()
 
+    const params = useParams();
+    const { data: productData, isSuccess } = useGetProductByIdQuery(params.id);
 
     const { data: attributesData } = useGetAttributesQuery()
 
     const [form_variatio, { data: variationsData, isLoading: isVariantLoading, isError: formvariantError, isSuccess: sussVari }] = useForm_variatioMutation();
 
+    useEffect(() => {
+        if (isVariantLoading) {
+            setVariationArr(variationsData)
+        }
+    }, [isVariantLoading])
+
     const [allAttributes, setAllAttributes] = useState(null);
     const getAttributes = (attributes) => {
-        console.log(allAttributes);
         setAllAttributes([...attributes])
     }
 
     const [sendbox, setSendox] = useState()
 
     const getChoiceValues = (choiceValues, currentAttr) => {
+
         let flag = true;
         if (sendPayload.length) {
             sendPayload.map((item, i) => {
@@ -56,9 +64,14 @@ function EditProducts() {
         }
         const filteredData = sendPayload?.filter(item => item.data.length)
         if (filteredData.length) {
-            form_variatio({ attributes: filteredData, variations: productData.variations })
+            if (isSuccess) {
+                form_variatio({ attributes: filteredData, variations: variationArr })
+            }
         }
         setSendox(filteredData)
+        if (!filteredData?.length) {
+            setVariationArr([])
+        }
 
     }
 
@@ -70,15 +83,8 @@ function EditProducts() {
         setVariationArr(variationsData)
     }, [sussVari])
 
-    // useEffect(() => {
-    //     if (sussVari) {
-    //         setVariationArr(variationsData)
-    //     }
-    // }, [sussVari])
 
 
-
-    const params = useParams();
 
     const [inputval, setInputVal] = useState({
         todays_deal: false,
@@ -174,7 +180,6 @@ function EditProducts() {
         clonedObj[inpName] = inpVal;
         setInputVal(clonedObj)
     }
-
     const submitEditProductData = async () => {
         const clonedObj = { ...inputval, variations: variationArr, tags: tags, category_id: finalCatD, variation_Form: sendbox };
         setInputVal(clonedObj);
@@ -182,8 +187,6 @@ function EditProducts() {
 
         const url = `https://onlineparttimejobs.in/api/product/${params.id}`
         const formData = new FormData();
-
-
 
         formData.append('name', clonedObj.name);
         formData.append('gallery_image', clonedObj.gallery_image);
@@ -198,7 +201,7 @@ function EditProducts() {
         formData.append('sale_rp', clonedObj.sale_rp);
         formData.append('share_rp', clonedObj.share_rp);
 
-        formData.append('variations', JSON.stringify(clonedObj.variations));
+        formData.append('variations', JSON.stringify(variationArr));
         formData.append('variation_Form', JSON.stringify(clonedObj.variation_Form));
         formData.append('productDescription', JSON.stringify(clonedObj.productDescription))
 
@@ -232,12 +235,13 @@ function EditProducts() {
     };
 
     // const { data: pickUp } = useGetPickupPointQuery();
-    const { data: productData, isSuccess } = useGetProductByIdQuery(params.id);
+
 
     useEffect(() => {
         if (params.id && productData) {
             const obj = { ...productData }
-            setInputVal(obj)
+            setInputVal({ ...obj, brand_id: obj?.brand_id?._id })
+            setFinalCatD([obj?.category_id[0]?._id])
             setTags(obj.tags)
             const weights = obj.variations.map((variation) => variation.weight)
             setSizeTags(weights);
@@ -258,6 +262,7 @@ function EditProducts() {
         }
     }, [formvariantError])
 
+    console.log(variationArr);
 
     return (
         <>
@@ -300,10 +305,18 @@ function EditProducts() {
                                                         options={categ ? categ : []}
                                                         showCheckbox
                                                         selectedValues={productData && productData.category_id}
-                                                        onRemove={(event) => { console.log(event) }}
-                                                        onSelect={(event) => {
+                                                        onRemove={(selectedCat) => {
+                                                            const selectedIds = selectedCat.map((cat) => {
+                                                                return cat._id
+                                                            })
+                                                            setFinalCatD(selectedIds)
+                                                        }}
+                                                        onSelect={(selectedCat) => {
                                                             // setFinalCatD(event)
-                                                            console.log('event', event)
+                                                            const selectedIds = selectedCat.map((cat) => {
+                                                                return cat._id
+                                                            })
+                                                            setFinalCatD(selectedIds)
                                                         }}
                                                     />
 
@@ -374,7 +387,7 @@ function EditProducts() {
                                                                     <span className='close' onClick={() => removetagTag(index)}>&times;</span>
                                                                 </div>
                                                             })}
-                                                            <input type="text" value={inputval?.tags} onKeyDown={handleTagKeyDown} placeholder='type some text' className='tags-input' name="attributes" onChange={onChangeHandler} />
+                                                            <input type="text" onKeyDown={handleTagKeyDown} placeholder='type some text' className='tags-input' name="attributes" onChange={onChangeHandler} />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -668,7 +681,7 @@ function EditProducts() {
 
                                             <div className="col-lg-12 mt-3">
                                                 {allAttributes?.map((item) => {
-                                                    return <AttributeItem key={item._id} item={item} handleChoiceValues={getChoiceValues} />
+                                                    return <AttributeItem key={item._id} item={item} isSuccess={isSuccess} handleChoiceValues={getChoiceValues} />
                                                 })}
                                             </div>
 

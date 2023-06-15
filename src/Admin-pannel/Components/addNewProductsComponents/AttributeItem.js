@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-export const AttributeItem = ({ item, handleChoiceValues }) => {
-    
+export const AttributeItem = ({ item, handleChoiceValues, isSuccess }) => {
+
     const [tags, setTags] = useState([]);
     const params = useParams()
 
@@ -38,9 +38,18 @@ export const AttributeItem = ({ item, handleChoiceValues }) => {
 
     useEffect(() => {
         if (tags?.length) {
-            handleChoiceValues(tags, { id: item._id, title: item.name ? item.name : item.title, data: [...tags] })
+            handleChoiceValues(tags, { id: item._id, title: item.name ? item.name : item.title, data: tags ? [...tags] : '' })
+        }
+        else if (isSuccess) {
+            handleChoiceValues(tags, { id: item._id, title: item.name ? item.name : item.title, data: tags ? [...tags] : '' })
         }
     }, [tags])
+
+    useEffect(() => {
+        if (isSuccess) {
+            // handleChoiceValues(tags, { id: item._id, title: item.name ? item.name : item.title, data: tags ? [...tags] : '' })
+        }
+    }, [isSuccess])
 
 
     return (
