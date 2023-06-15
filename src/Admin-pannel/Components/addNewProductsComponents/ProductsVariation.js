@@ -5,8 +5,8 @@ import { AttributeItem } from "./AttributeItem";
 import { ColorVariant } from "./ColorVariant";
 
 let sendPayload = [];
-function ProductsVariation({ handleVariantData, productData ,setattributesVal}) {
-    
+function ProductsVariation({ handleVariantData, productData, setattributesVal }) {
+
 
     const [variationArr, setVariationArr] = useState([]);
     // console.log('....prod', productData)
@@ -61,6 +61,12 @@ function ProductsVariation({ handleVariantData, productData ,setattributesVal}) 
     const [form_variatio, { data: variationsData, isLoading: isVariantLoading }] = useForm_variatioMutation();
     const [updatedVariants, setUpdatedVariants] = useState()
 
+    useEffect(() => {
+        if (variationsData) {
+            setVariationArr(variationsData)
+        }
+    }, [isVariantLoading, variationsData])
+
     const { data: attributesData } = useGetAttributesQuery()
     const [colorVariant, setColorVariant] = useState([]);
     const [allAttributes, setAllAttributes] = useState(null);
@@ -71,7 +77,7 @@ function ProductsVariation({ handleVariantData, productData ,setattributesVal}) 
     }
     const getChoiceValues = (choiceValues, currentAttr) => {
 
-        setAllChoices([...choiceValues])
+        setAllChoices(choiceValues && [...choiceValues])
         let flag = true;
         if (sendPayload.length) {
             sendPayload.map((item, i) => {
@@ -87,9 +93,13 @@ function ProductsVariation({ handleVariantData, productData ,setattributesVal}) 
             sendPayload.push(currentAttr)
         }
         const filteredData = sendPayload.filter(item => item.data.length)
+       
         if (filteredData.length) {
             form_variatio({ attributes: filteredData })
             setattributesVal(filteredData)
+        }
+        if (!filteredData.length) {
+            setVariationArr([])
         }
 
     }
@@ -205,13 +215,13 @@ function ProductsVariation({ handleVariantData, productData ,setattributesVal}) 
                                                 </td>
                                             </tr>
                                         )}
-                                        
+
                                         {/* { 
                                             getOptions(variationsData).map((variantItem, i) => (
                                                 <ColorVariant key={i} data={variantItem} pickUp={pickUp} handleVariant={getUpdatedVariant} />
                                             ))
                                         } */}
-                                        {variationsData && variationsData.map((variantItem, i) => {
+                                        {variationArr && variationArr.map((variantItem, i) => {
                                             return (
                                                 <ColorVariant key={i} data={variantItem} pickUp={pickUp} handleVariant={getUpdatedVariant} />
                                             )
