@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-export const AttributeItem = ({ item, handleChoiceValues, isSuccess }) => {
+export const AttributeItem = ({ item, handleChoiceValues, isSuccess,isLoading }) => {
 
     const [tags, setTags] = useState([]);
     const params = useParams()
