@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useGetSettingMoneyAndNumberFormatQuery, useUpdateMoneyFormatMutation } from '../../all-products/allproductsApi/allProductsApi';
+import { useGetSettingAwardPointQuery, useGetSettingMoneyAndNumberFormatQuery, useUpdateAwardPointMutation, useUpdateMoneyFormatMutation } from '../../all-products/allproductsApi/allProductsApi';
 import { ToastContainer, toast } from 'react-toastify';
 
 function AwardPoint() {
@@ -8,8 +8,8 @@ function AwardPoint() {
         CustomerAwardPoints: "", AwardPoints: "", StaffAwardPoints: ''
     });
 
-    const { isLoading, data } = useGetSettingMoneyAndNumberFormatQuery();
-    console.log('awardD----', data)
+    const { isLoading, data } = useGetSettingAwardPointQuery();
+    console.log('awardDPoint----', data)
 
     useEffect(() => {
         const clon = { ...data }
@@ -26,7 +26,7 @@ function AwardPoint() {
         setInputval(clonedObj)
     };
 
-    const [updateAwardPointD, response] = useUpdateMoneyFormatMutation();
+    const [updateAwardPointD, response] = useUpdateAwardPointMutation();
 
     const submitUpdatAwardPointDD = () => {
         const abc = { ...inputVal }
@@ -66,15 +66,15 @@ function AwardPoint() {
                 <div className="row">
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Customer Award Points</label>
-                        <input type="text" name='CustomerAwardPoints' className="form-control tip" onChange={onChangeHandler} />
+                        <input type="text" name='CustomerAwardPoints' value={inputVal?.CustomerAwardPoints} className="form-control tip" onChange={onChangeHandler} />
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Award Points</label>
-                        <input type="text" name='AwardPoints' className="form-control tip" onChange={onChangeHandler} />
+                        <input type="text" name='AwardPoints' value={inputVal?.AwardPoints} className="form-control tip" onChange={onChangeHandler} />
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Staff Award Points</label>
-                        <input type="text" name='StaffAwardPoints' className="form-control tip" onChange={onChangeHandler} />
+                        <input type="text" name='StaffAwardPoints' value={inputVal?.StaffAwardPoints} className="form-control tip" onChange={onChangeHandler} />
                     </div>
                     {/* <div className="col-lg-4">
                         <label htmlFor="site_name">Award Points</label>

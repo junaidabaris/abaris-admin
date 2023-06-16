@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 function SystemSalesConfiguration() {
 
     const [inputVal, setInputval] = useState({
-        OverSelling: null, ReferenceFormat: '', DefaultCurrency: '', ProductLevelDiscount: null, ProductSerial: null, InvoiceView: '', ksaQrcode: null, CartItemAddition: '', ProductsCountfixbarcode: '', AutoDetectBarcode: null, OrderTax: ''
+        OverSelling: null, ReferenceFormat: '', DefaultCurrency: '', ProductLevelDiscount: null, ProductSerial: null, InvoiceView: '', ksaQrcode: null, CartItemAddition: '', ProductsCountfixbarcode: '', AutoDetectBarcode: null, OrderTax: '', referenceNo: ''
     });
 
     const { data: SalesData } = useGetSettingSalesDataQuery();
@@ -29,9 +29,8 @@ function SystemSalesConfiguration() {
     const [SalesSetting, response] = useUpdateSettingSalesMutation();
 
     const submitUpdateSalesSettingD = () => {
-        const abc = { ...inputVal }
+        const abc = { ...inputVal, referenceNo: +inputVal.referenceNo }
         SalesSetting(abc)
-        document.getElementById("create-course-form").reset();
     };
 
 
@@ -41,8 +40,8 @@ function SystemSalesConfiguration() {
         })
     };
 
-    const toastErrorMessage = () => {
-        toast.error("Sales Config not Updated !", {
+    const toastErrorMessage = (msg) => {
+        toast.error(msg, {
             position: "top-center"
         })
     }
@@ -55,9 +54,12 @@ function SystemSalesConfiguration() {
 
     useEffect(() => {
         if (response.isError === true) {
-            toastErrorMessage()
+            console.log('responseisErrorSaless---------------', response.error.data.message)
+            toastErrorMessage(response.error.data.message)
         };
-    }, [response])
+    }, [response]);
+
+
 
     return (
         <>
@@ -67,8 +69,10 @@ function SystemSalesConfiguration() {
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Over Selling *</label>
                         <select name="OverSelling" id="rows_per_page" value={inputVal?.OverSelling} className="form-select" onChange={onChangeHandler}>
-                            <option value={true} >Yes</option>
-                            <option value={false} >No</option>
+                            {inputVal.OverSelling ? <option value={true} >Yes</option> : <option value={false} >No</option>}
+                            {!inputVal.OverSelling ? <option value={true} >Yes</option> : <option value={false} >No</option>}
+                            {/* <option value={true} >Yes</option>
+                            <option value={false} >No</option> */}
                         </select>
                     </div>
 
@@ -79,6 +83,12 @@ function SystemSalesConfiguration() {
                             <option value={"random"} >Random Number</option>
                         </select>
                     </div>
+
+                    <div className="col-lg-4">
+                        <label htmlFor="site_name">Order Reference No</label>
+                        <input type="number" className="form-control tip" value={inputVal.referenceNo} name='referenceNo' onChange={onChangeHandler} />
+                    </div>
+
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Order Tax * </label>
                         <select name="OrderTax" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
@@ -110,7 +120,7 @@ function SystemSalesConfiguration() {
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Products count to fix barcode input *</label>
-                        <input type="text" className="form-control tip" name='ProductsCountfixbarcode' onChange={onChangeHandler} />
+                        <input type="text" className="form-control tip" value={inputVal?.ProductsCountfixbarcode} name='ProductsCountfixbarcode' onChange={onChangeHandler} />
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Cart Item Addition Method *</label>

@@ -39,6 +39,7 @@ function AsideAdmin() {
   const [affiliate, setAffiliate] = useState(false);
   const [member, setMember] = useState(false);
   const [deliveryBoy, setDeliveryBoy] = useState(false);
+  const [socialMediaSystem, setSocialMediaSystem] = useState(false);
 
   const { data, isLoading } = useGetAllStatusOrdersQuery()
   const { data: pickup, isLoading: isLoadingPick } = useGetPickupPointQuery()
@@ -1270,6 +1271,35 @@ function AsideAdmin() {
                   </li>
                 </ul>
               </li>
+
+              {/* socialmedia Susytem start */}
+
+              <li className="aiz-side-nav-item">
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setSocialMediaSystem(!socialMediaSystem) }}>
+                  <i className="las la-phone aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">SocialMedia System</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${socialMediaSystem ? "mm-show" : "extra"}`}>
+                  <li className="aiz-side-nav-item">
+                    <Link to="socialMedia-credential" className="aiz-side-nav-link">
+                      <span className="aiz-side-nav-text">SocialMedia Credentials</span>
+                    </Link>
+                  </li>
+                  {/* <li className="aiz-side-nav-item">
+                    <Link to="#" className="aiz-side-nav-link">
+                      <span className="aiz-side-nav-text">SMS Templates</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="#" className="aiz-side-nav-link">
+                      <span className="aiz-side-nav-text">Set OTP Credentials</span>
+                    </Link>
+                  </li> */}
+                </ul>
+              </li>
+
+              {/* SocialMedia system end */}
 
               {/* {african payment gateway} */}
 

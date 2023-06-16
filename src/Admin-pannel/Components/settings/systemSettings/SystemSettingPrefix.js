@@ -42,8 +42,8 @@ function SystemSettingPrefix() {
         })
     };
 
-    const toastErrorMessage = () => {
-        toast.error("SystemPrefix not Updated !", {
+    const toastErrorMessage = (msg) => {
+        toast.error(msg, {
             position: "top-center"
         })
     }
@@ -56,9 +56,11 @@ function SystemSettingPrefix() {
 
     useEffect(() => {
         if (response.isError === true) {
-            toastErrorMessage()
+            console.log('isErrorPrefix-----', response.error.data.message)
+            toastErrorMessage(response.error.data.message)
         };
-    }, [response])
+    }, [response]);
+
 
 
     return (
@@ -68,47 +70,47 @@ function SystemSettingPrefix() {
                 <div className="row">
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Sales Reference Prefix</label>
-                        <input type="text" name='SalesReferencePrefix' className="form-control tip" onChange={onChangeHandler} />
+                        <input type="text" name='SalesReferencePrefix' value={inputVal?.SalesReferencePrefix} className="form-control tip" onChange={onChangeHandler} />
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Return Sale Prefix</label>
-                        <input type="text" name='ReturnSalePrefix' className="form-control tip" onChange={onChangeHandler} />
+                        <input type="text" name='ReturnSalePrefix' value={inputVal?.ReturnSalePrefix} className="form-control tip" onChange={onChangeHandler} />
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Payment Reference Prefix</label>
-                        <input type="text" name='PaymentReferencePrefix' className="form-control tip" onChange={onChangeHandler} />
+                        <input type="text" name='PaymentReferencePrefix' value={inputVal?.PaymentReferencePrefix} className="form-control tip" onChange={onChangeHandler} />
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Purchase Payment Prefix</label>
-                        <input type="text" name='PurchasePaymentPrefix' className="form-control tip" onChange={onChangeHandler} />
+                        <input type="text" name='PurchasePaymentPrefix' value={inputVal?.PurchasePaymentPrefix} className="form-control tip" onChange={onChangeHandler} />
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Delivery Reference Prefix</label>
-                        <input type="text" name='DeliveryReferencePrefix' className="form-control tip" onChange={onChangeHandler} />
+                        <input type="text" name='DeliveryReferencePrefix' value={inputVal?.DeliveryReferencePrefix} className="form-control tip" onChange={onChangeHandler} />
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Quotation Reference Prefix</label>
-                        <input type="text" name='QuotationReferencePrefix' className="form-control tip" onChange={onChangeHandler} />
+                        <input type="text" name='QuotationReferencePrefix' value={inputVal?.QuotationReferencePrefix} className="form-control tip" onChange={onChangeHandler} />
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Purchase Reference Prefix</label>
-                        <input type="text" name='PurchaseReferencePrefix' className="form-control tip" onChange={onChangeHandler} />
+                        <input type="text" name='PurchaseReferencePrefix' value={inputVal?.PurchaseReferencePrefix} className="form-control tip" onChange={onChangeHandler} />
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Return Purchase Prefix</label>
-                        <input type="text" name='ReturnPurchasePrefix' className="form-control tip" onChange={onChangeHandler} />
+                        <input type="text" name='ReturnPurchasePrefix' value={inputVal?.ReturnPurchasePrefix} className="form-control tip" onChange={onChangeHandler} />
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Transfer Reference Prefix</label>
-                        <input type="text" name='TransferReferencePrefix' className="form-control tip" onChange={onChangeHandler} />
+                        <input type="text" name='TransferReferencePrefix' value={inputVal?.TransferReferencePrefix} className="form-control tip" onChange={onChangeHandler} />
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Expense Prefix</label>
-                        <input type="text" name='ExpensePrefix' className="form-control tip" onChange={onChangeHandler} />
+                        <input type="text" name='ExpensePrefix' value={inputVal?.ExpensePrefix} className="form-control tip" onChange={onChangeHandler} />
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Quantity Adjustment Prefix</label>
-                        <input type="text" name='QuantityAdjustmentPrefix' className="form-control tip" onChange={onChangeHandler} />
+                        <input type="text" name='QuantityAdjustmentPrefix' value={inputVal?.QuantityAdjustmentPrefix} className="form-control tip" onChange={onChangeHandler} />
                     </div>
                 </div>
                 <button className="btn btn-primary m-3 pe-5" type='button' onClick={submitUpdateSystemPrefixD} style={{ width: '60px', textAlign: 'end' }}>Save</button>

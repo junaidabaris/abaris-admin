@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useGetSettingMoneyAndNumberFormatQuery, useUpdateMoneyFormatMutation } from '../../all-products/allproductsApi/allProductsApi';
+import { useGetSettingEmailQuery, useGetSettingMoneyAndNumberFormatQuery, useUpdateMoneyFormatMutation, useUpdateSettingEmailMutation } from '../../all-products/allproductsApi/allProductsApi';
 import { ToastContainer, toast } from 'react-toastify';
 
 function Email() {
@@ -8,7 +8,7 @@ function Email() {
         EmailProtocol: ""
     });
 
-    const { isLoading, data } = useGetSettingMoneyAndNumberFormatQuery();
+    const { isLoading, data } = useGetSettingEmailQuery();
     console.log('emailD----', data)
 
     useEffect(() => {
@@ -26,7 +26,7 @@ function Email() {
         setInputval(clonedObj)
     };
 
-    const [updateEmailD, response] = useUpdateMoneyFormatMutation();
+    const [updateEmailD, response] = useUpdateSettingEmailMutation();
 
     const submitUpdatEmailD = () => {
         const abc = { ...inputVal }
