@@ -562,6 +562,9 @@ function App() {
           <Route path="seller_packages_list" element={<ListParchaseList />} />
           <Route path="seller_packages_purchase_list" element={<Seller_packages_purchase_list />} />
           <Route path="socialMedia-credential" element={<SocialMediaCredentail />} />
+          
+          <Route path="input_purchase_tax_report" element={'dsadasdsa'} />
+          <Route path="output_sale_tax_report" element={'output_sale_tax_report'} />
 
 
         </Route>

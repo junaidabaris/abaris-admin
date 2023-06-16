@@ -14,7 +14,7 @@ import axios from 'axios';
 function AddnewCategories() {
   // const [validated, setValidated] = useState(false);
 
-  const [inputval, setInputVal] = useState({ name: '', parent_id: null, order_level: '', type: '', banner: '', image: '', meta_title: '', meta_description: '', commision_rate: '', filtering_attributes: '', level: '', top: '', featured: '' });
+  const [inputval, setInputVal] = useState({ name: '', parent_id: null, order_level: '', type: '1', banner: '', image: '', meta_title: '', meta_description: '', commision_rate: '', filtering_attributes: '', level: '', top: '', featured: '' });
 
   const { data } = useGetCategoriesQuery();
   const [addCategory, response] = useAddNewCategoryMutation();

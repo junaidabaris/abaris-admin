@@ -27,7 +27,7 @@ function EditProducts() {
     const { data: unitMast } = useGetUnitMasterQuery()
 
     const params = useParams();
-    const { data: productData, isSuccess } = useGetProductByIdQuery(params.id);
+    const { data: productData, isSuccess, isLoading } = useGetProductByIdQuery(params.id);
 
     const { data: attributesData } = useGetAttributesQuery()
 
@@ -48,6 +48,7 @@ function EditProducts() {
 
     const getChoiceValues = (choiceValues, currentAttr) => {
 
+
         let flag = true;
         if (sendPayload.length) {
             sendPayload.map((item, i) => {
@@ -64,13 +65,11 @@ function EditProducts() {
         }
         const filteredData = sendPayload?.filter(item => item.data.length)
         if (filteredData.length) {
-            if (isSuccess) {
-                form_variatio({ attributes: filteredData, variations: variationArr })
-            }
+            form_variatio({ attributes: filteredData, variations: variationArr })
         }
         setSendox(filteredData)
         if (!filteredData?.length) {
-            setVariationArr([])
+            // setVariationArr([])  
         }
 
     }
@@ -262,7 +261,6 @@ function EditProducts() {
         }
     }, [formvariantError])
 
-    console.log(variationArr);
 
     return (
         <>
@@ -679,11 +677,13 @@ function EditProducts() {
                                                 </MultiselectOption>
                                             </div>
 
-                                            <div className="col-lg-12 mt-3">
+                                            {isSuccess && <div className="col-lg-12 mt-3">
                                                 {allAttributes?.map((item) => {
-                                                    return <AttributeItem key={item._id} item={item} isSuccess={isSuccess} handleChoiceValues={getChoiceValues} />
+                                                    return <AttributeItem key={item._id} item={item} isSuccess={isSuccess} isLoading={isLoading} handleChoiceValues={getChoiceValues} />
                                                 })}
-                                            </div>
+                                            </div>}
+
+
 
                                         </div>
 

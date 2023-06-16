@@ -808,13 +808,23 @@ function AsideAdmin() {
 
 
 
-              <li className="aiz-side-nav-item" onClick={() => { setReports(!reports) }}>
-                <Link to="#" className="aiz-side-nav-link" >
+              <li className="aiz-side-nav-item">
+                <Link to="#" className="aiz-side-nav-link"  onClick={() => { setReports(!reports) }}>
                   <i className="las la-backward aiz-side-nav-icon" />
                   <span className="aiz-side-nav-text">Report's</span>
                   <span className="aiz-side-nav-arrow" />
                 </Link>
                 <ul className={`aiz-side-nav-list level-2 mm-collapse ${reports ? "mm-show" : "extra"}`} id="product">
+                  <li className="aiz-side-nav-item">
+                    <Link to="input_purchase_tax_report" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Input Purchase Tax Report</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="output_sale_tax_report" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Output Sale Tax Report:</span>
+                    </Link>
+                  </li>
                   <li className="aiz-side-nav-item">
                     <Link to="stock_report" className="aiz-side-nav-link ">
                       <span className="aiz-side-nav-text">Stock Report</span>
