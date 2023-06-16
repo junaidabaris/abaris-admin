@@ -112,6 +112,8 @@ function TaxReport() {
                                             <tr style={{ backgroundColor: '#428bca', color: '#ffffff' }}>
                                                 <th>#</th>
                                                 <th>Date</th>
+                                                <th>Name</th>
+                                                <th>Image</th>
                                                 <th>Reference No</th>
                                                 <th>Status</th>
                                                 <th>Warehouse</th>
@@ -126,6 +128,10 @@ function TaxReport() {
                                                 console.log('salesItem-----', salesItem)
                                                 return <tr key={i}>
                                                     <td>{i + 1}</td>
+                                                    <td>
+                                                        
+                                                    </td>
+                                                    <td>{salesItem?.name?.[0]}</td>
                                                     <td></td>
                                                     <td>
                                                         {salesItem.referenceNo?.map((salesRefItem, i) => {

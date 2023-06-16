@@ -9,7 +9,7 @@ function MoneyAddNumberFormat() {
     });
 
     const { isLoading, data } = useGetSettingMoneyAndNumberFormatQuery();
-    console.log('MoneyFormatD----', data)
+    // console.log('MoneyFormatD----', data)
 
     useEffect(() => {
         const clon = { ...data }
@@ -116,7 +116,7 @@ function MoneyAddNumberFormat() {
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Currency Symbol</label>
-                        <input type="text" name='CurrencySymbol' className="form-control tip" onChange={onChangeHandler} />
+                        <input type="text" name='CurrencySymbol' value={inputVal?.CurrencySymbol} className="form-control tip" onChange={onChangeHandler} />
                     </div>
                 </div>
                 <button className="btn btn-primary m-3 pe-5" type='button' onClick={submitUpdateMoneyFormatD} style={{ width: '60px', textAlign: 'end' }}>Save</button>

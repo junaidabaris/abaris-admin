@@ -104,10 +104,10 @@ function SystemProducts() {
                         <label htmlFor="site_name">Image Size (Width : Height) *</label>
                         <div className="row">
                             <div className="col-lg-6">
-                                <input type="number" name='image_width' className="form-control tip" onChange={onChangeHandler} />
+                                <input type="number" name='image_width' value={inputVal?.image_width} className="form-control tip" onChange={onChangeHandler} />
                             </div>
                             <div className="col-lg-6">
-                                <input type="number" name='image_height' className="form-control tip" onChange={onChangeHandler} />
+                                <input type="number" name='image_height' value={inputVal?.image_height} className="form-control tip" onChange={onChangeHandler} />
                             </div>
                         </div>
                     </div>
@@ -115,10 +115,10 @@ function SystemProducts() {
                         <label htmlFor="site_name">IThumbnail Size (Width : Height) *</label>
                         <div className="row">
                             <div className="col-lg-6">
-                                <input type="number" name='thumbnail_width' className="form-control tip" onChange={onChangeHandler} />
+                                <input type="number" name='thumbnail_width' value={inputVal?.thumbnail_width} className="form-control tip" onChange={onChangeHandler} />
                             </div>
                             <div className="col-lg-6">
-                                <input type="number" name='thumbnail_height' className="form-control tip" onChange={onChangeHandler} />
+                                <input type="number" name='thumbnail_height' value={inputVal?.thumbnail_height} className="form-control tip" onChange={onChangeHandler} />
                             </div>
                         </div>
                     </div>
