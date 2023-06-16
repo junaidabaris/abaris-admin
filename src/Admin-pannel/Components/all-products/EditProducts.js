@@ -129,7 +129,7 @@ function EditProducts() {
         quantity: '',
         total_quantity: '',
         minimum_order_quantity: '',
-        shipping_coast: '',
+        shipping_cost: '',
         Shipping_cost_multiply_with_quantity: '',
         slug: '',
         mrp: '',
@@ -187,20 +187,23 @@ function EditProducts() {
         const url = `https://onlineparttimejobs.in/api/product/${params.id}`
         const formData = new FormData();
 
+        console.log(clonedObj);
+
         formData.append('name', clonedObj.name);
-        formData.append('gallery_image', clonedObj.gallery_image);
-        formData.append('thumbnail_image', clonedObj.thumbnail_image);
+        // formData.append('gallery_image', clonedObj.gallery_image);
+        // formData.append('thumbnail_image', clonedObj.thumbnail_image);
         formData.append('brand_id', inputval.brand_id);
         formData.append('seller_id', clonedObj.seller_id);
-        formData.append('shipping_coast', clonedObj.shipping_coast);
+        formData.append('shipping_coast', clonedObj.shipping_cost);
         formData.append('tags', clonedObj.tags);
         formData.append('category_id', clonedObj.category_id);
         formData.append('slug', clonedObj.slug);
-        formData.append('hsn_code', clonedObj.hsn_code);
-        formData.append('sale_rp', clonedObj.sale_rp);
-        formData.append('share_rp', clonedObj.share_rp);
+        // formData.append('hsn_code', clonedObj.hsn_code);
+        // formData.append('sale_rp', clonedObj.sale_rp);
+        // formData.append('share_rp', clonedObj.share_rp);
 
         formData.append('variations', JSON.stringify(variationArr));
+        formData.append('images', JSON.stringify(clonedObj.images));
         formData.append('variation_Form', JSON.stringify(clonedObj.variation_Form));
         formData.append('productDescription', JSON.stringify(clonedObj.productDescription))
 

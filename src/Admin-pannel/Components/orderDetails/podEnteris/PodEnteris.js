@@ -134,12 +134,12 @@ function PodEnteris(props) {
                         <div className="row">
                             <div className="mb-3 col-lg-6">
                                 <label htmlFor="number" className="form-label">AwbNo</label>
-                                <input type="number" name="AwbNo" className="form-control" id="number1" onChange={onchangeHandle} aria-describedby="number" />
+                                <input type="text" name="AwbNo" className="form-control" id="number1" onChange={onchangeHandle} aria-describedby="number" />
                             </div>
 
                             <div className="mb-3 col-lg-6">
                                 <label htmlFor="number" className="form-label">Courier Reference No</label>
-                                <input type="number" name="courier_reference_no" className="form-control" id="number1" onChange={onchangeHandle} aria-describedby="number" />
+                                <input type="text" name="courier_reference_no" className="form-control" id="number1" onChange={onchangeHandle} aria-describedby="number" />
                             </div>
 
                             <div className="mb-3 col-lg-6">

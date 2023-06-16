@@ -44,11 +44,21 @@ function TopNavSeller({ showSidebar }) {
         navigate(`tracking-order/${refVal.current.value}`)
     }
 
+    const setValues = () => {
+        const setWindoOPCl = window.localStorage.getItem('setWindoOPCl')
+        if (setWindoOPCl === 'true') {
+            window.localStorage.setItem('setWindoOPCl', false)
+        }else{
+            window.localStorage.setItem('setWindoOPCl', true)
+        }
+
+    }
+
     return <div className="aiz-topbar px-15px px-lg-25px d-flex align-items-stretch justify-content-between">
         <div className="d-flex">
             <div className="aiz-topbar-nav-toggler d-flex align-items-center justify-content-start mr-2 mr-md-3 ml-0"
                 data-toggle="aiz-mobile-nav">
-                <button className="aiz-mobile-toggler" onClick={showSidebar}>
+                <button className="aiz-mobile-toggler" onClick={setValues}>
                     <span></span>
                 </button>
             </div>

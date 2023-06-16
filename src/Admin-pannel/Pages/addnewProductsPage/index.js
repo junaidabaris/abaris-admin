@@ -12,7 +12,6 @@ import ProductDescriptionWrapper from "../../Components/productDescriptionWrappe
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-
 const toastSuccessMessage = () => {
     toast.success("Product added Successfully", {
         position: "top-center"
@@ -26,7 +25,6 @@ const toastErrorMessage = () => {
 };
 
 const addFile = async (clonedObj, payload) => {
-    console.log(clonedObj.thumbnail_image);
     const url = 'https://onlineparttimejobs.in/api/product/add_product'
     const formData = new FormData();
     const images = new FormData();
@@ -52,13 +50,13 @@ const addFile = async (clonedObj, payload) => {
     formData.append('thumbnail_image', clonedObj.thumbnail_image ? clonedObj.thumbnail_image[0] : '');
     formData.append('brand_id', clonedObj.brand_id);
     formData.append('seller_id', clonedObj.seller_id);
-    formData.append('shipping_coast', clonedObj.shipping_coast);
+    formData.append('shipping_cost', clonedObj.shipping_cost);
     formData.append('tags', clonedObj.tags);
     formData.append('category_id', clonedObj.category_id);
     formData.append('slug', clonedObj.slug)
-    formData.append('hsn_code', clonedObj.hsn_code);
-    formData.append('sale_rp', clonedObj.sale_rp);
-    formData.append('share_rp', clonedObj.share_rp);
+    // formData.append('hsn_code', clonedObj.hsn_code);
+    // formData.append('sale_rp', clonedObj.sale_rp);
+    // formData.append('share_rp', clonedObj.share_rp);
     formData.append('meta_title', clonedObj.meta_title);
     formData.append('meta_description', clonedObj.meta_description);
 
@@ -76,6 +74,7 @@ const addFile = async (clonedObj, payload) => {
         toastErrorMessage()
     }
 }
+
 function AddNewProductsPage() {
     const [tags, setTags] = useState([]);
     const [categ, setCateg] = useState([]);
@@ -207,13 +206,18 @@ function AddNewProductsPage() {
     }
 
 
+    const [spinn,setspinn]= useState(false)
+    
     const submitAddProductData = async () => {
+        setspinn(true)
         const seller_id = sellerD && sellerD[0]._id;
         const brand_id = brandData.data && brandData.data[0]._id;
         const slug = 'youtube' + new Date().getUTCMilliseconds();
         const clonedObj = { ...inputval, variations: varianstData, flashDeal: flashDeal, variation_Form: attributesVal, tags: tags, category_id: finalCatD, seller_id, slug, productDescription: productDescription };
 
         addFile(clonedObj, clonedObj.gallery_image)
+
+        setspinn(false)
 
     };
 
@@ -256,6 +260,11 @@ function AddNewProductsPage() {
                         {params.id ? <h5 className="mb-0 h6">Edit Product</h5> : <h5 className="mb-0 h6">Add New Product</h5>}
                     </div>
                     <div>
+                        {spinn && <div className="preloaderCount">
+                            <div className="spinner-border" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
+                        </div>}
                         <form className="form form-horizontal mar-top" id="choice_form">
                             <div className="row gutters-5">
                                 <div className="col-lg-8">

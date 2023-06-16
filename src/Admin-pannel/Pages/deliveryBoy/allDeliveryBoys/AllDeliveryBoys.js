@@ -8,13 +8,24 @@ function AllDeliveryBoys() {
 
     const [data, setdata] = useState(null)
 
+    const isPickupManagerLogin = window.localStorage.getItem('isPickupManagerLogin')
+    const isPickupManagerId = window.localStorage.getItem('isPickupManagerId')
+
     const getData = async () => {
         const res = await axios.get(`https://onlineparttimejobs.in/api/deliveryBoy`)
         setdata(res.data)
     }
+    const getData2 = async () => {
+        const res = await axios.get(`https://onlineparttimejobs.in/api/deliveryBoy/pickupPoint/${isPickupManagerId}`)
+        setdata(res.data)
+    }
 
     useEffect(() => {
-        getData()
+        if (isPickupManagerLogin === 'true') {
+            getData2()
+        } else {
+            getData()
+        }
     }, [])
 
     const deleteDeliveryBoyData = (id) => {
@@ -55,37 +66,72 @@ function AllDeliveryBoys() {
                                         <th style={{ display: 'table-cell' }}>Photo</th>
                                         <th style={{ display: 'table-cell' }}>Email</th>
                                         <th style={{ display: 'table-cell' }}>Phone</th>
+                                        {isPickupManagerLogin === 'false' && <th style={{ display: 'table-cell' }}>Pickup Point</th>}
+
                                         <th style={{ display: 'table-cell' }}>Earnings</th>
                                         <th style={{ display: 'table-cell' }}>Address</th>
                                         <th width="10%" style={{ display: 'table-cell' }}>Options</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    {data && data.map((item, i) => {
-                                        return <tr className="footable-empty footableIcon" key={item._id}>
-                                            <td >{i + 1}</td>
-                                            <td >{item.firstname} {item.lastname}</td>
-                                            <td >
-                                                <img style={{width:"100px",height:"100px",objectFit:"cover"}} src={item?.profilePhoto?.url}/>
-                                            </td>
-                                            <td >{item.email}</td>
-                                            <td >{item.mobile}</td>
-                                            <td >000</td>
-                                            <td >
-                                                <div>{item?.country} {item?.state}</div>
-                                                <div> {item?.city} {item?.province} {item?.pin}</div>
-                                            </td>
-                                            <td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
-                                                <Link to={`edit/${item._id}`} className="btn btn-soft-primary btn-icon btn-circle btn-sm" title="Edit">
-                                                    <i className="las la-edit" />
-                                                </Link>
-                                                <button type="button" onClick={() => deleteDeliveryBoyData(item._id)} className="btn btn-soft-danger btn-icon btn-circle btn-sm">
-                                                    <i className="las la-trash" />
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    })}
-                                </tbody>
+
+                                {isPickupManagerLogin ?
+                                    <tbody>
+                                        {data && data.map((item, i) => {
+                                            return <tr className="footable-empty footableIcon" key={item._id}>
+                                                <td >{i + 1}</td>
+                                                <td >{item.firstname} {item.lastname}</td>
+                                                <td >
+                                                    <img style={{ width: "100px", height: "100px", objectFit: "cover" }} src={item?.profilePhoto?.url} />
+                                                </td>
+                                                <td >{item.email}</td>
+                                                <td >{item.mobile}</td>
+                                                <td >{item?.pickupPoint?.pickupPoint_name}</td>
+                                                <td >000</td>
+                                                <td >
+                                                    <div>{item?.country} {item?.state}</div>
+                                                    <div> {item?.city} {item?.province} {item?.pin}</div>
+                                                </td>
+                                                <td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
+                                                    <Link to={`edit/${item._id}`} className="btn btn-soft-primary btn-icon btn-circle btn-sm" title="Edit">
+                                                        <i className="las la-edit" />
+                                                    </Link>
+                                                    <button type="button" onClick={() => deleteDeliveryBoyData(item._id)} className="btn btn-soft-danger btn-icon btn-circle btn-sm">
+                                                        <i className="las la-trash" />
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        })}
+                                    </tbody>
+                                    :
+                                    <tbody>
+                                        {data && data.map((item, i) => {
+                                            return <tr className="footable-empty footableIcon" key={item._id}>
+                                                <td >{i + 1}</td>
+                                                <td >{item.firstname} {item.lastname}</td>
+                                                <td >
+                                                    <img style={{ width: "100px", height: "100px", objectFit: "cover" }} src={item?.profilePhoto?.url} />
+                                                </td>
+                                                <td >{item.email}</td>
+                                                <td >{item.mobile}</td>
+                                                <td >{item?.pickupPoint?.pickupPoint_name}</td>
+                                                <td >000</td>
+                                                <td >
+                                                    <div>{item?.country} {item?.state}</div>
+                                                    <div> {item?.city} {item?.province} {item?.pin}</div>
+                                                </td>
+                                                <td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
+                                                    <Link to={`edit/${item._id}`} className="btn btn-soft-primary btn-icon btn-circle btn-sm" title="Edit">
+                                                        <i className="las la-edit" />
+                                                    </Link>
+                                                    <button type="button" onClick={() => deleteDeliveryBoyData(item._id)} className="btn btn-soft-danger btn-icon btn-circle btn-sm">
+                                                        <i className="las la-trash" />
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        })}
+                                    </tbody>
+                                }
+
                             </table>
 
                             <div className="aiz-pagination">
