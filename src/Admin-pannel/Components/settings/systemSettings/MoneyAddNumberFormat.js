@@ -36,7 +36,7 @@ function MoneyAddNumberFormat() {
 
 
     const toastSuccessMessage = () => {
-        toast.success("MoneyNumFormat Updated Successfully !", {
+        toast.success("MoneyNumFormat Updated Successfully", {
             position: "top-center"
         })
     };

@@ -36,13 +36,13 @@ function SystemProducts() {
 
 
     const toastSuccessMessage = () => {
-        toast.success("Products Updated Successfully !", {
+        toast.success("Products Updated Successfully!", {
             position: "top-center"
         })
     };
 
     const toastErrorMessage = () => {
-        toast.error("Products Config not Updated !", {
+        toast.error("Products Config not Updated!", {
             position: "top-center"
         })
     }

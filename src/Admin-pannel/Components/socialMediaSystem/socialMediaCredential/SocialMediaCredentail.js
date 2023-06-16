@@ -13,9 +13,9 @@ function SocialMediaCredentail() {
                     <div className="row">
                         <FacebookCredential />
                         <TwitterCredentail />
-                        {/* <LinkdInCredential />
+                        <LinkdInCredential />
                         <InstaGramCredentail />
-                        <GoogleCredentail /> */}
+                        <GoogleCredentail />
                     </div>
                 </div>
                 <div className="bg-white text-center py-3 px-15px px-lg-25px mt-auto">

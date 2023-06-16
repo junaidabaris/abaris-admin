@@ -35,7 +35,7 @@ function WeighingScaleBarcode() {
     };
 
     const toastSuccessMessage = () => {
-        toast.success("WeighingScale Updated Successfully !", {
+        toast.success("WeighingScale Updated Successfully", {
             position: "top-center"
         })
     };
