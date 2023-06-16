@@ -14,6 +14,7 @@ function OrderDetails() {
   const [modalShow, setModalShow] = useState(false);
   const invoice = window.localStorage.getItem("invoice");
   const isPickupManagerId = window.localStorage.getItem("isPickupManagerId");
+  const isPickupManagerLogin = window.localStorage.getItem("isPickupManagerLogin");
   const adminId = window.localStorage.getItem("adminId");
 
   const param = useParams();
@@ -352,7 +353,7 @@ function OrderDetails() {
 
                   {/* DELEVRY BOY */}
 
-                  {isLogin === 'true' && <div className="assignPickup">
+                  {isPickupManagerLogin === 'true' && <div className="assignPickup">
                     <h6>Assign To Delevery Boy</h6>
                     <div className="d-flex align-items-center form-group">
                       <label htmlFor="update_delivery_status">
@@ -365,7 +366,7 @@ function OrderDetails() {
                         defaultValue={""}
                         onChange={changeHandleBoy}
                         style={{ height: 38 + "px", fontSize: 13 + "px" }}>
-                        <option>Select Delevery Boy</option>
+                        <option>Select Delivery Boy</option>
                         {dataBoy && dataBoy.map((item) => {
                           return <option key={item._id} id={item._id} value={item._id}>
                             {item.firstname} {item?.lastname}
