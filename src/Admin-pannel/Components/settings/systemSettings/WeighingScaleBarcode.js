@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { useGetSettingMoneyAndNumberFormatQuery, useUpdateMoneyFormatMutation } from '../../all-products/allproductsApi/allProductsApi';
+import { useGetSettingMoneyAndNumberFormatQuery, useGetSettingWeighingScaleQuery, useUpdateMoneyFormatMutation, useUpdateSettingWeighingScaleMutation } from '../../all-products/allproductsApi/allProductsApi';
 import { ToastContainer, toast } from 'react-toastify';
 
 function WeighingScaleBarcode() {
 
     const [inputVal, setInputval] = useState({
-        WeighingScaleBarcode: '', Barcodecontains: '', Barcodetotalcharacters: '', FlagCharacters: "", ItemCodeStartingPosition: '', NumberofcharactersinItemCode: "", WeightStartingPosition: "", weightDivideBy: ''
+        Barcodecontains: '', Barcodetotalcharacters: '', FlagCharacters: "", ItemCodeStartingPosition: '', NumberofcharactersinItemCode: "", NumberofcharactersinWeight: "", WeightStartingPosition: "", Weightdivideby: ''
     });
 
-    const { isLoading, data } = useGetSettingMoneyAndNumberFormatQuery();
+    const { isLoading, data } = useGetSettingWeighingScaleQuery();
     console.log('WeighingScaleD----', data)
 
     useEffect(() => {
@@ -26,17 +26,16 @@ function WeighingScaleBarcode() {
         setInputval(clonedObj)
     };
 
-    const [updateMoneyFormatD, response] = useUpdateMoneyFormatMutation();
+    const [updateWeighingScaleD, response] = useUpdateSettingWeighingScaleMutation();
 
     const submitUpdatWeighingScaleD = () => {
         const abc = { ...inputVal }
         console.log('abc----', abc)
-        updateMoneyFormatD(abc)
-        document.getElementById("create-course-form").reset();
+        updateWeighingScaleD(abc)
     };
 
     const toastSuccessMessage = () => {
-        toast.success("WeighingScale Updated Successfully !", {
+        toast.success("WeighingScale Updated Successfully", {
             position: "top-center"
         })
     };
@@ -74,31 +73,31 @@ function WeighingScaleBarcode() {
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Barcode total characters</label>
-                        <input type="text" name='Barcodetotalcharacters' className="form-control tip" onChange={onChangeHandler} />
+                        <input type="text" name='Barcodetotalcharacters' value={inputVal?.Barcodetotalcharacters} className="form-control tip" onChange={onChangeHandler} />
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Flag Characters</label>
-                        <input type="text" name='FlagCharacters' className="form-control tip" onChange={onChangeHandler} />
+                        <input type="text" name='FlagCharacters' value={inputVal?.FlagCharacters} className="form-control tip" onChange={onChangeHandler} />
                     </div>
                     <div className="col-lg-6">
                         <label htmlFor="site_name">Item Code Starting Position</label>
-                        <input type="text" name='ItemCodeStartingPosition' className="form-control tip" onChange={onChangeHandler} />
+                        <input type="text" name='ItemCodeStartingPosition' value={inputVal?.ItemCodeStartingPosition} className="form-control tip" onChange={onChangeHandler} />
                     </div>
                     <div className="col-lg-6">
                         <label htmlFor="site_name">Number of characters in Item Code</label>
-                        <input type="text" name='NumberofcharactersinItemCode' className="form-control tip" onChange={onChangeHandler} />
+                        <input type="text" name='NumberofcharactersinItemCode' value={inputVal?.NumberofcharactersinItemCode} className="form-control tip" onChange={onChangeHandler} />
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Weight Starting Position</label>
-                        <input type="text" name='WeightStartingPosition' className="form-control tip" onChange={onChangeHandler} />
+                        <input type="text" name='WeightStartingPosition' value={inputVal?.WeightStartingPosition} className="form-control tip" onChange={onChangeHandler} />
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Number of characters in Weight</label>
-                        <input type="text" name='NumberofcharactersinWeight' className="form-control tip" onChange={onChangeHandler} />
+                        <input type="text" name='NumberofcharactersinWeight' value={inputVal?.NumberofcharactersinWeight} className="form-control tip" onChange={onChangeHandler} />
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Weight divide by</label>
-                        <input type="text" name='Weightdivideby' className="form-control tip" onChange={onChangeHandler} />
+                        <input type="text" name='Weightdivideby' value={inputVal?.Weightdivideby} className="form-control tip" onChange={onChangeHandler} />
                     </div>
                 </div>
                 <button className="btn btn-primary m-3 pe-5" type='button' onClick={submitUpdatWeighingScaleD} style={{ width: '60px', textAlign: 'end' }}>Save</button>

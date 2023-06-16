@@ -112,6 +112,8 @@ function TaxReport() {
                                             <tr style={{ backgroundColor: '#428bca', color: '#ffffff' }}>
                                                 <th>#</th>
                                                 <th>Date</th>
+                                                <th>Name</th>
+                                                <th>Image</th>
                                                 <th>Reference No</th>
                                                 <th>Status</th>
                                                 <th>Warehouse</th>
@@ -127,6 +129,10 @@ function TaxReport() {
                                                 return <tr key={i}>
                                                     <td>{i + 1}</td>
                                                     <td></td>
+                                                    <td>{salesItem?.name?.[0]}</td>
+                                                    <td>
+                                                        <img style={{ width: '100px', height: '100px' }} src={salesItem.image[0]?.url}></img>
+                                                    </td>
                                                     <td>
                                                         {salesItem.referenceNo?.map((salesRefItem, i) => {
                                                             return <div key={i}>
@@ -146,7 +152,6 @@ function TaxReport() {
                                     </Table>
 
                                 </div>
-
                             </Tab>
 
 
@@ -212,6 +217,8 @@ function TaxReport() {
                                             <tr style={{ backgroundColor: '#428bca', color: '#ffffff' }}>
                                                 <th>#</th>
                                                 <th>Date</th>
+                                                <th>Name</th>
+                                                <th>Image</th>
                                                 <th>Reference No</th>
                                                 <th>Status</th>
                                                 <th>Warehouse</th>
@@ -223,9 +230,14 @@ function TaxReport() {
                                         </thead>
                                         <tbody>
                                             {purchaseTaxData && purchaseTaxData.map((item, i) => {
+                                                console.log('item---', item)
                                                 return <tr key={i}>
                                                     <td>{i + 1}</td>
                                                     <td></td>
+                                                    <td>{item.name?.[0]}</td>
+                                                    <td>
+                                                        <img style={{ width: '100px', height: '100px' }} src={item.image[0]?.url}></img>
+                                                    </td>
                                                     <td>
                                                         {item.referenceNo?.map((refItem, i) => {
                                                             // console.log('refItem', refItem)
@@ -234,9 +246,9 @@ function TaxReport() {
                                                             </div>
                                                         })}
                                                     </td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td>----</td>
+                                                    <td>----</td>
+                                                    <td>-----</td>
                                                     <td>{item.productTax}</td>
                                                     <td></td>
                                                     <td>{item.grandTotal}</td>

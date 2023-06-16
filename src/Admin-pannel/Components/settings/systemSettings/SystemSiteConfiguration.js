@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 function SystemSiteConfiguration() {
 
     const [inputVal, setInputval] = useState({
-        SiteName: "", Language: '', DefaultCurrency: '', AccountingMethod: '', DefaultEmail: "", NumberOfDaysTodisableEditing: '', DefaultCustomerGroup: '', DefaultPriceGroup: "", MaintenanceMode: '', Theme: "", LoginCaptcha: "", Rowsperpage: "", DateFormat: "", Timezone: "", Calender: '', DefaultWarehouse: "", DefaultBiller: "", PDFLibrary: "", APIsFeature: "", Usecodeforslug: "",
+        SiteName: "", Language: "", DefaultCurrency: "", AccountingMethod: "", DefaultEmail: "", NumberOfDaysTodisableEditing: '', DefaultCustomerGroup: "", DefaultPriceGroup: "", MaintenanceMode: null, Theme: "", LoginCaptcha: null, Rowsperpage: "", DateFormat: "", Timezone: "", Calender: "", DefaultWarehouse: "", DefaultBiller: "", PDFLibrary: "", APIsFeature: null, Usecodeforslug: "",
     });
 
 
@@ -33,6 +33,7 @@ function SystemSiteConfiguration() {
     const [updateSystemSiteConfigD, response] = useUpdateSettingSiteConfigurationMutation();
 
     const submitUpdateSystemSiteConfig = () => {
+        console.log('inputVal---site', inputVal)
         const abc = { ...inputVal }
         updateSystemSiteConfigD(abc)
         document.getElementById("create-course-form").reset();
@@ -40,13 +41,13 @@ function SystemSiteConfiguration() {
 
 
     const toastSuccessMessage = () => {
-        toast.success("Site Config Updated Successfully !", {
+        toast.success("SiteConfig Updated Successfully", {
             position: "top-center"
         })
     };
 
     const toastErrorMessage = () => {
-        toast.error("Site Config not Updated !", {
+        toast.error("SiteConfig not Updated", {
             position: "top-center"
         })
     }
@@ -65,6 +66,8 @@ function SystemSiteConfiguration() {
 
 
 
+
+
     return (
         <>
             <div className="scheduler-border">
@@ -80,7 +83,8 @@ function SystemSiteConfiguration() {
                         <label htmlFor="site_name">Language *</label>
                         <select className="form-select" name='Language' onChange={onChangeHandler}>
                             {languageData && languageData.map((item, i) => {
-                                return <option value={item._id} key={item._id}>{item.name}</option>
+                                console.log('languageItem----', item._id)
+                                return <option value={item._id} key={i}>{item.name}</option>
                             })}
                         </select>
                     </div>
@@ -95,35 +99,35 @@ function SystemSiteConfiguration() {
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Accounting Method *</label>
                         <select className="form-select" name='AccountingMethod' onChange={onChangeHandler}>
-                            <option value="arabic">AVCO (Average Cost Method)</option>
-                            <option value="arabic">AVCO (Average Cost Method)</option>
+                            <option value="AVCO">AVCO (Average Cost Method)</option>
+                            <option value="AVCO">AVCO (Average Cost Method)</option>
                         </select>
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Default Email *</label>
-                        <input type="text" name="DefaultEmail" className="form-control tip" id="site_name" required="required" onChange={onChangeHandler} />
+                        <input type="text" name="DefaultEmail" value={inputVal?.DefaultEmail} className="form-control tip" id="site_name" required="required" onChange={onChangeHandler} />
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Default Customer Group *</label>
                         <select name="DefaultCustomerGroup" className="form-select" onChange={onChangeHandler}>
-                            <option value={1} >General</option>
-                            <option value={2}>Reseller</option>
-                            <option value={3}>Distributor</option>
-                            <option value={4}>New Customer (+10)</option>
-                            <option value={5}>Restaurant</option>
+                            <option value={"General"} >General</option>
+                            <option value={"Reseller"}>Reseller</option>
+                            <option value={"Distributor"}>Distributor</option>
+                            <option value={"New Customer"}>New Customer (+10)</option>
+                            <option value={"Restaurant"}>Restaurant</option>
                         </select>
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Default Price Group *</label>
                         <select name="DefaultPriceGroup" className="form-select" onChange={onChangeHandler}>
-                            <option value={1} >Default</option>
+                            <option value={"Default"} >Default</option>
                         </select>
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Maintenance Mode *</label>
                         <select name="MaintenanceMode" className="form-select" onChange={onChangeHandler}>
-                            <option value={1} >No</option>
-                            <option value={2} >Yes</option>
+                            <option value={false} >No</option>
+                            <option value={true} >Yes</option>
                         </select>
                     </div>
                     <div className="col-lg-4">
@@ -142,22 +146,22 @@ function SystemSiteConfiguration() {
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Login Captcha *</label>
                         <select name="LoginCaptcha" className="form-select" onChange={onChangeHandler}>
-                            <option value={1} selected="selected">Disable</option>
-                            <option value={2} >Enable</option>
+                            <option value={false} >Disable</option>
+                            <option value={true} >Enable</option>
                         </select>
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Number of days to disable editing *</label>
-                        <input type="text" className="form-control tip" name='NumberOfDaysTodisableEditing' onChange={onChangeHandler} />
+                        <input type="text" className="form-control tip" value={inputVal?.NumberOfDaysTodisableEditing} name='NumberOfDaysTodisableEditing' onChange={onChangeHandler} />
 
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Rows per page *</label>
                         <select name="Rowsperpage" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
-                            <option value={25}>25</option>
-                            <option value={50}>50</option>
-                            <option value={100}>100</option>
-                            <option value={-1}>All (Not Recommended)</option>
+                            <option value={'25'}>25</option>
+                            <option value={'50'}>50</option>
+                            <option value={'100'}>100</option>
+                            <option value={'-1'}>All (Not Recommended)</option>
                         </select>
                     </div>
                     <div className="col-lg-4">
@@ -595,21 +599,22 @@ function SystemSiteConfiguration() {
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Calender *</label>
                         <select name="Calender" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
-                            <option value={1} >Private</option>
-                            <option value={0} selected="selected">Shared</option>
+                            <option value={"Private"} >Private</option>
+                            <option value={"Shared"} selected="selected">Shared</option>
                         </select>
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Default Warehouse *</label>
                         <select name="DefaultWarehouse" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
-                            <option value={1} >A</option>
-                            <option value={0} selected="selected">B</option>
+                            <option value={"A"} >A</option>
+                            <option value={"B"}>B</option>
                         </select>
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Default Biller *</label>
                         <select name="DefaultBiller" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
-                            <option value={0} selected="selected">ETG</option>
+                            <option value={"ETG"}>ETG</option>
+                            <option value={"Seller"} >Seller</option>
                         </select>
                     </div>
                     <div className="col-lg-4">
@@ -622,15 +627,15 @@ function SystemSiteConfiguration() {
                     <div className="col-lg-4">
                         <label htmlFor="site_name">APIs Feature *</label>
                         <select name="APIsFeature" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
-                            <option value={0}>Disable</option>
-                            <option value={1} >Enable</option>
+                            <option value={false}>Disable</option>
+                            <option value={true} >Enable</option>
                         </select>
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Use code for slug *</label>
                         <select name="Usecodeforslug" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
-                            <option value={0} >Disable</option>
-                            <option value={1} >Enable</option>
+                            <option value={'Disable'} >Disable</option>
+                            <option value={'Enable'} >Enable</option>
                         </select>
                     </div>
                     <button className="btn btn-primary m-3 pe-5" type='button' onClick={submitUpdateSystemSiteConfig} style={{ width: '60px', textAlign: 'end' }}>Save</button>
