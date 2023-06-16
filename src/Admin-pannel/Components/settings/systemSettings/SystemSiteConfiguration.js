@@ -41,13 +41,13 @@ function SystemSiteConfiguration() {
 
 
     const toastSuccessMessage = () => {
-        toast.success("Site Config Updated Successfully !", {
+        toast.success("SiteConfig Updated Successfully", {
             position: "top-center"
         })
     };
 
     const toastErrorMessage = () => {
-        toast.error("Site Config not Updated !", {
+        toast.error("SiteConfig not Updated", {
             position: "top-center"
         })
     }

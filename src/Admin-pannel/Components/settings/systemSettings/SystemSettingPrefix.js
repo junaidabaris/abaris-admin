@@ -37,7 +37,7 @@ function SystemSettingPrefix() {
 
 
     const toastSuccessMessage = () => {
-        toast.success("SystemPrefix Updated Successfully !", {
+        toast.success("SystemPrefix Updated Successfully", {
             position: "top-center"
         })
     };

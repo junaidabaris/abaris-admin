@@ -36,13 +36,13 @@ function Email() {
     };
 
     const toastSuccessMessage = () => {
-        toast.success("EmailStting Updated Successfully !", {
+        toast.success("EmailSetting Updated Successfully !", {
             position: "top-center"
         })
     };
 
     const toastErrorMessage = () => {
-        toast.error("EmailStting not Updated !", {
+        toast.error("EmailSetting not Updated !", {
             position: "top-center"
         })
     }
