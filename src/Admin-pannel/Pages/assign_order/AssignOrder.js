@@ -300,7 +300,7 @@ function AssignOrder() {
                                                 </td>
                                                 <td style={{ display: "table-cell" }}>
 
-                                                    {item?.orderId?.Seller[0]?.firstname + ' ' + item?.orderId?.Seller[0]?.lastname}
+                                                    {item?.orderId?.Seller?.length > 0 && item?.orderId?.Seller[0]?.firstname + ' ' + item?.orderId?.Seller[0]?.lastname}
                                                 </td>
                                                 <td style={{ display: "table-cell" }}>
                                                     {item?.orderId.currency ? item?.orderId.currency.symbol : 'ZK'} {item?.orderId?.grandTotal}

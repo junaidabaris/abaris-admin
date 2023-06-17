@@ -38,7 +38,7 @@ function OrderDetails() {
     addorderStD(inputVal);
     setInputVal({
       orderId: param.id,
-      orderStatusId: "",
+      orderStatusId: "6423edb20944088884f88cca",
       Note: "",
       userid: "641eabc2be788d5482d2f9cc",
     })
@@ -123,6 +123,7 @@ function OrderDetails() {
   const sendAssign = async () => {
     try {
       const res = await axios.post(`https://onlineparttimejobs.in/api/orderStatusTransaction/add_OrderStatusTrans`, pickupData)
+      addorderStD(inputVal)
       alert('Assign To PickUp Point Manager Successfully')
     } catch (error) {
       alert('Faild To Assign PickUp Point Manager !!')
@@ -226,7 +227,7 @@ function OrderDetails() {
                 <div className="col-lg-6">
                   <h6 className="heading-wrapper">General</h6>
                   <div className="p-3 orderStatus">
-                    <div className="d-flex align-items-center form-group">
+                    {/* <div className="d-flex align-items-center form-group">
                       <label htmlFor="update_delivery_status">
                         Order Status :
                       </label>
@@ -248,7 +249,7 @@ function OrderDetails() {
                             );
                           })}
                       </select>
-                    </div>
+                    </div> */}
 
                     <div className="small-text-wraper">
                       <div className="customerName">
@@ -326,6 +327,32 @@ function OrderDetails() {
                 </div>
                 <div className="col-lg-6">
                   <h6 className="heading-wrapper">Order Notes</h6>
+                  <div className="d-flex align-items-center form-group">
+                    <label htmlFor="update_delivery_status">
+                      Order Status :
+                    </label>
+                    <select
+                      className="form-select"
+                      name="orderStatusId"
+                      aria-label="Default select example"
+                      defaultValue={""}
+                      onChange={onChangehandler}
+
+                      style={{ height: 38 + "px", fontSize: 13 + "px" }}>
+                      <option value={data?.getOrderTrans[0]?.orderStatusId._id}>
+                        {data?.getOrderTrans[0]?.orderStatusId.orderStatusName}
+                      </option>
+                      {orderStatusData &&
+                        orderStatusData.map((item, i) => {
+
+                          return (
+                            <option value={item._id} key={i}>
+                              {item.orderStatusName}
+                            </option>
+                          );
+                        })}
+                    </select>
+                  </div>
                   <div className="form-group mt-3">
                     <textarea
                       className="form-control"
@@ -824,10 +851,11 @@ function OrderDetails() {
                   </table>
                 </div>
                 <div className="text-right">
-                  {data?.getaOrderById?.coupon_id?.code && <div className="mb-2">
-                    <div className="pr-2">COUPON CODE : <strong> {data?.getaOrderById?.coupon_id?.code}</strong></div>
-                    <div className="pr-2">COUPON Discount : <strong>  {data?.getaOrderById?.coupon_id?.discount} ({data?.getaOrderById?.coupon_id?.discount_type === 'Percent' ? 'Percent':'Amount'})</strong></div>
+                  <h6 style={{ textAlign: "right" }}>Base Price : {data?.getaOrderById?.basePrice}</h6>
+                  {data?.getaOrderById?.coupon_id?.code && <div className="mb-2" style={{ textAlign: "end" }}>
+                    <div className="pr-2">COUPON CODE : <strong> {data?.getaOrderById?.coupon_id?.code} ( {data?.getaOrderById?.coupon_id?.discount} ({data?.getaOrderById?.coupon_id?.discount_type === 'Percent' ? 'Percent' : 'Amount'}) )</strong></div>
                   </div>}
+                  <h6 style={{ textAlign: "right" }}>Discount Amount : {data?.getaOrderById?.discount}</h6>
                   <div className="mb-2"><big className="pr-2">Shipping Cost:<strong> {data?.getaOrderById?.shippingCost}</strong></big></div>
                   <div><big className="pr-2">Grand Total:  <strong>{data?.getaOrderById?.grandTotal}</strong></big></div>
                 </div>

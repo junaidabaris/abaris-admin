@@ -159,16 +159,41 @@ function EditProducts() {
         const inpName = e.target.name;
         const inpVal = e.target.value;
         let tempPickList = JSON.parse(JSON.stringify(variationArr));
-        tempPickList.map((item, i) => {
-            if (item._id == e.target.getAttribute('data_id'))
-                return item[inpName] = inpVal
-        })
 
-        const newVariationArr = [...tempPickList]
-        setVariationArr(newVariationArr);
-        const clonedObj = { ...inputval, slug };
-        clonedObj[inpName] = inpVal;
-        setInputVal(clonedObj);
+        if (inpName === 'discount') {
+
+            tempPickList.map((item, i) => {
+                if (item._id == e.target.getAttribute('data_id'))
+                    return item[inpName] = inpVal
+            })
+            tempPickList.map((item, i) => {
+                if (item._id == e.target.getAttribute('data_id'))
+                    return item.sale_rate = item.mrp - e.target.value
+            })
+
+            const newVariationArr = [...tempPickList]
+            setVariationArr(newVariationArr);
+            const clonedObj = { ...inputval, slug };
+            clonedObj[inpName] = inpVal;
+            setInputVal(clonedObj);
+
+
+        } else {
+
+
+            tempPickList.map((item, i) => {
+                if (item._id == e.target.getAttribute('data_id'))
+                    return item[inpName] = inpVal
+            })
+
+            const newVariationArr = [...tempPickList]
+            setVariationArr(newVariationArr);
+            const clonedObj = { ...inputval, slug };
+            clonedObj[inpName] = inpVal;
+            setInputVal(clonedObj);
+        }
+
+
     };
 
 
@@ -187,14 +212,12 @@ function EditProducts() {
         const url = `https://onlineparttimejobs.in/api/product/${params.id}`
         const formData = new FormData();
 
-        console.log(clonedObj);
-
         formData.append('name', clonedObj.name);
         // formData.append('gallery_image', clonedObj.gallery_image);
         // formData.append('thumbnail_image', clonedObj.thumbnail_image);
         formData.append('brand_id', inputval.brand_id);
         formData.append('seller_id', clonedObj.seller_id);
-        formData.append('shipping_coast', clonedObj.shipping_cost);
+        formData.append('shipping_cost', clonedObj.shipping_cost);
         formData.append('tags', clonedObj.tags);
         formData.append('category_id', clonedObj.category_id);
         formData.append('slug', clonedObj.slug);
@@ -207,6 +230,7 @@ function EditProducts() {
         formData.append('variation_Form', JSON.stringify(clonedObj.variation_Form));
         formData.append('productDescription', JSON.stringify(clonedObj.productDescription))
 
+        console.log(clonedObj);
         try {
             const res = await axios.put(url, formData);
             toastSuccessMessage()
@@ -241,6 +265,7 @@ function EditProducts() {
 
     useEffect(() => {
         if (params.id && productData) {
+            sendPayload = []
             const obj = { ...productData }
             setInputVal({ ...obj, brand_id: obj?.brand_id?._id })
             setFinalCatD([obj?.category_id[0]?._id])
@@ -779,7 +804,7 @@ function EditProducts() {
 
 
                                                                 <td>
-                                                                    <input data_id={item._id} type="number" name="sale_rate" className="form-control" required onChange={onChangeHandler} value={item.sale_rate} />
+                                                                    <input data_id={item._id} type="number" name="sale_rate" disabled className="form-control" required onChange={onChangeHandler} value={item.sale_rate} />
                                                                 </td>
                                                                 <td>
                                                                     <input data_id={item._id} type="text" name="discount" className="form-control" required onChange={onChangeHandler} value={item.discount} />
@@ -795,13 +820,13 @@ function EditProducts() {
                                                                 </td>
 
                                                                 <td>
-                                                                    <input type="text" name="hsn_code" value={item?.hsn_code} className="form-control" onChange={onChangeHandler} />
+                                                                    <input data_id={item._id} type="text" name="hsn_code" value={item?.hsn_code} className="form-control" onChange={onChangeHandler} />
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" name="sale_rp" value={item?.sale_rp} className="form-control" onChange={onChangeHandler} />
+                                                                    <input data_id={item._id} type="text" name="sale_rp" value={item?.sale_rp} className="form-control" onChange={onChangeHandler} />
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" name="share_rp" value={item?.share_rp} className="form-control" onChange={onChangeHandler} />
+                                                                    <input data_id={item._id} type="text" name="share_rp" value={item?.share_rp} className="form-control" onChange={onChangeHandler} />
                                                                 </td>
 
                                                                 {/* <td>

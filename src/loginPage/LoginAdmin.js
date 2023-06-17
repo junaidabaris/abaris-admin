@@ -191,7 +191,7 @@ function LoginSection({ setshow }) {
                         {isSellerErr && <h4 style={{ color: "red" }}>login Fail ! </h4>}
                         {isSellerSucc && <h4>login Successfully !</h4>}
                         {!delevery ? <button className="btn btn-primary createAccount" type="button" onClick={sendDelevery} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                            login Delevery Boy
+                            login Delivery Boy
                         </button> : showSeller ? <button className="btn btn-primary createAccount" type="button" onClick={SendSellerInfo} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                             login Seller
                             {sellerLoading && <Spinner style={{ marginLeft: "7px" }} animation="border" />}

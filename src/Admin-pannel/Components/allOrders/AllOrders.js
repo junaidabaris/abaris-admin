@@ -99,7 +99,7 @@ function AllOrders() {
               <div className="card-body">
 
                 {isLoading ? <h2>Loading...</h2>
-                  : <table className="table table-responsive aiz-table mb-0 footable footable-1 breakpoint-xl" >
+                  : <table className="table table-responsive aiz-table mb-0 footable footable-1 breakpoint-xl" style={{height:"700px"}} >
                     <thead>
                       <tr className="footable-header">
 
