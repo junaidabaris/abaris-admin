@@ -658,7 +658,7 @@ function AddNewProductsPage() {
                             </div>
 
                             <ProductDescriptionWrapper />
-                            <ProductsVariation handleVariantData={handleVariantData} setattributes={setattributesVal} setattributesVal={setattributesVal} />
+                            <ProductsVariation handleVariantData={handleVariantData} setattributes={setattributesVal} setattributesVal={setattributesVal} setVariantsData={setVariantsData} />
 
                             <div className="row">
                                 <div className="col-md-3 form-group physical_product_show" id="quantity">

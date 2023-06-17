@@ -3,9 +3,16 @@ import { MultiselectOption } from "../../common/MultiSelectOption";
 import { useGetPickupPointQuery, useGetAttributesQuery, useForm_variatioMutation } from "../all-products/allproductsApi/allProductsApi";
 import { AttributeItem } from "./AttributeItem";
 import { ColorVariant } from "./ColorVariant";
+import ImageVariantWiseModal from "./ImageVariantWiseModal";
 
 let sendPayload = [];
-function ProductsVariation({ handleVariantData, productData, setattributesVal }) {
+function ProductsVariation({ handleVariantData, productData, setattributesVal ,setVariantsData}) {
+
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
 
     const [variationArr, setVariationArr] = useState([]);
@@ -58,14 +65,14 @@ function ProductsVariation({ handleVariantData, productData, setattributesVal })
     const { data: pickUp } = useGetPickupPointQuery();
 
 
-    const [form_variatio, { data: variationsData, isLoading: isVariantLoading }] = useForm_variatioMutation();
+    const [form_variatio, { data: variationsData, isLoading: isVariantLoading, isSuccess }] = useForm_variatioMutation();
     const [updatedVariants, setUpdatedVariants] = useState()
-
     useEffect(() => {
-        if (variationsData) {
-            setVariationArr(variationsData)
+        if (isSuccess) {
+            const clone = [...variationsData]
+            setUpdatedVariants(clone)
         }
-    }, [isVariantLoading, variationsData])
+    }, [isVariantLoading, variationsData, isSuccess])
 
     const { data: attributesData } = useGetAttributesQuery()
     const [colorVariant, setColorVariant] = useState([]);
@@ -93,9 +100,8 @@ function ProductsVariation({ handleVariantData, productData, setattributesVal })
             sendPayload.push(currentAttr)
         }
         const filteredData = sendPayload.filter(item => item.data.length)
-       
         if (filteredData.length) {
-            form_variatio({ attributes: filteredData })
+            form_variatio({ attributes: filteredData, variations: updatedVariants })
             setattributesVal(filteredData)
         }
         if (!filteredData.length) {
@@ -110,13 +116,6 @@ function ProductsVariation({ handleVariantData, productData, setattributesVal })
         }
     }, [allChoices]);
 
-    useEffect(() => {
-        if (variationsData) {
-            // setVariants(variations)
-            setUpdatedVariants(variationsData)
-        }
-
-    }, [variationsData])
 
 
     function generateOb(data, prices) {
@@ -168,7 +167,7 @@ function ProductsVariation({ handleVariantData, productData, setattributesVal })
 
                             <div className="col-lg-12 mt-3">
                                 {allAttributes?.map((item) => {
-                                    return <AttributeItem key={item._id} item={item} handleChoiceValues={getChoiceValues} />
+                                    return <AttributeItem key={item._id} item={item} handleChoiceValues={getChoiceValues} setUpdatedVariants={setUpdatedVariants}/>
                                 })}
                             </div>
 
@@ -183,6 +182,16 @@ function ProductsVariation({ handleVariantData, productData, setattributesVal })
                     <div className="card-body">
                         <div className="row align-items-end">
                             <div className="col-12 sku_combination table-responsive form-group" id="sku_combination">
+                                <h6>
+                                    <div class="form-check" style={{ marginLeft: "3px" }}>
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                        <label class="form-check-label" for="flexCheckDefault" onClick={handleShow} style={{ width: "200px" }}>
+                                            Variant Wise Image
+                                        </label>
+                                    </div>
+
+                                    {show && <ImageVariantWiseModal show={show} handleClose={handleClose} vaiants={updatedVariants} setVariationArr={setVariationArr} updatedVariants={updatedVariants} setUpdatedVariants={setUpdatedVariants} />}
+                                </h6>
                                 <table className="table table-bordered physical_product_show">
                                     <thead>
 
@@ -221,9 +230,9 @@ function ProductsVariation({ handleVariantData, productData, setattributesVal })
                                                 <ColorVariant key={i} data={variantItem} pickUp={pickUp} handleVariant={getUpdatedVariant} />
                                             ))
                                         } */}
-                                        {variationArr && variationArr.map((variantItem, i) => {
+                                        {updatedVariants && updatedVariants.map((variantItem, i) => {
                                             return (
-                                                <ColorVariant key={i} data={variantItem} pickUp={pickUp} handleVariant={getUpdatedVariant} />
+                                                <ColorVariant key={i} data={variantItem} pickUp={pickUp} handleVariant={getUpdatedVariant} setVariantsData={setVariantsData}/>
                                             )
                                         })}
 
