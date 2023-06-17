@@ -259,6 +259,7 @@ import DeliveryBoyStatus from "./Admin-pannel/Pages/deliveryBoy/deliveryBoyStatu
 import ListParchaseList from "./Admin-pannel/Components/sellerPackage/ListParchaseList";
 import Seller_packages_purchase_list from "./Admin-pannel/Pages/seller_packages_purchase_list/Seller_packages_purchase_list";
 import SocialMediaCredentail from "./Admin-pannel/Components/socialMediaSystem/socialMediaCredential/SocialMediaCredentail";
+import AddPos from "./Admin-pannel/Pages/posSystem/addPosPage";
 // import socialMediaSystemCredentialPage from "./Admin-pannel/Pages/socialMediaSystemCredentialPage";
 
 
@@ -562,9 +563,10 @@ function App() {
           <Route path="seller_packages_list" element={<ListParchaseList />} />
           <Route path="seller_packages_purchase_list" element={<Seller_packages_purchase_list />} />
           <Route path="socialMedia-credential" element={<SocialMediaCredentail />} />
-          
+
           <Route path="input_purchase_tax_report" element={'dsadasdsa'} />
           <Route path="output_sale_tax_report" element={'output_sale_tax_report'} />
+          <Route path="add-pos" element={<AddPos />} />
 
 
         </Route>

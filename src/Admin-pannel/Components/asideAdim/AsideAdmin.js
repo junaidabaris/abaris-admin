@@ -40,6 +40,7 @@ function AsideAdmin() {
   const [member, setMember] = useState(false);
   const [deliveryBoy, setDeliveryBoy] = useState(false);
   const [socialMediaSystem, setSocialMediaSystem] = useState(false);
+  const [posSystem, setPosSystem] = useState(false);
 
   const { data, isLoading } = useGetAllStatusOrdersQuery()
   const { data: pickup, isLoading: isLoadingPick } = useGetPickupPointQuery()
@@ -1282,8 +1283,32 @@ function AsideAdmin() {
                 </ul>
               </li>
 
-              {/* socialmedia Susytem start */}
 
+
+              {/* Pos-system start */}
+              <li className="aiz-side-nav-item">
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setPosSystem(!posSystem) }}>
+                  <i className="las la-phone aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">POS System</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${posSystem ? "mm-show" : "extra"}`}>
+                  <li className="aiz-side-nav-item">
+                    <Link to="add-pos" className="aiz-side-nav-link">
+                      <span className="aiz-side-nav-text">Add Pos</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="#" className="aiz-side-nav-link">
+                      <span className="aiz-side-nav-text">List Pos</span>
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+              {/* pos-system-end */}
+
+
+              {/* socialmedia Susytem start */}
               <li className="aiz-side-nav-item">
                 <Link to="#" className="aiz-side-nav-link" onClick={() => { setSocialMediaSystem(!socialMediaSystem) }}>
                   <i className="las la-phone aiz-side-nav-icon" />
@@ -1642,7 +1667,7 @@ function AsideAdmin() {
                       <span className="aiz-side-nav-text">Add New Delivery Boys</span>
                     </Link>
                   </li>
-                  
+
                 </ul>
               </li>
 
