@@ -348,10 +348,10 @@ function AsideAdmin() {
                 </Link>
               </li>
 
-              <li className="aiz-side-nav-item" onClick={() => { setProducts(!products) }}
+              <li className="aiz-side-nav-item" 
               // onMouseOut={() => { setProducts(!products) }}
               >
-                <Link to="#" className="aiz-side-nav-link" >
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setProducts(!products) }} >
                   <i className="las la-shopping-cart aiz-side-nav-icon" />
                   <span className="aiz-side-nav-text">Products</span>
                   <span className="aiz-side-nav-arrow" />
@@ -389,6 +389,24 @@ function AsideAdmin() {
                       <span className="aiz-side-nav-text">Seller Products</span>
                     </Link>
                   </li>
+
+
+
+                  <li className="aiz-side-nav-item">
+                    <Link to="add-stock-transfer" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Add Stock Transfer</span>
+                    </Link>
+                  </li>
+
+                  <li className="aiz-side-nav-item">
+                    <Link to="list-stock-transfer" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">List Stock Transfer</span>
+                    </Link>
+                  </li>
+
+
+
+
                   <li className="aiz-side-nav-item">
                     <Link to="product-bulk-upload/index" className="aiz-side-nav-link">
                       <span className="aiz-side-nav-text">Bulk Import</span>

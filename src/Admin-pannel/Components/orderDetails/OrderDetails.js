@@ -850,15 +850,61 @@ function OrderDetails() {
                     </tbody>
                   </table>
                 </div>
-                <div className="text-right">
+
+
+
+                <div style={{ display: "flex", justifyContent: "end" }}>
+                  <div className="col-lg-3">
+                    <div className="cartTotals">
+                      <h5 className="cartTitle">Price Details</h5>
+
+                      <div className="subTotal" style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                        <h6>Base Price</h6>
+                        <p> {data?.getaOrderById?.basePrice}</p>
+                      </div>
+
+
+                      <div className="subTotal" style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                        <h6>Coupon</h6>
+                        <p> <span style={{ color: "rebeccapurple" }}>{data?.getaOrderById?.coupon_id?.code}</span> ( {data?.getaOrderById?.coupon_id?.discount} {data?.getaOrderById?.coupon_id?.discount_type === 'Percent' ? 'Percent' : 'Amount'} )</p>
+                      </div>
+                      <div className="subTotal" style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                        <h6>Discount Amount </h6>
+                        <p> {data?.getaOrderById?.discount}</p>
+                      </div>
+
+                      <div className="subTotal" style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                        <h6>Tax Amount</h6>
+                        <p> {data?.getaOrderById?.tax}</p>
+                      </div>
+                      <div className="subTotal" style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                        <h6>Shipping</h6>
+                        <p> {data?.getaOrderById?.shippingCost}</p>
+                      </div>
+                      <div style={{ margin: "4px 0", borderTop: "1px solid black" }}></div>
+                      <div className="subTotal" style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                        <h6>Grand Total</h6>
+                        <p> {data?.getaOrderById?.grandTotal}</p>
+                      </div>
+
+
+                    </div>
+                  </div>
+
+                </div>
+
+
+
+                {/* <div className="text-right">
                   <h6 style={{ textAlign: "right" }}>Base Price : {data?.getaOrderById?.basePrice}</h6>
                   {data?.getaOrderById?.coupon_id?.code && <div className="mb-2" style={{ textAlign: "end" }}>
                     <div className="pr-2">COUPON CODE : <strong> {data?.getaOrderById?.coupon_id?.code} ( {data?.getaOrderById?.coupon_id?.discount} ({data?.getaOrderById?.coupon_id?.discount_type === 'Percent' ? 'Percent' : 'Amount'}) )</strong></div>
                   </div>}
                   <h6 style={{ textAlign: "right" }}>Discount Amount : {data?.getaOrderById?.discount}</h6>
+                  <h6 style={{ textAlign: "right" }}>Tax Amount : {data?.getaOrderById?.tax}</h6>
                   <div className="mb-2"><big className="pr-2">Shipping Cost:<strong> {data?.getaOrderById?.shippingCost}</strong></big></div>
                   <div><big className="pr-2">Grand Total:  <strong>{data?.getaOrderById?.grandTotal}</strong></big></div>
-                </div>
+                </div> */}
 
               </div>
 

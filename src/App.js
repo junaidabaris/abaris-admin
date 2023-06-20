@@ -260,6 +260,10 @@ import ListParchaseList from "./Admin-pannel/Components/sellerPackage/ListParcha
 import Seller_packages_purchase_list from "./Admin-pannel/Pages/seller_packages_purchase_list/Seller_packages_purchase_list";
 import SocialMediaCredentail from "./Admin-pannel/Components/socialMediaSystem/socialMediaCredential/SocialMediaCredentail";
 import AddPos from "./Admin-pannel/Pages/posSystem/addPosPage";
+import InputPurchase from "./Admin-pannel/Pages/taxRepo/InputPurchase";
+import OutputPurchase from "./Admin-pannel/Pages/taxRepo/OutputPurchase";
+import AddStock from "./Admin-pannel/Pages/transfersStock/AddStock";
+import ListStock from "./Admin-pannel/Pages/transfersStock/ListStock";
 // import socialMediaSystemCredentialPage from "./Admin-pannel/Pages/socialMediaSystemCredentialPage";
 
 
@@ -564,9 +568,13 @@ function App() {
           <Route path="seller_packages_purchase_list" element={<Seller_packages_purchase_list />} />
           <Route path="socialMedia-credential" element={<SocialMediaCredentail />} />
 
-          <Route path="input_purchase_tax_report" element={'dsadasdsa'} />
-          <Route path="output_sale_tax_report" element={'output_sale_tax_report'} />
+          <Route path="input_purchase_tax_report" element={<InputPurchase/>} />
+          <Route path="output_sale_tax_report" element={<OutputPurchase/>} />
+
           <Route path="add-pos" element={<AddPos />} />
+
+          <Route path="add-stock-transfer" element={<AddStock/>} />
+          <Route path="list-stock-transfer" element={<ListStock/>} />
 
 
         </Route>
