@@ -36,6 +36,7 @@ function SellerAddEditForm() {
         cash_on_delivery_status: false,
         admin_to_pay: "",
         bank_name: "",
+        tax_number : "",
         bank_acc_no: "",
         bank_payment_status: false
     }
@@ -182,6 +183,10 @@ function SellerAddEditForm() {
                 <Form.Control type="number" name='mobile' onChange={onChangeHandle} value={state?.mobile} style={{ width: "50%" }} placeholder="Mobile Number" required />
             </Form.Group>
 
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Tax Number </Form.Label>
+                <Form.Control type="text" name='bank_name' onChange={onChangeHandle} value={state?.tax_number } style={{ width: "50%" }} placeholder="tax_number" required />
+            </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Bank Name</Form.Label>
                 <Form.Control type="text" name='bank_name' onChange={onChangeHandle} value={state?.bank_name} style={{ width: "50%" }} placeholder="Bank Name" required />

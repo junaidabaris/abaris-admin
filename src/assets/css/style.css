@@ -10464,3 +10464,15 @@ table tbody tr .show-table {
 .borderColorss{
   border: 1px solid #2E294E;
 }
+
+
+
+.cartTotals {
+  background: #f7f7f7;
+  padding: 20px;
+  border: 1px dashed #eeeeee;
+}
+
+.mainaddStc > div{
+  margin: 10px 0;
+}
