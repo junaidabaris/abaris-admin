@@ -144,7 +144,7 @@ function TrackingOrder() {
                             <input disabled value={'0986'} type="text" className="form-control" id="text" aria-describedby="text" />
                         </div> */}
                         <div className="mb-3 col-lg-6c d-flex align-center">
-                            <button type="button" onClick={getData2} className="btn btn-primary">Save</button>
+                            <button type="button" onClick={getData2} className="btn btn-primary">Submit</button>
                         </div>
                     </div>
                 </form>

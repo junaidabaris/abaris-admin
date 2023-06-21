@@ -7,6 +7,12 @@ export const ColorVariant = ({ data, pickUp, handleVariant, setVariantsData }) =
             const inputName = e.target.name;
             const inputVal = e.target.value;
 
+            // if (e.target.value === 'Amount') {
+            //     setFormData({ ...formData, sale_rate: formData.mrp - e.target.value, [inputName]: inputVal });
+            // } else {
+            //     setFormData({ ...formData, sale_rate: formData.mrp * 100 / e.target.value, [inputName]: inputVal });
+            // }
+
             setFormData({ ...formData, sale_rate: formData.mrp - e.target.value, [inputName]: inputVal });
             setVariantsData(formData)
         } else {
