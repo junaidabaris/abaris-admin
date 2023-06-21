@@ -51,9 +51,27 @@ button {
     align-items: center;
 }
 
+
 .thirdInp input {
-    width: 92%;
+    width: 97%;
     padding: 5px;
+    border: 1px solid gray;
+}
+
+.third-inp-btn {
+    background: #eeeeee;
+    padding: 5px;
+    height: 100%;
+    width: 10%;
+    border: 1px solid black;
+    font-size: 17px;
+}
+
+.third-inp {
+    width: 92%;
+    padding: 10px;
+    margin-left: -15px;
+    margin-bottom: 5px;
     border: 1px solid gray;
 }
 
@@ -256,6 +274,7 @@ button {
     /* overflow: scroll; */
 
 }
+
 .txt-bold {
     font-weight: 700;
 }

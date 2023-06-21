@@ -47,7 +47,7 @@ function PosCategory({ bringPosCategoryId, showCategoryBox, setShowCategoryBox }
                                 <img src={item.icon?.url}></img>
                             </figure>
                             <figcaption>
-                                <p>jilani</p>
+                                <p>{item.name}</p>
                             </figcaption>
                         </li>
                     })}

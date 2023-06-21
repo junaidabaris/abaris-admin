@@ -4,21 +4,24 @@ import { useGetPOSSubCategoryIdQuery } from '../all-products/allproductsApi/allP
 function POSSubCategory({ sendPoscategoryId, showSubCategoryBox, setShowSubCategoryBox }) {
 
     const { data } = useGetPOSSubCategoryIdQuery(sendPoscategoryId);
-    console.log('subCatttttD-----', data)
+    // console.log('subCatttttD-----', data)
 
     return (
         <>
             <div className={showSubCategoryBox ? 'categories-box active' : 'categories-box'}>
                 <div className='rel-box'>
                     <ul className='categ_prod_wrapper'>
-                        <li>
-                            <figure>
-                                <img src='https://grocer24.in/assets/uploads/thumbs/b263ca743860d688a77d0be30878ea5e.jpg'></img>
-                            </figure>
-                            <figcaption>
-                                <p>HYGINE</p>
-                            </figcaption>
-                        </li>
+                        {data && data.map((item, i) => {
+                            return <li>
+                                <figure>
+                                    <img src={item.icon?.url}></img>
+                                </figure>
+                                <figcaption>
+                                    <p>{item.name}</p>
+                                </figcaption>
+                            </li>
+                        })}
+
                     </ul>
                     <button type='button' onClick={() => setShowSubCategoryBox(false)} className='cross'>X</button>
                 </div>

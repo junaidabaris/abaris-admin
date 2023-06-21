@@ -14,7 +14,7 @@ function RightSection() {
     const [sendPoscategoryId, setsendPoscategoryId] = useState();
 
     const bringPosCategoryId = (id) => {
-        console.log('laayaahuwaId---', id)
+        // console.log('laayaahuwaId---', id)
         setsendPoscategoryId(id)
     };
 
