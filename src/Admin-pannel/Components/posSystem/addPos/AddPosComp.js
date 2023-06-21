@@ -15,9 +15,27 @@ import Discount from './Discount';
 import ThirdInput from './ThirdInput';
 import ViewComp from './ViewComp';
 import AddCustomer from './AddCustomer';
+import { useAddPurchaseCartMutation } from '../../all-products/allproductsApi/allProductsApi';
+import axios from 'axios';
 
 function AddPosComp() {
+  const [viewCustomerD, setViewCustomerD] = useState();
 
+
+  const handDown = async (e) => {
+    if (e.key === 'Enter') {
+      const clone = e.target.value
+      try {
+        const res = await axios.get(`https://onlineparttimejobs.in/api/user/search/${clone}`)
+        setViewCustomerD(res.data)
+        console.log('POSUsersList---', res.data)
+      } catch (error) {
+        alert('Some went wrong')
+      }
+    }
+  }
+
+  const [setCart, { isLoading, data: cartData, isError: isCartsError }] = useAddPurchaseCartMutation()
 
 
   return (
@@ -26,7 +44,8 @@ function AddPosComp() {
         <div className='leftside'>
           <form>
             <div className='topInp'>
-              <input type='text' placeholder='type here'></input>
+
+              <input type='text' name='user' placeholder='type here' onKeyDown={handDown}></input>
 
               <span className='bg-gray'>
                 <button type='button'>
@@ -34,9 +53,13 @@ function AddPosComp() {
                 </button>
               </span>
 
-              <ViewComp />
+              <ViewComp viewCustomerD={viewCustomerD} />
               <AddCustomer />
+
             </div>
+            {/* {viewCustomerD && viewCustomerD.map((item, i) => {
+              return <span style={{ backgroundColor: 'gainsboro', padding: '2px', marginTop: '2px', marginBottom: '2px', border: '1px solid black', display: 'block', width: '90%', cursor: 'pointer' }}>{item.firstname + " " + item.lastname}</span>
+            })} */}
 
             <div className='secInp'>
               <select class="form-select" aria-label="Default select example">
@@ -45,7 +68,7 @@ function AddPosComp() {
               </select>
             </div>
 
-            <ThirdInput />
+            <ThirdInput setCart={setCart} />
           </form>
 
           <div className='table_wrapper'>
@@ -64,10 +87,20 @@ function AddPosComp() {
                   </th>
                 </tr>
               </thead>
-              <tbody className='fixedheight'>
-                <div className='fixedheight'>
-                  jjj
-                </div>
+              <tbody style={{ height: '310px' }}>
+                {cartData && cartData.map((item, i) => {
+                  console.log('prodItem---', item)
+                  return <tr>
+                    <td style={{ display: 'table-cell' }}>
+                      <span className='txt-bold ps-1'>{item.product?.name}</span>
+                    </td>
+                    <td className='txt-bold ps-1' style={{ display: 'table-cell' }}>{item.variant?.sale_rate}</td>
+                    <td className='txt-bold ps-1' style={{ display: 'table-cell' }}>{item.qty}</td>
+                    <td className='txt-bold ps-1' style={{ display: 'table-cell' }}>--</td>
+                    <td className='txt-bold ps-1' style={{ display: 'table-cell' }}></td>
+                  </tr>
+                })}
+
               </tbody>
             </table>
             <table className='font-bold'>

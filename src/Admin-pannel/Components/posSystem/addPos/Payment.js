@@ -9,7 +9,7 @@ function Payment() {
 
     return (
         <>
-            <td rowspan="2" className='bg-green' onClick={() => setSmShow(true)}>
+            <td rowSpan="2" className='bg-green' onClick={() => setSmShow(true)}>
                 <button>Payment</button>
             </td>
 
