@@ -15,9 +15,10 @@ import Discount from './Discount';
 import ThirdInput from './ThirdInput';
 import ViewComp from './ViewComp';
 import AddCustomer from './AddCustomer';
+import { useAddPurchaseCartMutation } from '../../all-products/allproductsApi/allProductsApi';
 
 function AddPosComp() {
-
+  const [setCart, { isLoading, data: cartData, isError: isCartsError }] = useAddPurchaseCartMutation()
 
 
   return (
@@ -45,7 +46,7 @@ function AddPosComp() {
               </select>
             </div>
 
-            <ThirdInput />
+            <ThirdInput setCart={setCart} />
           </form>
 
           <div className='table_wrapper'>
@@ -64,10 +65,20 @@ function AddPosComp() {
                   </th>
                 </tr>
               </thead>
-              <tbody className='fixedheight'>
-                <div className='fixedheight'>
-                  jjj
-                </div>
+              <tbody style={{ height: '100px' }}>
+                {cartData && cartData.map((item, i) => {
+                  console.log('prodItem---', item)
+                  return <tr>
+                    <td style={{ display: 'table-cell' }}>
+                      <span className='txt-bold ps-1'>{item.product?.name}</span>
+                    </td>
+                    <td className='txt-bold ps-1' style={{ display: 'table-cell' }}>{item.variant?.sale_rate}</td>
+                    <td className='txt-bold ps-1' style={{ display: 'table-cell' }}>{item.qty}</td>
+                    <td className='txt-bold ps-1' style={{ display: 'table-cell' }}>--</td>
+                    <td className='txt-bold ps-1' style={{ display: 'table-cell' }}></td>
+                  </tr>
+                })}
+
               </tbody>
             </table>
             <table className='font-bold'>

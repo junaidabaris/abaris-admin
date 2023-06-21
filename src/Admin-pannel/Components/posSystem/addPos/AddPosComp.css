@@ -253,7 +253,11 @@ button {
     background-color: #fff;
     z-index: 1;
     transition: all .4s ease-in-out;
+    /* overflow: scroll; */
 
+}
+.txt-bold {
+    font-weight: 700;
 }
 
 .rel-box {
@@ -334,13 +338,14 @@ button {
     color: #fff;
     padding: 5px;
 }
+
 .sell-gift-card ul li button {
     color: #fff;
-   
+
 }
 
 
- 
+
 .sell-gift-card ul li:nth-child(1) {
     background-color: #59c0de;
 }

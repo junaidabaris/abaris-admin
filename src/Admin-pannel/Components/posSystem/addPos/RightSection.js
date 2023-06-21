@@ -1,13 +1,23 @@
 import React, { useState } from 'react';
 import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai';
 import SellGiftCard from '../SellGiftCard';
+import PosCategory from '../PosCategory';
+import POSSubCategory from '../POSSubCategory';
+import POSBrands from '../POSBrands';
 
 
 function RightSection() {
 
-    const [showBox, setShowBox] = useState(false);
+    const [showCategoryBox, setShowCategoryBox] = useState(false);
+    const [showSubCategoryBox, setShowSubCategoryBox] = useState(false);
+    const [showBrandsBox, setShowBrandsBox] = useState(false);
+    const [sendPoscategoryId, setsendPoscategoryId] = useState();
 
-   
+    const bringPosCategoryId = (id) => {
+        console.log('laayaahuwaId---', id)
+        setsendPoscategoryId(id)
+    };
+
 
     return (
         <>
@@ -15,107 +25,15 @@ function RightSection() {
 
                 <div className='list_wrapper'>
                     <ul>
-                        <li onClick={() => setShowBox(true)}>Category</li>
-                        <li onClick={() => setShowBox(true)}>Sub Category</li>
-                        <li onClick={() => setShowBox(true)}>Brands</li>
+                        <li onClick={() => setShowCategoryBox(true)}>Category</li>
+                        <li onClick={() => setShowSubCategoryBox(true)}>Sub Category</li>
+                        <li onClick={() => setShowBrandsBox(true)}>Brands</li>
                     </ul>
                 </div>
 
-                <div className={showBox ? 'categories-box active' : 'categories-box'}>
-                    <div className='rel-box'>
-                        <ul className='categ_prod_wrapper'>
-                            <li>
-                                <figure>
-                                    <img src='https://grocer24.in/assets/uploads/thumbs/b263ca743860d688a77d0be30878ea5e.jpg'></img>
-                                </figure>
-                                <figcaption>
-                                    <p>HYGINE</p>
-                                </figcaption>
-                            </li>
-                            <li>
-                                <figure>
-                                    <img src='https://grocer24.in/assets/uploads/thumbs/b263ca743860d688a77d0be30878ea5e.jpg'></img>
-                                </figure>
-                                <figcaption>
-                                    <p>HYGINE</p>
-                                </figcaption>
-                            </li>
-                            <li>
-                                <figure>
-                                    <img src='https://grocer24.in/assets/uploads/thumbs/b263ca743860d688a77d0be30878ea5e.jpg'></img>
-                                </figure>
-                                <figcaption>
-                                    <p>HYGINE</p>
-                                </figcaption>
-                            </li>
-                            <li>
-                                <figure>
-                                    <img src='https://grocer24.in/assets/uploads/thumbs/b263ca743860d688a77d0be30878ea5e.jpg'></img>
-                                </figure>
-                                <figcaption>
-                                    <p>HYGINE</p>
-                                </figcaption>
-                            </li>
-                            <li>
-                                <figure>
-                                    <img src='https://grocer24.in/assets/uploads/thumbs/b263ca743860d688a77d0be30878ea5e.jpg'></img>
-                                </figure>
-                                <figcaption>
-                                    <p>HYGINE</p>
-                                </figcaption>
-                            </li>
-                            <li>
-                                <figure>
-                                    <img src='https://grocer24.in/assets/uploads/thumbs/b263ca743860d688a77d0be30878ea5e.jpg'></img>
-                                </figure>
-                                <figcaption>
-                                    <p>HYGINE</p>
-                                </figcaption>
-                            </li>
-                            <li>
-                                <figure>
-                                    <img src='https://grocer24.in/assets/uploads/thumbs/b263ca743860d688a77d0be30878ea5e.jpg'></img>
-                                </figure>
-                                <figcaption>
-                                    <p>HYGINE</p>
-                                </figcaption>
-                            </li>
-                            <li>
-                                <figure>
-                                    <img src='https://grocer24.in/assets/uploads/thumbs/b263ca743860d688a77d0be30878ea5e.jpg'></img>
-                                </figure>
-                                <figcaption>
-                                    <p>HYGINE</p>
-                                </figcaption>
-                            </li>
-                            <li>
-                                <figure>
-                                    <img src='https://grocer24.in/assets/uploads/thumbs/b263ca743860d688a77d0be30878ea5e.jpg'></img>
-                                </figure>
-                                <figcaption>
-                                    <p>HYGINE</p>
-                                </figcaption>
-                            </li>
-                            <li>
-                                <figure>
-                                    <img src='https://grocer24.in/assets/uploads/thumbs/b263ca743860d688a77d0be30878ea5e.jpg'></img>
-                                </figure>
-                                <figcaption>
-                                    <p>HYGINE</p>
-                                </figcaption>
-                            </li>
-                            <li>
-                                <figure>
-                                    <img src='https://grocer24.in/assets/uploads/thumbs/b263ca743860d688a77d0be30878ea5e.jpg'></img>
-                                </figure>
-                                <figcaption>
-                                    <p>HYGINE</p>
-                                </figcaption>
-                            </li>
-                        </ul>
-                        <button type='button' onClick={() => setShowBox(false)} className='cross'>X</button>
-                    </div>
-                </div>
+                <PosCategory bringPosCategoryId={bringPosCategoryId} showCategoryBox={showCategoryBox} setShowCategoryBox={setShowCategoryBox} />
+                <POSSubCategory sendPoscategoryId={sendPoscategoryId} showSubCategoryBox={showSubCategoryBox} setShowSubCategoryBox={setShowSubCategoryBox} />
+                <POSBrands showBrandsBox={showBrandsBox} setShowBrandsBox={setShowBrandsBox} />
 
                 <div className='self-card-scroll'>
                     {/* hello */}
