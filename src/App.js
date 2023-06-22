@@ -587,6 +587,8 @@ function App() {
 
           <Route path="products/all/print_barcodes/:id" element={<PrintBarCode />} />
 
+          <Route path="products/all/print_barcodes/:id" element={<PrintBarCode/>} />
+
 
         </Route>
 
