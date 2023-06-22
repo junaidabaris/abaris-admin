@@ -221,7 +221,7 @@ function EditProducts() {
         formData.append('tags', clonedObj.tags);
         formData.append('category_id', clonedObj.category_id);
         formData.append('slug', clonedObj.slug);
-        // formData.append('hsn_code', clonedObj.hsn_code);
+        formData.append('video_link', clonedObj.video_link);
         // formData.append('sale_rp', clonedObj.sale_rp);
         // formData.append('share_rp', clonedObj.share_rp);
 
@@ -504,7 +504,7 @@ function EditProducts() {
                                             <div className="form-group row">
                                                 <label className="col-md-3 col-from-label">Video Link</label>
                                                 <div className="col-md-8">
-                                                    <input type="text" className="form-control" name="video_link" placeholder="Video Link" fdprocessedid="2pggse" onChange={onChangeHandler} />
+                                                    <input type="text" className="form-control" name="video_link" value={inputval?.video_link} placeholder="Video Link" fdprocessedid="2pggse" onChange={onChangeHandler} />
                                                     <small className="text-muted">Use proper link without extra parameter. Don't use short share link/embeded iframe code.</small>
                                                 </div>
                                             </div>

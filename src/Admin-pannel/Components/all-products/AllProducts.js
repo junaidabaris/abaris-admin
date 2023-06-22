@@ -1,10 +1,11 @@
 // import { SlideshowLightbox } from "lightbox.js-react";
 import { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { useDeleteProductMutation, useGetAllProductsQuery, useGetCategoriesQuery, useProductActiveMutation } from "./allproductsApi/allProductsApi";
 import { ToastContainer, toast } from "react-toastify";
+import { BsFillPrinterFill } from 'react-icons/bs';
 
 
 
@@ -77,6 +78,10 @@ function AllProducts() {
     };
   }, [isError])
 
+  const navigate = useNavigate()
+  const changeRouting = (id)=>{
+    navigate(`print_barcodes/${id}`)
+  }
 
 
   return (
@@ -224,6 +229,8 @@ function AllProducts() {
                             <button type="button" onClick={() => { deleteProductData(item._id) }} className="btn btn-soft-danger btn-icon btn-circle btn-sm">
                               <i className="las la-trash" />
                             </button>
+
+                            <BsFillPrinterFill onClick={() => { changeRouting(item._id) }} className="btn btn-soft-primary btn-icon btn-circle btn-sm" />
 
                           </td>
                         </tr>

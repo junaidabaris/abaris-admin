@@ -7,29 +7,27 @@ import { useDeleteSellerListMutation, useGetSellersQuery, useSellerActiveMutatio
 import { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
-const image = [
-  {
-    id: "1",
-    url: "https://source.unsplash.com/pAKCx4y2H6Q/1400x1200",
-  },
-  {
-    id: "2",
-    url: "https://source.unsplash.com/AYS2sSAMyhc/1400x1200",
-  },
-  {
-    id: "3",
-    url: "https://source.unsplash.com/Kk8mEQAoIpI/1600x1200"
-  },
-  {
-    id: "4",
-    url: "https://source.unsplash.com/HF3X2TWv1-w/1600x1200"
-  }
-];
+// const image = [
+//   {
+//     id: "1",
+//     url: "https://source.unsplash.com/pAKCx4y2H6Q/1400x1200",
+//   },
+//   {
+//     id: "2",
+//     url: "https://source.unsplash.com/AYS2sSAMyhc/1400x1200",
+//   },
+//   {
+//     id: "3",
+//     url: "https://source.unsplash.com/Kk8mEQAoIpI/1600x1200"
+//   },
+//   {
+//     id: "4",
+//     url: "https://source.unsplash.com/HF3X2TWv1-w/1600x1200"
+//   }
+// ];
 
 function AllSeller() {
   const { data } = useGetSellersQuery();
-
-  console.log('sellerListData-----',data)
 
 
   const [deleteItem, { isLoading }] = useDeleteSellerListMutation()
@@ -242,12 +240,12 @@ function AllSeller() {
                         </td>
                         <td style={{ display: "table-cell" }}>
                           <SlideshowLightbox>
-                            {image.slice(0, 1).map((item) => {
+                            {data.map((item) => {
                               return <img
                                 key={item.url}
                                 className="w-full rounded"
                                 style={{ width: '50px' }}
-                                src={item.url}
+                                src={data[i].profilePhoto.url}
                               />
                             })}
 

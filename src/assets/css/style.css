@@ -10458,10 +10458,12 @@ table tbody tr .show-table {
 .innerbuyPackage>div>div {
   height: 310px;
 }
+
 .innerbuyPackagepay>div>div {
   height: 510px;
 }
-.borderColorss{
+
+.borderColorss {
   border: 1px solid #2E294E;
 }
 
@@ -10473,6 +10475,14 @@ table tbody tr .show-table {
   border: 1px dashed #eeeeee;
 }
 
-.mainaddStc > div{
+.mainaddStc>div {
   margin: 10px 0;
+}
+
+.barcodePrinter {
+  flex-wrap: wrap;
+}
+
+.barcodePrinter>div {
+  margin: 5px 10px;
 }

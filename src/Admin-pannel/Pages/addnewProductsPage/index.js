@@ -11,6 +11,7 @@ import ProductsVariation from "../../Components/addNewProductsComponents/Product
 import ProductDescriptionWrapper from "../../Components/productDescriptionWrapper/productDescriptionWrapper";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { RxCross1 } from "react-icons/rx";
 
 const toastSuccessMessage = () => {
     toast.success("Product added Successfully", {
@@ -24,7 +25,7 @@ const toastErrorMessage = () => {
     })
 };
 
-const addFile = async (clonedObj, payload) => {
+const addFile = async (clonedObj, payload, categ) => {
     const url = 'https://onlineparttimejobs.in/api/product/add_product'
     const formData = new FormData();
     const images = new FormData();
@@ -54,12 +55,13 @@ const addFile = async (clonedObj, payload) => {
     formData.append('tags', clonedObj.tags);
     formData.append('category_id', clonedObj.category_id);
     formData.append('slug', clonedObj.slug)
-    // formData.append('hsn_code', clonedObj.hsn_code);
+    formData.append('video_link', clonedObj.video_link);
     // formData.append('sale_rp', clonedObj.sale_rp);
     // formData.append('share_rp', clonedObj.share_rp);
     formData.append('meta_title', clonedObj.meta_title);
     formData.append('meta_description', clonedObj.meta_description);
 
+    formData.append('attributes', JSON.stringify(categ));
     formData.append('flashDeal', JSON.stringify(clonedObj.flashDeal));
     formData.append('images', JSON.stringify(arr));
     formData.append('variations', JSON.stringify(clonedObj.variations));
@@ -92,7 +94,7 @@ function AddNewProductsPage() {
         clone[e.target.name] = e.target.value
         setFlashdeal(clone)
     }
-
+    const [proAtt, setProAtt] = useState()
     const params = useParams();
     const { data: unitMast } = useGetUnitMasterQuery()
 
@@ -206,8 +208,8 @@ function AddNewProductsPage() {
     }
 
 
-    const [spinn,setspinn]= useState(false)
-    
+    const [spinn, setspinn] = useState(false)
+
     const submitAddProductData = async () => {
         setspinn(true)
         const seller_id = sellerD && sellerD[0]._id;
@@ -215,7 +217,7 @@ function AddNewProductsPage() {
         const slug = 'youtube' + new Date().getUTCMilliseconds();
         const clonedObj = { ...inputval, variations: varianstData, flashDeal: flashDeal, variation_Form: attributesVal, tags: tags, category_id: finalCatD, seller_id, slug, productDescription: productDescription };
 
-        addFile(clonedObj, clonedObj.gallery_image)
+        addFile(clonedObj, clonedObj.gallery_image, proAtt)
 
         setspinn(false)
 
@@ -239,6 +241,16 @@ function AddNewProductsPage() {
     ];
 
 
+    const [data1, setData1] = useState()
+    const getDatas = async () => {
+        const res = await axios.get('https://onlineparttimejobs.in/api/attributeSetMaster')
+        setData1(res.data)
+    }
+
+    useEffect(() => {
+        getDatas()
+    }, [])
+
 
     useEffect(() => {
         if (response.isSuccess === true) {
@@ -252,6 +264,39 @@ function AddNewProductsPage() {
         };
     }, [response])
 
+
+
+    const changettriPro = (e) => {
+        const maped = data1.find((item) => {
+            return item._id === e.target.value
+        })
+        setProAtt(maped);
+    }
+
+    const changeValues = (e) => {
+        const clone = { ...proAtt }
+        const filterd = clone.values.map((item) => {
+            if (item._id === e.target.name) {
+                return { ...item, value: e.target.value }
+            } else {
+                return item
+            }
+        })
+        clone.values = filterd
+        setProAtt(clone)
+    }
+    const removeRowAt = (id) => {
+        const clone = { ...proAtt }
+        const filterd = clone.values.filter((item) => {
+            if (item._id === id) {
+                return
+            } else {
+                return item
+            }
+        })
+        clone.values = filterd
+        setProAtt(clone)
+    }
     return (
         <>
             <div className="aiz-main-content">
@@ -354,6 +399,43 @@ function AddNewProductsPage() {
                                                     <input type="text" value={inputval?.weight} className="form-control" name="weight" step="0.01" placeholder="weight" fdprocessedid="sq5qc3" onChange={onChangeHandler} />
                                                 </div>
                                             </div>
+
+
+                                            <div className="form-group row">
+                                                <label className="col-md-3 col-from-label"> Product Attribute </label>
+
+                                                <div className="col-md-8">
+                                                    <select className="form-select" aria-label="Default select example" name="unit" onChange={changettriPro}>
+                                                        <option value={1}>Select Unit</option>
+                                                        {data1 && data1.map((item) => {
+                                                            return <option value={item._id} key={item._id} id={item._id}>{item.name}</option>
+                                                        })}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+
+
+
+                                            {proAtt && <div className="form-group row">
+                                                <label className="col-md-3 col-from-label">Set Attribute Values</label>
+                                                <div className="col-md-8">
+                                                    {proAtt?.values && proAtt.values.map((item, i) => {
+                                                        return <div style={{ display: "flex", margin: "5px 0" }} key={i}>
+                                                            <label className="col-md-3 col-from-label">{item?.name}</label>
+                                                            <input placeholder="Value" name={item?._id} className="form-control" onChange={changeValues} />
+                                                            <div style={{ fontSize: "17px", margin: "0 5px" }}> <RxCross1 onClick={() => { removeRowAt(item?._id) }} /></div>
+                                                        </div>
+                                                    })}
+                                                </div>
+                                            </div>}
+
+
+
+
+
+
 
                                             <div className="form-group row">
                                                 <label className="col-md-3 col-from-label">Minimum Purchase Qty <span className="text-danger">*</span></label>
