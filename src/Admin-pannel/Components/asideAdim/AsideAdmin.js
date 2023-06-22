@@ -348,7 +348,7 @@ function AsideAdmin() {
                 </Link>
               </li>
 
-              <li className="aiz-side-nav-item" 
+              <li className="aiz-side-nav-item"
               // onMouseOut={() => { setProducts(!products) }}
               >
                 <Link to="#" className="aiz-side-nav-link" onClick={() => { setProducts(!products) }} >
@@ -404,6 +404,17 @@ function AsideAdmin() {
                     </Link>
                   </li>
 
+                  <li className="aiz-side-nav-item">
+                    <Link to="add-stock-adjustment" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Add Stock Adjustment</span>
+                    </Link>
+                  </li>
+
+                  <li className="aiz-side-nav-item">
+                    <Link to="list-stock-adjustment" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">List Stock Adjustment</span>
+                    </Link>
+                  </li>
 
 
 

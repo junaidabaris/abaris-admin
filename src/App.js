@@ -264,6 +264,8 @@ import InputPurchase from "./Admin-pannel/Pages/taxRepo/InputPurchase";
 import OutputPurchase from "./Admin-pannel/Pages/taxRepo/OutputPurchase";
 import AddStock from "./Admin-pannel/Pages/transfersStock/AddStock";
 import ListStock from "./Admin-pannel/Pages/transfersStock/ListStock";
+import AddAdjustments from "./Admin-pannel/Pages/adjustmentStock/AddAjustments";
+import ListAdjustment from "./Admin-pannel/Pages/adjustmentStock/ListAdjustment";
 // import socialMediaSystemCredentialPage from "./Admin-pannel/Pages/socialMediaSystemCredentialPage";
 
 
@@ -568,13 +570,16 @@ function App() {
           <Route path="seller_packages_purchase_list" element={<Seller_packages_purchase_list />} />
           <Route path="socialMedia-credential" element={<SocialMediaCredentail />} />
 
-          <Route path="input_purchase_tax_report" element={<InputPurchase/>} />
-          <Route path="output_sale_tax_report" element={<OutputPurchase/>} />
+          <Route path="input_purchase_tax_report" element={<InputPurchase />} />
+          <Route path="output_sale_tax_report" element={<OutputPurchase />} />
 
           <Route path="add-pos" element={<AddPos />} />
 
-          <Route path="add-stock-transfer" element={<AddStock/>} />
-          <Route path="list-stock-transfer" element={<ListStock/>} />
+          <Route path="add-stock-transfer" element={<AddStock />} />
+          <Route path="list-stock-transfer" element={<ListStock />} />
+
+          <Route path="add-stock-adjustment" element={<AddAdjustments />} />
+          <Route path="list-stock-adjustment" element={<ListAdjustment />} />
 
 
         </Route>
