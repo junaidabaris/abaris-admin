@@ -582,6 +582,8 @@ function App() {
 
           <Route path="add-stock-transfer" element={<AddStock />} />
           <Route path="list-stock-transfer" element={<ListStock />} />
+          <Route path="add-stock-adjustment" element={<AddAdjustments />} />
+          <Route path="list-stock-adjustment" element={<ListAdjustment />} />
 
           <Route path="products/all/print_barcodes/:id" element={<PrintBarCode />} />
 
