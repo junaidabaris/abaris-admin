@@ -35,7 +35,7 @@ function ListStock() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const sendShowData = (id)=>{
+    const sendShowData = (id) => {
         setValId(id)
         handleShow()
     }
@@ -73,9 +73,14 @@ function ListStock() {
                                 <td> {item?.TopickupPoints?.pickupPoint_name} </td>
                                 <td> {item?.FrompickupPoints?.pickupPoint_name} </td>
                                 <td>{item?.supplier[0].firstname + " " + item?.supplier[0].lastname}</td>
-                                <td>{item?.status[0].statusId?.name}</td>
                                 <td>
-                                    <GrFormView style={{ fontSize: "22px" }} onClick={()=>{sendShowData(item._id)}}/>
+                                    {item?.status[0].statusId?.name}
+                                    {/* <div class="form-check form-switch">
+                                        <input class="form-check-input" onChange={changeState} type="checkbox" role="switch" id="flexSwitchCheckChecked" checked={item?.status[0].statusId?.name === 'Pending' ? false : true}/>
+                                    </div> */}
+                                </td>
+                                <td>
+                                    <GrFormView style={{ fontSize: "22px" }} onClick={() => { sendShowData(item._id) }} />
                                     <MdDelete style={{ fontSize: "22px" }} onClick={() => DeleteMember(item._id)} />
                                 </td>
                             </tr>
@@ -85,7 +90,7 @@ function ListStock() {
                 </Table>
             </div>
         </div>
-        {show && <ShowModal show={show} handleClose={handleClose} id={valId}/>}
+        {show && <ShowModal show={show} handleClose={handleClose} id={valId} />}
 
     </div>
 }

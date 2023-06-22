@@ -5,12 +5,11 @@ import Form from 'react-bootstrap/Form';
 function ModalCombo(props) {
     let selectedVariants = []
 
-    const sendData = (data) => {
+    const sendData = (data, i) => {
         let flag = false
         let index;
-
         if (selectedVariants?.length === 0) {
-            selectedVariants.push({ productName: props?.cartData?.name, ...data, productId: props?.cartData?._id })
+            selectedVariants.push({ productName: props?.cartData?.name, ...data, productId: props?.cartData?._id, variant: props?.cartData?.variations[i]._id })
         } else {
             for (let i = 0; i < selectedVariants.length; i++) {
                 if (selectedVariants[i]._id === data._id) {
@@ -22,7 +21,7 @@ function ModalCombo(props) {
                 selectedVariants.splice(index, 1)
             }
             if (!flag) {
-                selectedVariants.push({ productName: props?.cartData?.name, ...data ,productId: props?.cartData?._id})
+                selectedVariants.push({ productName: props?.cartData?.name, ...data, productId: props?.cartData?._id , variant: props?.cartData?.variations[i]._id})
             }
         }
 
@@ -60,7 +59,7 @@ function ModalCombo(props) {
                             <td>
                                 <Form>
                                     <Form.Check
-                                        onClick={() => sendData(item)}
+                                        onClick={() => sendData(item, i)}
                                         inline
                                         name="group1"
                                         type='checkbox'

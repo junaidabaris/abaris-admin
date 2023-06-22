@@ -53,15 +53,15 @@ const addFile = async (clonedObj, payload, categ) => {
     formData.append('seller_id', clonedObj.seller_id);
     formData.append('shipping_cost', clonedObj.shipping_cost);
     formData.append('tags', clonedObj.tags);
-    formData.append('category_id', clonedObj.category_id);
     formData.append('slug', clonedObj.slug)
     formData.append('video_link', clonedObj.video_link);
-    // formData.append('sale_rp', clonedObj.sale_rp);
-    // formData.append('share_rp', clonedObj.share_rp);
+    formData.append('quotation', clonedObj.quotation);
     formData.append('meta_title', clonedObj.meta_title);
     formData.append('meta_description', clonedObj.meta_description);
-
-    formData.append('attributes', JSON.stringify(categ));
+    
+    formData.append('category_id',JSON.stringify(clonedObj.category_id) );
+    formData.append('attributes', JSON.stringify(categ.attributeSet));
+    formData.append('attributeSet', JSON.stringify(categ.attributes));
     formData.append('flashDeal', JSON.stringify(clonedObj.flashDeal));
     formData.append('images', JSON.stringify(arr));
     formData.append('variations', JSON.stringify(clonedObj.variations));
@@ -100,6 +100,7 @@ function AddNewProductsPage() {
 
     const [inputval, setInputVal] = useState({
         todays_deal: false,
+        quotation: false,
         featured: false,
         cash_on_delivery: false,
         show_stock_quantity: false,
@@ -217,7 +218,8 @@ function AddNewProductsPage() {
         const slug = 'youtube' + new Date().getUTCMilliseconds();
         const clonedObj = { ...inputval, variations: varianstData, flashDeal: flashDeal, variation_Form: attributesVal, tags: tags, category_id: finalCatD, seller_id, slug, productDescription: productDescription };
 
-        addFile(clonedObj, clonedObj.gallery_image, proAtt)
+        const clone = { attributes: [proAtt?._id], attributeSet: proAtt.values }
+        addFile(clonedObj, clonedObj.gallery_image, clone)
 
         setspinn(false)
 
@@ -473,6 +475,13 @@ function AddNewProductsPage() {
                                                 <label className="col-md-3 col-from-label">Refundable</label>
                                                 <div className="col-md-8">
                                                     <ToggleStatus name="refundable" isStatus={inputval.refundable} changeStatus={changeStatus} />
+                                                </div>
+                                            </div>
+
+                                            <div className="form-group row">
+                                                <label className="col-md-3 col-from-label">Quotation</label>
+                                                <div className="col-md-8">
+                                                    <ToggleStatus name="quotation" isStatus={inputval.quotation} changeStatus={changeStatus} />
                                                 </div>
                                             </div>
                                         </div>
