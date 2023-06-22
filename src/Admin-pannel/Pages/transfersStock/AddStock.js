@@ -48,12 +48,11 @@ function AddStock() {
 
     const setTableItem = async (item) => {
         const obj = { purchase: showData, pickupPoints: finalCatD }
-
         setCart({ id: item._id, data: obj })
         setShow(false)
     }
 
-    
+
     const [deleteRow, { isSuccess: deleteRows, data: resData }] = useDeleteCartRowMutation()
 
     useEffect(() => {
@@ -65,7 +64,7 @@ function AddStock() {
     const DeleteRow = (index) => {
         deleteRow({ index: index, data: { purchase: showData } })
     }
-   
+
 
     const handelChange = (e) => {
         if (e.key === 'Enter') {
@@ -74,12 +73,6 @@ function AddStock() {
             setShow(true)
         }
     }
-
-
- 
-
-   
-
     const onchangeHandle = (e) => {
         const clone = { ...state }
         clone[e.target.name] = e.target.value
@@ -184,10 +177,6 @@ function AddStock() {
 
                                 </select>
                             </div>
-
-
-
-
                             <div className="container-fluid">
                                 <div className="row">
                                     <div className="col">
@@ -231,7 +220,7 @@ function AddStock() {
                                                     <tbody>
 
                                                         {showData && showData.map((item, i) => {
-                                                            return <GenerateStock item={item} i={i} showData={showData} setShowData={setShowData}DeleteRow={DeleteRow}/>
+                                                            return <GenerateStock item={item} i={i} showData={showData} setShowData={setShowData} DeleteRow={DeleteRow} />
                                                         })}
 
                                                     </tbody>
