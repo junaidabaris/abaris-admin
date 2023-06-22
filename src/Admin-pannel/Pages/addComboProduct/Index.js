@@ -45,7 +45,6 @@ function AddComboProduct() {
         setStoreValue(clone)
     }
 
-    let total = 0
 
     const SaveData = (val) => {
         setModalShow(false)

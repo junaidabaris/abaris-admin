@@ -72,7 +72,7 @@ function SetAllPointsTable() {
                                                 </Link>
                                             </td>
                                             <td style={{ display: 'table-cell' }}>
-                                                {item.user_id.firstname + " " + item.user_id.lastname}
+                                                {item?.user_id?.firstname + " " + item?.user_id?.lastname}
                                             </td>
                                             <td style={{ display: 'table-cell' }}>100.00</td>
                                             <td style={{ display: 'table-cell' }}>{item.point_single}</td>
