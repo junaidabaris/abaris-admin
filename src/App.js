@@ -264,6 +264,8 @@ import InputPurchase from "./Admin-pannel/Pages/taxRepo/InputPurchase";
 import OutputPurchase from "./Admin-pannel/Pages/taxRepo/OutputPurchase";
 import AddStock from "./Admin-pannel/Pages/transfersStock/AddStock";
 import ListStock from "./Admin-pannel/Pages/transfersStock/ListStock";
+import IndexPages from "./Admin-pannel/Pages/product-attributes/IndexPages";
+import PrintBarCode from "./Admin-pannel/Pages/printBarcode/PrintBarCode";
 // import socialMediaSystemCredentialPage from "./Admin-pannel/Pages/socialMediaSystemCredentialPage";
 
 
@@ -339,7 +341,10 @@ function App() {
 
 
           <Route path="brands/edit/:id" element={<EditBrand />} />
+
           <Route path="attributes" element={<AttributeAdminPage />} />
+          <Route path="product_attributes" element={<IndexPages/>} />
+
           <Route path="attributes/edit/:id" element={<EditAttribute />} />
           <Route path="pos-activation" element={< PosConfigurationPage />} />
           <Route path="products/all" element={< AllProductsPage />} />
@@ -575,6 +580,8 @@ function App() {
 
           <Route path="add-stock-transfer" element={<AddStock/>} />
           <Route path="list-stock-transfer" element={<ListStock/>} />
+
+          <Route path="products/all/print_barcodes/:id" element={<PrintBarCode/>} />
 
 
         </Route>

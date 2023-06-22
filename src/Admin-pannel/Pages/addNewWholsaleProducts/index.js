@@ -76,10 +76,6 @@ function AddNewWholesaleProductsPage() {
                                 <div className="col-lg-8">
                                     <input type="hidden" name="_token" defaultValue="6klBhNOhEcSYzHAP1WU8ctR90lIocmkKBETVGkNx" />                <input type="hidden" name="added_by" defaultValue="admin" />
                                     <ProductsInformationAdmin dataSetNext={dataSetNext} />
-                                    {/* <ProductsImages /> */}
-                                    {/* <ProductsVedios /> */}
-                                    {/* <ProductsVariation /> */}
-                                    {/* <ProductsPriceStock /> */}
 
                                     {data && data.map((item, i) => {
                                         return <PriceStocCompkWholsaleProducts key={i} item={item} setMainVal={setMainVal} main={main} data={data} />

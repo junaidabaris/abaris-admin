@@ -123,6 +123,7 @@ function EditCategories() {
                         </Form.Select>
                       </div>
                     </div>
+                    
 
                     <div className="form-group row">
                       <label className="col-md-3 col-form-label">
