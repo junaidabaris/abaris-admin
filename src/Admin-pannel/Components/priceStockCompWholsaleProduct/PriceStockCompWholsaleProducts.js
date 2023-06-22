@@ -45,7 +45,7 @@ function PriceStocCompkWholsaleProducts({ item, setMainVal, main, data }) {
 
     useEffect(() => {
         const clone = [...row]
-        const obj = { id: item?._id.toString(), min_qty: 1, max_qty: 10, sale_price: item?.mrp }
+        const obj = { id: item?._id.toString(), min_qty: 1, max_qty: 10, sale_price: item?.sale_rate }
         clone.push(obj)
         setRow(clone)
         window.scrollTo({

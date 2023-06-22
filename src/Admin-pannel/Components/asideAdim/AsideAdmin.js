@@ -462,6 +462,12 @@ function AsideAdmin() {
                     </Link>
                   </li>
 
+                  <li className="aiz-side-nav-item">
+                    <Link to="product_attributes" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Product Attribute</span>
+                    </Link>
+                  </li>
+
 
                 </ul>
               </li>

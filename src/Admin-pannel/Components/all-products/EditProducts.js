@@ -12,6 +12,7 @@ import { MultiselectOption } from "../../common/MultiSelectOption";
 import { AttributeItem } from "../addNewProductsComponents/AttributeItem";
 import { AiFillDelete } from "react-icons/ai";
 import axios from "axios";
+import { RxCross1 } from "react-icons/rx";
 let sendPayload = [];
 function EditProducts() {
 
@@ -29,6 +30,9 @@ function EditProducts() {
     const params = useParams();
     const { data: productData, isSuccess, isLoading } = useGetProductByIdQuery(params.id);
 
+    const [idsAtt, setIdsAtt] = useState()
+
+    const [proAtt, setProAtt] = useState()
     const { data: attributesData } = useGetAttributesQuery()
 
     const [form_variatio, { data: variationsData, isLoading: isVariantLoading, isError: formvariantError, isSuccess: sussVari }] = useForm_variatioMutation();
@@ -88,6 +92,7 @@ function EditProducts() {
     const [inputval, setInputVal] = useState({
         todays_deal: false,
         featured: false,
+        quotation: false,
         cash_on_delivery: false,
         show_stock_quantity: false,
         show_stock_with_text_only: false,
@@ -208,7 +213,6 @@ function EditProducts() {
         const clonedObj = { ...inputval, variations: variationArr, tags: tags, category_id: finalCatD, variation_Form: sendbox };
         setInputVal(clonedObj);
 
-
         const url = `https://onlineparttimejobs.in/api/product/${params.id}`
         const formData = new FormData();
 
@@ -219,18 +223,19 @@ function EditProducts() {
         formData.append('seller_id', clonedObj.seller_id);
         formData.append('shipping_cost', clonedObj.shipping_cost);
         formData.append('tags', clonedObj.tags);
-        formData.append('category_id', clonedObj.category_id);
         formData.append('slug', clonedObj.slug);
-        // formData.append('hsn_code', clonedObj.hsn_code);
-        // formData.append('sale_rp', clonedObj.sale_rp);
+        formData.append('video_link', clonedObj.video_link);
+        formData.append('quotation', clonedObj.quotation);
         // formData.append('share_rp', clonedObj.share_rp);
 
+        formData.append('category_id', JSON.stringify(clonedObj.category_id));
+        formData.append('attributes', JSON.stringify(proAtt));
+        formData.append('attributeSet', JSON.stringify([idsAtt[0]]));
         formData.append('variations', JSON.stringify(variationArr));
         formData.append('images', JSON.stringify(clonedObj.images));
         formData.append('variation_Form', JSON.stringify(clonedObj.variation_Form));
         formData.append('productDescription', JSON.stringify(clonedObj.productDescription))
 
-        console.log(clonedObj);
         try {
             const res = await axios.put(url, formData);
             toastSuccessMessage()
@@ -273,6 +278,8 @@ function EditProducts() {
             const weights = obj.variations.map((variation) => variation.weight)
             setSizeTags(weights);
             setVariationArr(obj.variations);
+            setProAtt(obj.attributes);
+            setIdsAtt(obj.attributeSet[0]);
             setAllAttributes(obj.variation_Form)
         }
     }, [isSuccess, productData])
@@ -289,6 +296,51 @@ function EditProducts() {
         }
     }, [formvariantError])
 
+
+
+
+
+
+    const [data1, setData1] = useState()
+    const getDatas = async () => {
+        const res = await axios.get('https://onlineparttimejobs.in/api/attributeSetMaster')
+        setData1(res.data)
+    }
+
+    useEffect(() => {
+        getDatas()
+    }, [])
+
+
+    const changettriPro = (e) => {
+        const maped = data1.find((item) => {
+            return item._id === e.target.value
+        })
+        setProAtt(maped);
+    }
+
+    const changeValues = (e) => {
+        const clone = [...proAtt]
+        const filterd = clone.map((item) => {
+            if (item._id === e.target.name) {
+                return { ...item, value: e.target.value }
+            } else {
+                return item
+            }
+        })
+        setProAtt(filterd)
+    }
+    const removeRowAt = (id) => {
+        const clone = [...proAtt]
+        const filterd = clone.filter((item) => {
+            if (item._id === id) {
+                return
+            } else {
+                return item
+            }
+        })
+        setProAtt(filterd)
+    }
 
     return (
         <>
@@ -394,6 +446,38 @@ function EditProducts() {
                                                 </div>
                                             </div>
 
+
+                                            <div className="form-group row">
+                                                <label className="col-md-3 col-from-label"> Product Attribute </label>
+
+                                                <div className="col-md-8">
+                                                    <select className="form-select" aria-label="Default select example" value={idsAtt} name="unit" onChange={changettriPro}>
+                                                        <option value={1}>Select Unit</option>
+                                                        {data1 && data1.map((item) => {
+                                                            return <option value={item._id} key={item._id} id={item._id}>{item.name}</option>
+                                                        })}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+
+                                            {proAtt && <div className="form-group row">
+                                                <label className="col-md-3 col-from-label">Set Attribute Values</label>
+                                                <div className="col-md-8">
+                                                    {proAtt && proAtt.map((item, i) => {
+                                                        return <div style={{ display: "flex", margin: "5px 0" }} key={i}>
+                                                            <label className="col-md-3 col-from-label">{item?.label?.name}</label>
+                                                            <input placeholder="Value" name={item?._id} value={item?.value} className="form-control" onChange={changeValues} />
+                                                            <div style={{ fontSize: "17px", margin: "0 5px" }}> <RxCross1 onClick={() => { removeRowAt(item?._id) }} /></div>
+                                                        </div>
+                                                    })}
+                                                </div>
+                                            </div>}
+
+
+
+
                                             <div className="form-group row">
                                                 <label className="col-md-3 col-from-label">Minimum Purchase Qty <span className="text-danger">*</span></label>
                                                 <div className="col-md-8">
@@ -433,6 +517,13 @@ function EditProducts() {
                                                         <input type="checkbox" name="refundable" value={featuredval} onChange={onChangeHandler} />
                                                         <span />
                                                     </label>
+                                                </div>
+                                            </div>
+
+                                            <div className="form-group row">
+                                                <label className="col-md-3 col-from-label">Quotation</label>
+                                                <div className="col-md-8">
+                                                    <ToggleStatus name="quotation" isStatus={inputval.quotation} changeStatus={changeStatus} />
                                                 </div>
                                             </div>
                                         </div>
@@ -504,7 +595,7 @@ function EditProducts() {
                                             <div className="form-group row">
                                                 <label className="col-md-3 col-from-label">Video Link</label>
                                                 <div className="col-md-8">
-                                                    <input type="text" className="form-control" name="video_link" placeholder="Video Link" fdprocessedid="2pggse" onChange={onChangeHandler} />
+                                                    <input type="text" className="form-control" name="video_link" value={inputval?.video_link} placeholder="Video Link" fdprocessedid="2pggse" onChange={onChangeHandler} />
                                                     <small className="text-muted">Use proper link without extra parameter. Don't use short share link/embeded iframe code.</small>
                                                 </div>
                                             </div>

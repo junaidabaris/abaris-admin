@@ -74,7 +74,7 @@ function AddNewPagesComp() {
                                     <label className="col-sm-2 col-from-label" htmlFor="name">Link <span className="text-danger">*</span></label>
                                     <div className="col-sm-10">
                                         <div className="input-group d-block d-md-flex">
-                                            <div className="input-group-prepend "><span className="input-group-text flex-grow-1">https://mmslfashions.in/</span></div>
+                                            <div className="input-group-prepend "><span className="input-group-text flex-grow-1">https://onlineparttimejobs.in/api/</span></div>
                                             <input type="text" className="form-control w-100 w-md-auto" value={state.link} onChange={chengeHandle} placeholder="Slug" name="link" required fdprocessedid="8d8jxb" />
                                         </div>
                                         <small className="form-text text-muted">Use character, number, hypen only</small>
