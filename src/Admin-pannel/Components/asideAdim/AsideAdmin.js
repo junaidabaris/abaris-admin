@@ -42,12 +42,16 @@ function AsideAdmin() {
   const [socialMediaSystem, setSocialMediaSystem] = useState(false);
   const [posSystem, setPosSystem] = useState(false);
 
+  // shoaib code 
+  const [assetMaster, setAssetMaster] = useState(false);
+  const [departmentMaster, setdepartmentMaster] = useState(false)
+
   const { data, isLoading } = useGetAllStatusOrdersQuery()
   const { data: pickup, isLoading: isLoadingPick } = useGetPickupPointQuery()
 
   const isSuperAdminLogin = window.localStorage.getItem('showMainadmin')
   const isSellerLogin = window.localStorage.getItem('isSellerLogin')
-  const isDelevery = window.localStorage.getItem('isDeleveryBoy')
+  const isDelevery = window.localStorage.getItem('isDeleveryBoy');
 
 
 
@@ -178,9 +182,6 @@ function AsideAdmin() {
       </div>{/* .aiz-side-nav-wrap */}
     </div>
   }
-
-
-
 
   if (isSellerLogin === 'true') {
     return (
@@ -1592,6 +1593,66 @@ function AsideAdmin() {
                 </ul>
               </li>
 
+              <li className="aiz-side-nav-item">
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setAssetMaster(!assetMaster) }}>
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Asset Categories Master</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${assetMaster ? "mm-show" : "extra"}`}>
+                  <li className="aiz-side-nav-item">
+                    <Link to="add-newasset-category" className="aiz-side-nav-link ">
+                      <span className="labour-charge-type">Add New Asset </span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="asset-category" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text"> Asset Categories List </span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="asset-sub-category" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text"> Asset Sub Categories  </span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="asset-comments" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Asset Comments  </span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="asset-status" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Asset Status  </span>
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+              <li className="aiz-side-nav-item">
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setdepartmentMaster(!departmentMaster) }}>
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Manage Employee</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${departmentMaster ? "mm-show" : "extra"}`}>
+                  <li className="aiz-side-nav-item">
+                    <Link to="department" className="aiz-side-nav-link ">
+                      <span className="labour-charge-type">Department</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="sub-department" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text"> Sub Department </span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="designation" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text"> Designation </span>
+                    </Link>
+                  </li>
+
+                </ul>
+              </li>
+
 
             </ul>{/* .aiz-side-nav */}
           </div>{/* .aiz-side-nav-wrap */}
@@ -1746,6 +1807,12 @@ function AsideAdmin() {
                   </li>
                 </ul>
               </li> */}
+
+
+
+              {/* {shoaib code} */}
+
+
 
 
             </ul>{/* .aiz-side-nav */}

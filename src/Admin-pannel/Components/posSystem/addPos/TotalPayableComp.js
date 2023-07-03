@@ -4,9 +4,12 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { AiFillPlusSquare } from 'react-icons/ai';
 
-function TotalPayableComp() {
+function TotalPayableComp({ totalPosProductsPrice, bringedDiscountVal, bringedOrderTaxVal }) {
 
     const [smShow3, setSmShow3] = useState(false);
+
+    const calculatedOrderTaxAmount = totalPosProductsPrice * bringedOrderTaxVal?.order_tax / '100';
+    console.log('calculatedOrderTaxAmount---', calculatedOrderTaxAmount)
 
     return (
         <>
@@ -28,12 +31,6 @@ function TotalPayableComp() {
                                 <p> SHIPPING</p>
                             </Modal.Title>
                         </Modal.Header>
-                        {/* <Modal.Body>
-                            <p>Shipping</p>
-                            <form>
-                                <input className='form-control' placeholder='0' type='text'></input>
-                            </form>
-                        </Modal.Body> */}
                         <Modal.Footer>
                             <p>Shipping</p>
                             <form>
@@ -47,7 +44,7 @@ function TotalPayableComp() {
 
                 </div>
                 <div>
-                    0.00
+                    {totalPosProductsPrice - bringedDiscountVal?.discount + calculatedOrderTaxAmount}
                 </div>
             </div>
 

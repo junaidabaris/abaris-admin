@@ -7,8 +7,20 @@ function SellerProductsAdmin() {
     const sellerid = window.localStorage.getItem('isSellerId')
     const sellerName = window.localStorage.getItem('isSellerName')
     const isSuperAdminLogin = window.localStorage.getItem('showMainadmin')
-    
-    const [idProduct, setIdProduct] = useState({ id: sellerid ? sellerid : EtgId, name: sellerName ? sellerName : 'ETG' })
+
+
+
+    const [idProduct, setIdProduct] = useState({ id: sellerid != 'null' ? sellerid : EtgId });
+
+    // if (sellerid === null) {
+    //     setIdProduct(EtgId)
+    // } else {
+    //     setIdProduct(sellerid)
+    // }
+
+    console.log('idProduct--------', idProduct)
+    console.log('sellerid--------', sellerid)
+    console.log('EtgId--------', EtgId)
 
     const [inputval, setInputVal] = useState({
         todays_deal: false,
@@ -25,15 +37,16 @@ function SellerProductsAdmin() {
     };
     const [showDrop, setShowDrop] = useState(false)
 
-    const { isLoading, data, isFetching } = useGetSellerProductQuery(idProduct.id);
+    const { isLoading, data, isFetching } = useGetSellerProductQuery(idProduct.id || idProduct.sellerid);
     const { data: sellerData } = useGetSellersQuery()
 
     const [deleteSellerPro] = useDeleteSellerProductMutation()
-    const deletePro = (id)=>{
+    const deletePro = (id) => {
         deleteSellerPro(id)
     }
 
     const onchangeClick = (item) => {
+        console.log('item--check---', item)
         setIdProduct({ id: item._id, name: item.firstname + " " + item.lastname })
         setShowDrop(false)
     }
@@ -141,7 +154,7 @@ function SellerProductsAdmin() {
                                                     </div>
                                                 </th>
                                                 <th style={{ display: 'table-cell' }}>Name</th>
-                                                <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Added By</th>
+                                                <th data-breakpoints="md" style={{ display: 'table-cell' }}>Added By</th>
                                                 <th data-breakpoints="sm" style={{ display: 'table-cell' }}>Info</th>
                                                 <th data-breakpoints="md" style={{ display: 'table-cell' }}>Total Stock</th>
                                                 <th data-breakpoints="lg" style={{ display: 'table-cell' }}>Todays Deal</th>
@@ -155,7 +168,7 @@ function SellerProductsAdmin() {
 
 
                                             {data && data?.getallProduct?.map((item, i) => {
-                                               
+                                                console.log('sellernameitem--', item)
                                                 return <tr key={i}>
                                                     <td className="footable-first-visible" style={{ display: 'table-cell' }}>
                                                         <div className="form-group d-inline-block">
@@ -175,7 +188,8 @@ function SellerProductsAdmin() {
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td style={{ display: 'table-cell' }}>{item.seller_id?.firstname}  {item.seller_id?.lastname}</td>
+                                                    <td style={{ display: 'table-cell' }}>{item.seller_id?.firstname + " " +item.seller_id?.lastname}</td>
+
                                                     <td style={{ display: 'table-cell' }}>
                                                         <strong>Num of Sale:</strong>sdsds<br />
                                                         <strong>Base Price:</strong>-------<br />
@@ -203,7 +217,7 @@ function SellerProductsAdmin() {
                                                         <a className="btn btn-soft-primary btn-icon btn-circle btn-sm" href="#" title="Edit">
                                                             <i className="las la-edit" />
                                                         </a>
-                                                        <button type="button" onClick={()=>{deletePro(item._id)}} className="btn btn-soft-danger btn-icon btn-circle btn-sm">
+                                                        <button type="button" onClick={() => { deletePro(item._id) }} className="btn btn-soft-danger btn-icon btn-circle btn-sm">
                                                             <i className="las la-trash"></i>
                                                         </button>
 

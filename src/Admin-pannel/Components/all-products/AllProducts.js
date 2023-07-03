@@ -79,7 +79,7 @@ function AllProducts() {
   }, [isError])
 
   const navigate = useNavigate()
-  const changeRouting = (id)=>{
+  const changeRouting = (id) => {
     navigate(`print_barcodes/${id}`)
   }
 
@@ -143,10 +143,11 @@ function AllProducts() {
                         <th style={{ display: 'table-cell' }}>Product</th>
                         <th style={{ display: 'table-cell' }}>Category</th>
                         <th style={{ display: 'table-cell' }}>Brand</th>
+                        <th style={{ display: 'table-cell' }}>Seller</th>
                         <th style={{ display: 'table-cell' }}>Block</th>
                         <th data-breakpoints="lg" style={{ display: 'none' }}>Added By</th>
                         <th data-breakpoints="sm" style={{ display: 'table-cell' }}>Info</th>
-                        <th data-breakpoints="md" style={{ display: 'table-cell' }}>Total Stock</th>
+                        {/* <th data-breakpoints="md" style={{ display: 'none' }}>Total Stock</th> */}
                         <th data-breakpoints="lg" style={{ display: 'none' }}>Todays Deal</th>
                         <th data-breakpoints="lg" style={{ display: 'none' }}>Published</th>
                         <th data-breakpoints="lg" style={{ display: 'none' }}>Featured</th>
@@ -171,11 +172,17 @@ function AllProducts() {
                             </div>
                           </td>
                           <td style={{ display: 'table-cell' }}>
-                            {item.category_id && item.category_id.name}
+                            {item.category_id && item.category_id?.map((catItem, i) => {
+                              <span>{catItem.name}</span>
+                            })}
                           </td>
 
                           <td style={{ display: 'table-cell' }}>
                             {item.brand_id && item.brand_id.name}
+
+                          </td>
+                          <td style={{ display: 'table-cell' }}>
+                            {item.seller_id && item.seller_id?.firstname + " " + item.seller_id && item.seller_id?.lastname}
 
                           </td>
 
@@ -196,7 +203,7 @@ function AllProducts() {
                             <strong>Base Price:</strong>{item.unit_price}<br />
                             <strong>Rating:</strong> 0 <br />
                           </td>
-                          <td style={{ display: 'table-cell' }}>10</td>
+                          {/* <td style={{ display: 'table-cell' }}>10</td> */}
                           <td style={{ display: 'none' }}>
                             <label className="aiz-switch aiz-switch-success mb-0">
                               <input defaultValue={73} type="checkbox" />

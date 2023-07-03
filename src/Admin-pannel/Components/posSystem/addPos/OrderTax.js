@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FiEdit } from 'react-icons/fi';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function OrderTax() {
-
+function OrderTax({ bringOrderTaxInpVal }) {
     const [smShow, setSmShow] = useState(false);
+    const [inputVal, setInputval] = useState({ order_tax: '' });
+
+    const onChangeHandler = (e) => {
+        const inpName = e.target.name;
+        const inpVal = e.target.value;
+        const clonedObj = { ...inputVal };
+        clonedObj[inpName] = inpVal;
+        setInputval(clonedObj)
+    };
+
+    const submitOrderTaxVal = () => {
+        bringOrderTaxInpVal(inputVal)
+        setSmShow(false)
+    }
 
     return (
         <>
@@ -26,31 +39,21 @@ function OrderTax() {
                             <p> EDIT ORDER TAX</p>
                         </Modal.Title>
                     </Modal.Header>
-                    {/* <Modal.Body>
-                        <p>ORDER TAX</p>
-                        <select className="form-select" aria-label="Default select example">
-                            <option value={1}>No Tax</option>
-                            <option value={1}>VAT @10%</option>
-                            <option value={2}>GST @6%</option>
-                            <option value={3}>VAT @20%</option>
-                        </select>
-                    </Modal.Body> */}
                     <Modal.Footer>
                         <p>ORDER TAX</p>
-                        <select className="form-select" aria-label="Default select example">
-                            <option value={1}>No Tax</option>
-                            <option value={1}>VAT @10%</option>
-                            <option value={2}>GST @6%</option>
-                            <option value={3}>VAT @20%</option>
+                        <select className="form-select" name='order_tax' aria-label="Default select example" onChange={onChangeHandler}>
+                            <option value={'No Tax'}>No Tax</option>
+                            <option value={'10'}>VAT @10%</option>
+                            <option value={'6'}>GST @6%</option>
+                            <option value={'20'}>VAT @20%</option>
                         </select>
-                        <Button variant="primary" >
+                        <Button variant="primary" type='button' onClick={submitOrderTaxVal}>
                             Update
                         </Button>
                     </Modal.Footer>
                 </Modal>
-
-
             </td>
+            <td>{inputVal?.order_tax}%</td>
         </>
     )
 }
