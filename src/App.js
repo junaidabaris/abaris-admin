@@ -268,7 +268,30 @@ import IndexPages from "./Admin-pannel/Pages/product-attributes/IndexPages";
 import PrintBarCode from "./Admin-pannel/Pages/printBarcode/PrintBarCode";
 import AddAdjustments from "./Admin-pannel/Pages/adjustmentStock/AddAjustments";
 import ListAdjustment from "./Admin-pannel/Pages/adjustmentStock/ListAdjustment";
+import AddAssetCategories from "./Admin-pannel/Components/assetCategoriesMaster/addAssetCategories/AddAssetCategories";
+import AssetCategorey from "./Admin-pannel/Components/assetCategoriesMaster/assetCategoryList/AssetCategorey";
+import AssetCategoryDetails from "./Admin-pannel/Components/assetCategoriesMaster/assetCategoryList/AssetCategoryDetails";
+import AssetAddCategory from "./Admin-pannel/Components/assetCategoriesMaster/assetCategoryList/AssetAddCategory";
+import AssetSubCatecories from "./Admin-pannel/Components/assetCategoriesMaster/assetSubCategories/AssetSubCatecories";
+import AssetComments from "./Admin-pannel/Components/assetCategoriesMaster/assetComment/AssetComments";
+import AssetStatus from "./Admin-pannel/Components/assetCategoriesMaster/assetStatus/AssetStatus";
+import SubDepartMent from "./Admin-pannel/Components/manageDepartmentmaster/subDepartment/SubDepartMent";
+import Department from "./Admin-pannel/Components/manageDepartmentmaster/department/Department";
+import Desigination from "./Admin-pannel/Components/manageDepartmentmaster/desgination/Desigination";
 // import socialMediaSystemCredentialPage from "./Admin-pannel/Pages/socialMediaSystemCredentialPage";
+
+// shoaib code
+
+// import AddAssetCategories from "./Admin-pannel/Components/assetCategoriesMaster/addAssetCategories/AddAssetCategories";
+// import AssetAddCategory from "./Admin-pannel/Components/assetCategoriesMaster/assetCategoryList/AssetAddCategory";
+// import AssetCategorey from "./Admin-pannel/Components/assetCategoriesMaster/assetCategoryList/AssetCategorey";
+// import AssetCategoryDetails from "./Admin-pannel/Components/assetCategoriesMaster/assetCategoryList/AssetCategoryDetails";
+// import AssetSubCatecories from "./Admin-pannel/Components/assetCategoriesMaster/assetSubCategories/AssetSubCatecories";
+// import AssetComments from "./Admin-pannel/Components/assetCategoriesMaster/assetComment/AssetComments";
+// import AssetStatus from "./Admin-pannel/Components/assetCategoriesMaster/assetStatus/AssetStatus";
+// import Department from "./Admin-pannel/Components/manageDepartmentmaster/department/Department";
+// import SubDepartMent from "./Admin-pannel/Components/manageDepartmentmaster/subDepartment/SubDepartMent";
+// import Desigination from "./Admin-pannel/Components/manageDepartmentmaster/desgination/Desigination";
 
 
 function App() {
@@ -587,7 +610,21 @@ function App() {
 
           <Route path="products/all/print_barcodes/:id" element={<PrintBarCode />} />
 
-          <Route path="products/all/print_barcodes/:id" element={<PrintBarCode/>} />
+          <Route path="products/all/print_barcodes/:id" element={<PrintBarCode />} />
+
+          {/* {shoaib code} */}
+
+          <Route path="add-newasset-category" element={<AddAssetCategories />} />
+          <Route path="asset-category" element={<AssetCategorey />} />
+          <Route path="asset-category-type-view" element={<AssetCategoryDetails />} />
+          <Route path="add-asset-category" element={<AssetAddCategory />} />
+          <Route path="asset-sub-category" element={<AssetSubCatecories />} />
+          <Route path="asset-sub-category" element={<AssetSubCatecories />} />
+          <Route path="asset-comments" element={<AssetComments />} />
+          <Route path="asset-status" element={<AssetStatus />} />
+          <Route path="department" element={<Department />} />
+          <Route path="sub-department" element={<SubDepartMent />} />
+          <Route path="designation" element={<Desigination />} />
 
 
         </Route>

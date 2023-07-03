@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import './AddPosComp.css';
 import { FaPencilAlt } from 'react-icons/fa'
 import { RiDeleteBin6Line } from 'react-icons/ri'
+import ModalCombo from './../../../Pages/addComboProduct/ModalCombo';
 
 // import { FiEdit } from 'react-icons/fi';
 import RightSection from './RightSection';
@@ -17,9 +18,18 @@ import ViewComp from './ViewComp';
 import AddCustomer from './AddCustomer';
 import { useAddPurchaseCartMutation } from '../../all-products/allproductsApi/allProductsApi';
 import axios from 'axios';
+import { AiFillAmazonCircle } from 'react-icons/ai';
+import { FiEdit } from 'react-icons/fi';
 
 function AddPosComp() {
   const [viewCustomerD, setViewCustomerD] = useState();
+  const [modalShow, setModalShow] = useState(false)
+  const [showCombo, setShowCombo] = useState([])
+  const [cartDataa, setcartData] = useState(null)
+  const [show, setShow] = useState(true);
+  const [smShow, setSmShow] = useState(false);
+  const [bringedDiscountVal, setBringedDiscountVal] = useState();
+  const [bringedOrderTaxVal, setBringedOrderTaxVal] = useState();
 
 
   const handDown = async (e) => {
@@ -35,8 +45,36 @@ function AddPosComp() {
     }
   }
 
-  const [setCart, { isLoading, data: cartData, isError: isCartsError }] = useAddPurchaseCartMutation()
+  const [setCart, { isLoading, data: cartData, isError: isCartsError }] = useAddPurchaseCartMutation();
 
+  const bringDiscountInpVal = (discountVal) => {
+    setBringedDiscountVal(discountVal)
+  };
+  const bringOrderTaxInpVal = (orderTaxVal) => {
+    setBringedOrderTaxVal(orderTaxVal)
+  };
+
+  const SaveData = async (val) => {
+    setModalShow(false)
+    const arr = [...showCombo, ...val]
+    const aaa = arr.map((item) => {
+      return { product: item.productId, variant: item.variant, sku: item.sku, count: 1 }
+    })
+    const resp = await axios.post('https://onlineparttimejobs.in/api/pos/cart/get',
+      { products: aaa, shippingCost: 0, discount_type: bringedDiscountVal.discount_type, discount: bringedDiscountVal.discount, order_tax: bringedOrderTaxVal.order_tax }
+    )
+    console.log('resp---', resp.data)
+    setShowCombo(resp.data.cart.products)
+  }
+
+
+  let totalPosProductsItem = 0;
+  let totalPosProductsPrice = 0;
+  for (let i = 0; i < showCombo.length; i++) {
+    totalPosProductsItem = totalPosProductsItem + showCombo[i].count;
+    totalPosProductsPrice = totalPosProductsPrice + showCombo[i].variant_id?.sale_rate
+  }
+  console.log('totalPosProductsPrice', totalPosProductsPrice)
 
   return (
     <>
@@ -62,17 +100,30 @@ function AddPosComp() {
             })} */}
 
             <div className='secInp'>
-              <select class="form-select" aria-label="Default select example">
+              <select className="form-select" aria-label="Default select example">
                 <option value="2">Two</option>
                 <option value="3">Three</option>
               </select>
             </div>
 
-            <ThirdInput setCart={setCart} />
+            <ThirdInput setCart={setCart} setcartData={setcartData} setModalShow={setModalShow} setShow={setShow} />
           </form>
 
+
+          {modalShow && <ModalCombo
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            cartData={cartDataa}
+            SaveData={SaveData}
+            showCombo={showCombo}
+          />}
+
+
           <div className='table_wrapper'>
-            <table>
+
+            
+
+            <table className='table'>
               <thead>
                 <tr>
                   <th>Product</th>
@@ -88,41 +139,40 @@ function AddPosComp() {
                 </tr>
               </thead>
               <tbody style={{ height: '310px' }}>
-                {cartData && cartData.map((item, i) => {
+                {showCombo && showCombo.map((item, i) => {
                   console.log('prodItem---', item)
-                  return <tr>
+                  return <tr key={i}>
                     <td style={{ display: 'table-cell' }}>
-                      <span className='txt-bold ps-1'>{item.product?.name}</span>
+                      <span className='txt-bold ps-1'>{item.product[0]?.name}</span>
                     </td>
-                    <td className='txt-bold ps-1' style={{ display: 'table-cell' }}>{item.variant?.sale_rate}</td>
-                    <td className='txt-bold ps-1' style={{ display: 'table-cell' }}>{item.qty}</td>
-                    <td className='txt-bold ps-1' style={{ display: 'table-cell' }}>--</td>
+                    <td className='txt-bold ps-1 text-end' style={{ display: 'table-cell' }}>{item.variant_id?.sale_rate}</td>
+                    <td className='txt-bold ps-1 text-end' style={{ display: 'table-cell' }}>{item.count}</td>
+                    <td className='txt-bold ps-1 text-end' style={{ display: 'table-cell' }}>{item.subTotal}</td>
                     <td className='txt-bold ps-1' style={{ display: 'table-cell' }}></td>
                   </tr>
                 })}
 
               </tbody>
             </table>
+
             <table className='font-bold'>
               <tr>
                 <td>Items</td>
-                <td>0</td>
+                <td>{totalPosProductsItem}</td>
                 <td>Total</td>
-                <td className='text-right'>0.00</td>
+                <td className='text-right'>{totalPosProductsPrice}</td>
               </tr>
 
               <tr>
-                <OrderTax />
-                <td>0.00</td>
-                <Discount />
-                <td className='text-right'>0.00</td>
+                <OrderTax bringOrderTaxInpVal={bringOrderTaxInpVal} />
+                <Discount bringDiscountInpVal={bringDiscountInpVal} />
               </tr>
-            </table>
 
-            <TotalPayableComp />
+            </table>
+            <TotalPayableComp totalPosProductsPrice={totalPosProductsPrice} bringedDiscountVal={bringedDiscountVal} bringedOrderTaxVal={bringedOrderTaxVal} />
           </div>
 
-          <ColorFulTable />
+          <ColorFulTable showCombo={showCombo} totalPosProductsPrice={totalPosProductsPrice} bringedDiscountVal={bringedDiscountVal} bringedOrderTaxVal={bringedOrderTaxVal} totalPosProductsItem={totalPosProductsItem} />
 
         </div>
 

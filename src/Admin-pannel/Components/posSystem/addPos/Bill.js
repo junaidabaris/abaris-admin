@@ -1,18 +1,34 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import { ComponentToPrint } from '../../printComp/PrintComp';
+import { useReactToPrint } from 'react-to-print';
+// import Button from 'react-bootstrap/Button';
+// import Modal from 'react-bootstrap/Modal';
 
-function Bill() {
+function Bill({ showCombo, totalPosProductsPrice }) {
 
-    const [smShow, setSmShow] = useState(false);
+    // const [smShow, setSmShow] = useState(false);
+
+    const componentRef = useRef();
+
+    const handleReactToPrint = useReactToPrint({
+        content: () => componentRef.current,
+    });
+
+    const handlePrint = () => {
+        handleReactToPrint()
+    }
 
     return (
         <>
-            <td className='bg-deepblue' onClick={() => setSmShow(true)}>
-                <button>Bill</button>
+            <td className='bg-deepblue'>
+                <div style={{ display: 'none' }}>
+                    <ComponentToPrint showCombo={showCombo} totalPosProductsPrice={totalPosProductsPrice} ref={componentRef} />
+                </div>
+                <button onClick={handlePrint}>Bill</button>
             </td>
-            <Modal
+
+            {/* <Modal
                 size="sm"
                 show={smShow}
                 onHide={() => setSmShow(false)}
@@ -30,7 +46,7 @@ function Bill() {
                         Ok
                     </Button>
                 </Modal.Footer>
-            </Modal>
+            </Modal> */}
 
 
         </>
