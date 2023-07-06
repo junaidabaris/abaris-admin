@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useGetPOSDiscountDataQuery } from '../../all-products/allproductsApi/allProductsApi';
 
-function Discount({ bringDiscountInpVal }) {
+function Discount({ bringDiscountInpVal, showCombo, SaveData }) {
     const [smShow2, setSmShow2] = useState(false);
 
     const [inputVal, setInputVal] = useState({ discount: '', discount_type: '' });
@@ -20,6 +20,7 @@ function Discount({ bringDiscountInpVal }) {
 
     const submitOrderDiscountVal = () => {
         bringDiscountInpVal(inputVal)
+        SaveData()
         setSmShow2(false)
     }
 
@@ -61,7 +62,7 @@ function Discount({ bringDiscountInpVal }) {
                 </Modal>
 
             </td>
-            <td className='text-right'>{inputVal?.discount}</td>
+            <td className='text-right'>{showCombo?.discount}</td>
         </>
     )
 }

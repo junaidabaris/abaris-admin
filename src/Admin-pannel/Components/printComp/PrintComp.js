@@ -18,7 +18,7 @@ export const ComponentToPrint = React.forwardRef((props, ref) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {showCombo && showCombo.map((item, i) => {
+                    {showCombo && showCombo?.cart?.products.map((item, i) => {
                         return <tr key={i}>
                             <td>{i + 1}</td>
                             <td style={{ display: 'table-cell' }}>

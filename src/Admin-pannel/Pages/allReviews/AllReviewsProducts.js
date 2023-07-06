@@ -7,7 +7,7 @@ function AllReviewsProducts() {
     const [data, setdata] = useState(null)
 
     const getData = async () => {
-        const res = await axios.get(`https://onlineparttimejobs.in/api/rating/product/admin`)
+        const res = await axios.get(`https://onlineparttimejobs.in/api/rating`)
         setdata(res.data)
     }
 

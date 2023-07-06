@@ -23,16 +23,17 @@ function PodEnteris(props) {
         order_id: props.data.getaOrderById._id,
         createdBy: setId,
         AwbNo: "",
-        Pkt_Status: "",
+        // Pkt_Status: "",
+        orderStatusId: '',
         mode: "",
         courierName: "In_house",
         courier_reference_no: "",
-        RcDate: "",
-        RcTime: "",
-        Remarks: "",
-        RcName: "",
-        RcRelation: "",
-        RcPhone: "",
+        rcDate: "",
+        rcTime: "",
+        remarks: "",
+        rcName: "",
+        rcRelation: "",
+        rcPhone: "",
         image: "",
     })
 
@@ -77,7 +78,21 @@ function PodEnteris(props) {
         } else {
             getData()
         }
-    }, [])
+    }, []);
+
+    const getPodEntryDataById = async () => {
+        try {
+            const res = await axios.get(`https://onlineparttimejobs.in/api/delivery/order/${props.data.getaOrderById._id}`)
+            console.log('podEntryDataMoin---', res.data)
+            setState(res.data[0])
+
+        } catch (error) {
+            alert('Status Not Load')
+        }
+    };
+    useEffect(() => {
+        getPodEntryDataById()
+    }, []);
 
 
     const [loader, setLoader] = useState(false)
@@ -92,13 +107,13 @@ function PodEnteris(props) {
         formData.append('order_id', props.data.getaOrderById._id);
         formData.append('createdBy', setId);
         formData.append('AwbNo', clone.AwbNo);
-        formData.append('pkt_Status', clone.Pkt_Status);
-        formData.append('rcDate', clone.RcDate);
-        formData.append('rcTime', clone.RcTime);
-        formData.append('remarks', clone.Remarks);
-        formData.append('rcName', clone.RcName);
-        formData.append('rcRelation', clone.RcRelation);
-        formData.append('rcPhone', clone.RcPhone);
+        formData.append('orderStatusId', clone.orderStatusId);
+        formData.append('rcDate', clone.rcDate);
+        formData.append('rcTime', clone.rcTime);
+        formData.append('remarks', clone.remarks);
+        formData.append('rcName', clone.rcName);
+        formData.append('rcRelation', clone.rcRelation);
+        formData.append('rcPhone', clone.rcPhone);
         formData.append('courier_reference_no', clone.courier_reference_no);
         formData.append('mode', clone.mode);
         formData.append('courierName', clone.courierName);
@@ -134,12 +149,12 @@ function PodEnteris(props) {
                         <div className="row">
                             <div className="mb-3 col-lg-6">
                                 <label htmlFor="number" className="form-label">AwbNo</label>
-                                <input type="text" name="AwbNo" className="form-control" id="number1" onChange={onchangeHandle} aria-describedby="number" />
+                                <input type="text" name="AwbNo" value={state?.AwbNo} className="form-control" id="number1" onChange={onchangeHandle} aria-describedby="number" />
                             </div>
 
                             <div className="mb-3 col-lg-6">
                                 <label htmlFor="number" className="form-label">Courier Reference No</label>
-                                <input type="text" name="courier_reference_no" className="form-control" id="number1" onChange={onchangeHandle} aria-describedby="number" />
+                                <input type="text" value={state?.courier_reference_no} name="courier_reference_no" className="form-control" id="number1" onChange={onchangeHandle} aria-describedby="number" />
                             </div>
 
                             <div className="mb-3 col-lg-6">
@@ -166,7 +181,7 @@ function PodEnteris(props) {
                                 <label htmlFor="number" className="form-label">Pkt Status</label>
                                 <select
                                     className="form-select"
-                                    name="Pkt_Status"
+                                    name="orderStatusId"
                                     aria-label="Default select example"
                                     defaultValue={""}
                                     onChange={onchangeHandle}
@@ -189,31 +204,31 @@ function PodEnteris(props) {
                             </div>
                             <div className="mb-3 col-lg-6">
                                 <label htmlFor="text" className="form-label">RcDate</label>
-                                <input type="date" onChange={onchangeHandle} name="RcDate" className="form-control" id="text" aria-describedby="text" />
+                                <input type="date" value={state?.rcDate} onChange={onchangeHandle} name="rcDate" className="form-control" id="text" aria-describedby="text" />
                             </div>
                             <div className="mb-3 col-lg-6">
                                 <label htmlFor="text" className="form-label">RcTime</label>
-                                <input type="time" onChange={onchangeHandle} name="RcTime" className="form-control" id="text" aria-describedby="text" />
+                                <input type="time" value={state?.rcTime} onChange={onchangeHandle} name="rcTime" className="form-control" id="text" aria-describedby="text" />
                             </div>
                             <div className="mb-3 col-lg-6">
                                 <label htmlFor="text" className="form-label">Remarks</label>
-                                <input type="text" onChange={onchangeHandle} name="Remarks" className="form-control" id="text" aria-describedby="text" />
+                                <input type="text" value={state?.remarks} onChange={onchangeHandle} name="remarks" className="form-control" id="text" aria-describedby="text" />
                             </div>
                             <div className="mb-3 col-lg-6">
                                 <label htmlFor="text" className="form-label">RcName</label>
-                                <input type="text" onChange={onchangeHandle} name="RcName" className="form-control" id="text" aria-describedby="text" />
+                                <input type="text" value={state?.rcName} onChange={onchangeHandle} name="rcName" className="form-control" id="text" aria-describedby="text" />
                             </div>
                             <div className="mb-3 col-lg-6">
                                 <label htmlFor="text" className="form-label">RcRelation</label>
-                                <input type="text" onChange={onchangeHandle} name="RcRelation" className="form-control" id="text" aria-describedby="text" />
+                                <input type="text" value={state?.rcRelation} onChange={onchangeHandle} name="rcRelation" className="form-control" id="text" aria-describedby="text" />
                             </div>
                             <div className="mb-3 col-lg-6">
                                 <label htmlFor="text" className="form-label">RcPhone</label>
-                                <input type="text" onChange={onchangeHandle} name="RcPhone" className="form-control" id="text" aria-describedby="text" />
+                                <input type="text" value={state?.rcPhone} onChange={onchangeHandle} name="rcPhone" className="form-control" id="text" aria-describedby="text" />
                             </div>
                             <div className="mb-3 col-lg-6">
                                 <label htmlFor="file" className="form-label">Photo</label>
-                                <input type="file" onChange={photoChange} name="image" className="form-control" id="text" aria-describedby="text" />
+                                <input type="file" value={state?.image} onChange={photoChange} name="image" className="form-control" id="text" aria-describedby="text" />
                             </div>
                         </div>
                     </form>

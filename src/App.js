@@ -278,6 +278,30 @@ import AssetStatus from "./Admin-pannel/Components/assetCategoriesMaster/assetSt
 import SubDepartMent from "./Admin-pannel/Components/manageDepartmentmaster/subDepartment/SubDepartMent";
 import Department from "./Admin-pannel/Components/manageDepartmentmaster/department/Department";
 import Desigination from "./Admin-pannel/Components/manageDepartmentmaster/desgination/Desigination";
+import EditAssetCategory from "./Admin-pannel/Components/assetCategoriesMaster/assetCategoryList/editAssetsCategory/EditAssetCategory";
+import AddSubCategories from "./Admin-pannel/Components/assetCategoriesMaster/assetSubCategories/addAssetSubCategories/AddSubCategories";
+import EditAssetsSubCategory from "./Admin-pannel/Components/assetCategoriesMaster/assetSubCategories/editAssetsSubCategories/EditAssetsSubCategory";
+import DetailsSubCategories from "./Admin-pannel/Components/assetCategoriesMaster/assetSubCategories/detailsSubCategories/DetailsSubCategories";
+import AddDepartment from "./Admin-pannel/Components/manageDepartmentmaster/department/addDepartment/AddDepartment";
+import DetailsDepartment from "./Admin-pannel/Components/manageDepartmentmaster/department/detailsDepartment/DetailsDepartment";
+import DeliveryChalanReportPage from "./Admin-pannel/Pages/deliveryChalan/deliveryChalanReport/Index";
+import AddDeliveryChalanPage from "./Admin-pannel/Pages/deliveryChalan/addDeleveryChallan/Index";
+
+import ReportAssetStatus from "./Admin-pannel/Components/assetReport/aseetStatus/AssetStatus";
+import ReportAllocation from "./Admin-pannel/Components/assetReport/assetAllocations/AssetAllocation";
+
+import AssetRequest from "./Admin-pannel/Components/requestModule/assetrequest/AssetRequest";
+import AssetIssue from "./Admin-pannel/Components/requestModule/assetIssue/AssetIssue";
+import AllCustomerPage from "./Admin-pannel/Pages/allCustomer";
+// import Shift from "./Admin-pannel/Components/crmNew/components/shift/Shift"
+
+
+
+
+
+// import AssetComments from "./Admin-pannel/Components/assetCategoriesMaster/assetComment/AssetComments";
+// import AssetStatus from "./Admin-pannel/Components/assetCategoriesMaster/assetStatus/AssetStatus";
+
 // import socialMediaSystemCredentialPage from "./Admin-pannel/Pages/socialMediaSystemCredentialPage";
 
 // shoaib code
@@ -408,6 +432,9 @@ function App() {
           {/* <Route path="customer-shippingAddress/create" element={<CustomerShippingAddList />} /> */}
           <Route path="customer-list/edit/:id" element={<EditCustomer />} />
           <Route path="seller" element={<AllSellerPage />} />
+
+          {/* <Route path="customer" element={<AllCustomerPage />} /> */}
+
           <Route path="in_house_sale_report" element={<InHouseProductsSalePage />} />
           <Route path="seller_sale_report" element={<SellerProductsSalePage />} />
           <Route path="stock_report" element={<ProductsStockPage />} />
@@ -616,15 +643,31 @@ function App() {
 
           <Route path="add-newasset-category" element={<AddAssetCategories />} />
           <Route path="asset-category" element={<AssetCategorey />} />
+          <Route path="asset-category/edit/:id" element={<EditAssetCategory />} />
           <Route path="asset-category-type-view" element={<AssetCategoryDetails />} />
+          <Route path="asset-category-type-view/details/:id" element={<AssetCategoryDetails />} />
           <Route path="add-asset-category" element={<AssetAddCategory />} />
+          <Route path="add-asset-sub-category" element={<AddSubCategories />} />
           <Route path="asset-sub-category" element={<AssetSubCatecories />} />
           <Route path="asset-sub-category" element={<AssetSubCatecories />} />
+          <Route path="asset-sub-category/edit/:id" element={<EditAssetsSubCategory />} />
+          <Route path="asset-sub-category-type-view/details/:id" element={<DetailsSubCategories />} />
           <Route path="asset-comments" element={<AssetComments />} />
           <Route path="asset-status" element={<AssetStatus />} />
           <Route path="department" element={<Department />} />
           <Route path="sub-department" element={<SubDepartMent />} />
           <Route path="designation" element={<Desigination />} />
+          <Route path="add-department" element={<AddDepartment />} />
+          <Route path="view-department/details/:id" element={<DetailsDepartment />} />
+          <Route path="list-delivery-challan" element={<DeliveryChalanReportPage />} />
+          <Route path="add-delivery-challan" element={<AddDeliveryChalanPage />} />
+
+          <Route path="asset-request" element={<AssetRequest />} />
+          <Route path="asset-issue" element={<AssetIssue />} />
+
+          <Route path="reports-status" element={<ReportAssetStatus />} />
+          <Route path="reports-allocations" element={<ReportAllocation />} />
+          {/* <Route path="shift" element={<Shift />} /> */}
 
 
         </Route>

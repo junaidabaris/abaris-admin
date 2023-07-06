@@ -1,15 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiFillEdit } from "react-icons/ai"
 import { GrView } from 'react-icons/gr'
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import Table from 'react-bootstrap/Table';
+import axios from 'axios';
+import { base_Url_Assets } from '../../../../server';
 function AssetCategoryDetails() {
+    const [view,setView] = useState(null)
+    const param  = useParams()
+
+    useEffect(() => {
+        detailsHandle()
+    },[])
+
+    const detailsHandle = async() => {
+        const res = await axios.get(`${base_Url_Assets}assetCategories/${param.id}`)
+        setView(res.data)
+    }
     return <div className="aiz-main-content">
         <div className="px-15px px-lg-25px">
             <div className="aiz-titlebar text-left mt-2 mb-3">
                 <div className="row align-items-center">
                     <div className="col-md-6">
-                        <h1 className="h3">Asset Categorie List</h1>
+                        <h1 className="h3">Details</h1>
                     </div>
                     {/* <div className="col-md-6 text-md-right">
                     <Link to="/admin/roles/create" className="btn btn-circle btn-info">
@@ -20,12 +33,12 @@ function AssetCategoryDetails() {
             </div>
             <div className="card">
                 <div className="card-header">
-                    <h5 className="mb-0 h6"> Asset Categorie List </h5>
-                    <div className="col-md-6 text-md-right">
+                    <h5 className="mb-0 h6"> Details</h5>
+                    {/* <div className="col-md-6 text-md-right">
                         <Link to="/admin/add-asset-category" className="btn btn-circle btn-info">
                             <span>Add Asset Category</span>
                         </Link>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="card-body">
 
@@ -39,48 +52,20 @@ function AssetCategoryDetails() {
                                 <th class="table-secondary" scope="col">Name</th>
                                 <th class="table-secondary" scope="col">Description</th>
                                 <th class="table-secondary" scope="col">Created Date</th>
-                                <th class="table-secondary" scope="col">Modified Date</th>
-                                <th class="table-secondary" scope="col">Created By</th>
-                                <th class="table-secondary" scope="col">Modified By</th>
+                                <th class="table-secondary" scope="col">updatedAt Date</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>jewellery</td>
-                                <td>Inactive</td>
-                                <td>Inactive</td>
-                                <td>Inactive</td>
-                                <td>Inactive</td>
-                                <td>Inactive</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>jewellery</td>
-                                <td>Inactive</td>
-                                <td>Inactive</td>
-                                <td>Inactive</td>
-                                <td>Inactive</td>
-                                <td>Inactive</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>jewellery</td>
-                                <td>Inactive</td>
-                                <td>Inactive</td>
-                                <td>Inactive</td>
-                                <td>Inactive</td>
-                                <td>Inactive</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>jewellery</td>
-                                <td>Inactive</td>
-                                <td>Inactive</td>
-                                <td>Inactive</td>
-                                <td>Inactive</td>
-                                <td>Inactive</td>
-                            </tr>
+
+                            {view && <tr>
+                                <td>{view?._id}</td>
+                                <td>{view?.name}</td>
+                                <td>{view?.description}</td>
+                                <td>{view?.createdAt}</td>
+                                <td>{view?.updatedAt}</td>
+                            </tr>}
+                            
+                            
                         </tbody>
                     </table>
 

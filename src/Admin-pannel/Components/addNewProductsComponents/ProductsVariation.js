@@ -6,7 +6,7 @@ import { ColorVariant } from "./ColorVariant";
 import ImageVariantWiseModal from "./ImageVariantWiseModal";
 
 let sendPayload = [];
-function ProductsVariation({ handleVariantData, productData, setattributesVal ,setVariantsData}) {
+function ProductsVariation({ handleVariantData, productData, setattributesVal, setVariantsData }) {
 
 
     const [show, setShow] = useState(false);
@@ -167,7 +167,7 @@ function ProductsVariation({ handleVariantData, productData, setattributesVal ,s
 
                             <div className="col-lg-12 mt-3">
                                 {allAttributes?.map((item) => {
-                                    return <AttributeItem key={item._id} item={item} handleChoiceValues={getChoiceValues} setUpdatedVariants={setUpdatedVariants}/>
+                                    return <AttributeItem key={item._id} item={item} handleChoiceValues={getChoiceValues} setUpdatedVariants={setUpdatedVariants} />
                                 })}
                             </div>
 
@@ -232,7 +232,7 @@ function ProductsVariation({ handleVariantData, productData, setattributesVal ,s
                                         } */}
                                         {updatedVariants && updatedVariants.map((variantItem, i) => {
                                             return (
-                                                <ColorVariant key={i} data={variantItem} pickUp={pickUp} handleVariant={getUpdatedVariant} setVariantsData={setVariantsData}/>
+                                                <ColorVariant key={i} data={variantItem} pickUp={pickUp} handleVariant={getUpdatedVariant} setVariantsData={setVariantsData} />
                                             )
                                         })}
 

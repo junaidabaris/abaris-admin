@@ -212,9 +212,9 @@ function PickUpPointOrder() {
                               </td>
 
 
-                              <td style={{ display: "table-cell" }}>{item.user.firstname}</td>
+                              <td style={{ display: "table-cell" }}>{item?.user?.firstname}</td>
                               <td style={{ display: "table-cell" }}>
-                                {item.user.lastname}
+                                {item?.user?.lastname}
                               </td>
                               <td style={{ display: "table-cell" }}>
                                 {item?.Seller[0]?.firstname}  {item?.Seller[0]?.lastname}

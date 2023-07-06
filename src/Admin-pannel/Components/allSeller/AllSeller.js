@@ -245,7 +245,7 @@ function AllSeller() {
                                 key={item.url}
                                 className="w-full rounded"
                                 style={{ width: '50px' }}
-                                src={data[i].profilePhoto.url}
+                                src={data[i].profilePhoto?.url}
                               />
                             })}
 

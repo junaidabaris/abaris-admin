@@ -25,7 +25,8 @@ function Bill({ showCombo, totalPosProductsPrice }) {
                 <div style={{ display: 'none' }}>
                     <ComponentToPrint showCombo={showCombo} totalPosProductsPrice={totalPosProductsPrice} ref={componentRef} />
                 </div>
-                <button onClick={handlePrint}>Bill</button>
+                <button >Bill</button>
+                {/* onClick={handlePrint} */}
             </td>
 
             {/* <Modal

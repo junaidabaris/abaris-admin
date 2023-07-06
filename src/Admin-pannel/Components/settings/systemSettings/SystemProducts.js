@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 function SystemProducts() {
 
     const [inputVal, setInputval] = useState({
-        ProductTax: null, Racks: null, ProductVariants: null, Displaywarehouseproducts: '', image_width: '', image_height: '', thumbnail_width: '', thumbnail_height: '', Watermark: null, remove_expired: '', BarcodeRenderer: '', Updatecostwithpurchase: null
+        ProductTax: null, Racks: null, ProductVariants: null, Displaywarehouseproducts: '', image_width: '', image_height: '', thumbnail_width: '', thumbnail_height: '', Watermark: null, remove_expired: '', BarcodeRenderer: '', Updatecostwithpurchase: null, todays_deal: null, featured: null, trending: null, flash_deal: null
     });
 
     const { data: SettingProductsData } = useGetSettingProductsQuery();
@@ -153,6 +153,35 @@ function SystemProducts() {
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Update cost with purchase *</label>
                         <select name="Updatecostwithpurchase" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
+                            <option value={false} >No</option>
+                            <option value={true} >Yes</option>
+                        </select>
+                    </div>
+
+                    <div className="col-lg-4">
+                        <label htmlFor="site_name">Todays Deal</label>
+                        <select name="todays_deal" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
+                            <option value={false} >No</option>
+                            <option value={true} >Yes</option>
+                        </select>
+                    </div>
+                    <div className="col-lg-4">
+                        <label htmlFor="site_name">Featured</label>
+                        <select name="featured" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
+                            <option value={false} >No</option>
+                            <option value={true} >Yes</option>
+                        </select>
+                    </div>
+                    <div className="col-lg-4">
+                        <label htmlFor="site_name">Trending</label>
+                        <select name="trending" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
+                            <option value={false} >No</option>
+                            <option value={true} >Yes</option>
+                        </select>
+                    </div>
+                    <div className="col-lg-4">
+                        <label htmlFor="site_name">flash Deal</label>
+                        <select name="flash_deal" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
                             <option value={false} >No</option>
                             <option value={true} >Yes</option>
                         </select>

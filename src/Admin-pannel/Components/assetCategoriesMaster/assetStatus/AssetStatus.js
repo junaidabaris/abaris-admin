@@ -19,7 +19,7 @@ function AssetStatus() {
                 <div className="card-header">
                     <h5 className="mb-0 h6"> Assets Status </h5>
                     <div className="col-md-6 text-md-right">
-                        <Link to="/admin/add-asset-category" className="btn btn-circle btn-info">
+                        <Link to="#" className="btn btn-circle btn-info">
                             <span>Add Asset Category</span>
                         </Link>
                     </div>
@@ -44,7 +44,7 @@ function AssetStatus() {
                                 <td>jewellery/imitation</td>
                                 <td>Inactive</td>
                                 <td>
-                                    <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/add-asset-category">
+                                    <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
                                         {/* <i className="las la-eye">
                                     </i> */}
                                         <AiFillEdit className="icon-icon" />
@@ -54,7 +54,7 @@ function AssetStatus() {
                                         </i>
                                     </button>
 
-                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/asset-category-type-view">
+                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
                                         {/* <i className="las la-eye">
                                     </i> */}
                                         <GrView />
@@ -69,7 +69,7 @@ function AssetStatus() {
                                 <td>jewellery/imitation</td>
                                 <td>nfcdefewd</td>
                                 <td>
-                                    <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/add-asset-category">
+                                    <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
                                         {/* <i className="las la-eye">
                                     </i> */}
                                         <AiFillEdit className="icon-icon" />
@@ -78,7 +78,7 @@ function AssetStatus() {
                                         <i className="las la-trash icon-icon">
                                         </i>
                                     </button>
-                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/asset-category-type-view">
+                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
                                         {/* <i className="las la-eye">
                                     </i> */}
                                         <GrView />
@@ -101,7 +101,7 @@ function AssetStatus() {
                                         <i className="las la-trash icon-icon">
                                         </i>
                                     </button>
-                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/asset-category-type-view">
+                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
                                         {/* <i className="las la-eye">
                                     </i> */}
                                         <GrView />
@@ -122,7 +122,7 @@ function AssetStatus() {
                                         <i className="las la-trash icon-icon">
                                         </i>
                                     </button>
-                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/asset-category-type-view">
+                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
                                         {/* <i className="las la-eye">
                                     </i> */}
                                         <GrView />

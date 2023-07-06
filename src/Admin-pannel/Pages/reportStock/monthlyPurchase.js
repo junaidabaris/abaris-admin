@@ -9,7 +9,7 @@ function MonthlyPurchase() {
     const [data, setData] = useState(null)
 
     const getData = async () => {
-        const res = await axios.get('http://onlineparttimejobs.in/api/report/monthlyPurchaseReports');
+        const res = await axios.get('https://onlineparttimejobs.in/api/report/monthlyPurchaseReports');
         setData(res.data)
     };
 

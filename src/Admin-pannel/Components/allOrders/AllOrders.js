@@ -10,6 +10,7 @@ function AllOrders() {
 
 
   const { isLoading, data } = useGetOrdersQuery();
+  console.log('allOrderData---', data)
 
   const [deleteOrder, response] = useDeleteOrderMutation();
 
@@ -99,7 +100,7 @@ function AllOrders() {
               <div className="card-body">
 
                 {isLoading ? <h2>Loading...</h2>
-                  : <table className="table table-responsive aiz-table mb-0 footable footable-1 breakpoint-xl" style={{height:"700px"}} >
+                  : <table className="table table-responsive aiz-table mb-0 footable footable-1 breakpoint-xl" style={{ height: "700px" }} >
                     <thead>
                       <tr className="footable-header">
 
@@ -160,6 +161,12 @@ function AllOrders() {
                           style={{ display: "table-cell" }}
                         >
                           Paid
+                        </th>
+                        <th
+                          data-breakpoints="md"
+                          style={{ display: "table-cell" }}
+                        >
+                          Payment Status
                         </th>
                         <th
                           data-breakpoints="md"
@@ -240,6 +247,11 @@ function AllOrders() {
                           <td style={{ display: "table-cell" }}>
                             {item?.Paid}
                           </td>
+
+                          <td style={{ display: "table-cell" }}>
+                            <span className={`badge badge-inline ${item?.Payment_Status?.paymentStatusName === 'Not Paid' ? 'badge-danger' : 'badge-success'}`}>{item?.Payment_Status?.paymentStatusName}</span>
+                          </td>
+
                           <td style={{ display: "table-cell" }}>
                             {item?.Balance}
                           </td>
