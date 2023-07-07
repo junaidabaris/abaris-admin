@@ -25,7 +25,7 @@ const SubDepartMent = () => {
             <div className="card">
                 <div className="card-header"> <h5 className="mb-0 h6"> Sub Department List </h5>
                     <div className="col-md-6 text-md-right">
-                        <Link to="/admin/add-asset-category" className="btn btn-circle btn-info">
+                        <Link to="#" className="btn btn-circle btn-info">
                             <span>Add</span>
                         </Link>
                     </div>
@@ -49,7 +49,7 @@ const SubDepartMent = () => {
                                 <td>5/16/2023
                                 </td>
                                 <td>
-                                    <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/add-asset-category">
+                                    <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
                                         {/* <i className="las la-eye">
                                 </i> */}
                                         <AiFillEdit className="icon-icon" />
@@ -59,7 +59,7 @@ const SubDepartMent = () => {
                                         </i>
                                     </button>
 
-                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/asset-category-type-view">
+                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
                                         {/* <i className="las la-eye">
                                 </i> */}
                                         <GrView />
@@ -75,7 +75,7 @@ const SubDepartMent = () => {
                                 <td>5/16/2023
                                 </td>
                                 <td>
-                                    <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/add-asset-category">
+                                    <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
                                         {/* <i className="las la-eye">
                                 </i> */}
                                         <AiFillEdit className="icon-icon" />
@@ -84,7 +84,7 @@ const SubDepartMent = () => {
                                         <i className="las la-trash icon-icon">
                                         </i>
                                     </button>
-                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/asset-category-type-view">
+                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
                                         {/* <i className="las la-eye">
                                 </i> */}
                                         <GrView />
@@ -108,7 +108,7 @@ const SubDepartMent = () => {
                                         <i className="las la-trash icon-icon">
                                         </i>
                                     </button>
-                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/asset-category-type-view">
+                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
                                         {/* <i className="las la-eye">
                                 </i> */}
                                         <GrView />
@@ -130,7 +130,7 @@ const SubDepartMent = () => {
                                         <i className="las la-trash icon-icon">
                                         </i>
                                     </button>
-                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/asset-category-type-view">
+                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
                                         {/* <i className="las la-eye">
                                 </i> */}
                                         <GrView />
@@ -145,7 +145,7 @@ const SubDepartMent = () => {
                                 <td>5/16/2023
                                 </td>
                                 <td>
-                                    <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/add-asset-category">
+                                    <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
                                         {/* <i className="las la-eye">
                                 </i> */}
                                         <AiFillEdit className="icon-icon" />
@@ -154,7 +154,7 @@ const SubDepartMent = () => {
                                         <i className="las la-trash icon-icon">
                                         </i>
                                     </button>
-                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/asset-category-type-view">
+                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
                                         {/* <i className="las la-eye">
                                 </i> */}
                                         <GrView />
@@ -169,7 +169,7 @@ const SubDepartMent = () => {
                                 <td>5/16/2023
                                 </td>
                                 <td>
-                                    <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/add-asset-category">
+                                    <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
                                         {/* <i className="las la-eye">
                                 </i> */}
                                         <AiFillEdit className="icon-icon" />
@@ -178,7 +178,7 @@ const SubDepartMent = () => {
                                         <i className="las la-trash icon-icon">
                                         </i>
                                     </button>
-                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/asset-category-type-view">
+                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
                                         {/* <i className="las la-eye">
                                 </i> */}
                                         <GrView />
@@ -193,7 +193,7 @@ const SubDepartMent = () => {
                                 <td>5/16/2023
                                 </td>
                                 <td>
-                                    <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/add-asset-category">
+                                    <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
                                         {/* <i className="las la-eye">
                                 </i> */}
                                         <AiFillEdit className="icon-icon" />
@@ -202,7 +202,7 @@ const SubDepartMent = () => {
                                         <i className="las la-trash icon-icon">
                                         </i>
                                     </button>
-                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/asset-category-type-view">
+                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
                                         {/* <i className="las la-eye">
                                 </i> */}
                                         <GrView />

@@ -23,7 +23,7 @@ function ListPopups() {
 
     const deleteData = async (id)=>{
         try {
-            const res = await axios.delete(`http://onlineparttimejobs.in/api/popup/delete_Popup/${id}`)
+            const res = await axios.delete(`https://onlineparttimejobs.in/api/popup/delete_Popup/${id}`)
             alert('Popup Item Delete Successfully!')
             setTimeout(() => {
                 getData()

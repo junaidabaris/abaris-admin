@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { AiFillPlusSquare } from 'react-icons/ai';
 
-function TotalPayableComp({ totalPosProductsPrice, bringedDiscountVal, bringedOrderTaxVal }) {
+function TotalPayableComp({ totalPosProductsPrice, bringedDiscountVal, bringedOrderTaxVal,showCombo }) {
 
     const [smShow3, setSmShow3] = useState(false);
 
@@ -44,7 +44,7 @@ function TotalPayableComp({ totalPosProductsPrice, bringedDiscountVal, bringedOr
 
                 </div>
                 <div>
-                    {totalPosProductsPrice - bringedDiscountVal?.discount + calculatedOrderTaxAmount}
+                    {showCombo.grandTotal}
                 </div>
             </div>
 

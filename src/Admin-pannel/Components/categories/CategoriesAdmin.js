@@ -180,9 +180,9 @@ function CategoriesAdmin() {
                       <span className="page-link" >‹</span>
                     </li>
                     <li className="page-item active" aria-current="page"><span className="page-link">1</span></li>
-                    <li className="page-item"><Link className="page-link" to="https://mmslfashions.in/admin/categories?page=2">2</Link></li>
+                    <li className="page-item"><Link className="page-link" to="#">2</Link></li>
                     <li className="page-item">
-                      <Link className="page-link" to="https://mmslfashions.in/admin/categories?page=2" rel="next" aria-label="Next »">›</Link>
+                      <Link className="page-link" to="#" rel="next" aria-label="Next »">›</Link>
                     </li>
                   </ul>
                 </nav>

@@ -230,8 +230,11 @@ function EditProducts() {
 
         formData.append('category_id', JSON.stringify(clonedObj.category_id));
         formData.append('attributes', JSON.stringify(proAtt));
-        formData.append('attributeSet', JSON.stringify([idsAtt[0]]));
+        if (idsAtt?.length > 0) {
+            formData.append('attributeSet', JSON.stringify([idsAtt[0]]));
+        }
         formData.append('variations', JSON.stringify(variationArr));
+        console.log('variationArr------------',variationArr)
         formData.append('images', JSON.stringify(clonedObj.images));
         formData.append('variation_Form', JSON.stringify(clonedObj.variation_Form));
         formData.append('productDescription', JSON.stringify(clonedObj.productDescription))
@@ -244,8 +247,6 @@ function EditProducts() {
         }
 
     };
-
-
 
     function handleTagKeyDown(e) {
         if (e.key !== 'Enter') return
@@ -430,8 +431,8 @@ function EditProducts() {
                                             <div className="form-group row">
                                                 <label className="col-md-3 col-from-label">Unit</label>
                                                 <div className="col-md-8">
-                                                    <select className="form-select" aria-label="Default select example" name="unit" onChange={onChangeHandler}>
-                                                        <option value={1}>{inputval.unit ? inputval.unit : 'Select Unit'}</option>
+                                                    <select className="form-select" value={inputval.unit ? inputval.unit : 'Select Unit'} aria-label="Default select example" name="unit" onChange={onChangeHandler}>
+                                                        {/* <option value={1}>{inputval.unit ? inputval.unit : 'Select Unit'}</option> */}
                                                         {unitMast && unitMast.map((item) => {
                                                             return <option value={item.name} key={item._id}>{item.name}</option>
                                                         })}

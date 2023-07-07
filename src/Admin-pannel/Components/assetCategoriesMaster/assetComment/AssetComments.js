@@ -23,7 +23,7 @@ function AssetComments() {
                     <h5 className="mb-0 h6">  Asset Comments List
                     </h5>
                     <div className="col-md-6 text-md-right">
-                        <Link to="/admin/add-asset-category" className="btn btn-circle btn-info">
+                        <Link to="#" className="btn btn-circle btn-info">
                             <span>Add Asset Category</span>
                         </Link>
                     </div>

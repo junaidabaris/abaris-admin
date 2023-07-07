@@ -17,7 +17,7 @@ function AllCancelOrders() {
     const getData = async () => {
         setisLoading(true)
         try {
-            const res = await axios.get(`http://onlineparttimejobs.in/api/cancelOrder`)
+            const res = await axios.get(`https://onlineparttimejobs.in/api/cancelOrder`)
             setPickData(res.data)
             setisLoading(false)
         } catch (error) {

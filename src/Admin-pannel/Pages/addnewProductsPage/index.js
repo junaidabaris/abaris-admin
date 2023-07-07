@@ -58,8 +58,8 @@ const addFile = async (clonedObj, payload, categ) => {
     formData.append('quotation', clonedObj.quotation);
     formData.append('meta_title', clonedObj.meta_title);
     formData.append('meta_description', clonedObj.meta_description);
-    
-    formData.append('category_id',JSON.stringify(clonedObj.category_id) );
+
+    formData.append('category_id', JSON.stringify(clonedObj.category_id));
     formData.append('attributes', JSON.stringify(categ.attributeSet));
     formData.append('attributeSet', JSON.stringify(categ.attributes));
     formData.append('flashDeal', JSON.stringify(clonedObj.flashDeal));

@@ -10,6 +10,7 @@ function CustomerList() {
   const handleShow = () => setShow(true);
 
   const { isLoading, data } = useGetCustomersQuery();
+  console.log('allCustomerListData', data)
 
   const [deleteCustomer, response] = useDeleteCustomerMutation();
 

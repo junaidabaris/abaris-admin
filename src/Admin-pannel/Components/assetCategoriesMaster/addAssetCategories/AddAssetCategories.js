@@ -1,8 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Tabs } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import Tab from 'react-bootstrap/Tab';
 function AddAssetCategories() {
+    const [add, setAdd] = useState({
+        assetId: '',
+        assetModle: '',
+        name: '',
+        description: '',
+        unitPrice: '',
+        assetStatus: '',
+        dateOfPurchase: new Date(),
+
+
+    })
+    const HandleChange = () => {
+
+    }
     return <div
         className="modal show"
         style={{ display: 'block', position: 'initial' }}
@@ -91,7 +105,7 @@ function AddAssetCategories() {
                                                         </div>
                                                     </div>
                                                     <div className="col-lg-3 mt-3">
-                                                        <label htmlFor='Asset Model No'>Date Of Purchase</label>
+                                                        <label htmlFor='Asset Model No'>Category</label>
                                                         <select className="form-select" aria-label="Default select example">
                                                             <option selected>Type</option>
                                                             <option value={1}>Make to order</option>
@@ -99,7 +113,7 @@ function AddAssetCategories() {
                                                         </select>
                                                     </div>
                                                     <div className="col-lg-3 mt-3">
-                                                        <label htmlFor='Asset Model No'>Date Of Purchase</label>
+                                                        <label htmlFor='Asset Model No'>Sub Category</label>
                                                         <select className="form-select" aria-label="Default select example">
                                                             <option selected>---select---</option>
                                                             <option value={1}>Make to order</option>
@@ -107,7 +121,7 @@ function AddAssetCategories() {
                                                         </select>
                                                     </div>
                                                     <div className="col-lg-3 mt-3">
-                                                        <label htmlFor='Asset Model No'><b>Date Of Purchase</b></label>
+                                                        <label htmlFor='Asset Model No'><b>Supplier</b></label>
                                                         <select className="form-select" aria-label="Default select example">
                                                             <option selected>---select---</option>
                                                             <option value={1}>Make to order</option>
@@ -115,7 +129,7 @@ function AddAssetCategories() {
                                                         </select>
                                                     </div>
                                                     <div className="col-lg-3 mt-3">
-                                                        <label htmlFor='Asset Model No'>Date Of Purchase</label>
+                                                        <label htmlFor='Asset Model No'>Department</label>
                                                         <select className="form-select" aria-label="Default select example">
                                                             <option selected>---select---</option>
                                                             <option value={1}>Make to order</option>
@@ -123,7 +137,7 @@ function AddAssetCategories() {
                                                         </select>
                                                     </div>
                                                     <div className="col-lg-3 mt-3">
-                                                        <label htmlFor='Asset Model No'>Date Of Purchase</label>
+                                                        <label htmlFor='Asset Model No'>Sub Department</label>
                                                         <select className="form-select" aria-label="Default select example">
                                                             <option selected>---select---</option>
                                                             <option value={1}>Make to order</option>

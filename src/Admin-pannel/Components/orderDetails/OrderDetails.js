@@ -118,8 +118,6 @@ function OrderDetails() {
 
   }
 
-
-
   const sendAssign = async () => {
     try {
       const res = await axios.post(`https://onlineparttimejobs.in/api/orderStatusTransaction/add_OrderStatusTrans`, pickupData)
@@ -146,7 +144,7 @@ function OrderDetails() {
   })
 
   const getData = async () => {
-    const res = await axios.get(`https://onlineparttimejobs.in/api/deliveryBoy`)
+    const res = await axios.get(`https://onlineparttimejobs.in/api/deliveryBoy/pickupPoint/${isPickupManagerId}`)
     setdataBoy(res.data)
   }
 
@@ -858,31 +856,31 @@ function OrderDetails() {
                     <div className="cartTotals">
                       <h5 className="cartTitle">Price Details</h5>
 
-                      <div className="subTotal" style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                      <div className="subTotal" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <h6>Base Price</h6>
                         <p> {data?.getaOrderById?.basePrice}</p>
                       </div>
 
 
-                      <div className="subTotal" style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                      <div className="subTotal" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <h6>Coupon</h6>
                         <p> <span style={{ color: "rebeccapurple" }}>{data?.getaOrderById?.coupon_id?.code}</span> ( {data?.getaOrderById?.coupon_id?.discount} {data?.getaOrderById?.coupon_id?.discount_type === 'Percent' ? 'Percent' : 'Amount'} )</p>
                       </div>
-                      <div className="subTotal" style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                      <div className="subTotal" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <h6>Discount Amount </h6>
                         <p> {data?.getaOrderById?.discount}</p>
                       </div>
 
-                      <div className="subTotal" style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                      <div className="subTotal" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <h6>Tax Amount</h6>
                         <p> {data?.getaOrderById?.tax}</p>
                       </div>
-                      <div className="subTotal" style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                      <div className="subTotal" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <h6>Shipping</h6>
                         <p> {data?.getaOrderById?.shippingCost}</p>
                       </div>
                       <div style={{ margin: "4px 0", borderTop: "1px solid black" }}></div>
-                      <div className="subTotal" style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                      <div className="subTotal" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <h6>Grand Total</h6>
                         <p> {data?.getaOrderById?.grandTotal}</p>
                       </div>

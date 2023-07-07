@@ -10486,3 +10486,33 @@ table tbody tr .show-table {
 .barcodePrinter>div {
   margin: 5px 10px;
 }
+
+.form-section {
+  margin-bottom: 15px;
+}
+.btn-circle-2 {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 100% !important;
+}.icon-icon {
+  font-size: 20px;
+}
+.table-3 td{
+  border: 1px solid #b2b4b5;
+}
+.seach-tab {
+  width: 200px;
+  float: right;
+}
+.down-head {
+  display: flex;
+  align-items: center;
+}
+.download-sec {
+  display: flex;
+  align-items: center;
+}
+.download-sec .down input {
+  padding: 10px;
+  margin-right: 10px !important;
+}

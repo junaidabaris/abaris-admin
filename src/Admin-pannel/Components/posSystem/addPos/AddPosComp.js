@@ -28,8 +28,8 @@ function AddPosComp() {
   const [cartDataa, setcartData] = useState(null)
   const [show, setShow] = useState(true);
   const [smShow, setSmShow] = useState(false);
-  const [bringedDiscountVal, setBringedDiscountVal] = useState();
-  const [bringedOrderTaxVal, setBringedOrderTaxVal] = useState();
+  const [bringedDiscountVal, setBringedDiscountVal] = useState({ discount: '', discount_type: '' });
+  const [bringedOrderTaxVal, setBringedOrderTaxVal] = useState({ order_tax: '' });
 
 
   const handDown = async (e) => {
@@ -38,9 +38,10 @@ function AddPosComp() {
       try {
         const res = await axios.get(`https://onlineparttimejobs.in/api/user/search/${clone}`)
         setViewCustomerD(res.data)
-        console.log('POSUsersList---', res.data)
+        setSmShow(true)
       } catch (error) {
         alert('Some went wrong')
+        setSmShow(false)
       }
     }
   }
@@ -55,18 +56,32 @@ function AddPosComp() {
   };
 
   const SaveData = async (val) => {
-    setModalShow(false)
-    const arr = [...showCombo, ...val]
-    const aaa = arr.map((item) => {
-      return { product: item.productId, variant: item.variant, sku: item.sku, count: 1 }
-    })
-    const resp = await axios.post('https://onlineparttimejobs.in/api/pos/cart/get',
-      { products: aaa, shippingCost: 0, discount_type: bringedDiscountVal.discount_type, discount: bringedDiscountVal.discount, order_tax: bringedOrderTaxVal.order_tax }
-    )
-    console.log('resp---', resp.data)
-    setShowCombo(resp.data.cart.products)
-  }
+    if (!val) {
+      console.log('last', showCombo?.cart?.products);
+      setModalShow(false)
+      const arr = [...showCombo?.cart?.products]
+      const aaa = arr.map((item) => {
+        console.log(item);
+        return { product: item.product[0]._id, variant: item.variant, sku: item.sku, count: 1 }
+      })
+      const resp = await axios.post('https://onlineparttimejobs.in/api/pos/cart/get',
+        { products: aaa, shippingCost: 0, discount_type: bringedDiscountVal.discount_type, discount: bringedDiscountVal.discount, order_tax: bringedOrderTaxVal.order_tax }
+      )
+      setShowCombo(resp.data)
+    } else {
+      setModalShow(false)
+      console.log(val);
+      const arr = [...showCombo, ...val]
+      const aaa = arr.map((item) => {
+        return { product: item.productId, variant: item.variant, sku: item.sku, count: 1 }
+      })
+      const resp = await axios.post('https://onlineparttimejobs.in/api/pos/cart/get',
+        { products: aaa, shippingCost: 0, discount_type: bringedDiscountVal.discount_type, discount: bringedDiscountVal.discount, order_tax: bringedOrderTaxVal.order_tax }
+      )
+      setShowCombo(resp.data)
+    }
 
+  }
 
   let totalPosProductsItem = 0;
   let totalPosProductsPrice = 0;
@@ -74,7 +89,11 @@ function AddPosComp() {
     totalPosProductsItem = totalPosProductsItem + showCombo[i].count;
     totalPosProductsPrice = totalPosProductsPrice + showCombo[i].variant_id?.sale_rate
   }
-  console.log('totalPosProductsPrice', totalPosProductsPrice)
+
+  const sendDataCus = (item) => {
+    console.log(item);
+    setSmShow(false)
+  }
 
   return (
     <>
@@ -84,6 +103,8 @@ function AddPosComp() {
             <div className='topInp'>
 
               <input type='text' name='user' placeholder='type here' onKeyDown={handDown}></input>
+
+
 
               <span className='bg-gray'>
                 <button type='button'>
@@ -95,9 +116,11 @@ function AddPosComp() {
               <AddCustomer />
 
             </div>
-            {/* {viewCustomerD && viewCustomerD.map((item, i) => {
-              return <span style={{ backgroundColor: 'gainsboro', padding: '2px', marginTop: '2px', marginBottom: '2px', border: '1px solid black', display: 'block', width: '90%', cursor: 'pointer' }}>{item.firstname + " " + item.lastname}</span>
-            })} */}
+
+
+            {smShow && viewCustomerD.map((item, i) => {
+              return <span onClick={() => sendDataCus(item)} style={{ backgroundColor: 'gainsboro', padding: '2px', marginTop: '2px', marginBottom: '2px', border: '1px solid black', display: 'block', width: '90%', cursor: 'pointer' }}>{item.firstname + " " + item.lastname}</span>
+            })}
 
             <div className='secInp'>
               <select className="form-select" aria-label="Default select example">
@@ -121,7 +144,7 @@ function AddPosComp() {
 
           <div className='table_wrapper'>
 
-            
+
 
             <table className='table'>
               <thead>
@@ -139,8 +162,7 @@ function AddPosComp() {
                 </tr>
               </thead>
               <tbody style={{ height: '310px' }}>
-                {showCombo && showCombo.map((item, i) => {
-                  console.log('prodItem---', item)
+                {showCombo && showCombo?.cart?.products?.map((item, i) => {
                   return <tr key={i}>
                     <td style={{ display: 'table-cell' }}>
                       <span className='txt-bold ps-1'>{item.product[0]?.name}</span>
@@ -164,19 +186,19 @@ function AddPosComp() {
               </tr>
 
               <tr>
-                <OrderTax bringOrderTaxInpVal={bringOrderTaxInpVal} />
-                <Discount bringDiscountInpVal={bringDiscountInpVal} />
+                <OrderTax SaveData={SaveData} bringOrderTaxInpVal={bringOrderTaxInpVal} showCombo={showCombo} />
+                <Discount SaveData={SaveData} bringDiscountInpVal={bringDiscountInpVal} showCombo={showCombo} />
               </tr>
 
             </table>
-            <TotalPayableComp totalPosProductsPrice={totalPosProductsPrice} bringedDiscountVal={bringedDiscountVal} bringedOrderTaxVal={bringedOrderTaxVal} />
+            <TotalPayableComp showCombo={showCombo} totalPosProductsPrice={totalPosProductsPrice} bringedDiscountVal={bringedDiscountVal} bringedOrderTaxVal={bringedOrderTaxVal} />
           </div>
 
           <ColorFulTable showCombo={showCombo} totalPosProductsPrice={totalPosProductsPrice} bringedDiscountVal={bringedDiscountVal} bringedOrderTaxVal={bringedOrderTaxVal} totalPosProductsItem={totalPosProductsItem} />
 
         </div>
 
-        <RightSection />
+        <RightSection /> 
 
       </div>
     </>

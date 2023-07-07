@@ -83,7 +83,7 @@ function AddStock() {
     const [status, setStatus] = useState()
     const getData = async () => {
         try {
-            const res = await axios.get(`http://onlineparttimejobs.in/api/transferStockStatus`)
+            const res = await axios.get(`https://onlineparttimejobs.in/api/transferStockStatus`)
             setStatus(res.data)
         } catch (error) {
 
@@ -100,10 +100,10 @@ function AddStock() {
         const finalObj = { ...state, products: mapesData }
 
         try {
-            const res = await axios.post(`http://onlineparttimejobs.in/api/transferStock/add_TransferStock`, finalObj)
-            alert('Stock Addwd Successfully')
+            const res = await axios.post(`https://onlineparttimejobs.in/api/transferStock/add_TransferStock`, finalObj)
+            alert('Stock Added Successfully')
         } catch (error) {
-            alert('Server Error Stock Not add')
+            alert('Server Error Stock Not added')
         }
     }
 

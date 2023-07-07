@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function OrderTax({ bringOrderTaxInpVal }) {
+function OrderTax({ bringOrderTaxInpVal, showCombo, SaveData }) {
     const [smShow, setSmShow] = useState(false);
     const [inputVal, setInputval] = useState({ order_tax: '' });
 
@@ -18,6 +18,7 @@ function OrderTax({ bringOrderTaxInpVal }) {
 
     const submitOrderTaxVal = () => {
         bringOrderTaxInpVal(inputVal)
+        SaveData()
         setSmShow(false)
     }
 
@@ -53,7 +54,7 @@ function OrderTax({ bringOrderTaxInpVal }) {
                     </Modal.Footer>
                 </Modal>
             </td>
-            <td>{inputVal?.order_tax}%</td>
+            <td>{showCombo?.order_tax}</td>
         </>
     )
 }
