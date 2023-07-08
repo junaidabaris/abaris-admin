@@ -8,6 +8,8 @@ import "./assets/all-pannel-css/css/vendors.css";
 import "./assets/all-pannel-css/css/stylesheets.css";
 import "./assets/all-pannel-css/css/aiz-core.css";
 import "./assets/all-pannel-css/css/custom-style.css";
+
+// import "./Admin-pannel/Components/crmNew/assets/styles/main.css";
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import HomePage from './pages/home';
@@ -293,8 +295,11 @@ import ReportAllocation from "./Admin-pannel/Components/assetReport/assetAllocat
 import AssetRequest from "./Admin-pannel/Components/requestModule/assetrequest/AssetRequest";
 import AssetIssue from "./Admin-pannel/Components/requestModule/assetIssue/AssetIssue";
 import AllCustomerPage from "./Admin-pannel/Pages/allCustomer";
-// import Shift from "./Admin-pannel/Components/crmNew/components/shift/Shift"
-
+import Shift from "./Admin-pannel/Components/crmNew/components/shift/Shift";
+import EditWholsaleProducts from "./Admin-pannel/Pages/editWholsaleProducts";
+import AddCustomer from "./Admin-pannel/Components/customerList/AddCustomer";
+// import NewDashboardCard from "./Admin-pannel/Components/crmNew/components/Card/Dashboard/NewDashboardCard";
+// import Contacts from "./Admin-pannel/Components/crmNew/components/CRM/Contacts/Contacts";
 
 
 
@@ -408,6 +413,7 @@ function App() {
           <Route path="size/edit/:id" element={<EditSize />} />
           <Route path="wholesale-product/create" element={<AddNewWholesaleProductsPage />} />
           <Route path="wholesale/all-products" element={<AllWholsaleProductsPage />} />
+          <Route path="wholesale/all-products/edit/:id" element={<EditWholsaleProducts />} />
           <Route path="all_orders" element={<AllOrdersPage />} />
 
           <Route path="seller/all_orders" element={<SellerAllOrder />} />
@@ -427,6 +433,7 @@ function App() {
           <Route path="seller-orders" element={<SellerOrdersPage />} />
           <Route path="orders_by_pickup_point" element={<PickUpPointOrderPage />} />
           <Route path="customer-list" element={<CustomerListPage />} />
+          <Route path="customer-create" element={<AddCustomer />} />
           <Route path="customer-shippingAddress" element={<CustomerShippingAddress />} />
           <Route path="customer-shippingAddress/detail/:id" element={<CustomerShippingAdressDetail />} />
           {/* <Route path="customer-shippingAddress/create" element={<CustomerShippingAddList />} /> */}
@@ -667,10 +674,12 @@ function App() {
 
           <Route path="reports-status" element={<ReportAssetStatus />} />
           <Route path="reports-allocations" element={<ReportAllocation />} />
-          {/* <Route path="shift" element={<Shift />} /> */}
 
+          {/* <Route path="crmDashboard" element={<NewDashboardCard />} />
+          <Route path="crmContacts" element={<Contacts />} /> */}
 
         </Route>
+
 
       </Routes>
       {show && <Footer />}

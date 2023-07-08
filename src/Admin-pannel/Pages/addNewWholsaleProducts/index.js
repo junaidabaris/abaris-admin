@@ -18,7 +18,7 @@ function AddNewWholesaleProductsPage() {
     const id = window.localStorage.getItem('isSellerId')
 
     let sellid = "64269f0df127906d53878d3d"
-    if(issellerLog === 'true'){
+    if (issellerLog === 'true') {
         sellid = id
     }
 

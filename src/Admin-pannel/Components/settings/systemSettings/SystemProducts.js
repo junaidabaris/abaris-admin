@@ -95,7 +95,7 @@ function SystemProducts() {
                     </div> */}
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Remove expired products from stock *</label>
-                        <select name="remove_expired" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
+                        <select name="remove_expired" value={inputVal?.remove_expired} id="rows_per_page" className="form-select" onChange={onChangeHandler}>
                             <option value={'remove'} >Remove expired products from stock</option>
                             <option value={'yes'} >Yes, remove from stock automatically</option>
                         </select>
@@ -124,14 +124,14 @@ function SystemProducts() {
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Watermark *</label>
-                        <select name="Watermark" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
+                        <select name="Watermark" id="rows_per_page" value={inputVal?.Watermark} className="form-select" onChange={onChangeHandler}>
                             <option value={true} >Yes</option>
                             <option value={false} >No</option>
                         </select>
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Display warehouse products *</label>
-                        <select name="Displaywarehouseproducts" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
+                        <select name="Displaywarehouseproducts" value={inputVal?.Displaywarehouseproducts} id="rows_per_page" className="form-select" onChange={onChangeHandler}>
                             <option value={'Hide with 0 quantityy'} >Hide with 0 quantityy</option>
                             <option value={'Show all even with 0 quantity'} >Show all even with 0 quantity</option>
                         </select>
@@ -145,14 +145,14 @@ function SystemProducts() {
                     </div> */}
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Barcode Renderer *</label>
-                        <select name="BarcodeRenderer" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
+                        <select name="BarcodeRenderer" id="rows_per_page"  value={inputVal?.BarcodeRenderer} className="form-select" onChange={onChangeHandler}>
                             <option value={'img'} >Image</option>
                             <option value={'svg'} >SVG</option>
                         </select>
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Update cost with purchase *</label>
-                        <select name="Updatecostwithpurchase" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
+                        <select name="Updatecostwithpurchase" value={inputVal?.Updatecostwithpurchase} id="rows_per_page" className="form-select" onChange={onChangeHandler}>
                             <option value={false} >No</option>
                             <option value={true} >Yes</option>
                         </select>
@@ -160,28 +160,28 @@ function SystemProducts() {
 
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Todays Deal</label>
-                        <select name="todays_deal" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
+                        <select name="todays_deal" id="rows_per_page" value={inputVal?.todays_deal} className="form-select" onChange={onChangeHandler}>
                             <option value={false} >No</option>
                             <option value={true} >Yes</option>
                         </select>
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Featured</label>
-                        <select name="featured" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
+                        <select name="featured" id="rows_per_page" value={inputVal?.featured} className="form-select" onChange={onChangeHandler}>
                             <option value={false} >No</option>
                             <option value={true} >Yes</option>
                         </select>
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Trending</label>
-                        <select name="trending" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
+                        <select name="trending" id="rows_per_page" value={inputVal?.trending} className="form-select" onChange={onChangeHandler}>
                             <option value={false} >No</option>
                             <option value={true} >Yes</option>
                         </select>
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">flash Deal</label>
-                        <select name="flash_deal" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
+                        <select name="flash_deal" id="rows_per_page" value={inputVal?.flash_deal} className="form-select" onChange={onChangeHandler}>
                             <option value={false} >No</option>
                             <option value={true} >Yes</option>
                         </select>

@@ -5,10 +5,10 @@ import React, { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import {
-  addShift,
-  loadAllShift,
-} from "../../redux/rtk/features/shift/shiftSlice";
+// import {
+//   addShift,
+//   loadAllShift,
+// } from "../../redux/rtk/features/shift/shiftSlice";
 import ViewBtn from "../Buttons/ViewBtn";
 import BigDrawer from "../Drawer/BigDrawer";
 import UserPrivateComponent from "../PrivateRoutes/UserPrivateComponent";
@@ -68,7 +68,7 @@ const ShiftTable = () => {
 
   const addKeys = (arr) => arr.map((i) => ({ ...i, key: i.id }));
   useEffect(() => {
-    dispatch(loadAllShift());
+    // dispatch(loadAllShift());
   }, []);
   return (
     <UserPrivateComponent permission={"readAll-shift"}>
@@ -125,18 +125,18 @@ const AddShift = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
-  const onFinish = async (values) => {
-    setLoader(true);
-    const resp = await dispatch(addShift(values));
+  // const onFinish = async (values) => {
+  //   setLoader(true);
+  //   const resp = await dispatch(addShift(values));
 
-    if (resp.payload.message === "success") {
-      setLoader(false);
-      form.resetFields();
-      dispatch(loadAllShift());
-    } else {
-      setLoader(false);
-    }
-  };
+  //   if (resp.payload.message === "success") {
+  //     setLoader(false);
+  //     form.resetFields();
+  //     dispatch(loadAllShift());
+  //   } else {
+  //     setLoader(false);
+  //   }
+  // };
 
   const onFinishFailed = (errorInfo) => {
     toast.warning("Failed at adding shift");
@@ -156,7 +156,7 @@ const AddShift = () => {
           wrapperCol={{
             span: 12,
           }}
-          onFinish={onFinish}
+          // onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete='off'
         >
