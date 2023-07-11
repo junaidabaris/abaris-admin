@@ -55,7 +55,9 @@ const addFile = async (clonedObj, payload, categ) => {
     formData.append('tags', clonedObj.tags);
     formData.append('slug', clonedObj.slug)
     formData.append('video_link', clonedObj.video_link);
+    formData.append('video_provider', clonedObj.video_provider);
     formData.append('quotation', clonedObj.quotation);
+    formData.append('refundable', clonedObj.refundable);
     formData.append('meta_title', clonedObj.meta_title);
     formData.append('meta_description', clonedObj.meta_description);
 
@@ -65,8 +67,14 @@ const addFile = async (clonedObj, payload, categ) => {
     formData.append('flashDeal', JSON.stringify(clonedObj.flashDeal));
     formData.append('images', JSON.stringify(arr));
     formData.append('variations', JSON.stringify(clonedObj.variations));
+    console.log('variations---to-send-pul---', clonedObj.variations)
     formData.append('variation_Form', JSON.stringify(clonedObj.variation_Form));
     formData.append('productDescription', JSON.stringify(clonedObj.productDescription))
+    formData.append('weights', clonedObj.weights)
+    formData.append('unit', clonedObj.unit)
+    formData.append('barcode', clonedObj.barcode)
+    formData.append('minimum_purchase_qty', clonedObj.minimum_purchase_qty)
+    formData.append('minimum_order_qty', clonedObj.minimum_order_qty)
 
 
     try {
@@ -118,16 +126,16 @@ function AddNewProductsPage() {
         hsn_code: '',
         sale_rp: '',
         share_rp: '',
-        // weight: "",
+        weights: "",
         minimum_purchase_qty: '',
         tags: [],
         barcode: '',
-        refundable: '',
+        refundable: false,
         // products images
         gallery_image: null,
         thumbnail_image: null,
         // product vedios
-        vedio_provider: '',
+        video_provider: '',
         video_link: '',
         variations: [],
         attributes: [],
@@ -218,7 +226,7 @@ function AddNewProductsPage() {
         const slug = 'youtube' + new Date().getUTCMilliseconds();
         const clonedObj = { ...inputval, variations: varianstData, flashDeal: flashDeal, variation_Form: attributesVal, tags: tags, category_id: finalCatD, seller_id, slug, productDescription: productDescription };
 
-        const clone = { attributes: [proAtt?._id], attributeSet: proAtt.values }
+        const clone = { attributes: [proAtt?._id], attributeSet: proAtt?.values }
         addFile(clonedObj, clonedObj.gallery_image, clone)
 
         setspinn(false)
@@ -386,7 +394,7 @@ function AddNewProductsPage() {
                                             <div className="form-group row">
                                                 <label className="col-md-3 col-from-label">Unit</label>
                                                 <div className="col-md-8">
-                                                    <select className="form-select" aria-label="Default select example" name="unit" onChange={onChangeHandler}>
+                                                    <select className="form-select" value={inputval?.unit} aria-label="Default select example" name="unit" onChange={onChangeHandler}>
                                                         <option value={1}>Select Unit</option>
                                                         {unitMast && unitMast.map((item) => {
                                                             return <option value={item.name} key={item._id}>{item.name}</option>
@@ -398,7 +406,7 @@ function AddNewProductsPage() {
                                             <div className="form-group row">
                                                 <label className="col-md-3 col-from-label">Weight <small>(In Kg)</small></label>
                                                 <div className="col-md-8">
-                                                    <input type="text" value={inputval?.weight} className="form-control" name="weight" step="0.01" placeholder="weight" fdprocessedid="sq5qc3" onChange={onChangeHandler} />
+                                                    <input type="text" value={inputval?.weights} className="form-control" name="weights" step="0.01" placeholder="weight" fdprocessedid="sq5qc3" onChange={onChangeHandler} />
                                                 </div>
                                             </div>
 
@@ -507,7 +515,7 @@ function AddNewProductsPage() {
                                                     </div>
                                                     <div className="file-preview box sm">
                                                     </div>
-                                                    <small className="text-muted"> <span style={{ color: "red" }}>(Select 4 Image Atleast)</span> These images are visible in product details page gallery. Use 600x600 sizes images.</small>
+                                                    <small className="text-muted"> These images are visible in product details page gallery. Use 600x600 sizes images.</small>
                                                 </div>
                                             </div>
                                             <div className="form-group row">
@@ -540,7 +548,7 @@ function AddNewProductsPage() {
                                             <div className="form-group row">
                                                 <label className="col-md-3 col-from-label">Video Provider</label>
                                                 <div className="col-md-8">
-                                                    <select className="form-select" aria-label="Default select example" name="vedio_provider" onChange={onChangeHandler}>
+                                                    <select className="form-select" value={inputval?.video_provider} aria-label="Default select example" name="video_provider" onChange={onChangeHandler}>
                                                         <option value="youtube">Youtube</option>
                                                         <option value="dailymotion">Dailymotion</option>
                                                         <option value="vimeo">Vimeo</option>
@@ -552,7 +560,7 @@ function AddNewProductsPage() {
                                             <div className="form-group row">
                                                 <label className="col-md-3 col-from-label">Video Link</label>
                                                 <div className="col-md-8">
-                                                    <input type="text" className="form-control" name="video_link" placeholder="Video Link" fdprocessedid="2pggse" onChange={onChangeHandler} />
+                                                    <input type="text" value={inputval?.video_link} className="form-control" name="video_link" placeholder="Video Link" fdprocessedid="2pggse" onChange={onChangeHandler} />
                                                     <small className="text-muted">Use proper link without extra parameter. Don't use short share link/embeded iframe code.</small>
                                                 </div>
                                             </div>
@@ -574,11 +582,26 @@ function AddNewProductsPage() {
                                             </div>
 
                                             <div className="form-group row">
+                                                <label className="col-md-3 col-from-label"></label>
+                                                <div className="col-md-8">
+                                                    <button type="button" className="btn btn-primary">Fetch AI Content</button>
+                                                </div>
+                                            </div>
+
+                                            <div className="form-group row">
                                                 <label className="col-md-3 col-from-label">Description</label>
                                                 <div className="col-md-8">
                                                     <textarea name="meta_description" value={inputval?.meta_description} rows={8} className="form-control" onChange={onChangeHandler} />
                                                 </div>
                                             </div>
+
+                                            <div className="form-group row">
+                                                <label className="col-md-3 col-from-label"></label>
+                                                <div className="col-md-8">
+                                                    <button type="button" className="btn btn-primary">Fetch AI Content</button>
+                                                </div>
+                                            </div>
+
                                             <div className="form-group row">
                                                 <label className="col-md-3 col-form-label" htmlFor="signinSrEmail">Meta Image</label>
                                                 <div className="col-md-8">
@@ -758,7 +781,7 @@ function AddNewProductsPage() {
                                 </div>
                                 <div className="col-md-3 form-group" id="minimum_order_qty">
                                     <label className="title-color">Minimum order quantity</label>
-                                    <input type="number" placeholder="Minimum order quantity" name="minimum_order_qty" className="form-control" required fdprocessedid="wabmv" onChange={onChangeHandler} />
+                                    <input type="number" value={inputval?.minimum_order_qty} placeholder="Minimum order quantity" name="minimum_order_qty" className="form-control" required fdprocessedid="wabmv" onChange={onChangeHandler} />
                                 </div>
                                 <div className="col-md-3 form-group physical_product_show" id="shipping_cost">
                                     <label className="title-color">Shipping cost </label>

@@ -8,7 +8,7 @@ import ImageVariantWiseModal from "./ImageVariantWiseModal";
 let sendPayload = [];
 function ProductsVariation({ handleVariantData, productData, setattributesVal, setVariantsData }) {
 
-
+    // const [variantImg, setVariantImg] = useState()
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -149,6 +149,10 @@ function ProductsVariation({ handleVariantData, productData, setattributesVal, s
         }
     }, [updatedVariants]);
 
+    // const bringSelectedVariantImage = (variantWiseImages) => {
+    //     setVariantImg(variantWiseImages)
+    //     console.log('variantWiseImages------', variantWiseImages)
+    // }
 
     return (
         <>
@@ -208,6 +212,8 @@ function ProductsVariation({ handleVariantData, productData, setattributesVal, s
                                             <td><label className="control-label">HSN Code</label></td>
                                             <td><label className="control-label">Sale Reward Point</label></td>
                                             <td><label className="control-label">Share Reward Point</label></td>
+                                            <td><label className="control-label">Add Images</label></td>
+                                            <td><label className="">Selected Images</label></td>
                                             {/* <td><label className="control-label">Pickup Point</label></td>
                                             <td><label className="control-label">Quantity</label></td> */}
                                         </tr>
@@ -232,7 +238,7 @@ function ProductsVariation({ handleVariantData, productData, setattributesVal, s
                                         } */}
                                         {updatedVariants && updatedVariants.map((variantItem, i) => {
                                             return (
-                                                <ColorVariant key={i} data={variantItem} pickUp={pickUp} handleVariant={getUpdatedVariant} setVariantsData={setVariantsData} />
+                                                <ColorVariant key={i} data={variantItem} pickUp={pickUp} handleVariant={getUpdatedVariant} setVariantsData={setVariantsData}  />
                                             )
                                         })}
 
@@ -246,6 +252,12 @@ function ProductsVariation({ handleVariantData, productData, setattributesVal, s
                                     </tbody>
 
                                 </table>
+                                {/* <div className="selected-img-sec">
+                                    {variantImg && variantImg.map((it, i) => {
+                                        return <div className="img-wrp" style={{ width: '60px', height: '60px' }}>hello</div>
+                                    })}
+
+                                </div> */}
                             </div>
                         </div>
                     </div>

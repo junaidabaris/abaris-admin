@@ -200,12 +200,12 @@ function EditCustomer() {
                                             </div>
                                         </div>
 
-                                        <div className="form-group row">
+                                        {/* <div className="form-group row">
                                             <label className="col-sm-3 col-from-label" htmlFor="mobile">Password</label>
                                             <div className="col-sm-9">
                                                 <input type="password" value={inputval?.password} placeholder="Password" name="password" className="form-control" required onChange={onChangeHandler} />
                                             </div>
-                                        </div>
+                                        </div> */}
 
                                         <div className="form-group row">
                                             <label className="col-sm-3 col-from-label" htmlFor="name">Approve</label>

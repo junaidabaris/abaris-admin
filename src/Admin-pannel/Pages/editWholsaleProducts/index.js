@@ -35,7 +35,8 @@ function EditWholsaleProducts() {
     useEffect(() => {
         if (wholesaleProductDataById) {
             const clone = { ...wholesaleProductDataById }
-            setMainVal(clone)
+            setMainVal(clone?.products)
+            setData(clone?.products)
         }
     }, [wholesaleProductDataById])
 
@@ -48,13 +49,13 @@ function EditWholsaleProducts() {
     }
 
     const toastSuccessMessage2 = () => {
-        toast.success("Wholsale Product Add Successfully", {
+        toast.success("Wholsale Product Edited Successfully", {
             position: "top-center"
         })
     };
 
     const toastErrorMessage2 = () => {
-        toast.error("Wholsale Product Not Added", {
+        toast.error("Wholsale Product Not Edited", {
             position: "top-center"
         })
     };
@@ -69,7 +70,9 @@ function EditWholsaleProducts() {
         if (isError === true) {
             toastErrorMessage2()
         };
-    }, [isError])
+    }, [isError]);
+
+
     return (
         <>
             <div className="aiz-main-content">
@@ -81,7 +84,7 @@ function EditWholsaleProducts() {
                 <ToastContainer />
                 <div className="px-15px px-lg-25px">
                     <div className="aiz-titlebar text-left mt-2 mb-3">
-                        <h5 className="mb-0 h6">Add New Wholsale Product</h5>
+                        <h5 className="mb-0 h6">Update Wholsale Product</h5>
                     </div>
                     <div className>
                         {/* Error Meassages */}
@@ -89,7 +92,7 @@ function EditWholsaleProducts() {
                             <div className="row gutters-5">
                                 <div className="col-lg-8">
                                     <input type="hidden" name="_token" defaultValue="6klBhNOhEcSYzHAP1WU8ctR90lIocmkKBETVGkNx" />                <input type="hidden" name="added_by" defaultValue="admin" />
-                                    <ProductsInformationAdmin dataSetNext={dataSetNext} />
+                                    <ProductsInformationAdmin dataSetNext={dataSetNext} wholesaleProductDataById={wholesaleProductDataById} />
 
                                     {data && data.map((item, i) => {
                                         return <PriceStocCompkWholsaleProducts key={i} item={item} setMainVal={setMainVal} main={main} data={data} />

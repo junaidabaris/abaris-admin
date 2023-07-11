@@ -298,6 +298,7 @@ import AllCustomerPage from "./Admin-pannel/Pages/allCustomer";
 import Shift from "./Admin-pannel/Components/crmNew/components/shift/Shift";
 import EditWholsaleProducts from "./Admin-pannel/Pages/editWholsaleProducts";
 import AddCustomer from "./Admin-pannel/Components/customerList/AddCustomer";
+import EditComboProducts from "./Admin-pannel/Pages/addComboProduct/EditComboProducts";
 // import NewDashboardCard from "./Admin-pannel/Components/crmNew/components/Card/Dashboard/NewDashboardCard";
 // import Contacts from "./Admin-pannel/Components/crmNew/components/CRM/Contacts/Contacts";
 
@@ -338,7 +339,7 @@ function App() {
 
           <Route path="products/all/products/create/comboProduct" element={<AddComboProduct />} />
           <Route path="products/all/comboProduct" element={<ListComboProdust />} />
-
+          <Route path="products/all/comboProduct/edit/:id" element={<EditComboProducts />} />
 
           <Route path="stock_report" element={<StockReport />} />
           <Route path="sales_report" element={<SalesReport />} />

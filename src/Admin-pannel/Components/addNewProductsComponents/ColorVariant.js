@@ -1,28 +1,42 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 
-export const ColorVariant = ({ data, pickUp, handleVariant, setVariantsData }) => {
-    const [formData, setFormData] = useState(data)
+export const ColorVariant = ({ data, pickUp, handleVariant, setVariantsData, bringSelectedVariantImage }) => {
+    const [formData, setFormData] = useState(data);
+    const [imgArr, setImgArr] = useState();
+
     const onChangeHandler = (e) => {
-        if (e.target.name === 'discount') {
-            const inputName = e.target.name;
-            const inputVal = e.target.value;
+        const inputName = e.target.name;
+        const inputVal = e.target.value;
+        // if (e.target.name === 'discount') {
+        //     const inputName = e.target.name;
+        //     const inputVal = e.target.value;
+        //     setFormData({ ...formData, sale_rate: formData.mrp - formData.discount, [inputName]: inputVal });
+        //     setVariantsData(formData)
+        // }
+        if (e.target.value === 'Percent') {
 
-            // if (e.target.value === 'Amount') {
-            //     setFormData({ ...formData, sale_rate: formData.mrp - e.target.value, [inputName]: inputVal });
-            // } else {
-            //     setFormData({ ...formData, sale_rate: formData.mrp * 100 / e.target.value, [inputName]: inputVal });
-            // }
-
-            setFormData({ ...formData, sale_rate: formData.mrp - e.target.value, [inputName]: inputVal });
+            // const resss = axios.post(`https://onlineparttimejobs.in/api/product/variation_cost`, formData)
+            // const inputName = e.target.name;  
+            // const inputVal = e.target.value;
+            const calculatedSalePercent = formData.mrp * formData.discount / 100
+            const calculatedSalerate = formData.mrp - calculatedSalePercent
+            setFormData({ ...formData, sale_rate: calculatedSalerate, [inputName]: inputVal });
             setVariantsData(formData)
-        } else {
+        } else if (e.target.value === 'Amount') {
+            // const inputName = e.target.name;
+            // const inputVal = e.target.value;
+            setFormData({ ...formData, sale_rate: formData.mrp - formData.discount, [inputName]: inputVal });
+            setVariantsData(formData)
+        }
+        else {
             const inputName = e.target.name;
             const inputVal = e.target.value;
             setFormData({ ...formData, [inputName]: inputVal });
             setVariantsData(formData)
         }
+    };
 
-    }
     useEffect(() => {
         if (formData) {
             handleVariant(formData)
@@ -31,6 +45,29 @@ export const ColorVariant = ({ data, pickUp, handleVariant, setVariantsData }) =
     useEffect(() => {
         setFormData(data)
     }, [data])
+    const onchangeImagehandle = async (e) => {
+        const inpVal = e.target.files;
+        const formDatas = new FormData();
+        const arr = []
+        for (const iterator of inpVal) {
+            formDatas.append('image', iterator);
+            try {
+                const res = await axios.post(`https://onlineparttimejobs.in/api/cloudinaryImage/addImage`, formDatas)
+                const obj = { public_id: res.data.public_id, url: res.data.url }
+                arr.push(obj)
+            } catch (error) {
+                alert('Somthing Went Wrong Image Not Up ')
+            }
+            formDatas.delete('image');
+        }
+        // const res = await axios.post(`https://onlineparttimejobs.in/api/cloudinaryImage/addImage`, formDatas)
+
+        setFormData({ ...formData, images: arr });
+        setVariantsData(formData)
+        // bringSelectedVariantImage(arr)
+        setImgArr(arr)
+    }
+    console.log('imgArr--', imgArr);
     return (
         <tr>
             <td>
@@ -65,7 +102,7 @@ export const ColorVariant = ({ data, pickUp, handleVariant, setVariantsData }) =
             </td>
 
             <td>
-                <select className="selectOptions" name="discount_type" aria-label="Default select example" onChange={onChangeHandler}>
+                <select className="selectOptions" value={formData?.discount_type} name="discount_type" aria-label="Default select example" onChange={onChangeHandler}>
                     <option value={'Amount'}>Amount</option>
                     <option value={'Percent'}>Percent</option>
                 </select>
@@ -82,6 +119,15 @@ export const ColorVariant = ({ data, pickUp, handleVariant, setVariantsData }) =
             </td>
             <td>
                 <input type="text" name="share_rp" value={formData?.share_rp} className="form-control" onChange={onChangeHandler} />
+            </td>
+            <td>
+                <input type="file" name="gallery_image" multiple accept="image/*" className="selected-files" onChange={onchangeImagehandle} />
+            </td>
+
+            <td style={{ display: 'table-cell' }}>
+                {imgArr && imgArr.map((imgItem, i) => {
+                    return <img src={imgItem?.url} alt="Brand" className="h-50px w-50px mb-1" />
+                })}
             </td>
 
             {/* <td>

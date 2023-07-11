@@ -161,7 +161,9 @@ function AllWholsaleProductsPage() {
                                                     <Link to="#" className="btn btn-soft-success btn-icon btn-circle btn-sm" target="_blank" title="View">
                                                         <i className="las la-eye" />
                                                     </Link>
-                                                    <Link to={`edit/${item._id}`} className="btn btn-soft-primary btn-icon btn-circle btn-sm" title="Edit">
+                                                    <Link to={`edit/${item._id}`} className="btn btn-soft-primary btn-icon btn-circle btn-sm"
+                                                        title="Edit">
+
                                                         <i className="las la-edit" />
                                                     </Link>
 

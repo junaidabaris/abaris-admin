@@ -4,7 +4,7 @@ import { useGetProductSearchQuery } from "../all-products/allproductsApi/allProd
 import { RxCross1 } from "react-icons/rx";
 import { AiFillDelete } from "react-icons/ai";
 
-function ProductsInformationAdmin({ dataSetNext }) {
+function ProductsInformationAdmin({ dataSetNext,wholesaleProductDataById }) {
     const [show, setShow] = useState(true)
     const [modalShow, setModalShow] = useState(false);
     const [cartData, setcartData] = useState(null)

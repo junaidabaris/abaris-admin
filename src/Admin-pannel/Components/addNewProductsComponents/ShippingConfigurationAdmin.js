@@ -10,7 +10,7 @@ function ShippingConfigurationAdmin() {
                 <div className="card-body">
                     <p>
                         Product wise shipping cost is disable. Shipping cost is configured from here
-                        <a href="https://mmslfashions.in/admin/shipping_configuration" className="aiz-side-nav-link ">
+                        <a href="#" className="aiz-side-nav-link ">
                             <span className="aiz-side-nav-text">Shipping Configuration</span>
                         </a>
                     </p>
