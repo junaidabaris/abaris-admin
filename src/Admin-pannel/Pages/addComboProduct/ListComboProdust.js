@@ -16,7 +16,7 @@ function ListComboProdust() {
     }, [])
 
 
-    const deleteDatas = async (id)=>{
+    const deleteDatas = async (id) => {
         try {
             const res = await axios.delete(`https://onlineparttimejobs.in/api/comboDeal/delete_ComboDeal/${id}`)
             alert('Deleted Combo List Successfully!')
@@ -50,15 +50,16 @@ function ListComboProdust() {
                     <tbody>
 
                         {data ? data.map((item, i) => {
-                            return <tr key={item.combo._id}>
+                            console.log('item-----list combo prod', item)
+                            return <tr key={item?.combo._id}>
                                 <td>{1 + i}</td>
                                 <td>
-                                    {item?.combo?.products.map((item) => {
+                                    {item?.combo?.products?.map((item) => {
                                         return <div style={{ margin: "0 5px" }}>{item?.name} </div>
                                     })}
                                 </td>
                                 <td>
-                                    
+
                                     {item?.combo?.products.map((item, j) => {
                                         return <div>
                                             {item?.variant?.map((ite) => {
@@ -73,11 +74,12 @@ function ListComboProdust() {
                                     {/* <Link to="#" className="btn btn-soft-success btn-icon btn-circle btn-sm" title="View">
                                         <i className="las la-eye" />
                                     </Link> */}
-                                    <Link to='#'className="btn btn-soft-primary btn-icon btn-circle btn-sm" title="Edit">
+                                    <Link to="#" className="btn btn-soft-primary btn-icon btn-circle btn-sm" title="Edit">
+                                        {/* {`edit/${item?.combo._id}`} */}
                                         <i className="las la-edit" />
                                     </Link>
-                                   
-                                    <button type="button" onClick={()=>{deleteDatas(item.combo._id)}} className="btn btn-soft-danger btn-icon btn-circle btn-sm">
+
+                                    <button type="button" onClick={() => { deleteDatas(item?.combo._id) }} className="btn btn-soft-danger btn-icon btn-circle btn-sm">
                                         <i className="las la-trash" />
                                     </button>
 

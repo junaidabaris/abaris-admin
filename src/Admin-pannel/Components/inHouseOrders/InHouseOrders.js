@@ -185,27 +185,27 @@ function InHouseOrder() {
                             {item._id}
                           </td>
                           <td style={{ display: "table-cell" }}>
-                            {item.updatedAt}
+                            {item?.updatedAt}
                           </td>
                           {/* <td style={{ display: "table-cell" }}>
                           time
                         </td> */}
 
-                          <td style={{ display: "table-cell" }}>{item.products[0]?.count}</td>
+                          <td style={{ display: "table-cell" }}>{item?.products[0]?.count}</td>
                           <td style={{ display: "table-cell" }}>
-                            {item.user.firstname}
+                            {item?.user?.firstname}
                           </td>
                           <td style={{ display: "table-cell" }}>
-                            {item.user.lastname}
+                            {item?.user?.lastname}
                           </td>
-                          <td style={{ display: "table-cell" }}>{item.Seller[0]?.firstname}</td>
-                          <td style={{ display: "table-cell" }}>{item.grandTotal}</td>
+                          <td style={{ display: "table-cell" }}>{item?.Seller[0]?.firstname}</td>
+                          <td style={{ display: "table-cell" }}>{item?.grandTotal}</td>
                           <td style={{ display: "table-cell" }}>
                             {item?.orderStatusTrans[item?.orderStatusTrans.length - 1]?.orderStatusId?.orderStatusName}
                           </td>
                           <td style={{ display: "table-cell" }}>{item.Payment_method}COD</td>
                           <td style={{ display: "table-cell" }}>
-                            {item.Payment_Status?.paymentStatusName}
+                            {item?.Payment_Status?.paymentStatusName}
                           </td>
                           {/* <td style={{ display: "table-cell" }}>No Refund</td> */}
                           <td

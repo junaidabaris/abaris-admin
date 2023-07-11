@@ -19,7 +19,7 @@ function AllWholsaleProductsPage() {
         getData()
     }, [])
 
-    const deleteData = async (id)=>{
+    const deleteData = async (id) => {
         try {
             const res = await axios.delete(`https://onlineparttimejobs.in/api/wholesale/delete_wholesales/${id}`)
             alert('Whole sale product Deleted')
@@ -141,19 +141,19 @@ function AllWholsaleProductsPage() {
                                                 </td>
                                                 <td style={{ display: 'table-cell' }}>
                                                     <label className="aiz-switch aiz-switch-success mb-0">
-                                                        <input  defaultValue={74} type="checkbox" defaultChecked />
+                                                        <input defaultValue={74} type="checkbox" defaultChecked />
                                                         <span className="slider round" />
                                                     </label>
                                                 </td>
                                                 <td style={{ display: 'table-cell' }}>
                                                     <label className="aiz-switch aiz-switch-success mb-0">
-                                                        <input  defaultValue={74} type="checkbox" defaultChecked />
+                                                        <input defaultValue={74} type="checkbox" defaultChecked />
                                                         <span className="slider round" />
                                                     </label>
                                                 </td>
                                                 <td style={{ display: 'table-cell' }}>
                                                     <label className="aiz-switch aiz-switch-success mb-0">
-                                                        <input  defaultValue={74} type="checkbox" />
+                                                        <input defaultValue={74} type="checkbox" />
                                                         <span className="slider round" />
                                                     </label>
                                                 </td>
@@ -161,10 +161,12 @@ function AllWholsaleProductsPage() {
                                                     <Link to="#" className="btn btn-soft-success btn-icon btn-circle btn-sm" target="_blank" title="View">
                                                         <i className="las la-eye" />
                                                     </Link>
-                                                    <Link to="#" className="btn btn-soft-primary btn-icon btn-circle btn-sm" title="Edit">
+                                                    <Link to={`edit/${item._id}`} className="btn btn-soft-primary btn-icon btn-circle btn-sm"
+                                                        title="Edit">
+
                                                         <i className="las la-edit" />
                                                     </Link>
-                                                
+
                                                     <button type="button" onClick={() => deleteData(item._id)} class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete">
                                                         <i class="las la-trash"></i>
                                                     </button>

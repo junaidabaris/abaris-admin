@@ -87,12 +87,14 @@ function CategoriesAdmin() {
                   <span>Add New category</span>
                 </Link>
               </div>
+
             </div>
           </div>
           <div className="card">
             <ToastContainer />
             <div className="card-header d-block d-md-flex">
               <h5 className="mb-0 h6">Categories</h5>
+              <button className="btn btn-primary">Fetch AI Content</button>
               <form >
                 <div className="box-inline pad-rgt pull-left">
                   <div style={{ minWidth: 200 }} className="d-flex">

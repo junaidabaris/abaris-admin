@@ -241,6 +241,7 @@ function AllSeller() {
                         <td style={{ display: "table-cell" }}>
                           <SlideshowLightbox>
                             {data.map((item) => {
+                              console.log('item----Sellerimage', item)
                               return <img
                                 key={item.url}
                                 className="w-full rounded"

@@ -1147,6 +1147,11 @@ function AsideAdmin() {
                       <span className="aiz-side-nav-text">All Customers</span>
                     </Link>
                   </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="customer-create" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Add Customers</span>
+                    </Link>
+                  </li>
                 </ul>
               </li>
 
@@ -1764,7 +1769,7 @@ function AsideAdmin() {
                     </Link>
                   </li>
                   <li className="aiz-side-nav-item">
-                    <Link to="shift" className="aiz-side-nav-link ">
+                    <Link to="#" className="aiz-side-nav-link ">
                       <span className="aiz-side-nav-text">Shift</span>
                     </Link>
                   </li>
@@ -1775,7 +1780,7 @@ function AsideAdmin() {
                   </li>
                   <li className="aiz-side-nav-item">
                     <Link to="#" className="aiz-side-nav-link ">
-                      <span className="aiz-side-nav-text"> Comoany </span>
+                      <span className="aiz-side-nav-text"> Company </span>
                     </Link>
                   </li>
                   <li className="aiz-side-nav-item">

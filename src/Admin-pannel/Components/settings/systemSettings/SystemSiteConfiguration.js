@@ -81,7 +81,7 @@ function SystemSiteConfiguration() {
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Language *</label>
-                        <select className="form-select" name='Language' onChange={onChangeHandler}>
+                        <select className="form-select" value={inputVal?.Language} name='Language' onChange={onChangeHandler}>
                             {languageData && languageData.map((item, i) => {
                                 console.log('languageItem----', item._id)
                                 return <option value={item._id} key={i}>{item.name}</option>
@@ -90,7 +90,7 @@ function SystemSiteConfiguration() {
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Default Currency *</label>
-                        <select className="form-select" name='DefaultCurrency' onChange={onChangeHandler}>
+                        <select className="form-select" name='DefaultCurrency' value={inputVal?.DefaultCurrency} onChange={onChangeHandler}>
                             {currencyData && currencyData.map((item, i) => {
                                 return <option value={item._id} key={item._id}>{item.name}</option>
                             })}
@@ -98,7 +98,7 @@ function SystemSiteConfiguration() {
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Accounting Method *</label>
-                        <select className="form-select" name='AccountingMethod' onChange={onChangeHandler}>
+                        <select className="form-select" name='AccountingMethod' value={inputVal?.AccountingMethod} onChange={onChangeHandler}>
                             <option value="AVCO">AVCO (Average Cost Method)</option>
                             <option value="AVCO">AVCO (Average Cost Method)</option>
                         </select>
@@ -109,7 +109,7 @@ function SystemSiteConfiguration() {
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Default Customer Group *</label>
-                        <select name="DefaultCustomerGroup" className="form-select" onChange={onChangeHandler}>
+                        <select name="DefaultCustomerGroup" value={inputVal?.DefaultCustomerGroup} className="form-select" onChange={onChangeHandler}>
                             <option value={"General"} >General</option>
                             <option value={"Reseller"}>Reseller</option>
                             <option value={"Distributor"}>Distributor</option>
@@ -119,20 +119,20 @@ function SystemSiteConfiguration() {
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Default Price Group *</label>
-                        <select name="DefaultPriceGroup" className="form-select" onChange={onChangeHandler}>
+                        <select name="DefaultPriceGroup" value={inputVal?.DefaultPriceGroup} className="form-select" onChange={onChangeHandler}>
                             <option value={"Default"} >Default</option>
                         </select>
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Maintenance Mode *</label>
-                        <select name="MaintenanceMode" className="form-select" onChange={onChangeHandler}>
+                        <select name="MaintenanceMode" value={inputVal?.MaintenanceMode} className="form-select" onChange={onChangeHandler}>
                             <option value={false} >No</option>
                             <option value={true} >Yes</option>
                         </select>
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Theme *</label>
-                        <select name="Theme" className="form-select" onChange={onChangeHandler}>
+                        <select name="Theme" value={inputVal?.Theme} className="form-select" onChange={onChangeHandler}>
                             <option value={1}>Default</option>
                         </select>
                     </div>
@@ -145,7 +145,7 @@ function SystemSiteConfiguration() {
                     </div> */}
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Login Captcha *</label>
-                        <select name="LoginCaptcha" className="form-select" onChange={onChangeHandler}>
+                        <select name="LoginCaptcha" value={inputVal?.LoginCaptcha} className="form-select" onChange={onChangeHandler}>
                             <option value={false} >Disable</option>
                             <option value={true} >Enable</option>
                         </select>
@@ -157,7 +157,7 @@ function SystemSiteConfiguration() {
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Rows per page *</label>
-                        <select name="Rowsperpage" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
+                        <select name="Rowsperpage" value={inputVal?.Rowsperpage} id="rows_per_page" className="form-select" onChange={onChangeHandler}>
                             <option value={'25'}>25</option>
                             <option value={'50'}>50</option>
                             <option value={'100'}>100</option>
@@ -170,7 +170,7 @@ function SystemSiteConfiguration() {
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Timezone *</label>
-                        <select name="Timezone" class="form-select" onChange={onChangeHandler}>
+                        <select name="Timezone" value={inputVal?.Timezone} class="form-select" onChange={onChangeHandler}>
                             <option value="Africa/Abidjan">Africa/Abidjan</option>
                             <option value="Africa/Accra">Africa/Accra</option>
                             <option value="Africa/Addis_Ababa">Africa/Addis_Ababa</option>
@@ -598,42 +598,42 @@ function SystemSiteConfiguration() {
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Calender *</label>
-                        <select name="Calender" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
+                        <select name="Calender" value={inputVal?.Calender} id="rows_per_page" className="form-select" onChange={onChangeHandler}>
                             <option value={"Private"} >Private</option>
                             <option value={"Shared"} selected="selected">Shared</option>
                         </select>
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Default Warehouse *</label>
-                        <select name="DefaultWarehouse" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
+                        <select name="DefaultWarehouse" value={inputVal?.DefaultWarehouse} id="rows_per_page" className="form-select" onChange={onChangeHandler}>
                             <option value={"A"} >A</option>
                             <option value={"B"}>B</option>
                         </select>
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Default Biller *</label>
-                        <select name="DefaultBiller" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
+                        <select name="DefaultBiller" value={inputVal?.DefaultBiller} id="rows_per_page" className="form-select" onChange={onChangeHandler}>
                             <option value={"ETG"}>ETG</option>
                             <option value={"Seller"} >Seller</option>
                         </select>
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">PDF Library *</label>
-                        <select name="PDFLibrary" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
+                        <select name="PDFLibrary" value={inputVal?.PDFLibrary} id="rows_per_page" className="form-select" onChange={onChangeHandler}>
                             <option value={0}>mPDF</option>
                             <option value={1} selected="selected">Dompdf</option>
                         </select>
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">APIs Feature *</label>
-                        <select name="APIsFeature" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
+                        <select name="APIsFeature" value={inputVal?.APIsFeature} id="rows_per_page" className="form-select" onChange={onChangeHandler}>
                             <option value={false}>Disable</option>
                             <option value={true} >Enable</option>
                         </select>
                     </div>
                     <div className="col-lg-4">
                         <label htmlFor="site_name">Use code for slug *</label>
-                        <select name="Usecodeforslug" id="rows_per_page" className="form-select" onChange={onChangeHandler}>
+                        <select name="Usecodeforslug" value={inputVal?.Usecodeforslug} id="rows_per_page" className="form-select" onChange={onChangeHandler}>
                             <option value={'Disable'} >Disable</option>
                             <option value={'Enable'} >Enable</option>
                         </select>

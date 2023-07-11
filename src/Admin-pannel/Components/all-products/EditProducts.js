@@ -106,19 +106,19 @@ function EditProducts() {
         // category_id: [],
         brand_id: '642d51f2a94153a958c06be4',
         unit_price: '',
-        // weight: "",
+        weights: "",
         minimum_purchase_qty: '',
         tags: [],
         barcode: '',
         hsn_code: '',
         sale_rp: '',
         share_rp: '',
-        refundable: '',
+        refundable: false,
         // products images
         gallery_image: '',
         thumbnail_image: '',
         // product vedios
-        vedio_provider: '',
+        video_provider: '',
         video_link: '',
         variations: [],
         attributes: '',
@@ -141,6 +141,7 @@ function EditProducts() {
         purchase_rate: '',
         sale_rate: '',
         tax: '',
+        tax_type: '',
         discount: '',
         discount_type: '',
         sku: '',
@@ -165,15 +166,46 @@ function EditProducts() {
         const inpVal = e.target.value;
         let tempPickList = JSON.parse(JSON.stringify(variationArr));
 
-        if (inpName === 'discount') {
+        // if (inpName === 'discount') {
+        //     tempPickList.map((item, i) => {
+        //         if (item._id == e.target.getAttribute('data_id'))
+        //             return item[inpName] = inpVal
+        //     })
+        //     tempPickList.map((item, i) => {
+        //         if (item._id == e.target.getAttribute('data_id'))
+        //             return item.sale_rate = item.mrp - e.target.value
+        //     })
 
+        //     const newVariationArr = [...tempPickList]
+        //     setVariationArr(newVariationArr);
+        //     const clonedObj = { ...inputval, slug };
+        //     clonedObj[inpName] = inpVal;
+        //     setInputVal(clonedObj);
+        // } else {
+
+
+        //     tempPickList.map((item, i) => {
+        //         if (item._id == e.target.getAttribute('data_id'))
+        //             return item[inpName] = inpVal
+        //     })
+
+        //     const newVariationArr = [...tempPickList]
+        //     setVariationArr(newVariationArr);
+        //     const clonedObj = { ...inputval, slug };
+        //     clonedObj[inpName] = inpVal;
+        //     setInputVal(clonedObj);
+        // };
+
+        if (inpVal === 'Percent') {
             tempPickList.map((item, i) => {
                 if (item._id == e.target.getAttribute('data_id'))
                     return item[inpName] = inpVal
             })
             tempPickList.map((item, i) => {
+                const calculatedSalePercent = item.mrp * item.discount / 100
+                const calculatedSalerate = item.mrp - calculatedSalePercent
                 if (item._id == e.target.getAttribute('data_id'))
-                    return item.sale_rate = item.mrp - e.target.value
+                    return item.sale_rate = calculatedSalerate
             })
 
             const newVariationArr = [...tempPickList]
@@ -181,24 +213,34 @@ function EditProducts() {
             const clonedObj = { ...inputval, slug };
             clonedObj[inpName] = inpVal;
             setInputVal(clonedObj);
-
-
-        } else {
-
-
+        } else if (inpVal === 'Amount') {
             tempPickList.map((item, i) => {
                 if (item._id == e.target.getAttribute('data_id'))
                     return item[inpName] = inpVal
             })
-
+            tempPickList.map((item, i) => {
+                // const calculatedSalePercent = item.mrp * item.discount / 100
+                // const calculatedSalerate = item.mrp - calculatedSalePercent
+                if (item._id == e.target.getAttribute('data_id'))
+                    return item.sale_rate = item.mrp - item.discount
+            })
             const newVariationArr = [...tempPickList]
             setVariationArr(newVariationArr);
             const clonedObj = { ...inputval, slug };
             clonedObj[inpName] = inpVal;
             setInputVal(clonedObj);
         }
-
-
+        else {
+            tempPickList.map((item, i) => {
+                if (item._id == e.target.getAttribute('data_id'))
+                    return item[inpName] = inpVal
+            })
+            const newVariationArr = [...tempPickList]
+            setVariationArr(newVariationArr);
+            const clonedObj = { ...inputval, slug };
+            clonedObj[inpName] = inpVal;
+            setInputVal(clonedObj);
+        };
     };
 
 
@@ -208,7 +250,10 @@ function EditProducts() {
         const inpVal = e.target.files[0];
         clonedObj[inpName] = inpVal;
         setInputVal(clonedObj)
-    }
+    };
+
+    // const [editProductD, response] = useEditProductMutation(params.id);
+
     const submitEditProductData = async () => {
         const clonedObj = { ...inputval, variations: variationArr, tags: tags, category_id: finalCatD, variation_Form: sendbox };
         setInputVal(clonedObj);
@@ -225,7 +270,9 @@ function EditProducts() {
         formData.append('tags', clonedObj.tags);
         formData.append('slug', clonedObj.slug);
         formData.append('video_link', clonedObj.video_link);
+        formData.append('video_provider', clonedObj.video_provider);
         formData.append('quotation', clonedObj.quotation);
+        formData.append('refundable', clonedObj.refundable);
         // formData.append('share_rp', clonedObj.share_rp);
 
         formData.append('category_id', JSON.stringify(clonedObj.category_id));
@@ -234,10 +281,15 @@ function EditProducts() {
             formData.append('attributeSet', JSON.stringify([idsAtt[0]]));
         }
         formData.append('variations', JSON.stringify(variationArr));
-        console.log('variationArr------------',variationArr)
+        console.log('variationArr------------', variationArr)
         formData.append('images', JSON.stringify(clonedObj.images));
         formData.append('variation_Form', JSON.stringify(clonedObj.variation_Form));
         formData.append('productDescription', JSON.stringify(clonedObj.productDescription))
+        formData.append('weights', clonedObj.weights)
+        formData.append('unit', clonedObj.unit)
+        formData.append('barcode', clonedObj.barcode)
+        formData.append('minimum_purchase_qty', clonedObj.minimum_purchase_qty)
+        formData.append('minimum_order_qty', clonedObj.minimum_order_qty)
 
         try {
             const res = await axios.put(url, formData);
@@ -245,6 +297,8 @@ function EditProducts() {
         } catch (error) {
             alert('!Error Product not Edited')
         }
+
+        // editProductD(formData)
 
     };
 
@@ -266,7 +320,7 @@ function EditProducts() {
         })
     };
 
-    // const { data: pickUp } = useGetPickupPointQuery();
+    const { data: pickUp } = useGetPickupPointQuery();
 
 
     useEffect(() => {
@@ -342,6 +396,8 @@ function EditProducts() {
         })
         setProAtt(filterd)
     }
+
+    console.log('inputValcheck----------', inputval)
 
     return (
         <>
@@ -431,7 +487,7 @@ function EditProducts() {
                                             <div className="form-group row">
                                                 <label className="col-md-3 col-from-label">Unit</label>
                                                 <div className="col-md-8">
-                                                    <select className="form-select" value={inputval.unit ? inputval.unit : 'Select Unit'} aria-label="Default select example" name="unit" onChange={onChangeHandler}>
+                                                    <select className="form-select" value={inputval?.unit} aria-label="Default select example" name="unit" onChange={onChangeHandler}>
                                                         {/* <option value={1}>{inputval.unit ? inputval.unit : 'Select Unit'}</option> */}
                                                         {unitMast && unitMast.map((item) => {
                                                             return <option value={item.name} key={item._id}>{item.name}</option>
@@ -443,7 +499,7 @@ function EditProducts() {
                                             <div className="form-group row">
                                                 <label className="col-md-3 col-from-label">Weight <small>(In Kg)</small></label>
                                                 <div className="col-md-8">
-                                                    <input type="text" value={inputval?.weight} className="form-control" name="weight" step="0.01" placeholder="weight" fdprocessedid="sq5qc3" onChange={onChangeHandler} />
+                                                    <input type="text" value={inputval?.weights} className="form-control" name="weights" step="0.01" placeholder="weight" fdprocessedid="sq5qc3" onChange={onChangeHandler} />
                                                 </div>
                                             </div>
 
@@ -466,7 +522,7 @@ function EditProducts() {
                                             {proAtt && <div className="form-group row">
                                                 <label className="col-md-3 col-from-label">Set Attribute Values</label>
                                                 <div className="col-md-8">
-                                                    {proAtt && proAtt.map((item, i) => {
+                                                    {proAtt && proAtt?.map((item, i) => {
                                                         return <div style={{ display: "flex", margin: "5px 0" }} key={i}>
                                                             <label className="col-md-3 col-from-label">{item?.label?.name}</label>
                                                             <input placeholder="Value" name={item?._id} value={item?.value} className="form-control" onChange={changeValues} />
@@ -482,7 +538,7 @@ function EditProducts() {
                                             <div className="form-group row">
                                                 <label className="col-md-3 col-from-label">Minimum Purchase Qty <span className="text-danger">*</span></label>
                                                 <div className="col-md-8">
-                                                    <input type="number" value={inputval?.minimum_purchase_qty} lang="en" className="form-control" name=" minimum_purchase_qty" required fdprocessedid="d0gl3m" onChange={onChangeHandler} />
+                                                    <input type="number" value={inputval?.minimum_purchase_qty} lang="en" className="form-control" name="minimum_purchase_qty" required fdprocessedid="d0gl3m" onChange={onChangeHandler} />
                                                 </div>
                                             </div>
 
@@ -514,17 +570,18 @@ function EditProducts() {
                                             <div className="form-group row">
                                                 <label className="col-md-3 col-from-label">Refundable</label>
                                                 <div className="col-md-8">
-                                                    <label className="aiz-switch aiz-switch-success mb-0">
+                                                    {/* <label className="aiz-switch aiz-switch-success mb-0">
                                                         <input type="checkbox" name="refundable" value={featuredval} onChange={onChangeHandler} />
                                                         <span />
-                                                    </label>
+                                                    </label> */}
+                                                    <ToggleStatus name="refundable" isStatus={inputval?.refundable} changeStatus={changeStatus} />
                                                 </div>
                                             </div>
 
                                             <div className="form-group row">
                                                 <label className="col-md-3 col-from-label">Quotation</label>
                                                 <div className="col-md-8">
-                                                    <ToggleStatus name="quotation" isStatus={inputval.quotation} changeStatus={changeStatus} />
+                                                    <ToggleStatus name="quotation" isStatus={inputval?.quotation} changeStatus={changeStatus} />
                                                 </div>
                                             </div>
                                         </div>
@@ -584,7 +641,7 @@ function EditProducts() {
                                             <div className="form-group row">
                                                 <label className="col-md-3 col-from-label">Video Provider</label>
                                                 <div className="col-md-8">
-                                                    <select className="form-select" aria-label="Default select example" name="vedio_provider" onChange={onChangeHandler}>
+                                                    <select className="form-select" value={inputval?.video_provider} aria-label="Default select example" name="video_provider" onChange={onChangeHandler}>
                                                         <option value="youtube">Youtube</option>
                                                         <option value="dailymotion">Dailymotion</option>
                                                         <option value="vimeo">Vimeo</option>
@@ -618,11 +675,28 @@ function EditProducts() {
                                             </div>
 
                                             <div className="form-group row">
+                                                <label className="col-md-3 col-from-label"></label>
+                                                <div className="col-md-8">
+                                                    <button type="button" className="btn btn-primary">Fetch AI Content</button>
+                                                </div>
+                                            </div>
+
+
+                                            <div className="form-group row">
                                                 <label className="col-md-3 col-from-label">Description</label>
                                                 <div className="col-md-8">
                                                     <textarea name="meta_description" value={inputval?.meta_description} rows={8} className="form-control" onChange={onChangeHandler} />
                                                 </div>
                                             </div>
+
+                                            <div className="form-group row">
+                                                <label className="col-md-3 col-from-label"></label>
+                                                <div className="col-md-8">
+                                                    <button type="button" className="btn btn-primary">Fetch AI Content</button>
+                                                </div>
+                                            </div>
+
+
                                             <div className="form-group row">
                                                 <label className="col-md-3 col-form-label" htmlFor="signinSrEmail">Meta Image</label>
                                                 <div className="col-md-8">
@@ -858,6 +932,7 @@ function EditProducts() {
                                                             <td><label className="control-label">HSN Code</label></td>
                                                             <td><label className="control-label">Sale Reward Point</label></td>
                                                             <td><label className="control-label">Share Reward Point</label></td>
+                                                            {/* <td><label className="control-label">Add Images</label></td> */}
                                                             {/* <td className="text-center">
                                                                 <label className="control-label">Pickup Point</label>
                                                             </td> */}
@@ -888,7 +963,7 @@ function EditProducts() {
                                                                 </td>
 
                                                                 <td>
-                                                                    <select name="tax_type" className="selectOptions" aria-label="Default select example" onChange={onChangeHandler}>
+                                                                    <select data_id={item._id} type="string" value={item.tax_type} name="tax_type" className="selectOptions" aria-label="Default select example" onChange={onChangeHandler}>
                                                                         <option value={'Inclusive'}>Inclusive</option>
                                                                         <option value={'Exclusive'}>Exclusive</option>
                                                                     </select>
@@ -902,7 +977,7 @@ function EditProducts() {
                                                                     <input data_id={item._id} type="text" name="discount" className="form-control" required onChange={onChangeHandler} value={item.discount} />
                                                                 </td>
                                                                 <td>
-                                                                    <select name="discount_type" className="selectOptions" aria-label="Default select example" onChange={onChangeHandler}>
+                                                                    <select data_id={item._id} value={item.discount_type} name="discount_type" className="selectOptions" aria-label="Default select example" onChange={onChangeHandler}>
                                                                         <option value={'Percent'}>Percent</option>
                                                                         <option value={'Amount'}>Amount</option>
                                                                     </select>
@@ -920,6 +995,11 @@ function EditProducts() {
                                                                 <td>
                                                                     <input data_id={item._id} type="text" name="share_rp" value={item?.share_rp} className="form-control" onChange={onChangeHandler} />
                                                                 </td>
+                                                                {/* <td>
+                                                                    <input type="file" name="gallery_image" className="selected-files" onChange={onchengePhotoHandel} />
+                                                                </td> */}
+
+
 
                                                                 {/* <td>
                                                                     <select data_id={item._id} className="js-example-basic-multiple js-states js-example-responsive demo-select2 w-100 select2-hidden-accessible selectOptions" name="pickup_points" data-select2-id={20} tabIndex={-1} aria-hidden="true" onChange={onChangeHandler}>

@@ -12,11 +12,11 @@ function AttributesAdmin() {
         deleteAttribute(id)
     };
 
-   useEffect(()=>{
-    if (response.isSuccess === true) {
-        alert('Attribute Deleted Successfully')
-    }
-   },[response.isSuccess])
+    useEffect(() => {
+        if (response.isSuccess === true) {
+            alert('Attribute Deleted Successfully')
+        }
+    }, [response.isSuccess])
 
     return (
         <>
@@ -24,8 +24,8 @@ function AttributesAdmin() {
                 <div className="card">
                     <div className="card-header row gutters-5">
                         <div className="col text-center text-md-left">
-                            <h5 className="mb-md-0 h6">Attributes</h5>
                         </div>
+
                         <div className="col-md-4">
                             <form >
                                 <div className="input-group input-group-sm">

@@ -169,7 +169,7 @@ function CustomerList() {
                 </div>
                 <div className="modal-footer">
                   <button type="button" className="btn btn-light" data-dismiss="modal">Cancel</button>
-                  <a type="button" id="confirmation" className="btn btn-primary" href="https://mmslfashions.in/admin/customers_ban/eyJpdiI6ImllSWhpT1oxM3NrZlhvVFRPR3I3eWc9PSIsInZhbHVlIjoibithVTJWZW5rYk1Vdng2TGdjMzlqQT09IiwibWFjIjoiYzdjY2MzMDdiZDVkNjM4YTZjMzBlNjFlNWQzZDQzNmFhMGM2MTkwYmZjZDg1ZDQxZWY3ZGRjZGIyZjdmMzQ4MiIsInRhZyI6IiJ9">Proceed!</a>
+                  <a type="button" id="confirmation" className="btn btn-primary" href="#">Proceed!</a>
                 </div>
               </div>
             </div>
