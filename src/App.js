@@ -905,6 +905,8 @@ function App() {
             path="category-map-export/create-mapping"
             element={<CreateMap />}
           />
+
+          {/* junaid crm pages */}
           <Route
             path="staffs-new"
             element={<AddUser/>}
