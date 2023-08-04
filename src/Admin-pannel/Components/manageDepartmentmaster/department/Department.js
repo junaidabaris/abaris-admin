@@ -61,7 +61,7 @@ function Department() {
                                 <td>{item?.createdAt}
                                 </td>
                                 <td>
-                                    <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/add-asset-category">
+                                    <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to={`/admin/department/edit/${item?._id}`}>
                                         {/* <i className="las la-eye">
                                     </i> */}
                                         <AiFillEdit className="icon-icon" />

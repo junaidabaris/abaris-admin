@@ -39,7 +39,7 @@ function EditAssetsSubCategory() {
     },[])
 
     const toastSuccessMessage = () => {
-        toast.success("Assets Sub  category updated Successfully.", {
+        toast.success("Assets Sub  Department updated Successfully.", {
             position: "top-center"
         })
     };

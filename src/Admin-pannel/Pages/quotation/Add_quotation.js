@@ -1,15 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { Spinner } from "react-bootstrap";
-import { useGetProductSearchQuery, usePostQuotationMutation } from "../../Components/all-products/allproductsApi/allProductsApi";
+import { useGetCustomersQuery, useGetPickupPointQuery, useGetProductSearchQuery, usePostQuotationMutation } from "../../Components/all-products/allproductsApi/allProductsApi";
 import { RxCross1 } from "react-icons/rx";
 import { AiFillDelete } from "react-icons/ai";
 import ModalCombo from "../addComboProduct/ModalCombo";
+import axios from "axios";
 
 function Add_quotation() {
 
     const [show, setShow] = useState(true)
     const [modalShow, setModalShow] = useState(false);
-
+    const [billingAddress, setBillingAddress] = useState();
+    const [shippingAddress, setShippingAddress] = useState();
+    const [customerId, setCustomerId] = useState();
     const [searchs, setSearch] = useState('')
     const [cartData, setcartData] = useState(null)
     const [values, setValues] = useState(
@@ -22,6 +25,7 @@ function Add_quotation() {
             // status: "",
             shipping: "",
             // supplier: "",
+
         }
     )
 
@@ -43,9 +47,6 @@ function Add_quotation() {
         setShow(false)
     }
 
-
-
-
     const handelChange = (e) => {
         if (e.key === 'Enter') {
             const clone = e.target.value
@@ -59,11 +60,15 @@ function Add_quotation() {
         setValues(clone)
     }
 
+
+
     const SaveData = (val) => {
         setModalShow(false)
         const arr = [...showCombo, ...val]
         setShowCombo(arr)
-    }
+    };
+
+
 
     const sendComboData = () => {
         const getData = showCombo.map((item) => {
@@ -141,6 +146,8 @@ function Add_quotation() {
                                     </div>
                                 </div>
 
+
+
                                 <div className="col-4 d-block">
                                     <div>
                                         <label>Biller *</label>
@@ -153,6 +160,8 @@ function Add_quotation() {
                                     </div>
                                 </div>
 
+
+
                                 <div className="col-4 d-block">
                                     <div>
                                         <label>Order Tax *</label>
@@ -164,7 +173,7 @@ function Add_quotation() {
                                         </select>
                                     </div>
                                 </div>
-                                {/* <div className="col-4 d-block">
+                                <div className="col-4 d-block">
                                     <div>
                                         <label>Supplier</label>
                                         <select name="supplier" className="form-select" aria-label="Default select example" onChange={changeHandelVal} >
@@ -174,7 +183,7 @@ function Add_quotation() {
                                             <option value="3">Three</option>
                                         </select>
                                     </div>
-                                </div> */}
+                                </div>
 
                                 {/* <div className="col-4 d-block">
                                     <div>
@@ -199,6 +208,9 @@ function Add_quotation() {
                                         <input value={values.shipping} onChange={changeHandelVal} name="shipping" className="form-control" type="number" />
                                     </div>
                                 </div>
+
+
+
 
                             </div>
                         </div>

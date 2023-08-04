@@ -47,13 +47,13 @@ function Discount({ bringDiscountInpVal, showCombo, SaveData }) {
                         <form>
                             <label>Discount Amount</label>
                             <input className='form-control mb-1' name='discount' placeholder='0' type='text' onChange={onChangeHandler} />
-                            <div>
+                            {/* <div>
                                 <label>Discount Type</label>
                                 <select className="form-select" name='discount_type' aria-label="Default select example" onChange={onChangeHandler}>
                                     <option value={'Amount'}>Amount</option>
                                     <option value={'Percent'}>Percent</option>
                                 </select>
-                            </div>
+                            </div> */}
                         </form>
                         <Button variant="primary" type='button' onClick={submitOrderDiscountVal}>
                             Update
@@ -62,7 +62,8 @@ function Discount({ bringDiscountInpVal, showCombo, SaveData }) {
                 </Modal>
 
             </td>
-            <td className='text-right'>{showCombo?.discount}</td>
+            {/* <td className='text-right'>{showCombo?.discount}</td> */}
+            <td className='text-right'>{inputVal?.discount}</td>
         </>
     )
 }

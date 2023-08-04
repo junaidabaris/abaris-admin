@@ -70,7 +70,7 @@ function AddPosComp() {
       setShowCombo(resp.data)
     } else {
       setModalShow(false)
-      console.log(val);
+      // console.log(val);
       const arr = [...showCombo, ...val]
       const aaa = arr.map((item) => {
         return { product: item.productId, variant: item.variant, sku: item.sku, count: 1 }
@@ -85,9 +85,9 @@ function AddPosComp() {
 
   let totalPosProductsItem = 0;
   let totalPosProductsPrice = 0;
-  for (let i = 0; i < showCombo.length; i++) {
-    totalPosProductsItem = totalPosProductsItem + showCombo[i].count;
-    totalPosProductsPrice = totalPosProductsPrice + showCombo[i].variant_id?.sale_rate
+  for (let i = 0; i < showCombo?.cart?.products?.length; i++) {
+    totalPosProductsItem = totalPosProductsItem + showCombo?.cart?.products[i]?.count;
+    totalPosProductsPrice = totalPosProductsPrice + showCombo?.cart?.products[i]?.variant_id?.sale_rate
   }
 
   const sendDataCus = (item) => {
@@ -163,13 +163,14 @@ function AddPosComp() {
               </thead>
               <tbody style={{ height: '310px' }}>
                 {showCombo && showCombo?.cart?.products?.map((item, i) => {
+                  console.log('showCombo.item---', showCombo)
                   return <tr key={i}>
                     <td style={{ display: 'table-cell' }}>
-                      <span className='txt-bold ps-1'>{item.product[0]?.name}</span>
+                      <span className='txt-bold ps-1'>{item.product_id[0]?.name}</span>
                     </td>
-                    <td className='txt-bold ps-1 text-end' style={{ display: 'table-cell' }}>{item.variant_id?.sale_rate}</td>
-                    <td className='txt-bold ps-1 text-end' style={{ display: 'table-cell' }}>{item.count}</td>
-                    <td className='txt-bold ps-1 text-end' style={{ display: 'table-cell' }}>{item.subTotal}</td>
+                    <td className='txt-bold ps-1 text-end' style={{ display: 'table-cell' }}>{item?.variant_id?.sale_rate}</td>
+                    <td className='txt-bold ps-1 text-end' style={{ display: 'table-cell' }}>{item?.count}</td>
+                    <td className='txt-bold ps-1 text-end' style={{ display: 'table-cell' }}>{item?.subTotal}</td>
                     <td className='txt-bold ps-1' style={{ display: 'table-cell' }}></td>
                   </tr>
                 })}
@@ -194,11 +195,11 @@ function AddPosComp() {
             <TotalPayableComp showCombo={showCombo} totalPosProductsPrice={totalPosProductsPrice} bringedDiscountVal={bringedDiscountVal} bringedOrderTaxVal={bringedOrderTaxVal} />
           </div>
 
-          <ColorFulTable showCombo={showCombo} totalPosProductsPrice={totalPosProductsPrice} bringedDiscountVal={bringedDiscountVal} bringedOrderTaxVal={bringedOrderTaxVal} totalPosProductsItem={totalPosProductsItem} />
+          <ColorFulTable showCombo={showCombo} totalPosProductsPrice={totalPosProductsPrice} bringedDiscountVal={bringedDiscountVal} bringedOrderTaxVal={bringedOrderTaxVal} totalPosProductsItem={totalPosProductsItem} viewCustomerD={viewCustomerD} />
 
         </div>
 
-        <RightSection /> 
+        <RightSection />
 
       </div>
     </>

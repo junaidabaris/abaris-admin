@@ -5,12 +5,13 @@ import { useEditSupportTicketMutation, useGetSupportTicketByIdQuery } from '../a
 // import { useEditCouponMutation, useGetCouponByIdQuery } from '../../all-products/allproductsApi/allProductsApi';
 
 function EditSupportTicket() {
+   
     const [inputval, setInputval] = useState({
         code: '',
         subject: '',
         start_date: '',
         end_date: '',
-        reply:""
+        reply: ""
     });
 
     const params = useParams();
@@ -37,7 +38,7 @@ function EditSupportTicket() {
     };
 
     const toastSuccessMessage = () => {
-        toast.success("Coupon Edited Successfully", {
+        toast.success("Ticket Edited Successfully", {
             position: "top-center"
         })
     };
@@ -47,7 +48,7 @@ function EditSupportTicket() {
             toastSuccessMessage()
         };
         if (response.isError === true) {
-            alert('!Coupon not edited')
+            alert('!Ticket not edited')
         };
     }, [response.isSuccess, response.isError])
 

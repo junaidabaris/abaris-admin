@@ -46,7 +46,16 @@ function AsideAdmin() {
   const [challan, setChallan] = useState(false);
   const [assetModule, setAssetModule] = useState(false);
   const [reportMaster, setReportMaster] = useState(false);
-
+  const [assetDashboard, setAssetDashboard] = useState(false);
+  const [complaint, setComplaint] = useState(false);
+  const [etsySettings, setEtsySettings] = useState(false)
+  const [etsyAccountList, setEtsyAccountList] = useState(false)
+  const [amazon, setAmazon] = useState(false);
+  const [supports, setSupports] = useState(false);
+  const [deliveryTimeSettings, setDeliveryTimeSetting] = useState(false)
+  const [dropship, setDropship] = useState(false)
+  const [quotation, setQuotation] = useState(false);
+  const [calls, setCalls] = useState(false)
   // shoaib code 
   const [assetMaster, setAssetMaster] = useState(false);
   const [departmentMaster, setdepartmentMaster] = useState(false)
@@ -315,6 +324,90 @@ function AsideAdmin() {
                   <span className="aiz-side-nav-text">Profile Setting</span>
                 </Link>
               </li>
+
+              <li className="aiz-side-nav-item">
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setSupport(!support) }}>
+                  <i className="las la-link aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Support</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${support ? "mm-show" : "extra"}`}>
+                  <li className="aiz-side-nav-item">
+                    <Link to="support_ticket" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Ticket</span>
+                      <span className="badge badge-info">2</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="add-ticket" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Add Ticket</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="staff-ticket-list" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Staff Ticket List</span>
+                    </Link>
+                  </li>
+
+                </ul>
+              </li>
+
+              <li className="aiz-side-nav-item">
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setAssetMaster(!assetMaster) }}>
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Assets Management</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${assetMaster ? "mm-show" : "extra"}`}>
+                  <li className="aiz-side-nav-item">
+                    <Link to="my-assets" className="aiz-side-nav-link ">
+                      <span className="labour-charge-type">My Assets </span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="add-assets-request" className="aiz-side-nav-link ">
+                      <span className="labour-charge-type">Add Assets Request</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="my-assets-request-list" className="aiz-side-nav-link ">
+                      <span className="labour-charge-type">My Assets Request List</span>
+                    </Link>
+                  </li>
+                  {/* <li className="aiz-side-nav-item">
+                    <Link to="/admin/assets-dashboard/newasset-category" className="aiz-side-nav-link ">
+                      <span className="labour-charge-type">Add New Asset </span>
+                    </Link>
+                  </li> */}
+
+                  {/* <li className="aiz-side-nav-item">
+                    <Link to="asset-category" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text"> Asset Categories List </span>
+                    </Link>
+                  </li> */}
+                  {/* <li className="aiz-side-nav-item">
+                    <Link to="asset-sub-category" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text"> Asset Sub Categories  </span>
+                    </Link>
+                  </li> */}
+                  {/* <li className="aiz-side-nav-item">
+                    <Link to="asset-comments" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Asset Comments  </span>
+                    </Link>
+                  </li> */}
+                  {/* <li className="aiz-side-nav-item">
+                    <Link to="asset-status" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Asset Status  </span>
+                    </Link>
+                  </li> */}
+                  {/* <li className="aiz-side-nav-item">
+                    <Link to="#" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Store Bin</span>
+                    </Link>
+                  </li> */}
+                </ul>
+              </li>
+
 
 
 
@@ -636,7 +729,7 @@ function AsideAdmin() {
               </li>
 
 
-              {/* <li className="aiz-side-nav-item" >
+              <li className="aiz-side-nav-item" >
                 <Link to="#" className="aiz-side-nav-link" onClick={() => { setQuotations(!quotations) }} >
                   <i className="las la-user-tie aiz-side-nav-icon" />
                   <span className="aiz-side-nav-text">Quotations </span>
@@ -654,7 +747,7 @@ function AsideAdmin() {
                     </Link>
                   </li>
                 </ul>
-              </li> */}
+              </li>
 
 
 
@@ -794,7 +887,7 @@ function AsideAdmin() {
               <li className="aiz-side-nav-item" >
                 <Link to="#" className="aiz-side-nav-link" onClick={() => { setMember(!member) }}>
                   <i className="las la-shopping-cart aiz-side-nav-icon" />
-                  <span className="aiz-side-nav-text">EGT Members</span>
+                  <span className="aiz-side-nav-text">Team Members</span>
                   <span className="aiz-side-nav-arrow" />
                 </Link>
                 <ul className={`aiz-side-nav-list level-2 mm-collapse ${member ? "mm-show" : "extra"}`} id="product">
@@ -1211,8 +1304,8 @@ function AsideAdmin() {
                 </ul>
               </li>
               {/* Support */}
-              <li className="aiz-side-nav-item" onClick={() => { setSupport(!support) }}>
-                <Link to="#" className="aiz-side-nav-link" >
+              <li className="aiz-side-nav-item">
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setSupport(!support) }}>
                   <i className="las la-link aiz-side-nav-icon" />
                   <span className="aiz-side-nav-text">Support</span>
                   <span className="aiz-side-nav-arrow" />
@@ -1225,6 +1318,16 @@ function AsideAdmin() {
                     </Link>
                   </li>
                   <li className="aiz-side-nav-item">
+                    <Link to="add-ticket" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Add Ticket</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="staff-ticket-list" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Staff Ticket List</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
                     <Link to="conversations" className="aiz-side-nav-link ">
                       <span className="aiz-side-nav-text">Product Conversations</span>
                     </Link>
@@ -1234,6 +1337,17 @@ function AsideAdmin() {
                       <span className="aiz-side-nav-text">Product Queries</span>
                     </Link>
                   </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="complaint-type" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Complaint Type</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="complaint-nature" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Complaint Nature</span>
+                    </Link>
+                  </li>
+
                 </ul>
               </li>
 
@@ -1362,7 +1476,7 @@ function AsideAdmin() {
 
 
               {/* Pos-system start */}
-              {/* <li className="aiz-side-nav-item">
+              <li className="aiz-side-nav-item">
                 <Link to="#" className="aiz-side-nav-link" onClick={() => { setPosSystem(!posSystem) }}>
                   <i className="las la-phone aiz-side-nav-icon" />
                   <span className="aiz-side-nav-text">POS System</span>
@@ -1380,7 +1494,7 @@ function AsideAdmin() {
                     </Link>
                   </li>
                 </ul>
-              </li> */}
+              </li>
               {/* pos-system-end */}
 
 
@@ -1569,8 +1683,57 @@ function AsideAdmin() {
                     </Link>
                   </li>
 
+
+                  <li className="aiz-side-nav-item">
+                    <Link className="aiz-side-nav-link" to="delivery-time-settings">
+                      <span className="aiz-side-nav-text">Delivery Time Configuration</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item" >
+                    <Link className="aiz-side-nav-link" to="marketplace-pre-order ">
+                      <span className="aiz-side-nav-text"> Marketplace Preorder</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item" >
+                    <Link className="aiz-side-nav-link" to="marketplace-event-ticket">
+                      <span className="aiz-side-nav-text"> Marketplace Event Ticket System</span>
+                    </Link>
+                  </li>
+
+                  <li className="aiz-side-nav-item" >
+                    <Link className="aiz-side-nav-link" to="marketplace-validator">
+                      <span className="aiz-side-nav-text"> Marketplace Zipcode Vaildator </span>
+                    </Link>
+                  </li>
+
                 </ul>
               </li>
+
+              {/* <li className="aiz-side-nav-item">
+                <Link className="aiz-side-nav-link" to="" onClick={() => { setDeliveryTimeSetting(!deliveryTimeSettings) }}>
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">MarketPlace</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${deliveryTimeSettings ? "mm-show" : "extra"}`}>
+                  <li className="aiz-side-nav-item">
+                    <Link className="aiz-side-nav-link" to="delivery-time-settings">
+                      <span className="aiz-side-nav-text">Delivery Time Configuration</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item" >
+                    <Link className="aiz-side-nav-link" to="marketplace-pre-order ">
+                      <span className="aiz-side-nav-text"> Marketplace Preorder</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item" >
+                    <Link className="aiz-side-nav-link" to="marketplace-event-ticket">
+                      <span className="aiz-side-nav-text"> Marketplace Event Ticket System</span>
+                    </Link>
+                  </li>
+                </ul>
+              </li> */}
+
 
               <li className="aiz-side-nav-item">
                 <Link to="#" className="aiz-side-nav-link" onClick={() => { setBooking(!booking) }}>
@@ -1645,14 +1808,33 @@ function AsideAdmin() {
                       <span className="aiz-side-nav-text">Asset Request</span>
                     </Link>
                   </li>
-                  <li className="aiz-side-nav-item">
+                  {/* <li className="aiz-side-nav-item">
                     <Link to="asset-issue" className="aiz-side-nav-link ">
                       <span className="labour-charge-type">Asset Issue</span>
                     </Link>
-                  </li>
+                  </li> */}
 
                 </ul>
               </li>
+
+              {/* {assests Dashboard start} */}
+
+              <li className="aiz-side-nav-item">
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setAssetDashboard(!assetDashboard) }}>
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Assets Dashboard</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${assetDashboard ? "mm-show" : "extra"}`}>
+                  <li className="aiz-side-nav-item">
+                    <Link to="assets-dashboard" className="aiz-side-nav-link ">
+                      <span className="labour-charge-type">Assets Dashboard</span>
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+
+              {/* {assests Dashboard end} */}
 
               <li className="aiz-side-nav-item">
                 <Link to="#" className="aiz-side-nav-link" onClick={() => { setAssetMaster(!assetMaster) }}>
@@ -1662,7 +1844,7 @@ function AsideAdmin() {
                 </Link>
                 <ul className={`aiz-side-nav-list level-2 mm-collapse ${assetMaster ? "mm-show" : "extra"}`}>
                   <li className="aiz-side-nav-item">
-                    <Link to="add-newasset-category" className="aiz-side-nav-link ">
+                    <Link to="/admin/assets-dashboard/newasset-category" className="aiz-side-nav-link ">
                       <span className="labour-charge-type">Add New Asset </span>
                     </Link>
                   </li>
@@ -1686,8 +1868,34 @@ function AsideAdmin() {
                       <span className="aiz-side-nav-text">Asset Status  </span>
                     </Link>
                   </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="assets-request-list" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Assets Request List</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="#" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Store Bin</span>
+                    </Link>
+                  </li>
                 </ul>
               </li>
+
+              <li className="aiz-side-nav-item">
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setComplaint(!complaint) }}>
+                  <i className="las la-home aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Complaint Dashboard</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${complaint ? "mm-show" : "extra"}`}>
+                  <li className="aiz-side-nav-item">
+                    <Link to="employees-complaints-dashboard" className="aiz-side-nav-link ">
+                      <span className="labour-charge-type">Employee's Complaints </span>
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+
               <li className="aiz-side-nav-item">
                 <Link to="#" className="aiz-side-nav-link" onClick={() => { setdepartmentMaster(!departmentMaster) }}>
                   <i className="las la-user-tie aiz-side-nav-icon" />
@@ -1710,7 +1918,121 @@ function AsideAdmin() {
                       <span className="aiz-side-nav-text"> Designation </span>
                     </Link>
                   </li>
+                </ul>
+              </li>
 
+              <li className="aiz-side-nav-item">
+                <Link className="aiz-side-nav-link" to="#" onClick={() => { setEtsySettings(!etsySettings) }}>
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Etsy Managements</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${etsySettings ? "mm-show" : "extra"}`}>
+                  <li className="aiz-side-nav-item">
+                    <Link className="aiz-side-nav-link" to="etsy-general-settings">
+                      <span className="aiz-side-nav-text">Etsy General Settings</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link className="aiz-side-nav-link" to="etsy-account-list">
+                      <span className="aiz-side-nav-text">Etsy Account List</span>
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+
+              <li className="aiz-side-nav-item">
+                <Link
+                  className="aiz-side-nav-link"
+                  to="#"
+                  onClick={() => {
+                    setAmazon(!amazon);
+                  }}
+                >
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Amazon Connect</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul
+                  className={`aiz-side-nav-list level-2 mm-collapse ${amazon ? "mm-show" : "extra"
+                    }`}
+                >
+                  <li className="aiz-side-nav-item">
+                    <Link className="aiz-side-nav-link " to="amazon-account-info">
+                      <span className="aiz-side-nav-text">Amazon Store List</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link className="aiz-side-nav-link " to="new-amazon-account">
+                      <span className="aiz-side-nav-text">
+                        New Amazon Account
+                      </span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link className="aiz-side-nav-link " to="pricing-rules">
+                      <span className="aiz-side-nav-text">Pricing Rules</span>
+                    </Link>
+                  </li>
+
+                  <li className="aiz-side-nav-item">
+                    {/* <Link className="aiz-side-nav-link " to="attribute-map">
+                      <span className="aiz-side-nav-text">Attribute Map</span>
+                    </Link> */}
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link className="aiz-side-nav-link " to="category-map-export">
+                      <span className="aiz-side-nav-text">
+                        Category Map For Export
+                      </span>
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+
+              <li className="aiz-side-nav-item">
+                <Link className="aiz-side-nav-link" to="#" onClick={() => { setDropship(!dropship) }}>
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">DropShip</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${dropship ? "mm-show" : "extra"}`}>
+
+                  <li className="aiz-side-nav-item">
+                    <Link className="aiz-side-nav-link " to="drop-ship">
+                      <span className="aiz-side-nav-text">Dropship Warehouse</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link className="aiz-side-nav-link " to="dropship-order">
+                      <span className="aiz-side-nav-text">Dropship Order</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link className="aiz-side-nav-link " to="manage-shopping-rules">
+                      <span className="aiz-side-nav-text">Manage Shopping Rule</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link className="aiz-side-nav-link " to="manage-dropship-product-upload">
+                      <span className="aiz-side-nav-text">Manage Dropship Product Upload</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link className="aiz-side-nav-link " to="run-dropship-product-profile">
+                      <span className="aiz-side-nav-text">Run Dropship Product Profile</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link className="aiz-side-nav-link " to="dropship-dataflow-profile">
+                      <span className="aiz-side-nav-text"> Dropship Data flow Profile</span>
+                    </Link>
+                  </li>
+                  {/* <li className="aiz-side-nav-item">
+                    <Link className="aiz-side-nav-link " to="category-mapping">
+                      <span className="aiz-side-nav-text"> Category Mapping</span>
+                    </Link>
+                  </li> */}
                 </ul>
               </li>
 
@@ -1732,6 +2054,26 @@ function AsideAdmin() {
                     </Link>
                   </li>
 
+                </ul>
+              </li>
+
+              <li className="aiz-side-nav-item" >
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setQuotation(!quotation) }} >
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Vtech Quotation</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${quotation ? "mm-show" : "extra"}`}>
+                  <li className="aiz-side-nav-item">
+                    <Link to="list-vtech-quotation" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">List Vtech Quotation</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="add-vtech-quotation" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Add Vtech Quotation</span>
+                    </Link>
+                  </li>
                 </ul>
               </li>
 
@@ -1757,12 +2099,39 @@ function AsideAdmin() {
               </li>
 
               <li className="aiz-side-nav-item">
+                <Link className="aiz-side-nav-link" to="" onClick={() => { setCalls(!calls) }}>
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Call Centre</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${calls ? "mm-show" : "extra"}`}>
+
+                  <li className="aiz-side-nav-item">
+                    <Link className="aiz-side-nav-link" to="call-centre-dashboard">
+                      <span className="aiz-side-nav-text">Call Centre Dashboard</span>
+                    </Link>
+                  </li>
+
+                  <li className="aiz-side-nav-item">
+                    <Link className="aiz-side-nav-link" to="add-new-calls">
+                      <span className="aiz-side-nav-text">Add New Calls</span>
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+
+              <li className="aiz-side-nav-item">
                 <Link to="#" className="aiz-side-nav-link" onClick={() => { setReportMaster(!reportMaster) }}>
                   <i className="las la-user-tie aiz-side-nav-icon" />
                   <span className="aiz-side-nav-text">CRM</span>
                   <span className="aiz-side-nav-arrow" />
                 </Link>
                 <ul className={`aiz-side-nav-list level-2 mm-collapse ${reportMaster ? "mm-show" : "extra"}`}>
+                  <li className="aiz-side-nav-item">
+                    <Link to="staffs-new" className="aiz-side-nav-link ">
+                      <span className="labour-charge-type">staffs-new</span>
+                    </Link>
+                  </li>
                   <li className="aiz-side-nav-item">
                     <Link to="#" className="aiz-side-nav-link ">
                       <span className="labour-charge-type">CRM Dashboard</span>
@@ -1926,7 +2295,84 @@ function AsideAdmin() {
                 </ul>
               </li>
 
+              <li className="aiz-side-nav-item">
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setSupports(!supports) }}>
+                  <i className="las la-shopping-cart aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Supports</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${supports ? "mm-show" : "extra"}`} id="product">
+                  <li className="aiz-side-nav-item">
+                    <Link to="add-ticket" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Add Ticket</span>
+                    </Link>
+                  </li>
 
+                  <li className="aiz-side-nav-item">
+                    <Link to="staff-ticket-list" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Staff Ticket List</span>
+                    </Link>
+                  </li>
+
+                </ul>
+              </li>
+
+
+              <li className="aiz-side-nav-item">
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setAssetMaster(!assetMaster) }}>
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Assets Management</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${assetMaster ? "mm-show" : "extra"}`}>
+                  <li className="aiz-side-nav-item">
+                    <Link to="my-assets" className="aiz-side-nav-link ">
+                      <span className="labour-charge-type">My Assets </span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="add-assets-request" className="aiz-side-nav-link ">
+                      <span className="labour-charge-type">Add Assets Request</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="my-assets-request-list" className="aiz-side-nav-link ">
+                      <span className="labour-charge-type">My Assets Request List</span>
+                    </Link>
+                  </li>
+                  {/* <li className="aiz-side-nav-item">
+                    <Link to="/admin/assets-dashboard/newasset-category" className="aiz-side-nav-link ">
+                      <span className="labour-charge-type">Add New Asset </span>
+                    </Link>
+                  </li> */}
+
+                  {/* <li className="aiz-side-nav-item">
+                    <Link to="asset-category" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text"> Asset Categories List </span>
+                    </Link>
+                  </li> */}
+                  {/* <li className="aiz-side-nav-item">
+                    <Link to="asset-sub-category" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text"> Asset Sub Categories  </span>
+                    </Link>
+                  </li> */}
+                  {/* <li className="aiz-side-nav-item">
+                    <Link to="asset-comments" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Asset Comments  </span>
+                    </Link>
+                  </li> */}
+                  {/* <li className="aiz-side-nav-item">
+                    <Link to="asset-status" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Asset Status  </span>
+                    </Link>
+                  </li> */}
+                  {/* <li className="aiz-side-nav-item">
+                    <Link to="#" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Store Bin</span>
+                    </Link>
+                  </li> */}
+                </ul>
+              </li>
 
 
               {/* 

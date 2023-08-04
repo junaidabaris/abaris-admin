@@ -63,11 +63,12 @@ const AssetRequest = () => {
                                         </i>
                                     </button>
 
-                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/asset-category-type-view">
-                                        {/* <i className="las la-eye">
-                                </i> */}
+                                    {/* <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/asset-category-type-view">
+                                       
                                         <GrView />
-                                    </Link>
+                                    </Link> */}
+                                    {/* <i className="las la-eye">
+                                </i> */}
                                 </td>
 
 
@@ -91,11 +92,12 @@ const AssetRequest = () => {
                                         </i>
                                     </button>
 
-                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/asset-category-type-view">
-                                        {/* <i className="las la-eye">
-                                </i> */}
+                                    {/* <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/asset-category-type-view">
+                                       
                                         <GrView />
-                                    </Link>
+                                    </Link> */}
+                                    {/* <i className="las la-eye">
+                                </i> */}
                                 </td>
 
 
@@ -119,11 +121,12 @@ const AssetRequest = () => {
                                         </i>
                                     </button>
 
-                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/asset-category-type-view">
-                                        {/* <i className="las la-eye">
-                                </i> */}
+                                    {/* <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/asset-category-type-view">
+                                       
                                         <GrView />
-                                    </Link>
+                                    </Link> */}
+                                    {/* <i className="las la-eye">
+                                </i> */}
                                 </td>
 
 
@@ -147,11 +150,12 @@ const AssetRequest = () => {
                                         </i>
                                     </button>
 
-                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/asset-category-type-view">
-                                        {/* <i className="las la-eye">
-                                </i> */}
+                                    {/* <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="/admin/asset-category-type-view">
+                                       
                                         <GrView />
-                                    </Link>
+                                    </Link> */}
+                                    {/* <i className="las la-eye">
+                                </i> */}
                                 </td>
                             </tr>
 

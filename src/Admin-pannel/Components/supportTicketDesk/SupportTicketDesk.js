@@ -53,7 +53,8 @@ function SupportTicketDesk() {
                                                 <td style={{ display: 'table-cell' }}>{item.subject}</td>
                                                 <td style={{ display: 'table-cell' }}>Abaris Seller</td>
                                                 <td style={{ display: 'table-cell' }}>
-                                                    <span className="badge badge-inline badge-danger">{item.status}</span>
+                                                    {/* <span className="badge badge-inline badge-danger">{item.status}</span> */}
+                                                    <span class="badge badge-inline badge-danger" style={{ color: "black", fontSize: '14px', fontWeight: 'bold', backgroundColor: item?.status === "Solved" ? "green" : item?.status === 'Pending' || 'pending' ? 'yellow' : "red" }}>{item?.status}</span>
                                                 </td>
                                                 <td style={{ display: 'table-cell' }}>
                                                     2023-02-08 13:26:43

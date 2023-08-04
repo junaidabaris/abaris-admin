@@ -5,7 +5,7 @@ import { useReactToPrint } from 'react-to-print';
 // import Button from 'react-bootstrap/Button';
 // import Modal from 'react-bootstrap/Modal';
 
-function Bill({ showCombo, totalPosProductsPrice }) {
+function Bill({ showCombo, totalPosProductsPrice, bringedDiscountVal, bringedOrderTaxVal, viewCustomerD }) {
 
     // const [smShow, setSmShow] = useState(false);
 
@@ -23,9 +23,9 @@ function Bill({ showCombo, totalPosProductsPrice }) {
         <>
             <td className='bg-deepblue'>
                 <div style={{ display: 'none' }}>
-                    <ComponentToPrint showCombo={showCombo} totalPosProductsPrice={totalPosProductsPrice} ref={componentRef} />
+                    <ComponentToPrint showCombo={showCombo} totalPosProductsPrice={totalPosProductsPrice} bringedOrderTaxVal={bringedOrderTaxVal} bringedDiscountVal={bringedDiscountVal} viewCustomerD={viewCustomerD} ref={componentRef} />
                 </div>
-                <button >Bill</button>
+                <button>Bill</button>
                 {/* onClick={handlePrint} */}
             </td>
 

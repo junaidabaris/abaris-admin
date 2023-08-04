@@ -11,7 +11,6 @@ function ViewComp({ viewCustomerD }) {
     const handleShowSec = () => setShowSec(true);
 
     const { isLoading, data: CustomerDetailData } = useGetPOSUserDetailIdQuery(viewCustomerD && viewCustomerD[0]?._id);
-    console.log('-----CustomerDetailData', CustomerDetailData);
 
     return (
         <>

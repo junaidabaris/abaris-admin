@@ -54,7 +54,8 @@ function OrderTax({ bringOrderTaxInpVal, showCombo, SaveData }) {
                     </Modal.Footer>
                 </Modal>
             </td>
-            <td>{showCombo?.order_tax}</td>
+            {/* <td>{showCombo?.order_tax}</td> */}
+            <td>{inputVal?.order_tax} %</td>
         </>
     )
 }

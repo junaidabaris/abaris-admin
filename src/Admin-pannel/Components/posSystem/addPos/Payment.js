@@ -3,28 +3,81 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { useAddPosPaymentMutation } from '../../all-products/allproductsApi/allProductsApi';
+import { toast, ToastContainer } from 'react-toastify';
 
-function Payment({ showCombo, totalPosProductsPrice, bringedDiscountVal, bringedOrderTaxVal, totalPosProductsItem }) {
+function Payment({ showCombo, totalPosProductsPrice, bringedDiscountVal, bringedOrderTaxVal, totalPosProductsItem, viewCustomerD }) {
+    const customerId = viewCustomerD && viewCustomerD[0]?._id
+    const calculatedOrderTaxAmount = totalPosProductsPrice * bringedOrderTaxVal?.order_tax / 100;
+    let amountVal = totalPosProductsPrice - bringedDiscountVal?.discount + calculatedOrderTaxAmount;
+    let discountVall = bringedDiscountVal && bringedDiscountVal.discount;
+    let orderTaxVall = bringedOrderTaxVal && bringedOrderTaxVal.order_tax;
+    console.log('viewCustomerDisccc------id--', discountVall)
+    console.log('viewCustomerorrr------id--', orderTaxVall)
 
     const [smShow, setSmShow] = useState(false);
-    const calculatedOrderTaxAmount = totalPosProductsPrice * bringedOrderTaxVal?.order_tax / '100';
+    const [state, setState] = useState({ cash: true, giftCard: false, creditCard: false, cheque: false });
+    const [inputVal, setInputVal] = useState({ biller: '', sale_note: '', staff_note: '', amount: amountVal, paying_by: '', cheque_no: '', payment_note: '', discount_type: null, order_tax: null })
 
-    const [state, setState] = useState({ cash: true, giftCard: false, creditCard: false, cheque: false })
 
     const changeHandle = (e) => {
-        console.log(e.target.value);
-        const clone = { cash: false, giftCard: false, creditCard: false, cheque: false }
-        clone[e.target.value] = true
-        setState(clone)
-    }
+        // console.log(e.target.value);
+        // const clone = { cash: false, giftCard: false, creditCard: false, cheque: false }
+        // clone[e.target.value] = true
+        // setState(clone);
+
+        const inpName = e.target.name;
+        const inpVal = e.target.value;
+        const clonedInpVal = { ...inputVal };
+        clonedInpVal[inpName] = inpVal;
+        setInputVal(clonedInpVal);
+    };
+
     const [payData, setPayData] = useState(null)
+
     const getPaymentData = async () => {
         const res = await axios.get('https://onlineparttimejobs.in/api/africanConfig/available')
         setPayData(res.data)
     }
     useEffect(() => {
         getPaymentData()
-    }, [])
+    }, []);
+
+    const [addPayment, response] = useAddPosPaymentMutation()
+
+    const submitPayment = () => {
+        console.log('inputVal-----', inputVal)
+        const finalAddPymentClone = { ...inputVal, discount_type: discountVall, order_tax: orderTaxVall, products: showCombo?.cart?.products }
+        addPayment(finalAddPymentClone)
+        setSmShow(false)
+    };
+
+
+    const toastSuccessMessage = () => {
+        toast.success("Paymnet Successfull", {
+            position: "top-center"
+        })
+    };
+    const toastErrorMessage = () => {
+        toast.error("Paymnet not Successfull", {
+            position: "top-center"
+        })
+    };
+
+    useEffect(() => {
+        if (response.isSuccess === true) {
+            toastSuccessMessage()
+        }
+    }, [response]);
+
+    useEffect(() => {
+        if (response.isError === true) {
+            toastErrorMessage()
+        }
+    }, [response])
+
+
+
     return (
         <>
             <td rowSpan="2" className='bg-green' onClick={() => setSmShow(true)}>
@@ -46,43 +99,44 @@ function Payment({ showCombo, totalPosProductsPrice, bringedDiscountVal, bringed
                     <h6>Biller</h6>
                     <form className='row'>
                         <div className='col-lg-12 mb-3'>
-                            <select className="form-select" aria-label="Default select example">
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                            <select className="form-select" name="biller" aria-label="Default select example" onChange={changeHandle}>
+                                <option value="ETG">ETG</option>
+                                <option value="ETG">ETG</option>
+                                {/* <option value="2">Two</option>
+                                <option value="3">Three</option> */}
                             </select>
                         </div>
 
                         <div className='col-lg-6'>
-                            <textarea rows={'3'} placeholder='Sale Note' className='form-control' />
+                            <textarea rows={'3'} placeholder='Sale Note' name='sale_note' className='form-control' onChange={changeHandle} />
                         </div>
                         <div className='col-lg-6'>
-                            <textarea rows={'3'} placeholder='staff Note' className='form-control' />
+                            <textarea rows={'3'} placeholder='staff Note' name='staff_note' className='form-control' onChange={changeHandle} />
                         </div>
                         <div className='row amount-sec'>
                             <div className='col-lg-6'>
                                 <label className='fw-bold'>Amount</label>
                                 <input className='form-control' type='text' value={totalPosProductsPrice - bringedDiscountVal?.discount + calculatedOrderTaxAmount} />
+                                {/* <input className='form-control' type='text' value={calculatedFinalTotalPayableAmount} /> */}
                             </div>
                             <div className='col-lg-6'>
                                 <label className='fw-bold'>Paying by</label>
-                                <select className="form-select" onChange={changeHandle} aria-label="Default select example">
+                                <select className="form-select" name='paying_by' onChange={changeHandle} aria-label="Default select example">
                                     <option value="cash">Cash</option>
-                                    <option value="giftCard">Gift Card</option>
-                                    <option value="creditCard">Credit Card</option>
-                                    <option value="cheque">Cheque</option>
+                                    {/* <option value="giftCard">Gift Card</option> */}
+                                    {/* <option value="creditCard">Credit Card</option> */}
+                                    {/* <option value="cheque">Cheque</option> */}
                                     <option value="cash">Other</option>
                                     <option value="cash">Deposit</option>
                                 </select>
                             </div>
 
-                            {state.giftCard && <div className='col-lg-12'>
+                            {/* {state.giftCard && <div className='col-lg-12'>
                                 <label className='fw-bold mt-3'>Gift Card Number</label>
-                                <input className='form-control'></input>
-                            </div>}
+                                <input className='form-control' name='gift_card_number'></input>
+                            </div>} */}
 
-
-                            {state.creditCard && <div>
+                            {/* {state.creditCard && <div>
                                 {payData && payData.map((item, i) => {
                                     return <div className="form-check">
                                         <input className="form-check-input" type="radio" name="flexRadioDefault" id={`flexRadioDefault1${i}`} />
@@ -123,16 +177,16 @@ function Payment({ showCombo, totalPosProductsPrice, bringedDiscountVal, bringed
                                         <input className='form-control' placeholder='Security Code'></input>
                                     </div>
                                 </div>
-                            </div>}
+                            </div>} */}
 
                             {state.cheque && <div className='col-lg-12'>
                                 <label className='fw-bold mt-3'>Cheque No</label>
-                                <input className='form-control'></input>
+                                <input className='form-control' name='cheque_no' onChange={changeHandle} />
                             </div>}
 
                             <div className='col-lg-12'>
                                 <label className='fw-bold mt-3'>Payment Note</label>
-                                <textarea className='form-control' rows={'2'}></textarea>
+                                <textarea className='form-control' name='payment_note' rows={'2'} onChange={changeHandle}></textarea>
                             </div>
 
                         </div>
@@ -159,12 +213,12 @@ function Payment({ showCombo, totalPosProductsPrice, bringedDiscountVal, bringed
 
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={() => setSmShow(false)}>
+                    <Button variant="primary" type='button' onClick={submitPayment}>
                         Submit
                     </Button>
                 </Modal.Footer>
             </Modal>
-
+            <ToastContainer />
         </>
     )
 }

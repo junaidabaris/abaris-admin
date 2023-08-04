@@ -4,11 +4,12 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { AiFillPlusSquare } from 'react-icons/ai';
 
-function TotalPayableComp({ totalPosProductsPrice, bringedDiscountVal, bringedOrderTaxVal,showCombo }) {
+function TotalPayableComp({ totalPosProductsPrice, bringedDiscountVal, bringedOrderTaxVal, showCombo }) {
 
     const [smShow3, setSmShow3] = useState(false);
 
-    const calculatedOrderTaxAmount = totalPosProductsPrice * bringedOrderTaxVal?.order_tax / '100';
+    const calculatedOrderTaxAmount = totalPosProductsPrice * bringedOrderTaxVal?.order_tax / 100;
+    const calculatedFinalTotalPayableAmount = totalPosProductsPrice + calculatedOrderTaxAmount - bringedDiscountVal.discount
     console.log('calculatedOrderTaxAmount---', calculatedOrderTaxAmount)
 
     return (
@@ -44,7 +45,8 @@ function TotalPayableComp({ totalPosProductsPrice, bringedDiscountVal, bringedOr
 
                 </div>
                 <div>
-                    {showCombo.grandTotal}
+                    {/* {showCombo.grandTotal} */}
+                    {calculatedFinalTotalPayableAmount ? calculatedFinalTotalPayableAmount : totalPosProductsPrice}
                 </div>
             </div>
 

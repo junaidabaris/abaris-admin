@@ -10490,29 +10490,59 @@ table tbody tr .show-table {
 .form-section {
   margin-bottom: 15px;
 }
+
 .btn-circle-2 {
   width: 40px !important;
   height: 40px !important;
   border-radius: 100% !important;
-}.icon-icon {
+}
+
+.icon-icon {
   font-size: 20px;
 }
-.table-3 td{
+
+.table-3 td {
   border: 1px solid #b2b4b5;
 }
+
 .seach-tab {
   width: 200px;
   float: right;
 }
+
 .down-head {
   display: flex;
   align-items: center;
 }
+
 .download-sec {
   display: flex;
   align-items: center;
 }
+
 .download-sec .down input {
   padding: 10px;
   margin-right: 10px !important;
+}
+
+.custo-info {
+  margin: 15px 0;
+}
+
+.custo-info p {
+  font-size: 25px;
+  color: black;
+  margin: 3px;
+}
+
+.custo-info p span {
+  margin-left: 6px;
+}
+
+.big-font thead th {
+  font-size: 20px;
+}
+
+.big-font tbody td {
+  font-size: 20px;
 }

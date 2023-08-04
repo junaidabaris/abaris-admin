@@ -10,23 +10,21 @@ import { base_Url_Assets } from '../../../../server';
 
 
 function AssetCategorey() {
-    const [get,setGet] = useState (null)
-    const [edit,setEdit] = useState (null)
-    // console.log(edit)
-    const getApiData = async() => {
+    const [get, setGet] = useState(null)
+    const getApiData = async () => {
         const res = await axios.get(`${base_Url_Assets}assetCategories`)
         // console.log(res)
         setGet(res.data)
     }
     useEffect(() => {
         getApiData()
-    },[])
-    const handleDelete = async(id) => {
+    }, [])
+    const handleDelete = async (id) => {
         const res = await axios.delete(`${base_Url_Assets}assetCategories/delete_assetCategoriess/${id}`)
         // console.log(res)
         getApiData()
     }
-    
+
     return (
         <>
             <div className="aiz-main-content">
@@ -68,38 +66,33 @@ function AssetCategorey() {
                                 </thead>
                                 <tbody>
                                     {get && get?.map((item) => {
-                                        return  <tr  key={item._id}>
-                                        <td scope="row">{item?._id}</td>
-                                        <td>{item?.name}</td>
-                                        <td>{item?.description}</td>
-                                        <td>{item?.createdAt}</td>
-                                        <td>
-                                            <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to={`edit/${item?._id}`}>
-                                                {/* <i className="las la-eye">
+                                        return <tr key={item._id}>
+                                            <td scope="row">{item?._id}</td>
+                                            <td>{item?.name}</td>
+                                            <td>{item?.description}</td>
+                                            <td>{item?.createdAt}</td>
+                                            <td>
+                                                <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to={`edit/${item?._id}`}>
+                                                    {/* <i className="las la-eye">
                                                 </i> */}
-                                                
-                                                <AiFillEdit className="icon-icon" />
-                                            </Link>
-                                            <button type="button" onClick={() => handleDelete(item._id)}  className="btn btn-soft-danger btn-icon btn-circle btn-sm btn-circle-2" title="delete" fdprocessedid="yghhlt">
-                                                <i className="las la-trash icon-icon">
-                                                </i>
-                                            </button>
 
-                                            <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to={`/admin/asset-category-type-view/details/${item?._id}`}>
-                                                {/* <i className="las la-eye">
+                                                    <AiFillEdit className="icon-icon" />
+                                                </Link>
+                                                <button type="button" onClick={() => handleDelete(item._id)} className="btn btn-soft-danger btn-icon btn-circle btn-sm btn-circle-2" title="delete" fdprocessedid="yghhlt">
+                                                    <i className="las la-trash icon-icon">
+                                                    </i>
+                                                </button>
+
+                                                <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to={`/admin/asset-category-type-view/details/${item?._id}`}>
+                                                    {/* <i className="las la-eye">
                                                 </i> */}
-                                                <GrView />
-                                            </Link>
-                                        </td>
-
-
-                                    </tr>
+                                                    <GrView />
+                                                </Link>
+                                            </td>
+                                        </tr>
                                     })}
-                                   
                                 </tbody>
                             </table>
-
-
                             <div className="aiz-pagination">
                             </div>
                         </div>

@@ -296,7 +296,7 @@ import AssetRequest from "./Admin-pannel/Components/requestModule/assetrequest/A
 import AssetIssue from "./Admin-pannel/Components/requestModule/assetIssue/AssetIssue";
 import AllCustomerPage from "./Admin-pannel/Pages/allCustomer";
 import Shift from "./Admin-pannel/Components/crmNew/components/shift/Shift";
-import EditWholsaleProducts from "./Admin-pannel/Pages/editWholsaleProducts";
+// import EditWholsaleProducts from "./Admin-pannel/Pages/editWholsaleProducts";
 import AddCustomer from "./Admin-pannel/Components/customerList/AddCustomer";
 import EditComboProducts from "./Admin-pannel/Pages/addComboProduct/EditComboProducts";
 // import NewDashboardCard from "./Admin-pannel/Components/crmNew/components/Card/Dashboard/NewDashboardCard";
@@ -322,6 +322,113 @@ import EditComboProducts from "./Admin-pannel/Pages/addComboProduct/EditComboPro
 // import Department from "./Admin-pannel/Components/manageDepartmentmaster/department/Department";
 // import SubDepartMent from "./Admin-pannel/Components/manageDepartmentmaster/subDepartment/SubDepartMent";
 // import Desigination from "./Admin-pannel/Components/manageDepartmentmaster/desgination/Desigination";
+
+// {Shoaib and Mustafa Imports start}
+
+// import ReportAssetStatus from "./Admin-pannel/Components/assetReport/aseetStatus/AssetStatus";
+// import ReportAllocation from "./Admin-pannel/Components/assetReport/assetAllocations/AssetAllocation";
+import AssetsAddComment from "./Admin-pannel/Components/assetCategoriesMaster/assetComment/assetsAddComment/AssetsAddComment";
+import AssetsList from "./Admin-pannel/Components/assetCategoriesMaster/addAssetCategories/assetsList/AssetsList";
+import DetailsAssets from "./Admin-pannel/Components/assetCategoriesMaster/addAssetCategories/detailsAssets/DetailsAssets";
+import EditAssets from "./Admin-pannel/Components/assetCategoriesMaster/addAssetCategories/editAssets/EditAssets";
+import Allocate from "./Admin-pannel/Components/assetCategoriesMaster/addAssetCategories/allocate/Allocate";
+
+import AddAssetsStatus from "./Admin-pannel/Components/assetCategoriesMaster/assetStatus/addAssetsStatus/AddAssetsStatus";
+import EditAssetsStatus from "./Admin-pannel/Components/assetCategoriesMaster/assetStatus/editAssetsStatus/EditAssetsStaus";
+import DetailsAssetsStatus from "./Admin-pannel/Components/assetCategoriesMaster/assetStatus/detailsAssetsStatus/DetailsAssetsStatus";
+
+// import EditDepartment from "./Admin-pannel/Components/manageDepartmentmaster/department/editDepartment/EditDepartment";
+import EditDepartment from "./Admin-pannel/Components/manageDepartmentmaster/department/editDepartment/EditDepartment"
+import AddSubDepartment from "./Admin-pannel/Components/manageDepartmentmaster/subDepartment/addSubDepaetment/AddSubDepartment";
+import EditSubDepartment from "./Admin-pannel/Components/manageDepartmentmaster/subDepartment/editSubDepartment/EditSubDepartment";
+import DetailsSubDepartment from "./Admin-pannel/Components/manageDepartmentmaster/subDepartment/detailsSubDepartment/DetailsSubDepartment";
+
+import AddDesigination from "./Admin-pannel/Components/manageDepartmentmaster/desgination/addDesgination/AddDesgination";
+import EditDesgination from "./Admin-pannel/Components/manageDepartmentmaster/desgination/editDesgination/EditDesgination";
+import DetailsDesgination from "./Admin-pannel/Components/manageDepartmentmaster/desgination/detailsDesgination/DetailsDesgination";
+import AssetsDashboardAdminComp from "./Admin-pannel/Components/assetsDashboard/AssetsDashboard";
+import AddTicket from "./Admin-pannel/Components/asideAdim/AddTicket";
+import ComplaintType from "./Admin-pannel/Components/ComplaintType";
+import ComplaintNature from "./Admin-pannel/Components/ComplaintNature";
+import StaffTicketList from "./Admin-pannel/Components/StaffTicketList";
+import EditStaffTicket from "./Admin-pannel/Components/EditStaffTicket";
+
+import ComplaintsDashboardPages from "./Admin-pannel/Pages/complaintsDashboardPages";
+import ComplaintDetail from "./Admin-pannel/Components/complaintsDashboard/complaintDashboardDetails/ComplaintDetail";
+
+// {Shoaib and Mustafa Imports end}
+
+// {Nizam import start}
+// import EtsyAccList from "./pages/etsyAccList";
+import EtsyAccList from "./Admin-pannel/Pages/etsyAccList/index";
+// import NewEtsyAccount from "./components/etsyAccountList/NewEtsyAccount/newEtsyAcc";
+import NewEtsyAccount from "./Admin-pannel/Components/etsyAccountList/NewEtsyAccount/newEtsyAcc";
+import GeneralSetting from "./Admin-pannel/Components/setting&Configuration/generalSetting/GeneralSetting";
+import EtsySettings from "./Admin-pannel/Components/etsyGeneralSettings/EtsySettings";
+import AmazonAccountListPage from "./Admin-pannel/Pages/amazonAccount-list";
+import AmazonAccountInformation from "./Admin-pannel/Components/amazon-account/amazonAccountList/amazonAccount-information/AmazonAccountInformation";
+import NewAmazonAccountPage from "./Admin-pannel/Pages/newAmazon-account";
+import AddAmazonAccount from "./Admin-pannel/Components/amazon-account/amazonAccountList/addAmazonAccount/AddAmazonAccount";
+import NewAmazonAcInfo from "./Admin-pannel/Components/amazon-account/new-amazon-account/new-amazon-acInfo/NewAmazonAcInfo";
+import NewAmazonAcEdit from "./Admin-pannel/Components/amazon-account/new-amazon-account/new-amazon-acEdit/NewAmazonAcEdit";
+import PricingRulesPage from "./Admin-pannel/Pages/pricingRules";
+import AddPricingRules from "./Admin-pannel/Components/amazon-account/pricingRules/add-pricing-rule/AddPricingRule";
+import EditPricingRule from "./Admin-pannel/Components/amazon-account/pricingRules/edit-pricing-rule/EditPricingRule";
+import CategoryMapPage from "./Admin-pannel/Pages/categoryMap";
+import CreateMap from "./Admin-pannel/Components/amazon-account/categoryMap/createMap/CreateMap";
+
+// import DeliverySettings from "./Admin-pannel/pages/deliveryTimeSettings";
+import DeliverySettings from "./Admin-pannel/Pages/deliveryTimeSettings";
+import MarketPlacePre from "./Admin-pannel/Pages/marketPlacePreOrder";
+import MarketTicket from "./Admin-pannel/Pages/marketTicket";
+import MarketplaceValidator from "./Admin-pannel/Pages/marketplaceValidater";
+import MyAssets from "./Admin-pannel/Components/myAssests/MyAssets";
+
+
+// {Nizam import end}
+// {Shhaz import start}
+
+// import Drop from "./pages/dropship";
+// import Drop from "./Admin-pannel/Pages/dropship";
+import DropshipOrders from "./Admin-pannel/Pages/dropshipOrder";
+import NewWarehouse from "./Admin-pannel/Components/dropship/newWarehouse/NewWarehouse";
+import ManageShoppingRules from "./Admin-pannel/Components/manageShoppingRule/ManageShoppingRule";
+import AddNewShoppingRule from "./Admin-pannel/Components/manageShoppingRule/addNewShoppingRule/AddNewShoppingRule";
+import ManageDropshipProductUpload from "./Admin-pannel/Components/manageDropshipProductUpload/ManageDropshipProductUpload";
+import RunDropshipProductProfile from "./Admin-pannel/Components/runDropshipProductProfile/RunDropshipProductProfile";
+import DropshipDataFlowProfile from "./Admin-pannel/Components/dropshipDataFlowProfile/DropshipDataFlowProfile";
+import Dropships from "./Admin-pannel/Pages/dropship";
+import AddAssestsRequest from "./Admin-pannel/Components/addAssestsRequest/AddAssestsRequest";
+import MyAssetsRequestList from "./Admin-pannel/Components/myAssestsRequestList/MyAssetsRequestList";
+import AssestsRequestList from "./Admin-pannel/Components/assestsRequestList/AssestsRequestList";
+import EditAssetsRequestList from "./Admin-pannel/Components/editAssetsRequestList/EditAssetsRequestList";
+import AddVtechQuotation from "./Admin-pannel/Components/vtechQuotation/AddVtechQuotation";
+import ListVtechQuotation from "./Admin-pannel/Components/vtechQuotation/ListVtechQuotation";
+import Addnewcalls from "./Admin-pannel/Pages/addNewcalls";
+import CallOverView from "./Admin-pannel/Pages/callOverView";
+import EditComplaintType from "./Admin-pannel/Components/EditComplaintType";
+import EditComplaintNature from "./Admin-pannel/Components/EditComplaintNature";
+import AddUser from "./Admin-pannel/Components/user/addUser";
+
+
+
+import "../src/assets2/styles/main.css";
+import "../src/assets2/styles/responsive.css";
+// {Shaaz import end}
+
+// {daud import start}
+// import AmazonAccountListPage from "./Admin-pannel/Pages/amazonAccount-list/index";
+// import AmazonAccountInformation from "./components/amazon-account/amazonAccountList/amazonAccount-information/AmazonAccountInformation";
+// import AddAmazonAccount from "./components/amazon-account/amazonAccountList/addAmazonAccount/AddAmazonAccount";
+// import NewAmazonAccountPage from "./pages/newAmazon-account";
+// import PricingRulesPage from "./pages/pricingRules";
+// import NewAmazonAcInfo from "./components/amazon-account/new-amazon-account/new-amazon-acInfo/NewAmazonAcInfo";
+// import NewAmazonAcEdit from "./components/amazon-account/new-amazon-account/new-amazon-acEdit/NewAmazonAcEdit";
+// import AddPricingRules from "./components/amazon-account/pricingRules/add-pricing-rule/AddPricingRule";
+// import EditPricingRule from "./components/amazon-account/pricingRules/edit-pricing-rule/EditPricingRule";
+// import CategoryMapPage from "./pages/categoryMap";
+// import CreateMap from "./components/amazon-account/categoryMap/createMap/CreateMap";
+// {daud import end}
 
 
 function App() {
@@ -414,7 +521,7 @@ function App() {
           <Route path="size/edit/:id" element={<EditSize />} />
           <Route path="wholesale-product/create" element={<AddNewWholesaleProductsPage />} />
           <Route path="wholesale/all-products" element={<AllWholsaleProductsPage />} />
-          <Route path="wholesale/all-products/edit/:id" element={<EditWholsaleProducts />} />
+          {/* <Route path="wholesale/all-products/edit/:id" element={<EditWholsaleProducts />} /> */}
           <Route path="all_orders" element={<AllOrdersPage />} />
 
           <Route path="seller/all_orders" element={<SellerAllOrder />} />
@@ -612,7 +719,9 @@ function App() {
 
 
           <Route path="list_quotation" element={<ListQuatation />} />
+          <Route path="list-vtech-quotation" element={<ListVtechQuotation />} />
           <Route path="add_quotation" element={<Add_quotation />} />
+          <Route path="add-vtech-quotation" element={<AddVtechQuotation />} />
 
           <Route path="add_member" element={<EtgAddMember />} />
           <Route path="list_members" element={<ListEtgMember />} />
@@ -649,7 +758,7 @@ function App() {
 
           {/* {shoaib code} */}
 
-          <Route path="add-newasset-category" element={<AddAssetCategories />} />
+          {/* <Route path="add-newasset-category" element={<AddAssetCategories />} />
           <Route path="asset-category" element={<AssetCategorey />} />
           <Route path="asset-category/edit/:id" element={<EditAssetCategory />} />
           <Route path="asset-category-type-view" element={<AssetCategoryDetails />} />
@@ -674,7 +783,133 @@ function App() {
           <Route path="asset-issue" element={<AssetIssue />} />
 
           <Route path="reports-status" element={<ReportAssetStatus />} />
+          <Route path="reports-allocations" element={<ReportAllocation />} /> */}
+
+          <Route path="/admin/assets-dashboard/newasset-category" element={<AssetsList />} />
+          <Route path="allocate/:id" element={<Allocate />} />
+          <Route path="asset/details/:id" element={<DetailsAssets />} />
+          <Route path="asset/edit/:id" element={<EditAssets />} />
+          <Route path="add-newasset-category" element={<AddAssetCategories />} />
+          <Route path="asset-category" element={<AssetCategorey />} />
+          <Route path="my-assets" element={<MyAssets />} />
+          <Route path="add-assets-request" element={<AddAssestsRequest />} />
+          <Route path="my-assets-request-list" element={<MyAssetsRequestList />} />
+          <Route path="assets-request-list" element={<AssestsRequestList />} />
+          <Route path="assets-request-list/edit/:id" element={<EditAssetsRequestList />} />
+          <Route path="asset-category-type-view/details/:id" element={<AssetCategoryDetails />} />
+          <Route path="add-asset-category" element={<AssetAddCategory />} />
+          <Route path="asset-category/edit/:id" element={<EditAssetCategory />} />
+          <Route path="asset-sub-category" element={<AssetSubCatecories />} />
+          <Route path="add-asset-sub-category" element={<AddSubCategories />} />
+          <Route path="asset-sub-category/edit/:id" element={<EditAssetsSubCategory />} />
+          <Route path="asset-sub-category-type-view/details/:id" element={<DetailsSubCategories />} />
+          <Route path="asset-comments" element={<AssetComments />} />
+          <Route path="add-asset-comments" element={<AssetsAddComment />} />
+          <Route path="asset-status" element={<AssetStatus />} />
+          <Route path="add-asset-status" element={<AddAssetsStatus />} />
+          <Route path="asset-status/edit/:id" element={<EditAssetsStatus />} />
+          <Route path="asset-status/details/:id" element={<DetailsAssetsStatus />} />
+          <Route path="department" element={<Department />} />
+          <Route path="add-department" element={<AddDepartment />} />
+          <Route path="view-department/details/:id" element={<DetailsDepartment />} />
+          <Route path="department/edit/:id" element={<EditDepartment />} />
+          <Route path="sub-department" element={<SubDepartMent />} />
+          <Route path="add-sub-department" element={<AddSubDepartment />} />
+          <Route path="sub-department/edit/:id" element={<EditSubDepartment />} />
+          <Route path="view-sub-department/details/:id" element={<DetailsSubDepartment />} />
+          <Route path="designation" element={<Desigination />} />
+          <Route path="add-designation" element={<AddDesigination />} />
+          <Route path="designation/edit/:id" element={<EditDesgination />} />
+          <Route path="designation/details/:id" element={<DetailsDesgination />} />
+          <Route path="list-delivery-challan" element={<DeliveryChalanReportPage />} />
+          <Route path="add-delivery-challan" element={<AddDeliveryChalanPage />} />
+          <Route path="reports-status" element={<ReportAssetStatus />} />
           <Route path="reports-allocations" element={<ReportAllocation />} />
+          <Route path="assets-dashboard" element={<AssetsDashboardAdminComp />} />
+          <Route path="add-ticket" element={<AddTicket />} />
+          <Route path="complaint-type" element={<ComplaintType />} />
+          <Route path="complaint-type/edit/:id" element={<EditComplaintType />} />
+          <Route path="complaint-nature" element={<ComplaintNature />} />
+          <Route path="complaint-nature/edit/:id" element={<EditComplaintNature />} />
+          <Route path="staff-ticket-list" element={<StaffTicketList />} />
+          <Route path="staff-ticket-list/edit/:id" element={<EditStaffTicket />} />
+          <Route path="employees-complaints-dashboard" element={<ComplaintsDashboardPages />} />
+          <Route path="view/complaints-detail/:id" element={<ComplaintDetail />} />
+
+
+          {/* {shoaib code} */}
+
+          {/* {Nizam Routes start} */}
+          <Route path="etsy-account-list" element={<EtsyAccList />} />
+          <Route path="new-etsy-account" element={<NewEtsyAccount />} />
+          <Route path="etsy-general-settings" element={<EtsySettings />} />
+
+          <Route path="delivery-time-settings" element={<DeliverySettings />} />
+          <Route path="marketplace-pre-order" element={<MarketPlacePre />} />
+          <Route path="marketplace-event-ticket" element={<MarketTicket />} />
+          <Route path="marketplace-validator" element={<MarketplaceValidator />} />
+
+          {/* {Nizam Routes end} */}
+
+          {/* {Shhaz Routes start} */}
+          <Route path="drop-ship" element={<Dropships />} />
+          < Route path="dropship-order" element={<DropshipOrders />} />
+          < Route path="new-warehouse" element={<NewWarehouse />} />
+          < Route path="manage-shopping-rules" element={<ManageShoppingRules />} />
+          <Route path="add-new-warehouse" element={<AddNewShoppingRule />} />
+          <Route path="manage-dropship-product-upload" element={<ManageDropshipProductUpload />} />
+          <Route path="run-dropship-product-profile" element={<RunDropshipProductProfile />} />
+          <Route path="dropship-dataflow-profile" element={<DropshipDataFlowProfile />} />
+          <Route path="add-new-calls" element={<Addnewcalls />} />
+          <Route path="asset-request" element={<AssetRequest />} />
+          <Route path="call-centre-dashboard" element={<CallOverView />} />
+
+          {/* {Shhaz Routes end} */}
+
+          {/* {daud route start} */}
+          <Route
+            path="amazon-account-info"
+            element={<AmazonAccountListPage />}
+          />
+          <Route
+            path="amazon-account-info/account-info"
+            element={<AmazonAccountInformation />}
+          />
+          <Route
+            path="amazon-account-info/add-amazon-account"
+            element={<AddAmazonAccount />}
+          />
+
+          <Route path="new-amazon-account" element={<NewAmazonAccountPage />} />
+          <Route
+            path="new-amazon-account/new-amazon-ac-Info"
+            element={<NewAmazonAcInfo />}
+          />
+          <Route
+            path="new-amazon-account/new-amazon-ac-edit"
+            element={<NewAmazonAcEdit />}
+          />
+
+          <Route path="pricing-rules" element={<PricingRulesPage />} />
+          <Route
+            path="pricing-rules/new-price-rule"
+            element={<AddPricingRules />}
+          />
+          <Route
+            path="pricing-rules/edit-price-rule"
+            element={<EditPricingRule />}
+          />
+
+          <Route path="category-map-export" element={<CategoryMapPage />} />
+          <Route
+            path="category-map-export/create-mapping"
+            element={<CreateMap />}
+          />
+          <Route
+            path="staffs-new"
+            element={<AddUser/>}
+          />
+          {/* {daud route end} */}
 
           {/* <Route path="crmDashboard" element={<NewDashboardCard />} />
           <Route path="crmContacts" element={<Contacts />} /> */}

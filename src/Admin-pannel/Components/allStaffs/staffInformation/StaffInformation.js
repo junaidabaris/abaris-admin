@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
-import { useAddStaffMutation, useGetRolesQuery } from "../../all-products/allproductsApi/allProductsApi";
+import { useAddStaffMutation, useGetRolesQuery, useGetTicketareaDQuery, useGetTicketBlockDQuery, useGetTicketBuildingDQuery, useGetTicketFloorDQuery, useGetTicketOfficeRoomDQuery, useGetTicketWardDQuery } from "../../all-products/allproductsApi/allProductsApi";
 
 function StaffInformation() {
 
@@ -12,8 +12,22 @@ function StaffInformation() {
     mobile: '',
     password: '',
     role_id: '63fb963aba4c5193700943b0',
+    building_id: '',
+    block_id: '',
+    floor_id: "",
+    ward_id: "",
+    officeRoom_id: "",
+    area_id: '',
+
   });
   const params = useParams();
+
+  const { data: buildingD } = useGetTicketBuildingDQuery();
+  const { data: blockD } = useGetTicketBlockDQuery();
+  const { data: floorD } = useGetTicketFloorDQuery();
+  const { data: wardD } = useGetTicketWardDQuery();
+  const { data: roomD } = useGetTicketOfficeRoomDQuery();
+  const { data: areaD } = useGetTicketareaDQuery();
 
   const onChangeHandler = (e) => {
     const inpName = e.target.name;
@@ -114,6 +128,68 @@ function StaffInformation() {
                       </div>
                     </div>
 
+                    <div className="form-group row">
+                      <label className="col-sm-3 col-from-label">Building</label>
+                      <div className="col-sm-9">
+                        <select className="form-select" value={inputVal?.building_id} name='building_id' aria-label="Default select example" onChange={onChangeHandler}>
+                          {buildingD && buildingD.map((item, i) => {
+                            return <option value={item._id} key={i}>{item.name}</option>
+                          })}
+
+                        </select>
+                      </div>
+                    </div>
+                    <div className="form-group row">
+                      <label className="col-sm-3 col-from-label">Block</label>
+                      <div className="col-sm-9">
+                        <select className="form-select" name='block_id' value={inputVal?.block_id} aria-label="Default select example" onChange={onChangeHandler}>
+                          {blockD && blockD.map((item, i) => {
+                            return <option value={item._id} key={i}>{item.name}</option>
+                          })}
+
+                        </select>
+                      </div>
+                    </div>
+                    <div className="form-group row">
+                      <label className="col-sm-3 col-from-label">Office Room</label>
+                      <div className="col-sm-9">
+                        <select className="form-select" value={inputVal?.officeRoom_id} name='officeRoom_id' aria-label="Default select example" onChange={onChangeHandler}>
+                          {roomD && roomD.map((item, i) => {
+                            return <option value={item._id} key={i}>{item.name}</option>
+                          })}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="form-group row">
+                      <label className="col-sm-3 col-from-label">Ward</label>
+                      <div className="col-sm-9">
+                        <select className="form-select" value={inputVal?.ward_id} name='ward_id' aria-label="Default select example" onChange={onChangeHandler}>
+                          {wardD && wardD.map((item, i) => {
+                            return <option value={item._id} key={i}>{item.name}</option>
+                          })}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="form-group row">
+                      <label className="col-sm-3 col-from-label">Area</label>
+                      <div className="col-sm-9">
+                        <select className="form-select" value={inputVal?.area_id} name='area_id' aria-label="Default select example" onChange={onChangeHandler}>
+                          {areaD && areaD.map((item, i) => {
+                            return <option value={item._id} key={i}>{item.name}</option>
+                          })}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="form-group row">
+                      <label className="col-sm-3 col-from-label">Floor</label>
+                      <div className="col-sm-9">
+                        <select className="form-select" value={inputVal?.floor_id} name='floor_id' aria-label="Default select example" onChange={onChangeHandler}>
+                          {floorD && floorD.map((item, i) => {
+                            return <option value={item._id} key={i}>{item.name}</option>
+                          })}
+                        </select>
+                      </div>
+                    </div>
 
                     <div className="form-group mb-0 text-right">
                       <button type="submit" className="btn btn-sm btn-primary">Save</button>

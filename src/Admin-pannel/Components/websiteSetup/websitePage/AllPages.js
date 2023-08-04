@@ -34,12 +34,13 @@ function AllPages() {
                         <tbody>
 
                             {data && data.map((item, i) => {
+                                console.log('itemog web pages--', item)
                                 return <tr key={item._id}>
                                     <td className="footable-first-visible" style={{ display: 'table-cell' }}>{i + 1}</td>
                                     <td style={{ display: 'table-cell' }}>
                                         <Link to="#" className="text-reset">{item.title}</Link>
                                     </td>
-                                    <td style={{ display: 'table-cell' }}>https://mmslfashions.in</td>
+                                    <td style={{ display: 'table-cell' }}></td>
                                     <td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
                                         <a className="btn btn-soft-success btn-icon btn-circle btn-sm" href="#" target="_blank" title="View"><i className="las la-eye"></i></a>
 

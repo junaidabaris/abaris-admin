@@ -11,7 +11,7 @@ function AssetSubCatecories() {
     },[])
     const getApiData = async () => {
         const res = await axios.get(`${base_Url_Assets}assetSubCategories`)
-        console.log(res)
+        // console.log(res)
         setData(res.data)
     }
     const handleDelete = async(id) => {

@@ -702,6 +702,17 @@ export const productsApi = createApi({
             }),
         }),
 
+        updateSupportTicketDetail: builder.mutation({
+            query: (payload) => ({
+                url: `ticketList/add_Tickets`,
+                method: 'POST',
+                body: payload,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
+
         editAllBlogsPost: builder.mutation({
             query: (payload) => ({
                 url: `blogs/update_Blogs/${payload.id}`,
@@ -1348,6 +1359,13 @@ export const productsApi = createApi({
                 method: 'GET'
             })
         }),
+
+        // getProductSearch: builder.query({
+        //     query: (paylode) => ({
+        //         url: `/${paylode}`,
+        //         method: 'GET'
+        //     })
+        // }),
 
 
 
@@ -2340,8 +2358,190 @@ export const productsApi = createApi({
             }),
         }),
 
+        addPosPayment: builder.mutation({
+            query: (data) => ({
+                url: `pos/order`,
+                method: 'POST',
+                body: data
+            }),
+            invalidatesTags: ['Pos']
+        }),
+        getTicketBuildingD: builder.query({
+            query: () => ({
+                url: 'building/public',
+                method: 'GET',
+            }),
+        }),
+        getTicketBlockD: builder.query({
+            query: () => ({
+                url: 'block/public',
+                method: 'GET',
+            }),
+        }),
+        getTicketFloorD: builder.query({
+            query: () => ({
+                url: 'floor/public',
+                method: 'GET',
+            }),
+        }),
+        getTicketWardD: builder.query({
+            query: () => ({
+                url: 'ward/public',
+                method: 'GET',
+            }),
+        }),
+        getTicketOfficeRoomD: builder.query({
+            query: () => ({
+                url: 'office/public',
+                method: 'GET',
+            }),
+        }),
+        getTicketareaD: builder.query({
+            query: () => ({
+                url: 'area/public',
+                method: 'GET',
+            }),
+        }),
+        getTicketCompaintTypeD: builder.query({
+            query: () => ({
+                url: 'complaintType/public',
+                method: 'GET',
+            }),
+        }),
+        getTicketCompaintNatureD: builder.query({
+            query: () => ({
+                url: 'complaintNature/public',
+                method: 'GET',
+            }),
+        }),
+        getTicketAssignToD: builder.query({
+            query: () => ({
+                url: 'staff',
+                method: 'GET',
+            }),
+        }),
+        addSupportTicketD: builder.mutation({
+            query: (data) => ({
+                url: `ticket_ccm/add_Tickets`,
+                method: 'POST',
+                body: data
+            }),
+            invalidatesTags: ['Pos']
+        }),
+        getTicketListingD: builder.query({
+            query: (tokenn) => ({
+                url: 'ticket_ccm',
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                    'Authorization': 'Bearer ' + tokenn
+                },
+            }),
 
+        }),
+        getTicketListingFilledD: builder.query({
+            query: () => ({
+                url: 'ticket_ccm/generateToken',
+                method: 'GET',
+            }),
+        }),
+        getTicketRoleD: builder.query({
+            query: () => ({
+                url: 'roles',
+                method: 'GET',
+            }),
+        }),
+        getModalAssignToData: builder.query({
+            query: (id) => ({
+                url: `staff/role/${id}`,
+                method: 'GET',
+            }),
+        }),
+        getTicketMessageData: builder.query({
+            query: (id) => ({
+                url: `ccm_ticketReply/ticket/${id}`,
+                method: 'GET',
+            }),
+        }),
+        getTicketDataById: builder.query({
+            query: (id) => ({
+                url: `ticket_ccm/${id}`,
+                method: 'GET',
+            }),
+        }),
+        getTicketStatus: builder.query({
+            query: () => ({
+                url: 'ticketstatusmaster',
+                method: 'GET',
+            }),
+        }),
+
+        updateTicketDaata: builder.mutation({
+            query: (payload) => ({
+                url: `ticket_ccm/update_Tickets/${payload.id}`,
+                method: 'PUT',
+                body: payload,
+            }),
+        }),
+
+        getTComplaintType: builder.query({
+            query: () => ({
+                url: 'complainttype',
+                method: 'GET',
+            }),
+        }),
+
+        deleteComplaintType: builder.mutation({
+            query: (id) => ({
+                url: `complainttype/delete_ComplaintType/${id}`,
+                method: 'DELETE',
+            }),
+        }),
+
+        addComplaintType: builder.mutation({
+            query: (data) => ({
+                url: `complainttype/add_ComplaintType`,
+                method: 'POST',
+                body: data
+            }),
+        }),
+        getTComplaintTypeById: builder.query({
+            query: (id) => ({
+                url: `complainttype/${id}`,
+                method: 'GET',
+            }),
+        }),
+
+
+
+        getTComplaintNature: builder.query({
+            query: () => ({
+                url: 'complaintNature',
+                method: 'GET',
+            }),
+        }),
+
+        deleteComplaintNature: builder.mutation({
+            query: (id) => ({
+                url: `complaintNature/delete_ComplainNature/${id}`,
+                method: 'DELETE',
+            }),
+        }),
+
+        addComplaintNature: builder.mutation({
+            query: (data) => ({
+                url: `complaintNature/add_ComplainNature`,
+                method: 'POST',
+                body: data
+            }),
+        }),
+        getTComplaintNatureById: builder.query({
+            query: (id) => ({
+                url: `complaintNature/${id}`,
+                method: 'GET',
+            }),
+        }),
     })
 })
 
-export const { useDeleteRowPurchaseMutation, useDeleteCartRowMutation, useUpdatePopupsMutation, usePostPopupMutation, useCustomerActiveMutation, useBrandActiveMutation, useCatagaryActiveMutation, useProductActiveMutation, useSellerActiveMutation, useGetReqListQuery, useUpdateBrandReqMutation, useUpdateDeleveryMutation, useDeleteDeleveryMutation, useDeletePaymentMutation, useAddDeleveryMutation, useAddTransactionMutation, useAddComboProductsMutation, useUpdateListProductsMutation, useAddPurchaseListMutation, useGetPurchaseListsQuery, useAddPurchaseCartMutation, useGetProductSearchQuery, useAddSellerProductNewMutation, useUpdateSellerMutation, useDeleteSellerProductMutation, useOwnSellerProductQuery, useGetUnitMasterQuery, useSellerLoginMutation, useGetPickupOrderDataMutation, useGetstaffDetailQuery, useLoginStaffsMutation, useGetOrdersByPickupsQuery, useForm_variatioMutation, useGetOrderByStatusQuery, useGetAllStatusOrdersQuery, useGetAllProductsQuery, useGetCategoriesQuery, useGetBrandsQuery, useGetSizesQuery, useAddNewSizeMutation, useAddNewBrandMutation, useAddNewCategoryMutation, useAddNewProductMutation, useGetBannerQuery, useDeleteProductMutation, useDeleteSizeMutation, useDeleteBrandMutation, useDeleteCategoryMutation, useGetPlaceByIdQuery, useGetPickupPointQuery, useGetCustomersQuery, useGetSellersQuery, useGetTicketListsQuery, useGetLanguagesQuery, useAddPickUpPointMutation, useGetPagesQuery, useDeleteCustomerMutation, useGetCurrencyQuery, useGetOrdersQuery, useAddNewCurrencyMutation, useGetCouponsQuery, useDeleteCurrencyMutation, useDeleteLanguageMutation, useDeleteSupportTicketMutation, useDeleteCouponMutation, useAddNewLanguageMutation, useAddNewCouponMutation, useEditCurrencyMutation, useGetCurrencyByIdQuery, useGetCouponByIdQuery, useEditCouponMutation, useGetSellerProductQuery, useAddPaymentGetMutation, useGetOrderDetailQuery, useAddOrderConfigsMutation, useAddPagesMutation, useDeletePageListMutation, useEditPageListMutation, useGetLanguageByIdQuery, useEditLanguageMutation, useGetBrandByIdQuery, useEditBrandMutation, useGetBlogsQuery, useDeleteBlogsMutation, useDeleteAttributesMutation, useEditSupportTicketMutation, useGetSupportTicketByIdQuery, useGetAttributesQuery, useAddNewBlogsMutation, useGetBlogPostByIdQuery, useEditAllBlogsPostMutation, useGetCustomerByIdQuery, useEditCustomerMutation, useAddNewAttributeMutation, useGetAttributeByIdQuery, useEditAttributeMutation, useAddGeneralSettingMutation, useDeleteSellerBannerMutation, useGetBlogsCategoryQuery, useDeleteBlogCategoryMutation, useAddBlogCategoryMutation, useGetBlogCategoryByIdQuery, useEditBlogCategoryMutation, useDeleteOrderMutation, useGetSellerBannerByIdQuery, useEditSellerBannerMutation, useAddOrderConfigurationMutation, useGetCustomerShippingAdressByIdQuery, useGetColorsQuery, useDeleteColorMutation, useAddColorMutation, useGetColorByIdQuery, useEditColorMutation, useGetFlashDealsQuery, useDeleteFlashDealMutation, useAddFlasDealMutation, useGetFlashDealByIdQuery, useEditFlashDealMutation, useGetProductByIdQuery, useEditProductMutation, useDeleteSellerListMutation, useAddSellerListMutation, useEditSellerListMutation, useGetSellerDetailQuery, useGetSmsTemplateQuery, useAddSmsListMutation, useEditSmsListMutation, useSmsDeleteMutation, useDeletePickupPointMutation, useGetPickupPointByIdQuery, useEditPickupPointMutation, useAddStaffMutation, useGetAllStaffsQuery, useDeleteStaffMutation, useGetRolesQuery, useDeleteRoleMutation, useGetStaffByIdQuery, useEditStaffDataMutation, useAddRoleMutation, useGetRoleByIdQuery, useEditRoleDataMutation, useAddFileSystemMutation, useAddShareRewardMutation, useAddLikeRewardMutation, useAddBulkImportFileMutation, useGetOrderStartByIdQuery, useAddOrderStatusMutation, useGetClubPointUserPointQuery, useAddSetProductPointWithinRangeMutation, useAddPointForAllProductsMutation, useGetClubSetAllPointsTableDataQuery, useAddNewSellerPackageMutation, useGetPointToWalletDataQuery, useEditPointToWalletMutation, useEditAllPointsTableMutation, useGetSellerPackageQuery, useDeleteSellerPackageMutation, useGetSellerPackageByIdQuery, useEditSellerPackageMutation, useGetAllPointsTableByIdQuery, useDeleteSetAllPointsMutation, useDeleteUserPointsMutation, useGetUserPointsByIdQuery, useEditUserPointMutation, useGetListPurchaseQuery, useAddSellerProductMutation, useGetBasicAffiliateQuery, useUpdateLinkValidationTimeMutation, useUpdateAffiliateBasicMutation, useUpdateProductsSharingAffiliateMutation, useUpdateCategoryWiseAffilliateMutation, useGetAffiliateLogsQuery, useGetAffiliateWithdrawRequestQuery, useGetAffiliateUsersQuery, useUpdateAffilliateUserVerificationMutation, useGetAffilliateUserVerificationByIdQuery, useGetRefferalUsersQuery, usePostQuotationMutation, useGetOtpConfigurationListQuery, useUpdateOTPConfigurationMutation, useAddWholeSaleMutation, useGetOTPCredentialListsQuery, useUpdateOtpCredentialMutation, useGetPayFastCredentialQuery, useUpdatePayFastCredentialMutation, useGetFlutterCredentialQuery, useUpdateFlutterCredentialMutation, useGetTingoCredentialQuery, useUpdateTingoCredentialMutation, useGetFlutterActivationQuery, useUpdateFlutterActivationMutation, useGetPayFastActivationQuery, useUpdatePayFastActivationMutation, useGetTingoActivationQuery, useUpdateTingoActivationMutation, useGetRazorPayActivationQuery, useUpdateRazorPayActivationMutation, useGetPayuMoneyActivationQuery, useUpdatePayumoneyActivationMutation, useGetPayTmActivationQuery, useUpdatePayTmActivationMutation, useGetRazorPayCredentialQuery, useUpdateRazorPayCredentialMutation, useGetPayuMoneyCredentialQuery, useUpdatePayuMoneyCredentialMutation, useGetPayTmCredentialQuery, useUpdatePayTmCredentialMutation, useGetDeliveryBoyStatusQuery, useUpdateDeliveryBoyStatusMutation, useGetDeliveryboyPaymentConfigurationQuery, useUpdateDeliveryboyPaymentConfigurationMutation, useGetPickupLocationForDeliveryQuery, useGetNotificationConfigurationForDeliveryQuery, useUpdateNotificationConfigurationForDeliveryMutation, useGetSettingSiteConfigurationQuery, useUpdateSettingSiteConfigurationMutation, useGetSettingSalesDataQuery, useUpdateSettingSalesMutation, useGetSettingProductsQuery, useUpdateSettingProductsMutation, useGetSettingMoneyAndNumberFormatQuery, useUpdateMoneyFormatMutation, useGetSystemSettingPrefixQuery, useUpdateSystemSettingPrefixMutation, useGetSettingWeighingScaleQuery, useUpdateSettingWeighingScaleMutation, useGetSettingEmailQuery, useUpdateSettingEmailMutation, useGetSettingAwardPointQuery, useUpdateAwardPointMutation, useGetFacebookCredentailQuery, useUpdateFacebookCredentailMutation, useGetTwitterCredentailQuery, useUpdateTwitterCredentailMutation, useGetLinkedInCredentailQuery, useUpdateLinkedInCredentailMutation, useGetInstagramCredentailQuery, useUpdateInstagramCredentailMutation, useGetGoogleCredentailQuery, useUpdateGoogleCredentailMutation, useGetPOSCategoryQuery, useGetPOSBrandsQuery, useGetPOSCategoryByIdQuery, useGetPOSBrandByIdQuery, useGetPOSSubCategoryIdQuery, useAddPOSCustomerMutation, useGetPOSCustomerGroupQuery, useGetPOSUserDetailIdQuery, useGetWholsaleProductsByIdQuery, useGetCustomerRoleQuery, useGetTimeFormatQuery, useAddDCustomerMutation, useGetCustomerSelectedShippingAddressByIdQuery, useGetCustomerSelectedBillingAddressByIdQuery,useGetComboProductsByIdQuery } = productsApi
+export const { useDeleteRowPurchaseMutation, useDeleteCartRowMutation, useUpdatePopupsMutation, usePostPopupMutation, useCustomerActiveMutation, useBrandActiveMutation, useCatagaryActiveMutation, useProductActiveMutation, useSellerActiveMutation, useGetReqListQuery, useUpdateBrandReqMutation, useUpdateDeleveryMutation, useDeleteDeleveryMutation, useDeletePaymentMutation, useAddDeleveryMutation, useAddTransactionMutation, useAddComboProductsMutation, useUpdateListProductsMutation, useAddPurchaseListMutation, useGetPurchaseListsQuery, useAddPurchaseCartMutation, useGetProductSearchQuery, useAddSellerProductNewMutation, useUpdateSellerMutation, useDeleteSellerProductMutation, useOwnSellerProductQuery, useGetUnitMasterQuery, useSellerLoginMutation, useGetPickupOrderDataMutation, useGetstaffDetailQuery, useLoginStaffsMutation, useGetOrdersByPickupsQuery, useForm_variatioMutation, useGetOrderByStatusQuery, useGetAllStatusOrdersQuery, useGetAllProductsQuery, useGetCategoriesQuery, useGetBrandsQuery, useGetSizesQuery, useAddNewSizeMutation, useAddNewBrandMutation, useAddNewCategoryMutation, useAddNewProductMutation, useGetBannerQuery, useDeleteProductMutation, useDeleteSizeMutation, useDeleteBrandMutation, useDeleteCategoryMutation, useGetPlaceByIdQuery, useGetPickupPointQuery, useGetCustomersQuery, useGetSellersQuery, useGetTicketListsQuery, useGetLanguagesQuery, useAddPickUpPointMutation, useGetPagesQuery, useDeleteCustomerMutation, useGetCurrencyQuery, useGetOrdersQuery, useAddNewCurrencyMutation, useGetCouponsQuery, useDeleteCurrencyMutation, useDeleteLanguageMutation, useDeleteSupportTicketMutation, useDeleteCouponMutation, useAddNewLanguageMutation, useAddNewCouponMutation, useEditCurrencyMutation, useGetCurrencyByIdQuery, useGetCouponByIdQuery, useEditCouponMutation, useGetSellerProductQuery, useAddPaymentGetMutation, useGetOrderDetailQuery, useAddOrderConfigsMutation, useAddPagesMutation, useDeletePageListMutation, useEditPageListMutation, useGetLanguageByIdQuery, useEditLanguageMutation, useGetBrandByIdQuery, useEditBrandMutation, useGetBlogsQuery, useDeleteBlogsMutation, useDeleteAttributesMutation, useEditSupportTicketMutation, useGetSupportTicketByIdQuery, useGetAttributesQuery, useAddNewBlogsMutation, useGetBlogPostByIdQuery, useEditAllBlogsPostMutation, useGetCustomerByIdQuery, useEditCustomerMutation, useAddNewAttributeMutation, useGetAttributeByIdQuery, useEditAttributeMutation, useAddGeneralSettingMutation, useDeleteSellerBannerMutation, useGetBlogsCategoryQuery, useDeleteBlogCategoryMutation, useAddBlogCategoryMutation, useGetBlogCategoryByIdQuery, useEditBlogCategoryMutation, useDeleteOrderMutation, useGetSellerBannerByIdQuery, useEditSellerBannerMutation, useAddOrderConfigurationMutation, useGetCustomerShippingAdressByIdQuery, useGetColorsQuery, useDeleteColorMutation, useAddColorMutation, useGetColorByIdQuery, useEditColorMutation, useGetFlashDealsQuery, useDeleteFlashDealMutation, useAddFlasDealMutation, useGetFlashDealByIdQuery, useEditFlashDealMutation, useGetProductByIdQuery, useEditProductMutation, useDeleteSellerListMutation, useAddSellerListMutation, useEditSellerListMutation, useGetSellerDetailQuery, useGetSmsTemplateQuery, useAddSmsListMutation, useEditSmsListMutation, useSmsDeleteMutation, useDeletePickupPointMutation, useGetPickupPointByIdQuery, useEditPickupPointMutation, useAddStaffMutation, useGetAllStaffsQuery, useDeleteStaffMutation, useGetRolesQuery, useDeleteRoleMutation, useGetStaffByIdQuery, useEditStaffDataMutation, useAddRoleMutation, useGetRoleByIdQuery, useEditRoleDataMutation, useAddFileSystemMutation, useAddShareRewardMutation, useAddLikeRewardMutation, useAddBulkImportFileMutation, useGetOrderStartByIdQuery, useAddOrderStatusMutation, useGetClubPointUserPointQuery, useAddSetProductPointWithinRangeMutation, useAddPointForAllProductsMutation, useGetClubSetAllPointsTableDataQuery, useAddNewSellerPackageMutation, useGetPointToWalletDataQuery, useEditPointToWalletMutation, useEditAllPointsTableMutation, useGetSellerPackageQuery, useDeleteSellerPackageMutation, useGetSellerPackageByIdQuery, useEditSellerPackageMutation, useGetAllPointsTableByIdQuery, useDeleteSetAllPointsMutation, useDeleteUserPointsMutation, useGetUserPointsByIdQuery, useEditUserPointMutation, useGetListPurchaseQuery, useAddSellerProductMutation, useGetBasicAffiliateQuery, useUpdateLinkValidationTimeMutation, useUpdateAffiliateBasicMutation, useUpdateProductsSharingAffiliateMutation, useUpdateCategoryWiseAffilliateMutation, useGetAffiliateLogsQuery, useGetAffiliateWithdrawRequestQuery, useGetAffiliateUsersQuery, useUpdateAffilliateUserVerificationMutation, useGetAffilliateUserVerificationByIdQuery, useGetRefferalUsersQuery, usePostQuotationMutation, useGetOtpConfigurationListQuery, useUpdateOTPConfigurationMutation, useAddWholeSaleMutation, useGetOTPCredentialListsQuery, useUpdateOtpCredentialMutation, useGetPayFastCredentialQuery, useUpdatePayFastCredentialMutation, useGetFlutterCredentialQuery, useUpdateFlutterCredentialMutation, useGetTingoCredentialQuery, useUpdateTingoCredentialMutation, useGetFlutterActivationQuery, useUpdateFlutterActivationMutation, useGetPayFastActivationQuery, useUpdatePayFastActivationMutation, useGetTingoActivationQuery, useUpdateTingoActivationMutation, useGetRazorPayActivationQuery, useUpdateRazorPayActivationMutation, useGetPayuMoneyActivationQuery, useUpdatePayumoneyActivationMutation, useGetPayTmActivationQuery, useUpdatePayTmActivationMutation, useGetRazorPayCredentialQuery, useUpdateRazorPayCredentialMutation, useGetPayuMoneyCredentialQuery, useUpdatePayuMoneyCredentialMutation, useGetPayTmCredentialQuery, useUpdatePayTmCredentialMutation, useGetDeliveryBoyStatusQuery, useUpdateDeliveryBoyStatusMutation, useGetDeliveryboyPaymentConfigurationQuery, useUpdateDeliveryboyPaymentConfigurationMutation, useGetPickupLocationForDeliveryQuery, useGetNotificationConfigurationForDeliveryQuery, useUpdateNotificationConfigurationForDeliveryMutation, useGetSettingSiteConfigurationQuery, useUpdateSettingSiteConfigurationMutation, useGetSettingSalesDataQuery, useUpdateSettingSalesMutation, useGetSettingProductsQuery, useUpdateSettingProductsMutation, useGetSettingMoneyAndNumberFormatQuery, useUpdateMoneyFormatMutation, useGetSystemSettingPrefixQuery, useUpdateSystemSettingPrefixMutation, useGetSettingWeighingScaleQuery, useUpdateSettingWeighingScaleMutation, useGetSettingEmailQuery, useUpdateSettingEmailMutation, useGetSettingAwardPointQuery, useUpdateAwardPointMutation, useGetFacebookCredentailQuery, useUpdateFacebookCredentailMutation, useGetTwitterCredentailQuery, useUpdateTwitterCredentailMutation, useGetLinkedInCredentailQuery, useUpdateLinkedInCredentailMutation, useGetInstagramCredentailQuery, useUpdateInstagramCredentailMutation, useGetGoogleCredentailQuery, useUpdateGoogleCredentailMutation, useGetPOSCategoryQuery, useGetPOSBrandsQuery, useGetPOSCategoryByIdQuery, useGetPOSBrandByIdQuery, useGetPOSSubCategoryIdQuery, useAddPOSCustomerMutation, useGetPOSCustomerGroupQuery, useGetPOSUserDetailIdQuery, useGetWholsaleProductsByIdQuery, useGetCustomerRoleQuery, useGetTimeFormatQuery, useAddDCustomerMutation, useGetCustomerSelectedShippingAddressByIdQuery, useGetCustomerSelectedBillingAddressByIdQuery, useGetComboProductsByIdQuery, useAddPosPaymentMutation, useGetTicketBuildingDQuery, useGetTicketBlockDQuery, useGetTicketFloorDQuery, useGetTicketWardDQuery, useGetTicketOfficeRoomDQuery, useGetTicketareaDQuery, useAddSupportTicketDMutation, useGetTicketCompaintTypeDQuery, useGetTicketCompaintNatureDQuery, useGetTicketAssignToDQuery, useGetTicketListingDQuery, useGetTicketListingFilledDQuery, useGetTicketRoleDQuery, useGetModalAssignToDataQuery, useGetTicketMessageDataQuery, useGetTicketDataByIdQuery, useGetTicketStatusQuery, useUpdateTicketDaataMutation, useUpdateSupportTicketDetailMutation, useGetTComplaintTypeQuery, useDeleteComplaintTypeMutation, useAddComplaintTypeMutation, useGetTComplaintNatureQuery, useDeleteComplaintNatureMutation, useAddComplaintNatureMutation, useGetTComplaintTypeByIdQuery, useGetTComplaintNatureByIdQuery } = productsApi

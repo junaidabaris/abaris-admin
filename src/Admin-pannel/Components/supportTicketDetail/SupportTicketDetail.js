@@ -1,20 +1,87 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 import Modal from 'react-bootstrap/Modal';
 import { useParams } from 'react-router-dom';
+import { useEditSupportTicketMutation, useGetSupportTicketByIdQuery, useUpdateSupportTicketDetailMutation } from '../all-products/allproductsApi/allProductsApi';
 
 function SupportTicketDetail() {
-    const params = useParams()
-    const [data, setData] = useState(null)
-    
+    const params = useParams();
+    const [dataa, setDataa] = useState(null)
+    const userId = window.localStorage.getItem('adminId')
+
+    const [inputval, setInputval] = useState({
+        user_id: userId,
+        ticket_id: params.id,
+        code: '',
+        subject: '',
+        // status: '',
+        end_date: '',
+        reply: "",
+    });
+
+    const { data } = useGetSupportTicketByIdQuery(params.id);
+
+    useEffect(() => {
+        const obj = { ...data }
+        setInputval({
+            user_id: userId,
+            ticket_id: params.id,
+            code: obj.code,
+            subject: obj.subject,
+            end_date: '',
+            reply: "",
+            // status: obj.status,
+        })
+    }, [data]);
+
+    const [updateReplySupportTicket, response] = useUpdateSupportTicketDetailMutation();
+
+    const onChangeHandler = (e) => {
+        const inpName = e.target.name;
+        const inpval = e.target.value;
+        const clonedObj = { ...inputval };
+        clonedObj[inpName] = inpval;
+        setInputval(clonedObj)
+    };
+    const submitEditSupportTicketData = (e) => {
+        // console.log('inputval---', inputval)
+        e.preventDefault();
+        updateReplySupportTicket(inputval)
+        document.getElementById("create-course-form").reset();
+    };
+
+    const toastSuccessMessage = () => {
+        toast.success("Successfull", {
+            position: "top-center"
+        })
+    };
+
+    useEffect(() => {
+        if (response.isSuccess === true) {
+            toastSuccessMessage()
+        };
+        if (response.isError === true) {
+            alert('!Ticket not updated')
+        };
+    }, [response.isSuccess, response.isError])
+
+
+
     const getData = async () => {
         try {
-            const res = await axios.get(`https://onlineparttimejobs.in/api/ticketList/user/`)
-            setData(res.data)
+            const res = await axios.get(`https://onlineparttimejobs.in/api/ticketList/ticket/${params.id}`)
+            setDataa(res.data)
         } catch (error) {
-            alert('Faild To load Ticket Detail')
+            // alert('Faild To load Ticket Detail')
         }
     }
+    useEffect(() => {
+        getData()
+    }, []);
+
+
+    console.log('dattaa---', dataa)
 
     return (
         <>
@@ -34,11 +101,9 @@ function SupportTicketDetail() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="card-body">
-                                <form action="https://mmslfashions.in/admin/support_ticket/reply" method="post" id="ticket-reply-form" encType="multipart/form-data">
-                                    <input type="hidden" name="_token" defaultValue="iBYZn0yUYtaUjAFRti5rGbbxBIt6hBfgN5hhrs59" />                    <input type="hidden" name="ticket_id" defaultValue={2} required />
-                                    <input type="hidden" name="status" defaultValue="pending" required />
 
+                            <div className="card-body">
+                                {/* <form id="ticket-reply-form" encType="multipart/form-data">
                                     <div className="form-group row">
                                         <div className="col-md-12">
                                             <input
@@ -52,17 +117,60 @@ function SupportTicketDetail() {
 
                                     </div>
                                     <div className="form-group mb-0 text-right">
-                                        <button type="submit" className="btn btn-sm btn-dark" onclick="submit_reply('pending')" fdprocessedid="1dsypw">
+                                        <button type="button" className="btn btn-sm btn-dark" onclick="" fdprocessedid="1dsypw">
                                             Submit
-
                                         </button>
-                                        {/* <button type="submit" className="btn btn-icon btn-sm btn-dark" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" fdprocessedid="s51xc"><i className="las la-angle-down" /></button> */}
+                                        <button type="submit" className="btn btn-icon btn-sm btn-dark" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" fdprocessedid="s51xc"><i className="las la-angle-down" /></button>
                                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a className="dropdown-item" href="#" onclick="submit_reply('open')">Submit as <strong>Open</strong></a>
-                                            <a className="dropdown-item" href="#" onclick="submit_reply('solved')">Submit as <strong>Solved</strong></a>
+                                            <a className="dropdown-item" href="#" onclick="">Submit as <strong>Open</strong></a>
+                                            <a className="dropdown-item" href="#" onclick="">Submit as <strong>Solved</strong></a>
                                         </div>
                                     </div>
+                                </form> */}
+
+
+                                <form className="p-4" id="create-course-form" onSubmit={submitEditSupportTicketData}>
+                                    <div className="form-group row">
+                                        <label className="col-sm-3 col-from-label" htmlFor="currency name">Code<i className="las la-language text-danger" title="Translatable" />
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <input type="number" placeholder="code" id="code" name="code" className="form-control" required fdprocessedid="zp6g3o" value={inputval?.code} onChange={onChangeHandler} />
+                                        </div>
+                                    </div>
+
+                                    <div className="form-group row">
+                                        <label className="col-sm-3 col-from-label">Subject</label>
+                                        <div className="col-sm-9">
+                                            <input type="text" className="form-control" name="subject" placeholder="subject" fdprocessedid="vrvrin" value={inputval?.subject} onChange={onChangeHandler} />
+                                        </div>
+                                    </div>
+
+                                    {/* <div className="form-group row">
+                                        <label className="col-sm-3 col-from-label">Status</label>
+                                        <div className="col-sm-9">
+                                            <input type="text" className="form-control" name="status" placeholder="status" fdprocessedid="vrvrin" value={inputval?.status} onChange={onChangeHandler} />
+                                        </div>
+                                    </div> */}
+                                    <div className="form-group row">
+                                        <label className="col-sm-3 col-from-label">Reply</label>
+                                        <div className="col-sm-9">
+                                            <input type="text" className="form-control" name="reply" placeholder="reply" fdprocessedid="vrvrin" value={inputval?.reply} onChange={onChangeHandler} />
+                                        </div>
+                                    </div>
+
+                                    <div className="form-group row">
+                                        <label className="col-sm-3 col-from-label">Sending Date</label>
+                                        <div className="col-sm-9">
+                                            <input type="date" className="form-control" name="end_date" placeholder="end date" fdprocessedid="vrvrin" value={inputval?.end_date} onChange={onChangeHandler} />
+                                        </div>
+                                    </div>
+
+                                    <div className="form-group mb-0 text-right">
+                                        <button type="submit" className="btn btn-primary">Save</button>
+                                    </div>
+
                                 </form>
+
                                 <div className="pad-top">
                                     <ul className="list-group list-group-flush">
                                         <li className="list-group-item px-0">
@@ -102,12 +210,14 @@ function SupportTicketDetail() {
                                     </ul>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
                 <div className="bg-white text-center py-3 px-15px px-lg-25px mt-auto">
                     {/*p class="mb-0">&copy;  v6.3.3</p*/}
                 </div>
+                <ToastContainer />
             </div>
         </>
     )

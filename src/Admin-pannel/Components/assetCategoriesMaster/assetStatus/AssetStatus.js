@@ -1,8 +1,26 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import { AiFillEdit } from "react-icons/ai"
 import { GrView } from 'react-icons/gr'
 import { Link } from "react-router-dom"
+import { base_Url_Assets } from '../../../../server'
 function AssetStatus() {
+
+    const [get,setGet] = useState(null)
+
+    const getApiData = async () => {
+        const res = await axios.get(`${base_Url_Assets}assetStatus`)
+        setGet(res.data)
+    }
+
+    useEffect(() => {
+        getApiData()
+    },[])
+
+    const deleteHandle = async (id) => {
+        await axios.delete(`${base_Url_Assets}assetStatus/delete_assetStatuss/${id}`)
+        getApiData()
+    }
     return <div className="aiz-main-content">
         <div className="px-15px px-lg-25px">
             <div className="aiz-titlebar text-left mt-2 mb-3">
@@ -19,8 +37,8 @@ function AssetStatus() {
                 <div className="card-header">
                     <h5 className="mb-0 h6"> Assets Status </h5>
                     <div className="col-md-6 text-md-right">
-                        <Link to="#" className="btn btn-circle btn-info">
-                            <span>Add Asset Category</span>
+                        <Link to="/admin/add-asset-status" className="btn btn-circle btn-info">
+                            <span>Add Asset Status</span>
                         </Link>
                     </div>
                 </div>
@@ -33,28 +51,27 @@ function AssetStatus() {
                                 <th class="table-secondary" scope="col">Description</th>
                                 <th class="table-secondary" scope="col">Created Date</th>
                                 <th class="table-secondary" scope="col">Action</th>
-
-
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td scope="row">1</td>
-                                <td>abcd12345e</td>
-                                <td>jewellery/imitation</td>
+                            {get && get?.map((item) => {
+                                return <tr>
+                                <td scope="row">{item?._id}</td>
+                                <td>{item?.name}</td>
+                                <td>{item?.description}</td>
                                 <td>Inactive</td>
                                 <td>
-                                    <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
+                                    <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to={`edit/${item?._id}`}>
                                         {/* <i className="las la-eye">
                                     </i> */}
                                         <AiFillEdit className="icon-icon" />
                                     </Link>
-                                    <button type="button" className="btn btn-soft-danger btn-icon btn-circle btn-sm btn-circle-2" title="delete" fdprocessedid="yghhlt">
+                                    <button type="button" onClick={()=>deleteHandle(item?._id)} className="btn btn-soft-danger btn-icon btn-circle btn-sm btn-circle-2" title="delete" fdprocessedid="yghhlt">
                                         <i className="las la-trash icon-icon">
                                         </i>
                                     </button>
 
-                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
+                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to={`details/${item?._id}`}>
                                         {/* <i className="las la-eye">
                                     </i> */}
                                         <GrView />
@@ -63,74 +80,7 @@ function AssetStatus() {
 
 
                             </tr>
-                            <tr>
-                                <td scope="row">2</td>
-                                <td>abcd12345efg</td>
-                                <td>jewellery/imitation</td>
-                                <td>nfcdefewd</td>
-                                <td>
-                                    <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
-                                        {/* <i className="las la-eye">
-                                    </i> */}
-                                        <AiFillEdit className="icon-icon" />
-                                    </Link>
-                                    <button type="button" className="btn btn-soft-danger btn-icon btn-circle btn-sm btn-circle-2" title="delete" fdprocessedid="yghhlt">
-                                        <i className="las la-trash icon-icon">
-                                        </i>
-                                    </button>
-                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
-                                        {/* <i className="las la-eye">
-                                    </i> */}
-                                        <GrView />
-                                    </Link>
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td scope="row">3</td>
-                                <td>abcd12345efg</td>
-                                <td>defewd</td>
-                                <td>nfcdefewd</td>
-                                <td>
-                                    <a className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" href="/admin/all_orders/order-Details/64789b752a93b23fb3d1220d">
-                                        {/* <i className="las la-eye">
-                                    </i> */}
-                                        <AiFillEdit className="icon-icon" />
-                                    </a>
-                                    <button type="button" className="btn btn-soft-danger btn-icon btn-circle btn-sm btn-circle-2" title="delete" fdprocessedid="yghhlt">
-                                        <i className="las la-trash icon-icon">
-                                        </i>
-                                    </button>
-                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
-                                        {/* <i className="las la-eye">
-                                    </i> */}
-                                        <GrView />
-                                    </Link>
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td scope="row">4</td>
-                                <td>abcd12345efg</td>
-                                <td>defewd</td>
-                                <td>nfcdefewd</td>
-                                <td>
-                                    <Link className="btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
-                                        <AiFillEdit className="icon-icon" />
-                                    </Link>
-                                    <button type="button" className="btn btn-soft-danger btn-icon btn-circle btn-sm btn-circle-2" title="delete" fdprocessedid="yghhlt">
-                                        <i className="las la-trash icon-icon">
-                                        </i>
-                                    </button>
-                                    <Link className="ms-2 btn btn-soft-primary btn-icon btn-circle btn-sm me-2 btn-circle-2" title="View" to="#">
-                                        {/* <i className="las la-eye">
-                                    </i> */}
-                                        <GrView />
-                                    </Link>
-                                </td>
-
-                            </tr>
-
+                            })}
                         </tbody>
                     </table>
 

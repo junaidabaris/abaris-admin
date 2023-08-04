@@ -16,7 +16,7 @@ function ListQuatation() {
     }, [])
 
 
-    const deleteDatas = async (id)=>{
+    const deleteDatas = async (id) => {
         try {
             const res = await axios.delete(`https://onlineparttimejobs.in/api/comboDeal/delete_ComboDeal/${id}`)
             alert('Deleted Quatation Successfully!')
@@ -59,7 +59,7 @@ function ListQuatation() {
                                     })}
                                 </td>
                                 <td>
-                                    
+
                                     {item?.products.map((item, j) => {
                                         return <div>
                                             {item?.variant?.map((ite) => {
@@ -75,11 +75,12 @@ function ListQuatation() {
                                     {/* <Link to="#" className="btn btn-soft-success btn-icon btn-circle btn-sm" title="View">
                                         <i className="las la-eye" />
                                     </Link> */}
-                                    <Link to='#'className="btn btn-soft-primary btn-icon btn-circle btn-sm" title="Edit">
+                                    
+                                    {/* <Link to='#' className="btn btn-soft-primary btn-icon btn-circle btn-sm" title="Edit">
                                         <i className="las la-edit" />
-                                    </Link>
-                                   
-                                    <button type="button" onClick={()=>{deleteDatas(item.combo._id)}} className="btn btn-soft-danger btn-icon btn-circle btn-sm">
+                                    </Link> */}
+
+                                    <button type="button" onClick={() => { deleteDatas(item.combo._id) }} className="btn btn-soft-danger btn-icon btn-circle btn-sm">
                                         <i className="las la-trash" />
                                     </button>
 

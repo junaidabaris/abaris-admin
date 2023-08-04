@@ -17,6 +17,7 @@ function LoginSection({ setshow }) {
     const getLoginAdmin = window.localStorage.getItem('showMainadmin')
     const getLoginStaf = window.localStorage.getItem('adminIslogin')
 
+    // const abc = window.localStorage.setItem('role_id',)
     const [showSeller, setHowSeller] = useState(false)
 
     useEffect(() => {
@@ -52,7 +53,7 @@ function LoginSection({ setshow }) {
     const setAllData = (data) => {
         console.log('loginData--', data)
         // window.localStorage.setItem('adminId', data.findStaff._id)
-        // window.localStorage.setItem('adminToken', data.token)
+        window.localStorage.setItem('adminToken', data.token)
         window.localStorage.setItem('adminIslogin', false)
         window.localStorage.setItem('showMainadmin', false)
         window.localStorage.setItem('isSellerLogin', false)
@@ -76,7 +77,7 @@ function LoginSection({ setshow }) {
         else if (data?.findStaff?.role_id?.role_name === 'Pickup Point Manager') {
             window.localStorage.setItem('isPickupManagerLogin', true)
             window.localStorage.setItem('isPickupManagerId', data?.findStaff?._id)
-            
+
             // window.localStorage.setItem('pickIds', data?.pickIds)
             window.localStorage.setItem('isPickupManagerName', data?.findStaff?.firstname + " " + data?.findStaff?.lastname)
 
