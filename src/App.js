@@ -295,7 +295,7 @@ import ReportAllocation from "./Admin-pannel/Components/assetReport/assetAllocat
 import AssetRequest from "./Admin-pannel/Components/requestModule/assetrequest/AssetRequest";
 import AssetIssue from "./Admin-pannel/Components/requestModule/assetIssue/AssetIssue";
 import AllCustomerPage from "./Admin-pannel/Pages/allCustomer";
-import Shift from "./Admin-pannel/Components/crmNew/components/shift/Shift";
+// import Shift from "./Admin-pannel/Components/crmNew/components/shift/Shift";
 // import EditWholsaleProducts from "./Admin-pannel/Pages/editWholsaleProducts";
 import AddCustomer from "./Admin-pannel/Components/customerList/AddCustomer";
 import EditComboProducts from "./Admin-pannel/Pages/addComboProduct/EditComboProducts";
@@ -414,6 +414,8 @@ import AddUser from "./Admin-pannel/Components/user/addUser";
 
 import "../src/assets2/styles/main.css";
 import "../src/assets2/styles/responsive.css";
+import AddAgreement from "./Admin-pannel/Pages/addAgreement/AddAgreement";
+import VtechRentProductAdd from "./Admin-pannel/Pages/VtechRentProduct/VtechRentProductAdd";
 // {Shaaz import end}
 
 // {daud import start}
@@ -863,6 +865,7 @@ function App() {
           <Route path="add-new-calls" element={<Addnewcalls />} />
           <Route path="asset-request" element={<AssetRequest />} />
           <Route path="call-centre-dashboard" element={<CallOverView />} />
+          <Route path="AddAgreement" element={<AddAgreement />} />
 
           {/* {Shhaz Routes end} */}
 
@@ -901,6 +904,7 @@ function App() {
           />
 
           <Route path="category-map-export" element={<CategoryMapPage />} />
+          <Route path="v-tech-rent-product" element={<VtechRentProductAdd/>} />
           <Route
             path="category-map-export/create-mapping"
             element={<CreateMap />}

@@ -6,8 +6,10 @@ import './AsideAdmin.css';
 function AsideAdmin() {
 
   const [state, setState] = useState(false)
+  const [agreement, setAgreement] = useState(false)
   const [products, setProducts] = useState(false)
   const [wholeSale, setWholsale] = useState(false)
+  const [rentVtech, setrentVtech] = useState(false)
   const [sales, setSales] = useState(false)
   const [refunds, setRefunds] = useState(false)
   const [customers, setCustomers] = useState(false)
@@ -2056,6 +2058,26 @@ function AsideAdmin() {
 
                 </ul>
               </li>
+              <li className="aiz-side-nav-item">
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setAgreement(!agreement) }}>
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Agreement</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${agreement ? "mm-show" : "extra"}`}>
+                  <li className="aiz-side-nav-item">
+                    <Link to="AddAgreement" className="aiz-side-nav-link ">
+                      <span className="labour-charge-type">Add Agreement</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="#" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Agreement List</span>
+                    </Link>
+                  </li>
+
+                </ul>
+              </li>
 
               <li className="aiz-side-nav-item" >
                 <Link to="#" className="aiz-side-nav-link" onClick={() => { setQuotation(!quotation) }} >
@@ -2072,6 +2094,26 @@ function AsideAdmin() {
                   <li className="aiz-side-nav-item">
                     <Link to="add-vtech-quotation" className="aiz-side-nav-link ">
                       <span className="aiz-side-nav-text">Add Vtech Quotation</span>
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+
+              <li className="aiz-side-nav-item" >
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setrentVtech(!rentVtech) }} >
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Vtech Rent Product</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${rentVtech ? "mm-show" : "extra"}`}>
+                  <li className="aiz-side-nav-item">
+                    <Link to="v-tech-rent-product" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Add Rent Product</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Rent Product List</span>
                     </Link>
                   </li>
                 </ul>
