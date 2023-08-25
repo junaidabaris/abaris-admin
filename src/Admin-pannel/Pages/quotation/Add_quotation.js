@@ -215,7 +215,7 @@ function Add_quotation() {
                             </div>
                         </div>
 
-                        <div className="container-fluid">
+                        <div className="container">
                             <div className="row">
                                 <div className="col">
                                     <div>

@@ -5581,6 +5581,9 @@ Faq Area CSS
   padding-top: 15px;
   line-height: initial;
 }
+.form-control{
+  color: #000 !important;
+}
 
 .faq-contact-form form .btn {
   margin-top: 8px;
@@ -5619,6 +5622,10 @@ Faq Area CSS
 
 .faq-contact-form .send-btn .optional-btn {
   margin-left: 0;
+}
+
+.MuiTabs-scroller {
+  overflow-x: scroll !important;
 }
 
 /*================================================
@@ -10545,4 +10552,45 @@ table tbody tr .show-table {
 
 .big-font tbody td {
   font-size: 20px;
+}
+
+
+.btnAdds {
+  /* background-color: #124a2f; */
+  color: white;
+  font-size: 20px;
+}
+
+.btnAdds1 {
+  background-color: #1cb8ec;
+  color: white;
+  font-size: 20px;
+}
+
+.showHides>div {
+  flex: 1;
+}
+
+.kkkk {
+  width: 450px;
+}
+
+.boxing>div {
+  display: flex;
+  justify-content: center;
+}
+
+.cursorPoi>td {
+  cursor: pointer !important;
+}
+
+.classatt >div   {
+  flex: 1 !important;
+}
+.mainboxatt{
+  display: flex;
+  margin: 15px 0;
+}
+.sizzings >td >input{
+  width: 100px;
 }

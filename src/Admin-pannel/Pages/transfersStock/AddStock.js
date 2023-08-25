@@ -109,7 +109,7 @@ function AddStock() {
 
 
 
-    return <div className="aiz-main-content" style={{ width: "1400px", margin: "auto" }}>
+    return <div className="aiz-main-content" style={{ width: "1020px", margin: "auto" }}>
         <div className="px-15px px-lg-25px">
             <div className="row">
                 <div className="col-lg-8 mx-auto"></div>
@@ -177,7 +177,7 @@ function AddStock() {
 
                                 </select>
                             </div>
-                            <div className="container-fluid">
+                            <div className="container">
                                 <div className="row">
                                     <div className="col">
                                         <div>
@@ -197,7 +197,7 @@ function AddStock() {
                             </div>
 
 
-                            <div className="container-fluid">
+                            <div className="container">
                                 <div className="card-header" style={{ padding: "0", marginTop: "10px" }}>
                                     <h4 className="mb-0">Variant SKU Wise Add Quantity</h4>
                                 </div>

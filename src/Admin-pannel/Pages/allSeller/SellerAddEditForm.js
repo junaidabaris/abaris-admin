@@ -42,7 +42,12 @@ function SellerAddEditForm() {
     }
     )
 
-    const [update] = useEditSellerListMutation()
+    const [update, { isSuccess: upSuss }] = useEditSellerListMutation()
+    useEffect(() => {
+        if (upSuss) {
+            alert('Update Seller')
+        }
+    }, [upSuss])
 
     const onChangeHandle = (e) => {
         const clone = { ...state }
@@ -84,21 +89,32 @@ function SellerAddEditForm() {
     useEffect(() => {
         if (params.id) {
             const obj = {
-                seller_name: data?.firstname,
+                firstname: data?.firstname,
+                lastname: data?.lastname,
+                long: data?.lat,
+                lat: data?.lat,
+                addressLine1: data?.addressLine1,
+                addressLine2: data?.addressLine2,
+                country: data?.country,
+                state: data?.state,
+                city: data?.city,
+                landmark: data?.landmark,
+                province: data?.province,
                 remaining_uploads: "",
+                email: data?.email,
+                mobile: data?.mobile,
                 remaining_digital_uploads: "",
                 invalid_at: "",
                 remaining_auction_uploads: "",
                 rating: "",
                 num_of_reviews: "",
                 num_of_sale: "",
-                verification_status: data?.approve,
+                verification_status: false,
                 cash_on_delivery_status: false,
                 admin_to_pay: "",
-                bank_name: "",
-                email: data?.email,
-                mobile: data?.mobile,
-                bank_acc_no: "",
+                bank_name: data?.bank_name,
+                tax_number: data?.tax_number,
+                bank_acc_no: data?.bank_acc_no,
                 bank_payment_status: false
             }
             setState(obj)
@@ -185,7 +201,7 @@ function SellerAddEditForm() {
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Tax Number </Form.Label>
-                <Form.Control type="text" name='bank_name' onChange={onChangeHandle} value={state?.tax_number} style={{ width: "50%" }} placeholder="tax_number" required />
+                <Form.Control type="text" name='tax_number' onChange={onChangeHandle} value={state?.tax_number} style={{ width: "50%" }} placeholder="tax_number" required />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Bank Name</Form.Label>

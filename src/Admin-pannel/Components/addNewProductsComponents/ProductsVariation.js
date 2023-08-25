@@ -149,10 +149,12 @@ function ProductsVariation({ handleVariantData, productData, setattributesVal, s
         }
     }, [updatedVariants]);
 
-    // const bringSelectedVariantImage = (variantWiseImages) => {
-    //     setVariantImg(variantWiseImages)
-    //     console.log('variantWiseImages------', variantWiseImages)
-    // }
+    const deleteRow = (id) => {
+        const filterdData = updatedVariants.filter((item) => {
+            return item._id !== id
+        })
+        setUpdatedVariants(filterdData);
+    }
 
     return (
         <>
@@ -186,20 +188,21 @@ function ProductsVariation({ handleVariantData, productData, setattributesVal, s
                     <div className="card-body">
                         <div className="row align-items-end">
                             <div className="col-12 sku_combination table-responsive form-group" id="sku_combination">
-                                <h6>
-                                    <div class="form-check" style={{ marginLeft: "3px" }}>
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                        <label class="form-check-label" for="flexCheckDefault" onClick={handleShow} style={{ width: "200px" }}>
+                                {/* <h6>
+                                    <div className="form-check" style={{ marginLeft: "3px" }}>
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                        <label className="form-check-label" htmlFor="flexCheckDefault" onClick={handleShow} style={{ width: "200px" }}>
                                             Variant Wise Image
                                         </label>
                                     </div>
 
                                     {show && <ImageVariantWiseModal show={show} handleClose={handleClose} vaiants={updatedVariants} setVariationArr={setVariationArr} updatedVariants={updatedVariants} setUpdatedVariants={setUpdatedVariants} />}
-                                </h6>
+                                </h6> */}
                                 <table className="table table-bordered physical_product_show">
                                     <thead>
 
                                         <tr>
+                                            <td><label className="control-label">#</label></td>
                                             <td><label className="control-label">Variant</label></td>
                                             <td><label className="control-label">MRP</label></td>
                                             <td><label className="control-label">Purchase Rate</label></td>
@@ -212,8 +215,9 @@ function ProductsVariation({ handleVariantData, productData, setattributesVal, s
                                             <td><label className="control-label">HSN Code</label></td>
                                             <td><label className="control-label">Sale Reward Point</label></td>
                                             <td><label className="control-label">Share Reward Point</label></td>
-                                            <td><label className="control-label">Add Images</label></td>
-                                            <td><label className="">Selected Images</label></td>
+                                            <td><label className="control-label">Set Attribute</label></td>
+                                            <td><label className="control-label">Gallery Images</label></td>
+                                            <td><label className="">Thumbnail Image</label></td>
                                             {/* <td><label className="control-label">Pickup Point</label></td>
                                             <td><label className="control-label">Quantity</label></td> */}
                                         </tr>
@@ -231,33 +235,15 @@ function ProductsVariation({ handleVariantData, productData, setattributesVal, s
                                             </tr>
                                         )}
 
-                                        {/* { 
-                                            getOptions(variationsData).map((variantItem, i) => (
-                                                <ColorVariant key={i} data={variantItem} pickUp={pickUp} handleVariant={getUpdatedVariant} />
-                                            ))
-                                        } */}
                                         {updatedVariants && updatedVariants.map((variantItem, i) => {
                                             return (
-                                                <ColorVariant key={i} data={variantItem} pickUp={pickUp} handleVariant={getUpdatedVariant} setVariantsData={setVariantsData}  />
+                                                <ColorVariant deleteRow={deleteRow} key={i} data={variantItem} pickUp={pickUp} handleVariant={getUpdatedVariant} setVariantsData={setVariantsData} index={i} />
                                             )
                                         })}
-
-                                        {/* {productData?.variations?.map((variantItem, i) => {
-                                            return (
-                                                <ColorVariant key={i} data={variantItem} pickUp={pickUp} handleVariant={getUpdatedVariant} />
-                                            )
-                                        })} */}
-
 
                                     </tbody>
 
                                 </table>
-                                {/* <div className="selected-img-sec">
-                                    {variantImg && variantImg.map((it, i) => {
-                                        return <div className="img-wrp" style={{ width: '60px', height: '60px' }}>hello</div>
-                                    })}
-
-                                </div> */}
                             </div>
                         </div>
                     </div>

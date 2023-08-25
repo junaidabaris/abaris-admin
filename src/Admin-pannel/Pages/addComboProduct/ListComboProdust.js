@@ -50,7 +50,6 @@ function ListComboProdust() {
                     <tbody>
 
                         {data ? data.map((item, i) => {
-                            console.log('item-----list combo prod', item)
                             return <tr key={item?.combo._id}>
                                 <td>{1 + i}</td>
                                 <td>

@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Spinner } from "react-bootstrap";
-import { useGetCustomersQuery, useGetPickupPointQuery, useGetProductSearchQuery, usePostQuotationMutation } from "../../Components/all-products/allproductsApi/allProductsApi";
+import { useAddQuatationVMutation, useAddQuatationVQuery, useGetCustomersQuery, useGetPickupPointQuery, useGetProductSearchQuery, usePostQuotationMutation } from "../../Components/all-products/allproductsApi/allProductsApi";
 import { RxCross1 } from "react-icons/rx";
 import { AiFillDelete } from "react-icons/ai";
 // import ModalCombo from "../addComboProduct/ModalCombo";
 import axios from "axios";
 import ModalCombo from "../../Pages/addComboProduct/ModalCombo";
+import { ToastContainer, toast } from "react-toastify";
 
 function AddVtechQuotation() {
 
@@ -22,17 +23,16 @@ function AddVtechQuotation() {
         {
             date: "",
             referenceNo: "",
-            quotation_no: '',
-            quotation_date: '',
-            biller: "",
+            quotation_No: '',
+            quotation_Date: '',
             order_tax: "",
             discount: "",
             // status: "",
-            shipping: "",
+            shipping_cost: "",
             // supplier: "",
             // customer: "",
-            shipping_adress: '',
-            billing_address: '',
+            shippingAddress: '',
+            billingAddress: '',
         }
     )
 
@@ -42,7 +42,8 @@ function AddVtechQuotation() {
     const [showCombo, setShowCombo] = useState([])
     const [comboRate, setComboRate] = useState(0)
 
-    const [addQuotation, { isError, isSuccess, isLoading: addCOmbLoad }] = usePostQuotationMutation()
+    // const [addQuotation, { isError, isSuccess, isLoading: addCOmbLoad }] = usePostQuotationMutation()
+    const [addQuotation, { isError, isSuccess, isLoading: addCOmbLoad }] = useAddQuatationVMutation()
 
     const [storeValue, setStoreValue] = useState({
         date: "",
@@ -74,19 +75,16 @@ function AddVtechQuotation() {
         clonnn[e.target.name] = e.target.value
         const clone2 = { ...clonnn, index: e.target.id }
         setInputVal(clone2)
-        console.log('showCombo---', showCombo)
 
         const abc = showCombo.map((item, i) => {
             if (i == e.target.id) {
-                return { productId: item.productId, variant: item.variant, unitPrice: clone2.unitPrice, tax: clone2.tax, tax_type: clone2.tax_type, qty: clone2.qty }
+                return { ...item, productId: item.productId, variant: item.variant, unitPrice: clone2.unitPrice, tax: clone2.tax, tax_type: clone2.tax_type, qty: clone2.qty }
             } else {
                 return item
             }
         })
         setShowCombo(abc)
-        console.log('abc---', abc)
         const sendInpData = await axios.post('https://onlineparttimejobs.in/api/serviceQuotation/cart', { products: abc })
-        // console.log('sendInpData--', sendInpData.data)
         setShowCombo(sendInpData.data.products)
     }
 
@@ -98,7 +96,6 @@ function AddVtechQuotation() {
         setBillingAddress(billingRes.data);
         setCustomerId(e.target.value)
     }
-    console.log('values', values)
 
     const SaveData = (val) => {
         setModalShow(false)
@@ -109,28 +106,49 @@ function AddVtechQuotation() {
 
     const sendComboData = () => {
         const getData = showCombo.map((item) => {
-            return { product_id: item.productId, variant_id: item._id, price: item?.mrp }
+            return { productId: item.productId._id, variantId: item._id, sku: item.sku, unitPrice: item.unitPrice, qty: item.qty, discount: item.discount, tax: item.tax, subtotal: item.subTotal, total: item.total }
         })
+        console.log(getData);
         const obj = {
             ...values,
             products: getData,
+            userid: customerId,
             isActive: true,
+            shippingAddress: shippingAddress?.address[0]?._id,
+            billingAddress: billingAddress?.address[0]?._id
         }
 
         addQuotation(obj)
     }
 
+
+
+
+    const toastSuccessMessage = () => {
+        toast.success("Quotation Added Successfully", {
+            position: "top-center"
+        })
+    };
+
+    const toastErrorMessage = () => {
+        toast.error("Quotation Added  Faild..", {
+            position: "top-center"
+        })
+    };
+
+
     useEffect(() => {
         if (isSuccess) {
-            alert('Quotation Added')
+            toastSuccessMessage()
         }
     }, [isSuccess]);
 
     useEffect(() => {
         if (isError) {
-            alert('Quotation Not Added')
+            toastErrorMessage()
         };
     }, [isError])
+
 
 
 
@@ -160,14 +178,14 @@ function AddVtechQuotation() {
                 <div className="px-15px px-lg-25px">
                     <h3>Add Quotation</h3>
                     <div className="card" style={{ padding: "10px" }}>
-
+                        <ToastContainer />
                         {addCOmbLoad && <div className="preloaderCount">
                             <div className="spinner-border" role="status">
                                 <span className="visually-hidden">Loading...</span>
                             </div>
                         </div>}
 
-                        <div className="container-fluid">
+                        <div className="container">
                             <div className="row devTols" >
                                 <div className="col-4 d-block">
                                     <div>
@@ -186,14 +204,14 @@ function AddVtechQuotation() {
                                 <div className="col-4 d-block">
                                     <div>
                                         <label>Quotation No</label>
-                                        <input value={values.quotation_no} onChange={changeHandelVal} name="quotation_no" className="form-control" type="text" />
+                                        <input value={values.quotation_No} onChange={changeHandelVal} name="quotation_No" className="form-control" type="text" />
                                     </div>
                                 </div>
 
                                 <div className="col-4 d-block">
                                     <div>
                                         <label>Quotation Date</label>
-                                        <input value={values.quotation_date} onChange={changeHandelVal} name="quotation_date" className="form-control" type="date" />
+                                        <input value={values.quotation_date} onChange={changeHandelVal} name="quotation_Date" className="form-control" type="date" />
                                     </div>
                                 </div>
 
@@ -304,7 +322,7 @@ function AddVtechQuotation() {
                             </div>
                         </div>
 
-                        <div className="container-fluid">
+                        <div className="container">
                             <div className="row">
                                 <div className="col">
                                     <div>
@@ -324,7 +342,7 @@ function AddVtechQuotation() {
                         </div>
 
 
-                        <div className="container-fluid">
+                        <div className="container">
                             <div className="card-header" style={{ padding: "0", marginTop: "10px" }}>
                                 <h4 className="mb-0">Add Product</h4>
                             </div>
@@ -353,13 +371,12 @@ function AddVtechQuotation() {
                                                 <tbody>
 
                                                     {showCombo && showCombo.map((item, i) => {
-                                                        // console.log('item-----', item)
                                                         return <tr key={i}>
                                                             <td>
                                                                 <AiFillDelete onClick={() => { deleteItem(i) }} />
                                                             </td>
                                                             <td>
-                                                                <label name="productName" className="control-label">{item?.productName}</label>
+                                                                <label name="productName" className="control-label">{item?.productName ? item?.productName : item?.productId?.name}</label>
                                                             </td>
                                                             <td>
                                                                 <input type="text" disabled value={item?.sku} name="sku" className="form-control" />
@@ -368,7 +385,7 @@ function AddVtechQuotation() {
                                                                 <input type="text" disabled value={item?.weight} name="rate" className="form-control" />
                                                             </td>
                                                             <td>
-                                                                <input type="text" id={i} name="unitPrice" className="form-control" onChange={handleInputItem} />
+                                                                <input type="text" id={i} name="unitPrice" value={item.unit_price} className="form-control" onChange={handleInputItem} />
                                                             </td>
 
                                                             <td>

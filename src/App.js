@@ -295,7 +295,7 @@ import ReportAllocation from "./Admin-pannel/Components/assetReport/assetAllocat
 import AssetRequest from "./Admin-pannel/Components/requestModule/assetrequest/AssetRequest";
 import AssetIssue from "./Admin-pannel/Components/requestModule/assetIssue/AssetIssue";
 import AllCustomerPage from "./Admin-pannel/Pages/allCustomer";
-import Shift from "./Admin-pannel/Components/crmNew/components/shift/Shift";
+// import Shift from "./Admin-pannel/Components/crmNew/components/shift/Shift";
 // import EditWholsaleProducts from "./Admin-pannel/Pages/editWholsaleProducts";
 import AddCustomer from "./Admin-pannel/Components/customerList/AddCustomer";
 import EditComboProducts from "./Admin-pannel/Pages/addComboProduct/EditComboProducts";
@@ -414,6 +414,26 @@ import AddUser from "./Admin-pannel/Components/user/addUser";
 
 import "../src/assets2/styles/main.css";
 import "../src/assets2/styles/responsive.css";
+import AddAgreement from "./Admin-pannel/Pages/addAgreement/AddAgreement";
+import VtechRentProductAdd from "./Admin-pannel/Pages/VtechRentProduct/VtechRentProductAdd";
+import RentProductList from "./Admin-pannel/Pages/rentProductList/RentProductList";
+import VtechPurchase from "./Admin-pannel/Pages/vtech-Purchase/VtechPurchase.";
+import AddVtechStockac from "./Admin-pannel/Pages/add-v-tech-Transfer-stock/AddVtechStockac";
+import Leadfilter from "./Admin-pannel/Pages/leadsFilters/LeadfiltersV";
+import LeadFilters from "./Admin-pannel/Pages/leadFiltersTemp/LeadFilters";
+import Lead from "./Admin-pannel/Pages/leads";
+import Customer from "./Admin-pannel/Pages/customer";
+import ImportCustomers from "./Admin-pannel/Components/coustomer/importCustomers/importCust";
+import ListVPurchaseStock from "./Admin-pannel/Pages/list-v-tech-Transfer-stock/ListVPurchaseStock";
+import KnowledgeBase from "./Admin-pannel/Pages/knowledgeBaseCrm";
+import AddNewArtical from "./Admin-pannel/Components/knowledgeBaseCrm/AddNewArtical";
+import Group from "./Admin-pannel/Components/knowledgeBaseCrm/Group";
+import AddPrice from "./Admin-pannel/Pages/addPrices";
+import ImportLeads from "./Admin-pannel/Pages/importLeads";
+import Reminder from "./Admin-pannel/Pages/reminder";
+import Proposal from "./Admin-pannel/Pages/salescrm/index";
+import NewProposal from "./Admin-pannel/Components/salescrm/NewProposal";
+import NewCustomers from "./Admin-pannel/Components/coustomer/newCustomers/newCustomer";
 // {Shaaz import end}
 
 // {daud import start}
@@ -545,7 +565,8 @@ function App() {
           <Route path="customer-shippingAddress" element={<CustomerShippingAddress />} />
           <Route path="customer-shippingAddress/detail/:id" element={<CustomerShippingAdressDetail />} />
           {/* <Route path="customer-shippingAddress/create" element={<CustomerShippingAddList />} /> */}
-          <Route path="customer-list/edit/:id" element={<EditCustomer />} />
+          {/* <Route path="customer-list/edit/:id" element={<EditCustomer />} /> */}
+          <Route path="customer-list/edit/:id" element={<NewCustomers />} />
           <Route path="seller" element={<AllSellerPage />} />
 
           {/* <Route path="customer" element={<AllCustomerPage />} /> */}
@@ -863,10 +884,28 @@ function App() {
           <Route path="add-new-calls" element={<Addnewcalls />} />
           <Route path="asset-request" element={<AssetRequest />} />
           <Route path="call-centre-dashboard" element={<CallOverView />} />
+          <Route path="AddAgreement" element={<AddAgreement />} />
+          <Route path="add-v-tech-purchase" element={<VtechPurchase />} />
+          <Route path="list-v-tech-Transfer-stock" element={<ListVPurchaseStock />} />
 
-          {/* {Shhaz Routes end} */}
+          {/* {nazim Routes end} */}
+          <Route path="lead-filters" element={<Leadfilter />} />
+          <Route path="lead-filters-template" element={<LeadFilters />} />
+          <Route path="leads" element={<Lead />} />
+          <Route path="customer" element={<Customer />} />
+          <Route path="new-customers" element={<NewCustomers />} />
+          <Route path="import-customers" element={<ImportCustomers />} />
 
-          {/* {daud route start} */}
+          {/* {saaz route start} */}
+          <Route path="knowledge-base-crm" element={<KnowledgeBase />} />
+          <Route path="add-new-artical" element={<AddNewArtical />} />
+          <Route path="group-crm" element={<Group />} />
+          <Route path="add-prices" element={<AddPrice />} />
+          <Route path="import-leads" element={<ImportLeads />} />
+          <Route path="reminder-crm" element={<Reminder />} />
+          <Route path="proposal-sales" element={<Proposal/>} />
+          <Route path="new-proposal-crm" element={<NewProposal/>}/>
+
           <Route
             path="amazon-account-info"
             element={<AmazonAccountListPage />}
@@ -901,13 +940,19 @@ function App() {
           />
 
           <Route path="category-map-export" element={<CategoryMapPage />} />
+          <Route path="v-tech-rent-product" element={<VtechRentProductAdd />} />
+          <Route path="rentProductList" element={<RentProductList />} />
+          <Route path="add-v-tech-Transfer-stock" element={<AddVtechStockac />} />
           <Route
             path="category-map-export/create-mapping"
             element={<CreateMap />}
           />
+
+          {/* junaid crm pages */}
+          {/* junaid crm pages */}
           <Route
             path="staffs-new"
-            element={<AddUser/>}
+            element={<AddUser />}
           />
           {/* {daud route end} */}
 

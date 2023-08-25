@@ -23,7 +23,7 @@ function AddProductAttributes({ getDatas }) {
         setCateg(res.data)
     }
     const toastSuccessMessage = () => {
-        toast.success("Attribute added Successfully", {
+        toast.success("Attribute Set  added Successfully", {
             position: "top-center"
         })
     };
@@ -37,7 +37,7 @@ function AddProductAttributes({ getDatas }) {
             
             getDatas()
         } catch (error) {
-            alert('!Error Attribute not added')
+            alert('!Error Attribute Set not added')
         }
 
     }

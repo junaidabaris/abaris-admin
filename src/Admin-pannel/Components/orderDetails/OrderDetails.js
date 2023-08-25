@@ -780,7 +780,7 @@ function OrderDetails() {
                                 <Link to="#">
                                   <img
                                     height={50}
-                                    src={item?.product_image?.url}
+                                    src={item?.product_variant?.mainImage_url?.url}
                                   />
                                 </Link>
                               </td>
