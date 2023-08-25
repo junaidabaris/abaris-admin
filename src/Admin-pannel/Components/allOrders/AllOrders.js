@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GrUnorderedList } from 'react-icons/gr';
 import { useDeleteOrderMutation, useGetOrdersQuery } from "../all-products/allproductsApi/allProductsApi";
 import { useEffect, useState } from "react";
@@ -10,7 +10,6 @@ function AllOrders() {
 
 
   const { isLoading, data } = useGetOrdersQuery();
-  console.log('allOrderData---', data)
 
   const [deleteOrder, response] = useDeleteOrderMutation();
 
@@ -29,7 +28,7 @@ function AllOrders() {
   window.localStorage.setItem("invoice", "")
 
   let allTotal = 0;
-
+  const navigate = useNavigate()
   return (
     <>
       <div className="aiz-main-content">
@@ -209,7 +208,7 @@ function AllOrders() {
                           console.log(item);
                         }
 
-                        return <tr key={item._id}>
+                        return <tr key={item._id} style={{ cursor: "pointer" }} onClick={()=>{navigate(`/admin/all_orders/order-Details/${item._id}`)}}>
                           <td
                             className="footable-first-visible"
                             style={{ display: "table-cell" }}

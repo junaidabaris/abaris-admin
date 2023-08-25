@@ -7,7 +7,7 @@ function ListVtechQuotation() {
     const [data, setData] = useState(null)
 
     const getData = async () => {
-        const res = await axios.get(`https://onlineparttimejobs.in/api/quotation`)
+        const res = await axios.get(`https://onlineparttimejobs.in/api/serviceQuotation`)
         setData(res.data)
     }
 
@@ -42,9 +42,10 @@ function ListVtechQuotation() {
                             <th>#</th>
                             <th>Product Name</th>
                             <th>Variant Detail</th>
+                            <th>customer name</th>
                             <th>Rate</th>
-                            <th>Balance</th>
-                            <th>Paid</th>
+                            <th>Quotation_No</th>
+                            <th>Reference_No</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -68,9 +69,10 @@ function ListVtechQuotation() {
                                         </div>
                                     })}
                                 </td>
+                                <td>{item?.userid?.firstname + ' ' + item?.userid?.lastname}</td>
                                 <td>{item?.grandTotal}</td>
-                                <td>{item?.Balance}</td>
-                                <td>{item?.Paid}</td>
+                                <td>{item?.quotation_No}</td>
+                                <td>{item?.referenceNo}</td>
                                 <td>
                                     {/* <Link to="#" className="btn btn-soft-success btn-icon btn-circle btn-sm" title="View">
                                         <i className="las la-eye" />

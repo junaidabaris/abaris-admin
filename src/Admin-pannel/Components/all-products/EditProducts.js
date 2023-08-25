@@ -589,7 +589,7 @@ function EditProducts() {
                                     </div>
                                     {/* <ProductsInformationAdmin /> */}
 
-                                    <div className="card">
+                                    {/* <div className="card">
                                         <div className="card-header">
                                             <h5 className="mb-0 h6">Product Images</h5>
                                         </div>
@@ -628,7 +628,7 @@ function EditProducts() {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
 
                                     {/* <ProductsImages /> */}
 
@@ -932,6 +932,8 @@ function EditProducts() {
                                                             <td><label className="control-label">HSN Code</label></td>
                                                             <td><label className="control-label">Sale Reward Point</label></td>
                                                             <td><label className="control-label">Share Reward Point</label></td>
+                                                            <td><label className="control-label">Gallery Image</label></td>
+                                                            <td><label className="control-label">Thumbnail Image</label></td>
                                                             {/* <td><label className="control-label">Add Images</label></td> */}
                                                             {/* <td className="text-center">
                                                                 <label className="control-label">Pickup Point</label>
@@ -944,7 +946,7 @@ function EditProducts() {
 
                                                     <tbody>
                                                         {variationArr?.map((item, index) => {
-                                                            return <tr key={index}>
+                                                            return <tr className="sizzings" key={index}>
                                                                 <td>
                                                                     <label data_id={item._id} name="weight" className="control-label"> <AiFillDelete /></label>
                                                                 </td>
@@ -971,7 +973,7 @@ function EditProducts() {
 
 
                                                                 <td>
-                                                                    <input data_id={item._id} type="number" name="sale_rate" disabled className="form-control" required onChange={onChangeHandler} value={item.sale_rate} />
+                                                                    <input data_id={item._id} type="number" name="sale_rate"  className="form-control" required onChange={onChangeHandler} value={item.sale_rate} />
                                                                 </td>
                                                                 <td>
                                                                     <input data_id={item._id} type="text" name="discount" className="form-control" required onChange={onChangeHandler} value={item.discount} />
@@ -995,22 +997,14 @@ function EditProducts() {
                                                                 <td>
                                                                     <input data_id={item._id} type="text" name="share_rp" value={item?.share_rp} className="form-control" onChange={onChangeHandler} />
                                                                 </td>
-                                                                {/* <td>
-                                                                    <input type="file" name="gallery_image" className="selected-files" onChange={onchengePhotoHandel} />
-                                                                </td> */}
 
 
-
-                                                                {/* <td>
-                                                                    <select data_id={item._id} className="js-example-basic-multiple js-states js-example-responsive demo-select2 w-100 select2-hidden-accessible selectOptions" name="pickup_points" data-select2-id={20} tabIndex={-1} aria-hidden="true" onChange={onChangeHandler}>
-                                                                        {pickUp && pickUp.map((item) => {
-                                                                            return <option value={item._id} key={item._id}>{item.address}</option>
-                                                                        })}
-                                                                    </select>
+                                                                <td>
+                                                                    {/* <input data_id={item._id} type="text" name="share_rp" value={item?.share_rp} className="form-control" onChange={onChangeHandler} /> */}sd
                                                                 </td>
                                                                 <td>
-                                                                    <input data_id={item._id} type="number" value={item.current_qty} name="current_qty" min={1} max={1000000} step={1} className="form-control" required onChange={onChangeHandler} />
-                                                                </td> */}
+                                                                   <img src={item?.mainImage_url?.url}/>
+                                                                </td>
                                                             </tr>
                                                         })}
                                                     </tbody>

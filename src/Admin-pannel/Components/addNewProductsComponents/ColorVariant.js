@@ -1,9 +1,11 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 
-export const ColorVariant = ({ data, pickUp, handleVariant, setVariantsData, bringSelectedVariantImage }) => {
+import { useEffect, useState } from "react";
+import { DatabaseFilled, QuestionCircleOutlined } from '@ant-design/icons';
+import { Button, Popconfirm } from 'antd';
+import { AiTwotoneDelete } from "react-icons/ai";
+import AttributeModal from "./AttributeModal";
+export const ColorVariant = ({ data, deleteRow, pickUp, handleVariant, setVariantsData, bringSelectedVariantImage, index }) => {
     const [formData, setFormData] = useState(data);
-    const [imgArr, setImgArr] = useState();
 
     const onChangeHandler = (e) => {
         const inputName = e.target.name;
@@ -44,32 +46,41 @@ export const ColorVariant = ({ data, pickUp, handleVariant, setVariantsData, bri
     }, [formData])
     useEffect(() => {
         setFormData(data)
-    }, [data])
+    }, [])
     const onchangeImagehandle = async (e) => {
         const inpVal = e.target.files;
-        const formDatas = new FormData();
-        const arr = []
-        for (const iterator of inpVal) {
-            formDatas.append('image', iterator);
-            try {
-                const res = await axios.post(`https://onlineparttimejobs.in/api/cloudinaryImage/addImage`, formDatas)
-                const obj = { public_id: res.data.public_id, url: res.data.url }
-                arr.push(obj)
-            } catch (error) {
-                alert('Somthing Went Wrong Image Not Up ')
-            }
-            formDatas.delete('image');
-        }
-        // const res = await axios.post(`https://onlineparttimejobs.in/api/cloudinaryImage/addImage`, formDatas)
+        const cloneObj = { ...formData, images: inpVal }
 
-        setFormData({ ...formData, images: arr });
-        setVariantsData(formData)
-        // bringSelectedVariantImage(arr)
-        setImgArr(arr)
+        setVariantsData(cloneObj)
+        setFormData({ ...cloneObj });
     }
-    console.log('imgArr--', imgArr);
+    const onchangeImagehandle1 = async (e) => {
+        const inpVal = e.target.files[0];
+        const cloneObj = { ...formData, mainImage_url: inpVal }
+        setVariantsData(cloneObj)
+        setFormData({ ...cloneObj });
+    }
+
+    const [modalShow, setModalShow] = useState(false);
     return (
-        <tr>
+        <tr className="sizzings">
+            <td>
+                <Popconfirm
+                    title="Delete the task"
+                    description="Are you sure to delete this variant?"
+                    icon={
+                        <QuestionCircleOutlined
+                            style={{
+                                color: 'red',
+                            }}
+                        />
+
+                    }
+                    onConfirm={() => { deleteRow(data._id) }}
+                >
+                    <Button danger><AiTwotoneDelete /></Button>
+                </Popconfirm>
+            </td>
             <td>
                 <label name="varient" className="control-label">{data.weight}</label>
             </td>
@@ -94,7 +105,7 @@ export const ColorVariant = ({ data, pickUp, handleVariant, setVariantsData, bri
 
 
             <td>
-                <input type="number" name="sale_rate" value={formData?.sale_rate} disabled className="form-control" required onChange={onChangeHandler} />
+                <input type="number" name="sale_rate" value={formData?.sale_rate} className="form-control" required onChange={onChangeHandler} />
             </td>
 
             <td>
@@ -121,27 +132,23 @@ export const ColorVariant = ({ data, pickUp, handleVariant, setVariantsData, bri
                 <input type="text" name="share_rp" value={formData?.share_rp} className="form-control" onChange={onChangeHandler} />
             </td>
             <td>
+                <DatabaseFilled onClick={() => setModalShow(true)} />
+            </td>
+            <td>
                 <input type="file" name="gallery_image" multiple accept="image/*" className="selected-files" onChange={onchangeImagehandle} />
             </td>
-
-            <td style={{ display: 'table-cell' }}>
-                {imgArr && imgArr.map((imgItem, i) => {
-                    return <img src={imgItem?.url} alt="Brand" className="h-50px w-50px mb-1" />
-                })}
-            </td>
-
-            {/* <td>
-                <select className="js-example-basic-multiple js-states js-example-responsive demo-select2 w-100 select2-hidden-accessible selectOptions" name="pickupPoints" data-select2-id={20} tabIndex={-1} aria-hidden="true" onChange={onChangeHandler}>
-                    {pickUp && pickUp.map((itemPickup) => {
-                        return <option value={itemPickup._id} key={itemPickup._id}>{itemPickup.address}</option>
-                    })}
-                </select>
-            </td>
-
             <td>
-                <input type="number" name="current_qty" className="form-control" defaultValue={'1'} onChange={onChangeHandler} />
-            </td> */}
+                <input type="file" name="mainImage_url" accept="image/*" className="selected-files" onChange={onchangeImagehandle1} />
+            </td>
 
+            {modalShow && <AttributeModal show={modalShow}
+                onHide={() => setModalShow(false)}
+                setFormData={setFormData}
+                formData={formData}
+                data={data}
+            />}
         </tr>
+
+
     )
 }

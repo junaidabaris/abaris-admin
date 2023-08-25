@@ -6,11 +6,11 @@ function AssignOrder() {
     const [data, setData] = useState()
     const [data2, setData2] = useState()
     const pickupId = window.localStorage.getItem('pickIds')
-    console.log('pickupId----', pickupId)
     const isDeleveryBoy = window.localStorage.getItem('isDeleveryBoy')
     const DeleveryBoyId = window.localStorage.getItem('DeleveryBoyId')
 
     const getData = async () => {
+        console.log('iiii' ,pickupId);
         try {
             const res = await axios.get(`https://onlineparttimejobs.in/api/orderAssign/pickupPoints/${pickupId}`)
             setData(res.data)

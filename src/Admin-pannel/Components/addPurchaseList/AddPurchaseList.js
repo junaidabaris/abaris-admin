@@ -140,7 +140,7 @@ function AddPurchaseList() {
                             </div>
                         </div>}
 
-                        <div className="container-fluid">
+                        <div className="container">
                             <div className="row devTols" >
                                 <div className="col-4 d-block">
                                     <div>
@@ -205,7 +205,7 @@ function AddPurchaseList() {
                             </div>
                         </div>
 
-                        <div className="container-fluid">
+                        <div className="container">
                             <div className="row">
                                 <div className="col">
                                     <div>
@@ -225,7 +225,7 @@ function AddPurchaseList() {
                         </div>
 
 
-                        <div className="container-fluid">
+                        <div className="container">
                             <div className="card-header" style={{ padding: "0", marginTop: "10px" }}>
                                 <h4 className="mb-0">Variant SKU Wise Add Quantity</h4>
                             </div>
@@ -271,7 +271,7 @@ function AddPurchaseList() {
                         </div>
 
 
-                        <div className="container-fluid">
+                        <div className="container">
                             <div className="row devTols" >
 
                                 {/* <div className="col-4">

@@ -22,13 +22,13 @@ const Login = () => {
     const resp = await dispatch(addUser(values));
     if (resp.payload.message === "success") {
       setLoader(false);
+      window.localStorage.setItem('admintoken',resp.token)
       window.location.href = "/admin/dashboard";
     } else {
       setLoader(false);
     }
   };
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
     setLoader(false);
     toast.error("Error at login Please try again");
   };

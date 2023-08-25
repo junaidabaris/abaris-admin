@@ -25,12 +25,15 @@ const toastErrorMessage = () => {
     })
 };
 
-const addFile = async (clonedObj, payload, categ) => {
+const addFile = async (clonedObj, payload, categ ,setspcOr) => {
+    setspcOr(true)
+
+
     const url = 'https://onlineparttimejobs.in/api/product/add_product'
     const formData = new FormData();
     const images = new FormData();
 
-    // formData.append('gallery_image', payload);
+
     const arr = []
     if (payload) {
         for (const iterator of payload) {
@@ -46,6 +49,25 @@ const addFile = async (clonedObj, payload, categ) => {
         }
     }
 
+    let varclone = []
+
+    for (let ind = 0; ind < clonedObj?.variations?.length; ind++) {
+        const varImgs = []
+        let element = clonedObj.variations[ind];
+        for (let indi = 0; indi < element?.images?.length; indi++) {
+            images.delete('image');
+            const element2 = element?.images[indi];
+            images.append('image', element2);
+            const res = await axios.post(`https://onlineparttimejobs.in/api/cloudinaryImage/addImage`, images)
+            const obj = { public_id: res.data.public_id, url: res.data.url }
+            varImgs.push(obj)
+        }
+        images.delete('image');
+        images.append('image', element.mainImage_url);
+        const res2 = await axios.post(`https://onlineparttimejobs.in/api/cloudinaryImage/addImage`, images)
+        varclone.push({ ...element, images: varImgs, mainImage_url: { public_id: res2.data.public_id, url: res2.data.url } })
+
+    }
 
     formData.append('name', clonedObj.name);
     formData.append('thumbnail_image', clonedObj.thumbnail_image ? clonedObj.thumbnail_image[0] : '');
@@ -62,11 +84,11 @@ const addFile = async (clonedObj, payload, categ) => {
     formData.append('meta_description', clonedObj.meta_description);
 
     formData.append('category_id', JSON.stringify(clonedObj.category_id));
-    formData.append('attributes', JSON.stringify(categ.attributeSet));
-    formData.append('attributeSet', JSON.stringify(categ.attributes));
+    // formData.append('attributes', JSON.stringify(categ.attributeSet));
+    // formData.append('attributeSet', JSON.stringify(categ.attributes));
     formData.append('flashDeal', JSON.stringify(clonedObj.flashDeal));
     formData.append('images', JSON.stringify(arr));
-    formData.append('variations', JSON.stringify(clonedObj.variations));
+    formData.append('variations', JSON.stringify(varclone));
     console.log('variations---to-send-pul---', clonedObj.variations)
     formData.append('variation_Form', JSON.stringify(clonedObj.variation_Form));
     formData.append('productDescription', JSON.stringify(clonedObj.productDescription))
@@ -80,8 +102,10 @@ const addFile = async (clonedObj, payload, categ) => {
     try {
         const res = await axios.post(url, formData);
         toastSuccessMessage()
+        setspcOr(false)
     } catch (error) {
         toastErrorMessage()
+        setspcOr(false)
     }
 }
 
@@ -218,6 +242,8 @@ function AddNewProductsPage() {
 
 
     const [spinn, setspinn] = useState(false)
+    const [spcOr, setspcOr] = useState(false)
+    
 
     const submitAddProductData = async () => {
         setspinn(true)
@@ -227,7 +253,7 @@ function AddNewProductsPage() {
         const clonedObj = { ...inputval, variations: varianstData, flashDeal: flashDeal, variation_Form: attributesVal, tags: tags, category_id: finalCatD, seller_id, slug, productDescription: productDescription };
 
         const clone = { attributes: [proAtt?._id], attributeSet: proAtt?.values }
-        addFile(clonedObj, clonedObj.gallery_image, clone)
+        addFile(clonedObj, clonedObj.gallery_image, clone ,setspcOr)
 
         setspinn(false)
 
@@ -307,6 +333,7 @@ function AddNewProductsPage() {
         clone.values = filterd
         setProAtt(clone)
     }
+
     return (
         <>
             <div className="aiz-main-content">
@@ -315,6 +342,14 @@ function AddNewProductsPage() {
                         {params.id ? <h5 className="mb-0 h6">Edit Product</h5> : <h5 className="mb-0 h6">Add New Product</h5>}
                     </div>
                     <div>
+
+                        {spcOr && <div className="preloaderCount">
+                            <div className="spinner-border" role="status">
+                                <span className="visually-hidden">ded</span>
+                            </div>
+                            <h6>please wait your product in uploading</h6>
+                        </div>}
+
                         {spinn && <div className="preloaderCount">
                             <div className="spinner-border" role="status">
                                 <span className="visually-hidden">Loading...</span>
@@ -411,8 +446,8 @@ function AddNewProductsPage() {
                                             </div>
 
 
-                                            <div className="form-group row">
-                                                <label className="col-md-3 col-from-label"> Product Attribute </label>
+                                            {/* <div className="form-group row">
+                                                <label className="col-md-3 col-from-label"> Attribute </label>
 
                                                 <div className="col-md-8">
                                                     <select className="form-select" aria-label="Default select example" name="unit" onChange={changettriPro}>
@@ -422,7 +457,7 @@ function AddNewProductsPage() {
                                                         })}
                                                     </select>
                                                 </div>
-                                            </div>
+                                            </div>  
 
 
 
@@ -439,7 +474,7 @@ function AddNewProductsPage() {
                                                         </div>
                                                     })}
                                                 </div>
-                                            </div>}
+                                            </div>} */}
 
 
 
@@ -496,46 +531,7 @@ function AddNewProductsPage() {
                                     </div>
                                     {/* <ProductsInformationAdmin /> */}
 
-                                    <div className="card">
-                                        <div className="card-header">
-                                            <h5 className="mb-0 h6">Product Images</h5>
-                                        </div>
-                                        <div className="card-body">
-                                            <div className="form-group row">
-                                                <label className="col-md-3 col-form-label" htmlFor="signinSrEmail">Gallery Images <small>(600x600) </small></label>
-                                                <div className="col-md-8">
-
-                                                    <div className="input-group" data-type="image" data-multiple="true">
-                                                        <div className="input-group-prepend">
-                                                            <div className="input-group-text bg-soft-secondary font-weight-medium">Browse</div>
-                                                        </div>
-                                                        <div className="form-control file-amount">
-                                                            <input type="file" name="gallery_image" multiple accept="image/*" className="selected-files" onChange={onchengePhotoHandel} />
-                                                        </div>
-                                                    </div>
-                                                    <div className="file-preview box sm">
-                                                    </div>
-                                                    <small className="text-muted"> These images are visible in product details page gallery. Use 600x600 sizes images.</small>
-                                                </div>
-                                            </div>
-                                            <div className="form-group row">
-                                                <label className="col-md-3 col-form-label" htmlFor="signinSrEmail">Thumbnail Image <small>(300x300)</small></label>
-                                                <div className="col-md-8">
-                                                    <div className="input-group" data-toggle="aizuploader" data-type="image">
-                                                        <div className="input-group-prepend">
-                                                            <div className="input-group-text bg-soft-secondary font-weight-medium">Browse</div>
-                                                        </div>
-                                                        <div className="form-control file-amount">
-                                                            <input type="file" name="thumbnail_image" className="selected-files" onChange={onchengePhotoHandel} />
-                                                        </div>
-                                                    </div>
-                                                    <div className="file-preview box sm">
-                                                    </div>
-                                                    <small className="text-muted">This image is visible in all product box. Use 300x300 sizes image. Keep some blank space around main object of your image as we had to crop some edge in different devices to make it responsive.</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                               
 
                                     {/* <ProductsImages /> */}
 
@@ -809,3 +805,4 @@ function AddNewProductsPage() {
     )
 }
 export default AddNewProductsPage;
+

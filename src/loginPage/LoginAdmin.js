@@ -51,7 +51,6 @@ function LoginSection({ setshow }) {
     const [sellerLog, { data: sellerData, isLoading: sellerLoading, isError: isSellerErr, isSuccess: isSellerSucc }] = useSellerLoginMutation()
 
     const setAllData = (data) => {
-        console.log('loginData--', data)
         // window.localStorage.setItem('adminId', data.findStaff._id)
         window.localStorage.setItem('adminToken', data.token)
         window.localStorage.setItem('adminIslogin', false)
@@ -75,15 +74,17 @@ function LoginSection({ setshow }) {
         }
 
         else if (data?.findStaff?.role_id?.role_name === 'Pickup Point Manager') {
+            
             window.localStorage.setItem('isPickupManagerLogin', true)
             window.localStorage.setItem('isPickupManagerId', data?.findStaff?._id)
 
-            // window.localStorage.setItem('pickIds', data?.pickIds)
+            window.localStorage.setItem('pickIds', data?.pickIds[0])
             window.localStorage.setItem('isPickupManagerName', data?.findStaff?.firstname + " " + data?.findStaff?.lastname)
 
         }
         else if (data?.findStaff?.role_id.name === 'Super Admin') {
             window.localStorage.setItem('showMainadmin', true)
+            window.localStorage.setItem('adminToken', data?.token)
             window.localStorage.setItem('adminId', data?.findStaff?._id)
             window.localStorage.setItem('superAdminName', data?.findStaff?.firstname + " " + data?.findStaff?.lastname)
         }

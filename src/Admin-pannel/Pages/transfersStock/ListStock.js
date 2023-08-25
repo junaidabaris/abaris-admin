@@ -41,7 +41,7 @@ function ListStock() {
     }
 
 
-    return <div className="aiz-main-content" style={{ width: "1500px", margin: "auto" }}>
+    return <div className="aiz-main-content" style={{ width: "1020px", margin: "auto" }}>
         <div className="px-15px px-lg-25px">
             <div className="card" style={{ padding: "10px" }}>
                 <h5>List Stock Transfer</h5>

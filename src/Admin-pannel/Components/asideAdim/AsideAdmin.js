@@ -4,13 +4,13 @@ import { useGetAllStatusOrdersQuery, useGetPickupPointQuery } from "../all-produ
 import './AsideAdmin.css';
 
 function AsideAdmin() {
-
+  const [Sales, setSales] = useState(false)
   const [state, setState] = useState(false)
   const [agreement, setAgreement] = useState(false)
   const [products, setProducts] = useState(false)
   const [wholeSale, setWholsale] = useState(false)
   const [rentVtech, setrentVtech] = useState(false)
-  const [sales, setSales] = useState(false)
+  // const [sales, setSales] = useState(false)
   const [refunds, setRefunds] = useState(false)
   const [customers, setCustomers] = useState(false)
   const [sellers, setSellers] = useState(false)
@@ -29,6 +29,7 @@ function AsideAdmin() {
   const [setupConfiguration, setSetupConfiguration] = useState(false)
   const [allStaffs, setAllStaffs] = useState(false);
   const [allStaff, setAllStaff] = useState(false);
+  const [vstock, setvstock] = useState(false);
   const [update, setUpdate] = useState(false);
   const [facebook, setFacebook] = useState(false);
   const [google, setGoogle] = useState(false);
@@ -57,6 +58,7 @@ function AsideAdmin() {
   const [deliveryTimeSettings, setDeliveryTimeSetting] = useState(false)
   const [dropship, setDropship] = useState(false)
   const [quotation, setQuotation] = useState(false);
+  const [vpurchase, setvpurchase] = useState(false);
   const [calls, setCalls] = useState(false)
   // shoaib code 
   const [assetMaster, setAssetMaster] = useState(false);
@@ -68,7 +70,7 @@ function AsideAdmin() {
   const isSuperAdminLogin = window.localStorage.getItem('showMainadmin')
   const isSellerLogin = window.localStorage.getItem('isSellerLogin')
   const isDelevery = window.localStorage.getItem('isDeleveryBoy');
-
+  const [leadFilters, setLeadFiters] = useState(false)
 
 
   if (isDelevery === 'true') {
@@ -700,7 +702,7 @@ function AsideAdmin() {
 
               <li className="aiz-side-nav-item">
                 <Link to="tracking-order" className="aiz-side-nav-link">
-                  <i class="las la-shopping-cart aiz-side-nav-icon"></i>
+                  <i className="las la-shopping-cart aiz-side-nav-icon"></i>
                   <span className="aiz-side-nav-text">Tracking Order</span>
                 </Link>
               </li>
@@ -1637,7 +1639,7 @@ function AsideAdmin() {
 
               {/* <li className="aiz-side-nav-item">
                 <Link to="tracking-order" className="aiz-side-nav-link">
-                  <i class="las la-shopping-cart aiz-side-nav-icon"></i>
+                  <i className="las la-shopping-cart aiz-side-nav-icon"></i>
                   <span className="aiz-side-nav-text">Tracking Order</span>
                 </Link>
               </li> */}
@@ -2098,6 +2100,129 @@ function AsideAdmin() {
                   </li>
                 </ul>
               </li>
+              <li className="aiz-side-nav-item" >
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setvpurchase(!vpurchase) }} >
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Vtech Purchase</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${vpurchase ? "mm-show" : "extra"}`}>
+                  <li className="aiz-side-nav-item">
+                    <Link to="#" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">List Vtech Purchase</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="add-v-tech-purchase" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Add Vtech Purchase</span>
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+              <li className="aiz-side-nav-item" >
+                <Link to="#" className="aiz-side-nav-link" onClick={() => { setvstock(!vstock) }} >
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">V-tech Transfer stock</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${vstock ? "mm-show" : "extra"}`}>
+                  <li className="aiz-side-nav-item">
+                    <Link to="list-v-tech-Transfer-stock" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">List Vtech Transfer stock</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link to="add-v-tech-Transfer-stock" className="aiz-side-nav-link ">
+                      <span className="aiz-side-nav-text">Add Vtech Transfer stock</span>
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+
+
+              {/* nazim work */}
+              <li className="aiz-side-nav-item">
+                <Link className="aiz-side-nav-link" to='#' onClick={() => { setLeadFiters(!leadFilters) }}>
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">SI Lead Filters</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${leadFilters ? "mm-show" : "extra"}`}>
+                  <li className="aiz-side-nav-item">
+                    <Link className="aiz-side-nav-link" to="lead-filters">
+                      <span className="aiz-side-nav-text">Lead Filters</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link className="aiz-side-nav-link" to="lead-filters-template">
+                      <span className="aiz-side-nav-text">Lead Filters Templates</span>
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+              <li className="aiz-side-nav-item">
+                <Link className="aiz-side-nav-link" to="leads">
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Leads</span>
+
+                </Link>
+              </li>
+              <li className="aiz-side-nav-item">
+                <Link className="aiz-side-nav-link" to="customer">
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Customer</span>
+
+                </Link>
+              </li>
+
+              <li className="aiz-side-nav-item">
+                <Link className="aiz-side-nav-link " to="knowledge-base-crm">
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Knowledge Base</span>
+                </Link>
+              </li>
+
+              <li className="aiz-side-nav-item">
+                <Link className="aiz-side-nav-link " to="add-prices">
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Add Price</span>
+                </Link>
+              </li>
+
+              <li className="aiz-side-nav-item">
+                <Link className="aiz-side-nav-link " to="import-leads">
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Import Leads</span>
+                </Link>
+              </li>
+              <li className="aiz-side-nav-item">
+                <Link className="aiz-side-nav-link " to="reminder-crm">
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Reminder</span>
+                </Link>
+              </li>
+
+              <li className="aiz-side-nav-item">
+                <Link className="aiz-side-nav-link" to="#" onClick={() => { setSales(!Sales) }}>
+                  <i className="las la-user-tie aiz-side-nav-icon" />
+                  <span className="aiz-side-nav-text">Sales</span>
+                  <span className="aiz-side-nav-arrow" />
+                </Link>
+                <ul className={`aiz-side-nav-list level-2 mm-collapse ${Sales ? "mm-show" : "extra"}`}>
+                  <li className="aiz-side-nav-item">
+                    <Link className="aiz-side-nav-link " to="proposal-sales">
+                      <span className="aiz-side-nav-text">Proposal</span>
+                    </Link>
+                  </li>
+                  <li className="aiz-side-nav-item">
+                    <Link className="aiz-side-nav-link " to="estimate-sales">
+                      <span className="aiz-side-nav-text">Estimate</span>
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+
+
 
               <li className="aiz-side-nav-item" >
                 <Link to="#" className="aiz-side-nav-link" onClick={() => { setrentVtech(!rentVtech) }} >
@@ -2112,7 +2237,7 @@ function AsideAdmin() {
                     </Link>
                   </li>
                   <li className="aiz-side-nav-item">
-                    <Link to="" className="aiz-side-nav-link ">
+                    <Link to="rentProductList" className="aiz-side-nav-link ">
                       <span className="aiz-side-nav-text">Rent Product List</span>
                     </Link>
                   </li>

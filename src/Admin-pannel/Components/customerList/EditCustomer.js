@@ -33,13 +33,10 @@ function EditCustomer() {
     const { data: timeformat } = useGetTimeFormatQuery()
 
     const { data: selectedShippingAddress } = useGetCustomerSelectedShippingAddressByIdQuery(params.id)
-    console.log('selectedShippingAddress', selectedShippingAddress);
 
     const { data: selectedBilliingAddress } = useGetCustomerSelectedBillingAddressByIdQuery(params.id)
-    console.log('selectedBilliingAddress', selectedBilliingAddress);
 
     const { data } = useGetCustomerByIdQuery(params.id);
-    console.log('data----idby', data)
     const [editCustomer, response] = useEditCustomerMutation();
 
 
@@ -49,7 +46,6 @@ function EditCustomer() {
         setInputval(obj)
     }, [data]);
 
-    console.log(data)
 
     const onChangeHandler = (e) => {
         const inpName = e.target.name;
@@ -70,12 +66,15 @@ function EditCustomer() {
         })
     };
 
-    if (response.isSuccess === true) {
-        toastSuccessMessage()
-    };
-    if (response.isError === true) {
-        alert('!Customer not edited')
-    };
+
+    useEffect(() => {
+        if (response.isSuccess === true) {
+            toastSuccessMessage()
+        };
+        if (response.isError === true) {
+            alert('!Customer not edited')
+        };
+    }, [response])
 
 
     return (

@@ -12,6 +12,7 @@ import PriceStocCompkWholsaleProducts from "../../Components/priceStockCompWhols
 import { useAddWholeSaleMutation } from "../../Components/all-products/allproductsApi/allProductsApi";
 import { ToastContainer, toast } from "react-toastify";
 import RentSection from "./RentSection";
+import axios from "axios";
 function VtechRentProductAdd() {
     const [main, setMainVal] = useState({ products: [] })
     const [data, setData] = useState([])
@@ -26,13 +27,21 @@ function VtechRentProductAdd() {
     const dataSetNext = (value) => {
         setData(value)
     }
-    const [sendDatas, { isLoading, isError, isSuccess }] = useAddWholeSaleMutation()
+    // const [sendDatas, { isLoading, isError, isSuccess }] = useAddWholeSaleMutation()
 
-    const sendData = () => {
+    const [isSuccess, setisSuccess] = useState(false)
+    const [isError, setisError] = useState(false)
+    const sendData = async () => {
         const val = { products: main.products }
-        // sendDatas(val)
 
-        console.log(val);
+        try {
+            const res = await axios.post(`https://onlineparttimejobs.in/api/serviceProductRent/add_Rental`, val)
+           setisSuccess(true)
+        setisError(false)
+        } catch (error) {
+           setisError(true)
+        setisSuccess(false)
+        }
     }
 
     const toastSuccessMessage2 = () => {
@@ -61,11 +70,11 @@ function VtechRentProductAdd() {
     return (
         <>
             <div className="aiz-main-content">
-                {isLoading && <div className="preloaderCount">
+                {/* {isLoading && <div className="preloaderCount">
                     <div className="spinner-border" role="status">
                         <span className="visually-hidden">Loading...</span>
                     </div>
-                </div>}
+                </div>} */}
                 <ToastContainer />
                 <div className="px-15px px-lg-25px">
                     <div className="aiz-titlebar text-left mt-2 mb-3">
@@ -85,12 +94,6 @@ function VtechRentProductAdd() {
 
                                     <button style={{ margin: "15px 0", width: "200px" }} type="button" class="btn btn-success" onClick={sendData}>Submit</button>
 
-                                    {/* <PriceStocCompkWholsaleProducts />
-                                    <PriceStocCompkWholsaleProducts /> */}
-
-                                    {/* <ProductsDescriptionAdmin /> */}
-                                    {/* <PdfSpecificationAdmin /> */}
-                                    {/* <SeoMetaTagsAdmin /> */}
                                 </div>
                                 <div className="col-lg-4">
                                     <ShippingConfigurationAdmin />

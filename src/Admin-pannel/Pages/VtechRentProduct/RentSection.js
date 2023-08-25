@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Form from 'react-bootstrap/Form';
 function RentSection({ item, setMainVal, main, data }) {
+    const [checked, setCheked] = useState(false)
     const [row, setRow] = useState([])
     const [state, setState] = useState({
         unit_price: item?.unit_price,
@@ -26,12 +27,14 @@ function RentSection({ item, setMainVal, main, data }) {
     }
 
     const incRows = () => {
+        setCheked(false)
         const clone = [...row]
-        clone.push({ id: Math.random().toString(), monthTo: '', monthFrom: '1', sale_price: '' ,duration:''})
+        clone.push({ id: Math.random().toString(), sale_price: '', duration: '', period: 1 })
         setRow(clone)
     }
 
     const removeRow = (_id) => {
+        setCheked(false)
         const filterdRow = row.filter((item) => {
             if (item.id === _id) {
 
@@ -40,13 +43,12 @@ function RentSection({ item, setMainVal, main, data }) {
             }
         })
         setRow(filterdRow)
-        // console.log(filterdRow);
     }
 
 
     useEffect(() => {
         const clone = [...row]
-        const obj = { id: item?._id.toString(), monthTo: '', monthFrom: '1', sale_price: '',duration:'' }
+        const obj = { id: item?._id.toString(), sale_price: '', duration: '', period: 1 }
         clone.push(obj)
         setRow(clone)
         window.scrollTo({
@@ -58,7 +60,6 @@ function RentSection({ item, setMainVal, main, data }) {
     const handelChange = (e) => {
         const val = e.target.value
         const idVal = e.target.id
-        console.log(val);
 
         const fillData = row.map((item) => {
             if (item.id === idVal) {
@@ -67,12 +68,13 @@ function RentSection({ item, setMainVal, main, data }) {
                 return item
             }
         })
-        console.log(fillData);
         setRow(fillData);
 
     }
 
+
     const saveToArr = () => {
+        setCheked(!checked)
         const clone = { ...main }
         const obj = {
             product_id: data[0]?.productId,
@@ -81,9 +83,34 @@ function RentSection({ item, setMainVal, main, data }) {
             services: row
         }
         const arr = clone.products
-        arr.push(obj)
-        clone.products = arr
-        setMainVal(clone)
+
+        let used = false
+        if (arr?.length) {
+            for (let i = 0; i < arr.length; i++) {
+                const element = arr[i];
+                if (element.variant_id === item.variant) {
+                    arr.splice(i, 1 , obj)
+                    clone.products = arr
+                    setMainVal(clone)
+                    used = true
+                    return
+                }
+            }
+        } else {
+            arr.push(obj)
+            clone.products = arr
+            setMainVal(clone)
+            return
+        }
+
+        if (used === false) {
+            arr.push(obj)
+            clone.products = arr
+            setMainVal(clone)
+        }
+
+
+
     }
 
     const [duation, setDuaration] = useState(null)
@@ -110,7 +137,8 @@ function RentSection({ item, setMainVal, main, data }) {
                     </div>
                     <div className="form-group row">
                         <label className="col-md-3 col-from-label">
-                            Renfundable
+                            Refundable Security
+
                         </label>
                         <div className="col-md-6">
                             <input type="number" lang="en" onChange={changeHandle} value={state?.renfundable} min={0} defaultValue={0} step={1} placeholder={1} name="renfundable" className="form-control" fdprocessedid="i4cfrb" />
@@ -118,7 +146,7 @@ function RentSection({ item, setMainVal, main, data }) {
                     </div>
                     <div>
                         <div className="form-group row">
-                            <label className="col-md-3 col-from-label">Installable <span className="text-danger">*</span></label>
+                            <label className="col-md-3 col-from-label">Installation Charges</label>
                             <div className="col-md-6">
                                 <input type="number" lang="en" onChange={changeHandle} value={state?.installable} min={0} defaultValue={0} step={1} placeholder="Installable" name="installable" className="form-control" required fdprocessedid="f90buo" />
                             </div>
@@ -184,11 +212,11 @@ function RentSection({ item, setMainVal, main, data }) {
                         <div className="col-md-12">
                             <div className="qunatity-price">
                                 <div className="row gutters-5">
-                                    <div className="col-4">
+                                    {/* <div className="col-4">
                                         <div className="form-group">
                                             Moths
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div className="col-3">
                                         <div className="form-group">
                                             Duration
@@ -203,16 +231,6 @@ function RentSection({ item, setMainVal, main, data }) {
                                 </div>
                                 {row.map((item, i) => {
                                     return <div key={i} className="row gutters-2">
-                                        <div className="col-2">
-                                            <div className="form-group">
-                                                <input type="text" className="form-control" value={1} id={item.id} onChange={handelChange} name="monthFrom" required fdprocessedid="qotckq" />
-                                            </div>
-                                        </div>
-                                        <div className="col-2">
-                                            <div className="form-group">
-                                                <input type="text" className="form-control" value={item?.monthTo} id={item.id} onChange={handelChange} name="monthTo" required fdprocessedid="h58k6x" />
-                                            </div>
-                                        </div>
                                         <div className="col-3">
                                             <div className="form-group">
                                                 <Form.Select name="duration" id={item.id} aria-label="Default select example" onChange={handelChange}>
@@ -240,7 +258,7 @@ function RentSection({ item, setMainVal, main, data }) {
                                 Add More
                             </button>
                             <div class="form-check" style={{ marginTop: "10px" }}>
-                                <input style={{ width: "20px", height: "20px" }} onClick={saveToArr} class="form-check-input" type="checkbox" value="" id={`flexCheckIndeterminate${item._id}`} />
+                                <input style={{ width: "20px", height: "20px" }} onClick={saveToArr} checked={checked} class="form-check-input" type="checkbox" value="" id={`flexCheckIndeterminate${item._id}`} />
                                 <label class="form-check-label" style={{ margin: "4px" }} htmlFor={`flexCheckIndeterminate${item._id}`}>
                                     This Is Mandatory  Filed
                                 </label>
