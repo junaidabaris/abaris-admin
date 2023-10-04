@@ -8,8 +8,9 @@ import { token } from "../../common/TokenArea";
 function Profile() {
     const isSellerId = window.localStorage.getItem('adminId')
     const adminId = window.localStorage.getItem('adminId')
-
-    const { data: detailSeller } = useGetSellerDetailQuery(token)
+    const tokenD = window.localStorage.getItem('token')
+    console.log(tokenD);
+    const { data: detailSeller } = useGetSellerDetailQuery(tokenD)
     const [update, { isLoading }] = useUpdateSellerMutation()
 
     const [show, setShow] = useState(false)
@@ -69,14 +70,12 @@ function Profile() {
 
     const sendData = () => {
         update({ data: state, token: token })
-        console.log(state);
         setShow(true)
         setTimeout(() => {
             setShow(false)
         }, 1000);
     }
 
-    console.log(state);
 
     return (
         <>
@@ -291,7 +290,7 @@ function Profile() {
                                                 Your Language
                                             </label>
                                             <div className="col-md-10">
-                                                <select className="form-select" name="language_id"  value={state?.language_id} id="languId" onChange={onchengeHandle} aria-label="Default select example">
+                                                <select className="form-select" name="language_id" value={state?.language_id} id="languId" onChange={onchengeHandle} aria-label="Default select example">
                                                     <option selected>Select Language</option>
                                                     {language && language.map((item) => {
                                                         return <option key={item._id} value={item._id}>{item.name}</option>

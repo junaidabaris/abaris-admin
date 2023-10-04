@@ -110,6 +110,7 @@ function ProductParams({ handleVariantData, productData, setattributesVal, setVa
                 return item
             }
         })
+       
         if (filteredData.length) {
             form_variatio({ data: { attributes: filteredData, variations: updatedVariants }, token: token })
             setattributesVal(filteredData)

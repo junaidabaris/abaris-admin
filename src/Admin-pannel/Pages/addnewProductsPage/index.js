@@ -451,19 +451,21 @@ function AddNewProductsPage() {
             varclone = []
         }
 
-        const neClone = []
-        for (let v = 0; v < cloned.length; v++) {
-            const element = cloned[v];
-            if (v == 0) {
-                neClone.push(element)
-            }
-            if (!element.name) {
-                const obj = { ...cloned[0], language_id: element.language_id }
-                neClone.push(obj)
-            }
-        }
+        // const neClone = []
+        // for (let v = 0; v < cloned.length; v++) {
+        //     const element = cloned[v];
+        //     if (v == 0) {
+        //         neClone.push(element)
+        //     }
+        //     if (!element.name) {
+        //         const obj = { ...cloned[0], language_id: element.language_id }
+        //         neClone.push(obj)
+        //     }else{
+        //         neClone.push(element)
+        //     }
+        // }
         try {
-            const res = await axios.post(url, { list: neClone }, {
+            const res = await axios.post(url, { list: cloned }, {
                 headers: {
                     "Content-type": "application/json; charset=UTF-8",
                     Authorization: `Bearer ${token}`,

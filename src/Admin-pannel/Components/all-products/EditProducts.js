@@ -234,16 +234,30 @@ function AddNewProductsPage() {
     const [val, setVal] = useState(data)
 
     const changeDataForm = (index) => {
-        setFinalCatD(val[index].category_id)
-        setTags(val[index].tags)
-        setVariantsData(val[index].variations)
-        setShoaing({
-            featured: val[index].featured,
-            todays_deal: val[index]?.todays_deal,
-            trending: val[index]?.trending,
-        })
+        if (!val) {
+            
+        }else{
+            console.log('in');
+            if (val[index]?.category_id?.length) {
+                setFinalCatD(val[index]?.category_id)
+            }
+            if (val[index]?.category_id?.length) {
+                setTags(val[index]?.tags)
+            }
+            if (val[index]?.variations?.length) {
+                setVariantsData(val[index]?.variations)
+            }
+    
+            const obj = {
+                featured: val[index].featured ? val[index].featured : false,
+                todays_deal: val[index]?.todays_deal ? val[index]?.todays_deal : false,
+                trending: val[index]?.trending ? val[index]?.trending : false,
+            }
+            console.log(obj);
+            setShoaing(obj)
+        }
+      
     }
-
 
 
     const handleChange = (event, newValue) => {
@@ -463,17 +477,18 @@ function AddNewProductsPage() {
                     if (element?.language_id?._id == element2._id) {
                         clone.push(element)
                     }
-
                 }
-
             }
 
             setVal(clone)
-            if (val) {
+            // changeDataForm(0)
+            if (clone?.length) {
                 changeDataForm(0)
             }
         }
+        
     }, [productData, data])
+
 
 
     const onchangeImges = (e, id) => {
