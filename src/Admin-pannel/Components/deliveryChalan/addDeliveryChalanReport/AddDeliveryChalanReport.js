@@ -34,19 +34,20 @@ function AddDeliveryChalanReport() {
     const { data: pickupPoints } = useGetPickupPointQuery(token);
     const { data: customers } = useGetCustomersQuery(token);
     const { data: searchPro } = useGetProductSearchQuery({ token: token, paylode: searchs })
-    const [showCombo, setShowCombo] = useState([])
+
+    const [showCombo, setShowCombo] = useState([{ productId: '', sku: '', variantId: '', stockId: '' }])
 
     const [addDeleveryChallan, { isError, isSuccess, isLoading: addCOmbLoad }] = useAddDeleveryChallanMutation()
 
     const setTableItem = async (item) => {
-       try {
-        const sendInpData = await axios.get(`https://onlineparttimejobs.in/api/serviceProductStock/${item._id + '&' + idpick}`)
-        setcartData(sendInpData?.data);
-        setModalShow(true)
-        setShow(false)
-       } catch (error) {
-        alert('Select a Pickup Point')
-       }
+        try {
+            const sendInpData = await axios.get(`https://onlineparttimejobs.in/api/serviceProductStock/${item._id + '&' + idpick}`)
+            setcartData(sendInpData?.data);
+            setModalShow(true)
+            setShow(false)
+        } catch (error) {
+            alert('Select a Pickup Point')
+        }
     }
 
     const handelChange = (e) => {
@@ -63,36 +64,52 @@ function AddDeliveryChalanReport() {
         setValues(clone)
     }
 
-    const handleInputItem = async (e) => {
-        const clonnn = { ...inputVal }
-        clonnn[e.target.name] = e.target.value
-        const clone2 = { ...clonnn, index: e.target.id }
-        setInputVal(clone2)
-        const abc = showCombo.map((item, i) => {
-            console.log(item);
-            if (i == e.target.id) {
-                return { ...item, stockId: e.target.value }
-            } else {
-                return item
-            }
-        })
-        // console.log(abc);
-        // // setShowCombo(abc)
-        // const sendInpData = await axios.post('https://onlineparttimejobs.in/api/serviceProductStock/addToCart', { products: abc })
-        setShowCombo(abc)
-    }
+    // const handleInputItem = async (e) => {
+    //     const clonnn = { ...inputVal }
+    //     clonnn[e.target.name] = e.target.value
+    //     const clone2 = { ...clonnn, index: e.target.id }
+    //     setInputVal(clone2)
+    //     const abc = showCombo.map((item, i) => {
+    //         if (i == e.target.id) {
+    //             return { ...item, stockId: e.target.value }
+    //         } else {
+    //             return item
+    //         }
+    //     })
+    //     // console.log(abc);
+    //     // // setShowCombo(abc)
+    //     // const sendInpData = await axios.post('https://onlineparttimejobs.in/api/serviceProductStock/addToCart', { products: abc })
+    //     setShowCombo(abc)
+    // }
 
     const changeHandelAddress = async (e) => {
-        const shippingRes = await axios.get(`https://onlineparttimejobs.in/api/shippingAddress/customer/shipping/${e.target.value}`);
+        const shippingRes = await axios.get(`https://onlineparttimejobs.in/api/shippingAddress/shipping/user/${e.target.value}`, {
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                'Authorization': 'Bearer ' + token
+            }
+        });
         setShippingAddress(shippingRes.data)
 
-        const billingRes = await axios.get(`https://onlineparttimejobs.in/api/user/billAddress/${e.target.value}`);
+        const billingRes = await axios.get(`https://onlineparttimejobs.in/api/shippingaddress/billing/user/${e.target.value}`, {
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                'Authorization': 'Bearer ' + token
+            }
+        });
         setBillingAddress(billingRes.data);
         setCustomerId(e.target.value)
-        const clone = {...values}
-        clone.shippingAddress = shippingRes[0]._id
-        clone.billingAddress = billingRes[0]._id
-        setValues(clone)
+        // if (shippingRes?.length) {
+        //     const clone = { ...values }
+        //     clone.shippingAddress = shippingRes[0]._id
+        //     setValues(clone)
+        // }
+        // if (billingRes?.length) {
+        //     const clone = { ...values }
+        //     clone.billingAddress = billingRes[0]._id
+        //     setValues(clone)
+        // }
+
     }
     const [cartChalan, { data, isSuccess: cartSussuss }] = useAddchallanVcartMutation()
     const SaveData = async (val) => {
@@ -110,20 +127,19 @@ function AddDeliveryChalanReport() {
         }
     }, [cartSussuss])
 
-        
 
-  
+
+
     const sendComboData = () => {
-        // const getData = showCombo.map((item) => {
-        //     return { productId: item.productId._id, variantId: item.variantId._id, sku: item.sku, unitPrice: item.variantId.unitPrice, discount: item.variantId.discount, tax: item.variantId.tax, subtotal: item.variantId.subTotal, serial: item.serial, total: item.variantId.total }
-        // })
+        const getData = showCombo.map((item) => {
+            return { productId: item.stock.productId, variantId: item.variant.uid, serial: item.stock?.serialNo,stockId:item.stock._id }
+        })
         const obj = {
             ...values,
-            products: showCombo,
+            products: getData,
             customer_id: customerId,
             isActive: true,
         }
-
         addDeleveryChallan({ data: obj, tokenn: token })
     }
 
@@ -181,6 +197,47 @@ function AddDeliveryChalanReport() {
     }
 
 
+    const GenerateRow = () => {
+        const clone = [...showCombo]
+        clone.push({ productId: '', sku: '', variantId: '', stockId: '' })
+        setShowCombo(clone)
+    }
+
+    const handleInputItem = async (e, val, ind) => {
+        if (e.key === 'Enter') {
+            const clone = [...showCombo]
+
+            const res = await axios.get(`https://onlineparttimejobs.in/api/serviceProductStock/serialNo/${val}`, {
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                    'Authorization': 'Bearer ' + token
+                }
+            });
+
+            const abc = showCombo.map((item, i) => {
+
+                if (res?.data?.stock?.serialNo == item.stockId) {
+                    return res.data
+                } else {
+                    return item
+                }
+            })
+            setShowCombo(abc)
+        }
+
+    }
+
+    const getUpData = (val, ind) => {
+        const clone = [...showCombo]
+        const abc = showCombo.map((item, i) => {
+            if (i == ind) {
+                return { ...item, stockId: val }
+            } else {
+                return item
+            }
+        })
+        setShowCombo(abc)
+    }
     return <div>
 
         {modalShow && <ModalDeleviry
@@ -234,7 +291,7 @@ function AddDeliveryChalanReport() {
                                     </div>
                                 </div>
 
-                                <div className="col-4 d-block">
+                                {/* <div className="col-4 d-block">
                                     <div>
                                         <label>PickupPint</label>
                                         <select name="pickupPoint" className="form-select" aria-label="Default select example" onChange={changeHandelVal} >
@@ -244,7 +301,7 @@ function AddDeliveryChalanReport() {
                                             })}
                                         </select>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 <div className="col-4 d-block">
                                     <div>
@@ -261,9 +318,9 @@ function AddDeliveryChalanReport() {
                                 <div className="col-4 d-block">
                                     <div>
                                         <label>Billing Adress</label>
-                                        <select name="billingAddress" className="form-select" aria-label="Default select example" onChange={changeHandelVal} >
+                                        <select name="billingAddress" className="form-select" value={values.billingAddress} aria-label="Default select example" onChange={changeHandelVal} >
                                             <option selected>Open this select menu</option>
-                                            {billingAddress && billingAddress.address?.map((item, i) => {
+                                            {billingAddress && billingAddress?.map((item, i) => {
                                                 return <option selected value={item._id} key={i}>{item?.addressLine1 + ',' + item?.addressLine2 + ' ,' + item?.landmark + ' ,' + item?.zip + ', ' + item?.city + ' ,' + item?.state + ' ,' + item?.country}</option>
                                             })}
                                         </select>
@@ -273,9 +330,9 @@ function AddDeliveryChalanReport() {
                                 <div className="col-4 d-block">
                                     <div>
                                         <label>Shipping Adress</label>
-                                        <select name="shippingAddress" className="form-select" aria-label="Default select example" onChange={changeHandelVal} >
+                                        <select name="shippingAddress" className="form-select" value={values.shippingAddress} aria-label="Default select example" onChange={changeHandelVal} >
                                             <option selected>Open this select menu</option>
-                                            {shippingAddress && shippingAddress.address?.map((item, i) => {
+                                            {shippingAddress && shippingAddress?.map((item, i) => {
                                                 return <option selected value={item._id} key={i}>{item?.addressLine1 + ', ' + item?.addressLine2 + ' ,' + item?.landmark + ',' + item?.zip + ',' + item?.city + ',' + item?.state + ',' + item?.country}</option>
                                             })}
                                         </select>
@@ -300,7 +357,7 @@ function AddDeliveryChalanReport() {
 
                                     </div>
                                 </div>
-                                <div className="col-6">
+                                {/* <div className="col-6">
                                     <div>
                                         <label>Products *</label>
                                         <input className="form-control" onKeyDown={handelChange} placeholder="Please add products to order list" />
@@ -312,7 +369,7 @@ function AddDeliveryChalanReport() {
                                         </div>}
 
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
 
                         </div>
@@ -331,16 +388,10 @@ function AddDeliveryChalanReport() {
 
                                                     <tr>
                                                         <td><label className="control-label">#</label></td>
-                                                        <td><label className="control-label">Product Name</label></td>
-                                                        <td><label className="control-label">SKU</label></td>
-                                                        <td><label className="control-label">Variant</label></td>
                                                         <td><label className="control-label">Serial </label></td>
-                                                        {/* <td><label className="control-label">Unit Price</label></td>
-                                                        <td><label className="control-label">Quantity</label></td>
-                                                        <td><label className="control-label">Sub Total</label></td>
-                                                        <td><label className="control-label">Tax</label></td>
-                                                        <td><label className="control-label">Tax Type</label></td>
-                                                        <td><label className="control-label">Total</label></td> */}
+                                                        <td><label className="control-label">Product Name</label></td>
+                                                        {/* <td><label className="control-label">SKU</label></td> */}
+                                                        <td><label className="control-label">Variant</label></td>
                                                     </tr>
 
                                                 </thead>
@@ -353,47 +404,24 @@ function AddDeliveryChalanReport() {
                                                                 <AiFillDelete onClick={() => { deleteItem(i) }} />
                                                             </td>
                                                             <td>
-                                                                <label name="productName" className="control-label">{item?.productName ? item?.productName : item?.productId?.name}</label>
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" disabled value={item?.sku} name="sku" className="form-control" />
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" disabled value={item?.variantId?.weight} name="rate" className="form-control" />
-                                                            </td>
-                                                            <td>
-                                                                {/* <input type="text" value={item?.serial} id={i} name="serial" onChange={handleInputItem} className="form-control" /> */}
-                                                                <select className="form-select" aria-label="Default select example" id={i} name="stockId" value={item?.stockId} onChange={handleInputItem}>
+                                                                <input type="text" value={item?.stockId} id={i} name="stockId" onChange={(e) => { getUpData(e.target.value, i) }} onKeyDown={(e) => { handleInputItem(e, e.target.value, i) }} className="form-control" />
+                                                                {/* <select className="form-select" aria-label="Default select example" id={i} name="stockId" value={item?.stockId} onChange={handleInputItem}>
                                                                     <option selected>Open this select menu</option>
                                                                     {item?.serialNo?.map((val) => {
                                                                         return <option value={val._id} id={i}>{val.serialNo}</option>
                                                                     })}
-                                                                </select>
+                                                                </select> */}
                                                             </td>
-
+                                                            <td>
+                                                                <input type="text" disabled value={item?.name ? item?.name : item?.productId?.name} name="productName" className="form-control" />
+                                                            </td>
                                                             {/* <td>
-                                                                <input type="text" id={i} name="unitPrice" className="form-control" onChange={handleInputItem} />
-                                                            </td>
-
-                                                            <td>
-                                                                <input type="text" id={i} name="qty" className="form-control" onChange={handleInputItem} />
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" disabled name="sub_total" value={item?.subTotal} className="form-control" />
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" id={i} name="tax" className="form-control" onChange={handleInputItem} />
-                                                            </td>
-                                                            <td>
-
-                                                                <select name="tax_type" id={i} className="form-select" aria-label="Default select example" onChange={handleInputItem} >
-                                                                    <option selected value="Inclusive">Inclusive</option>
-                                                                    <option value="Exclusive">Exclusive</option>
-                                                                </select>
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" disabled name="total" value={item?.total} className="form-control" />
+                                                                <input type="text" disabled value={item?.sku} name="sku" className="form-control" />
                                                             </td> */}
+                                                            <td>
+                                                                <input type="text" disabled value={item?.variant?.weight} name="rate" className="form-control" />
+                                                            </td>
+
 
                                                         </tr>
                                                     })}
@@ -403,7 +431,7 @@ function AddDeliveryChalanReport() {
                                                 </tbody>
 
                                             </table>
-                                            {/* <div style={{ textAlign: "end" }}><h5>Total : {total}</h5></div> */}
+                                            <div><button type="button" class="btn btn-success" onClick={GenerateRow}>Generate Row</button></div>
                                         </div>
                                     </div>
 

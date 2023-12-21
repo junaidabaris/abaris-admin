@@ -32,10 +32,12 @@ export const AttributeItem = ({ item, handleChoiceValues, isSuccess, isLoading, 
     ];
 
 
+    console.log(item);
     useEffect(() => {
         // if (!tags?.length) {
         //     setUpdatedVariants([])
         // }
+        // debugger
         if (tags?.length) {
             handleChoiceValues(tags, { id: item._id, title: item.name ? item.name : item.title, data: tags ? [...tags] : '' })
         }

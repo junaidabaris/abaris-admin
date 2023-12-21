@@ -78,7 +78,7 @@ function RentSection({ item, setMainVal, main, data }) {
         const clone = { ...main }
         const obj = {
             product_id: data[0]?.productId,
-            variant_id: item._id,
+            variant_id: item.uid,
             ...state,
             services: row
         }
@@ -225,7 +225,7 @@ function RentSection({ item, setMainVal, main, data }) {
 
                                     <div className="col-3">
                                         <div className="form-group">
-                                            Price Per Month
+                                            Price
                                         </div>
                                     </div>
                                 </div>

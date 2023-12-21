@@ -31,7 +31,7 @@ function AddNewDeliveryBoy() {
 
     const getPickupPoint = async () => {
         try {
-            const res = await axios.get(`https://onlineparttimejobs.in/api/pickupPoints`, {
+            const res = await axios.get(`https://onlineparttimejobs.in/api/pickupPoints/admin`, {
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
                     'Authorization': 'Bearer ' + token
@@ -98,8 +98,8 @@ function AddNewDeliveryBoy() {
             formData.append('province', inputVal.province);
             formData.append('pin', inputVal.pin);
             formData.append('password', inputVal.password);
-            formData.append('password', inputVal.language_id);
-            formData.append('password', inputVal.currency_id);
+            // formData.append('language_id', inputVal.language_id);
+            // formData.append('currency_id', inputVal.currency_id);
             formData.append('image', file);
         } else {
             formData.append('firstname', inputVal.firstname);
@@ -112,8 +112,8 @@ function AddNewDeliveryBoy() {
             formData.append('pickupPoint', pickupId);
             formData.append('province', inputVal.province);
             formData.append('pin', inputVal.pin);
-            formData.append('password', inputVal.language_id);
-            formData.append('password', inputVal.currency_id);
+            // formData.append('language_id', inputVal.language_id);
+            // formData.append('currency_id', inputVal.currency_id);
             formData.append('password', inputVal.password);
             formData.append('image', file);
         }

@@ -25,45 +25,114 @@ function DashboardAdminComp() {
   const isDelevery = window.localStorage.getItem('isDeleveryBoy')
   const DeleveryBoyId = window.localStorage.getItem('DeleveryBoyId')
 
+  const token = window.localStorage.getItem('token')
+
   const getAllDeta = async () => {
 
-    const user = await axios.get(`https://onlineparttimejobs.in/api/user/count`)
+    const user = await axios.get(`https://onlineparttimejobs.in/api/user/count`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     setusers(user.data)
 
-    const order = await axios.get(`https://onlineparttimejobs.in/api/order/count`)
+    const order = await axios.get(`https://onlineparttimejobs.in/api/order/count`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     setOrders(order.data)
 
-    const catagary = await axios.get(`https://onlineparttimejobs.in/api/category/count`)
+    const catagary = await axios.get(`https://onlineparttimejobs.in/api/category/count`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     setCategory(catagary.data)
 
-    const product = await axios.get(`https://onlineparttimejobs.in/api/product/count`)
+    const product = await axios.get(`https://onlineparttimejobs.in/api/product/count`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     setProduct(product.data)
 
-    const sellers = await axios.get(`https://onlineparttimejobs.in/api/sellerList/count`)
+    const sellers = await axios.get(`https://onlineparttimejobs.in/api/sellerList/count`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     setSellerList(sellers.data)
 
-    const pickups = await axios.get(`https://onlineparttimejobs.in/api/pickuppoints/count`)
+    const pickups = await axios.get(`https://onlineparttimejobs.in/api/pickuppoints/count`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     setPickuppoints(pickups.data)
 
-    const delever = await axios.get(`https://onlineparttimejobs.in/api/order/delivered/count`)
+    const delever = await axios.get(`https://onlineparttimejobs.in/api/order/delivered/count`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     setDelivered(delever.data)
 
-    const Rejected = await axios.get(`https://onlineparttimejobs.in/api/order/rejected/count`)
+    const Rejected = await axios.get(`https://onlineparttimejobs.in/api/order/rejected/count`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     setRejected(Rejected.data)
 
-    const Pending = await axios.get(`https://onlineparttimejobs.in/api/order/pending/count`)
+    const Pending = await axios.get(`https://onlineparttimejobs.in/api/order/pending/count`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     setPending(Pending.data)
 
-    const Cancel = await axios.get(`https://onlineparttimejobs.in/api/order/cancel/count`)
+    const Cancel = await axios.get(`https://onlineparttimejobs.in/api/order/cancel/count`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     setCancel(Cancel.data)
 
-    const activeCoupen = await axios.get(`https://onlineparttimejobs.in/api/coupons/active/count`)
+    const activeCoupen = await axios.get(`https://onlineparttimejobs.in/api/coupons/active/count`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    console.log('myACtiveCoupen---', activeCoupen.data)
     setactiveCoupen(activeCoupen.data)
 
-    const coupens = await axios.get(`https://onlineparttimejobs.in/api/coupons/active/count`)
+    const coupens = await axios.get(`https://onlineparttimejobs.in/api/coupons/active/count`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    console.log('myCoupen---', coupens.data)
     setcoupens(coupens.data)
 
-    const dashboardData = await axios.get('https://onlineparttimejobs.in/api/report/dashboard')
+    const dashboardData = await axios.get('https://onlineparttimejobs.in/api/report/dashboard', {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     setAllDashboardData(dashboardData.data)
 
 
@@ -72,7 +141,12 @@ function DashboardAdminComp() {
 
   const getAllisSellerData = async () => {
 
-    const user = await axios.get(`https://onlineparttimejobs.in/api/user/count`)
+    const user = await axios.get(`https://onlineparttimejobs.in/api/user/count`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     setusers(user.data)
 
     // const order = await axios.get(`https://onlineparttimejobs.in/api/order/pickup/count/${isSellerId}`)
@@ -90,7 +164,12 @@ function DashboardAdminComp() {
     // const Cancel = await axios.get(`https://onlineparttimejobs.in/api/order/pickupPoint/cancel/count/${isSellerId}`)
     // setCancel(Cancel.data)
 
-    const dashboardData = await axios.get(`https://onlineparttimejobs.in/api/report/dashboard/seller/${isSellerId}`)
+    const dashboardData = await axios.get(`https://onlineparttimejobs.in/api/report/dashboard/seller/${isSellerId}`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     setAllDashboardData(dashboardData.data)
 
   }
@@ -98,45 +177,109 @@ function DashboardAdminComp() {
 
     const pickupId = window.localStorage.getItem('pickIds')
 
-    const user = await axios.get(`https://onlineparttimejobs.in/api/user/count`)
+    const user = await axios.get(`https://onlineparttimejobs.in/api/user/count`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     setusers(user.data)
 
-    const order = await axios.get(`https://onlineparttimejobs.in/api/order/pickup/count/${pickupId}`)
+    const order = await axios.get(`https://onlineparttimejobs.in/api/order/pickup/count/${pickupId}`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     setOrders(order.data)
 
-    const cus = await axios.get(`https://onlineparttimejobs.in/api/pickupCustomer/count`)
+    const cus = await axios.get(`https://onlineparttimejobs.in/api/pickupCustomer/count`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     setCus(cus.data)
 
-    const pickups = await axios.get(`https://onlineparttimejobs.in/api/pickuppoints/count`)
+    const pickups = await axios.get(`https://onlineparttimejobs.in/api/pickuppoints/count`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     setPickuppoints(pickups.data)
 
-    const delever = await axios.get(`https://onlineparttimejobs.in/api/order/pickupPoint/delivered/count/${pickupId}`)
+    const delever = await axios.get(`https://onlineparttimejobs.in/api/order/pickupPoint/delivered/count/${pickupId}`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     setDelivered(delever.data)
 
-    const Rejected = await axios.get(`https://onlineparttimejobs.in/api/order/pickupPoint/rejected/count/${pickupId}`)
+    const Rejected = await axios.get(`https://onlineparttimejobs.in/api/order/pickupPoint/rejected/count/${pickupId}`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     setRejected(Rejected.data)
 
-    const Pending = await axios.get(`https://onlineparttimejobs.in/api/order/pickupPoint/pending/count/${pickupId}`)
+    const Pending = await axios.get(`https://onlineparttimejobs.in/api/order/pickupPoint/pending/count/${pickupId}`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     setPending(Pending.data)
 
-    const Cancel = await axios.get(`https://onlineparttimejobs.in/api/order/pickupPoint/cancel/count/${pickupId}`)
+    const Cancel = await axios.get(`https://onlineparttimejobs.in/api/order/pickupPoint/cancel/count/${pickupId}`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     setCancel(Cancel.data)
 
-    const dashboardData = await axios.get(`https://onlineparttimejobs.in/api/api/report/dashboard/pick/${pickupId}`)
+    const dashboardData = await axios.get(`https://onlineparttimejobs.in/api/api/report/dashboard/pick/${pickupId}`, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
     setAllDashboardData(dashboardData.data)
 
   }
 
   const [delevryData, setDeleveryData] = useState()
+  const [megoDash, setmegoDash] = useState()
 
   const getPickupstData = async () => {
-    const res1 = await axios.get(`https://onlineparttimejobs.in/api/deliveryBoy/dashboard/${DeleveryBoyId}`)
+    const res1 = await axios.get(`https://onlineparttimejobs.in/api/assignDeliveryBoy/dashboard`, {
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+      },
+    })
     setDeleveryData(res1.data)
   }
+  const getPickupstData0 = async () => {
+    const res1 = await axios.get(`https://onlineparttimejobs.in/api/specialSeller/dashboard`, {
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+      },
+    })
+    setmegoDash(res1.data.data[0])
+  }
 
+  const idShow = window.localStorage.getItem('adminId')
 
   useEffect(() => {
-    if (isDelevery === 'true') {
+    if (idShow === '65487ea9410b557887eef2e9' || idShow === '6517c45776fb0f641d7ac2f7') {
+      getPickupstData0()
+    }
+    else if (isDelevery === 'true') {
       getPickupstData()
     }
     else if (isLoginPickup === 'true') {
@@ -157,6 +300,19 @@ function DashboardAdminComp() {
 
     if (str === 'customer-list') {
       navigate('customer-list')
+    }
+    if (str === 'special-seller-list/65439fcb8e317e2508c9e734') {
+      navigate('special-seller-list/65439fcb8e317e2508c9e734')
+    }
+    if (str === 'special-seller-list/65439fe58e317e2508c9e736') {
+      navigate('special-seller-list/65439fe58e317e2508c9e736')
+    }
+    if (str === 'special-seller-list/65439fdc8e317e2508c9e735') {
+      navigate('special-seller-list/65439fdc8e317e2508c9e735')
+    }
+
+    if (str === 'special-seller-list') {
+      navigate('special-seller-list')
     }
     if (str === 'all_orders') {
       if (isLoginPickup === 'true') {
@@ -181,6 +337,94 @@ function DashboardAdminComp() {
     }
   }
 
+  if (idShow === '65487ea9410b557887eef2e9' || idShow === '6517c45776fb0f641d7ac2f7') {
+    return <>
+      <div className="aiz-main-content">
+        <div className="px-15px px-lg-25px">
+
+          <div className="row gutters-10">
+            <div className="col-lg-12">
+              <div className="row gutters-10">
+
+                <div className="col-6" onClick={() => { changeRoute('special-seller-list') }}>
+                  <div style={{ width: "100%", cursor: "pointer" }} className="bg-grad-2 text-white rounded-lg mb-4 overflow-hidden">
+                    <div className="px-3 pt-3">
+                      <div className="opacity-50">
+                        <span className="fs-12 d-block">Total</span>
+                        Aplication
+                      </div>
+                      <div className="h3 fw-700 mb-3">
+                        {megoDash?.totalCount}
+                      </div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                      <path fill="rgba(255,255,255,0.3)" fillOpacity={1} d="M0,128L34.3,112C68.6,96,137,64,206,96C274.3,128,343,224,411,250.7C480,277,549,235,617,213.3C685.7,192,754,192,823,181.3C891.4,171,960,149,1029,117.3C1097.1,85,1166,43,1234,58.7C1302.9,75,1371,149,1406,186.7L1440,224L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z" />
+                    </svg>
+                  </div>
+                </div>
+
+                <div className="col-6" onClick={() => { changeRoute('special-seller-list/65439fcb8e317e2508c9e734') }}>
+                  <div style={{ width: "100%", cursor: "pointer" }} className="bg-grad-2 text-white rounded-lg mb-4 overflow-hidden">
+                    <div className="px-3 pt-3">
+                      <div className="opacity-50">
+                        <span className="fs-12 d-block">Pending</span>
+                        Aplication
+                      </div>
+                      <div className="h3 fw-700 mb-3">
+                        {megoDash?.totalPending}
+                      </div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                      <path fill="rgba(255,255,255,0.3)" fillOpacity={1} d="M0,128L34.3,112C68.6,96,137,64,206,96C274.3,128,343,224,411,250.7C480,277,549,235,617,213.3C685.7,192,754,192,823,181.3C891.4,171,960,149,1029,117.3C1097.1,85,1166,43,1234,58.7C1302.9,75,1371,149,1406,186.7L1440,224L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z" />
+                    </svg>
+                  </div>
+                </div>
+
+                <div className="col-6" onClick={() => { changeRoute('special-seller-list/65439fe58e317e2508c9e736') }}>
+                  <div style={{ width: "100%", cursor: "pointer" }} className="bg-grad-2 text-white rounded-lg mb-4 overflow-hidden">
+                    <div className="px-3 pt-3">
+                      <div className="opacity-50">
+                        <span className="fs-12 d-block">Approved</span>
+                        Aplication
+                      </div>
+                      <div className="h3 fw-700 mb-3">
+                        {megoDash?.totalApproved}
+                      </div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                      <path fill="rgba(255,255,255,0.3)" fillOpacity={1} d="M0,128L34.3,112C68.6,96,137,64,206,96C274.3,128,343,224,411,250.7C480,277,549,235,617,213.3C685.7,192,754,192,823,181.3C891.4,171,960,149,1029,117.3C1097.1,85,1166,43,1234,58.7C1302.9,75,1371,149,1406,186.7L1440,224L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z" />
+                    </svg>
+                  </div>
+                </div>
+
+                <div className="col-6" onClick={() => { changeRoute('special-seller-list/65439fdc8e317e2508c9e735') }}>
+                  <div style={{ width: "100%", cursor: "pointer" }} className="bg-grad-2 text-white rounded-lg mb-4 overflow-hidden">
+                    <div className="px-3 pt-3">
+                      <div className="opacity-50">
+                        <span className="fs-12 d-block">Rejected</span>
+                        Aplication
+                      </div>
+                      <div className="h3 fw-700 mb-3">
+                        {megoDash?.totalRejected}
+                      </div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                      <path fill="rgba(255,255,255,0.3)" fillOpacity={1} d="M0,128L34.3,112C68.6,96,137,64,206,96C274.3,128,343,224,411,250.7C480,277,549,235,617,213.3C685.7,192,754,192,823,181.3C891.4,171,960,149,1029,117.3C1097.1,85,1166,43,1234,58.7C1302.9,75,1371,149,1406,186.7L1440,224L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div className="bg-white text-center py-3 px-15px px-lg-25px mt-auto">
+
+        </div>
+      </div>
+
+    </>
+  }
 
 
   // if (condition) {
@@ -714,7 +958,7 @@ function DashboardAdminComp() {
                         <span className="fs-12 d-block">Completed</span>
                         Deleverys
                       </div>
-                      <div className="h3 fw-700 mb-3">{delevryData?.deliveredOrder}</div>
+                      <div className="h3 fw-700 mb-3">{delevryData?.Delivered}</div>
                     </div>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                       <path fill="rgba(255,255,255,0.3)" fillOpacity={1} d="M0,128L34.3,112C68.6,96,137,64,206,96C274.3,128,343,224,411,250.7C480,277,549,235,617,213.3C685.7,192,754,192,823,181.3C891.4,171,960,149,1029,117.3C1097.1,85,1166,43,1234,58.7C1302.9,75,1371,149,1406,186.7L1440,224L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z" />
@@ -729,7 +973,7 @@ function DashboardAdminComp() {
                         Deleverys
                       </div>
                       <div className="h3 fw-700 mb-3">
-                        {delevryData?.PendingOrderCount}
+                        {delevryData?.Pending}
                       </div>
                     </div>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -745,7 +989,7 @@ function DashboardAdminComp() {
                         Deleverys
                       </div>
                       <div className="h3 fw-700 mb-3">
-                        {delevryData?.CancelledOrderCount}
+                        {delevryData?.Cancelled}
                       </div>
                     </div>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -1244,7 +1488,7 @@ function DashboardAdminComp() {
                           <span className="fs-12 d-block">Total</span>
                           Coupons
                         </div>
-                        <div className="h3 fw-700 mb-3">{coupens?.count}</div>
+                        <div className="h3 fw-700 mb-3">{coupens?.data}</div>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                         <path fill="rgba(255,255,255,0.3)" fillOpacity={1} d="M0,128L34.3,112C68.6,96,137,64,206,96C274.3,128,343,224,411,250.7C480,277,549,235,617,213.3C685.7,192,754,192,823,181.3C891.4,171,960,149,1029,117.3C1097.1,85,1166,43,1234,58.7C1302.9,75,1371,149,1406,186.7L1440,224L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z" />
@@ -1260,7 +1504,7 @@ function DashboardAdminComp() {
                           <span className="fs-12 d-block">Total Active</span>
                           Coupons
                         </div>
-                        <div className="h3 fw-700 mb-3">{activeCoupen?.count}</div>
+                        <div className="h3 fw-700 mb-3">{activeCoupen?.data}</div>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                         <path fill="rgba(255,255,255,0.3)" fillOpacity={1} d="M0,128L34.3,112C68.6,96,137,64,206,96C274.3,128,343,224,411,250.7C480,277,549,235,617,213.3C685.7,192,754,192,823,181.3C891.4,171,960,149,1029,117.3C1097.1,85,1166,43,1234,58.7C1302.9,75,1371,149,1406,186.7L1440,224L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z" />
@@ -1464,7 +1708,7 @@ function DashboardAdminComp() {
                               </div>
                               <div className="p-md-3 p-2 text-left">
                                 <div className="fs-15">
-                                 {item.variations?.length &&  <span className="fw-700 text-primary">ZK {item?.variations[0]?.mrp}</span>}
+                                  {item.variations?.length && <span className="fw-700 text-primary">ZK {item?.variations[0]?.mrp}</span>}
                                 </div>
 
                                 <h3 className="fw-600 fs-13 text-truncate-2 lh-1-4 mb-0">

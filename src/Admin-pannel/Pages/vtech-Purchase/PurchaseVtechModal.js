@@ -16,8 +16,8 @@ function PurchaseVtechModal(props) {
         let flag = false
         let index;
         if (clone?.length === 0) {
-            console.log(props?.cartData);
-            clone.push({ productName: props?.cartData?.name, ...data, productId: props?.cartData?._id, variant: props?.cartData?.variations[i]._id, })
+            console.log(data);
+            clone.push({ productName: props?.cartData?.name, ...data, productId: props?.cartData?.uid, variant: data.uid, })
         } else {
             for (let i = 0; i < clone.length; i++) {
                 if (clone[i]._id === data._id) {
@@ -29,7 +29,7 @@ function PurchaseVtechModal(props) {
                 clone.splice(index, 1)
             }
             if (!flag) {
-                clone.push({ productName: props?.cartData?.name, ...data, productId: props?.cartData?._id, variant: props?.cartData?.variations[i]._id })
+                clone.push({ productName: props?.cartData?.name, ...data, productId: props?.cartData?.uid, variant: data.uid })
             }
         }
         setselectedVariants(clone);
@@ -93,7 +93,7 @@ function PurchaseVtechModal(props) {
                     <tr>
                         <td><label className="control-label">#</label></td>
                         <td><label className="control-label">Product Name</label></td>
-                        <td><label className="control-label">SKU</label></td>
+                        {/* <td><label className="control-label">SKU</label></td> */}
                         <td><label className="control-label">Variant</label></td>
                         <td><label className="control-label">PickUp Point</label></td>
                         {/* <td><label className="control-label">Actual Rate</label></td> */}
@@ -108,14 +108,14 @@ function PurchaseVtechModal(props) {
                     {values && values.map((item, i) => {
                         return <tr>
                             <td>
-                                <CompoCHeack chnageses={chnageses} somthingchange={somthingchange} i={i} item={item}/>
+                                <CompoCHeack chnageses={chnageses} somthingchange={()=>{somthingchange(item,i)}} i={i} item={item}/>
                             </td>
                             <td>
                                 <label name="productName" className="control-label">{props?.cartData?.name}</label>
                             </td>
-                            <td>
+                            {/* <td>
                                 <input type="text" disabled value={item?.sku} name="sku" className="form-control" />
-                            </td>
+                            </td> */}
                             <td>
                                 <input type="text" disabled value={item?.weight} name="rate" className="form-control" />
                             </td>

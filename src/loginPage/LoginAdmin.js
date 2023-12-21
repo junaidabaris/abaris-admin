@@ -75,7 +75,7 @@ function LoginSection({ setshow }) {
         }
 
         else if (data?.findStaff?.role_id?.role_name === 'Pickup Point Manager') {
-            
+
             window.localStorage.setItem('isPickupManagerLogin', true)
             window.localStorage.setItem('isPickupManagerId', data?.findStaff?._id)
 
@@ -147,17 +147,35 @@ function LoginSection({ setshow }) {
         }
     }
 
+    const [getDat, setGetdat] = useState()
+    const getData = async () => {
+        try {
+            const res = await axios.get('https://onlineparttimejobs.in/api/admin/loginTheme')
+            setGetdat(res.data)
+        } catch (error) {
 
-    return <div className="registrationDetail">
+        }
+    }
+    useEffect(() => {
+        getData()
+    }, [])
+
+
+    return <div className="registrationDetail"
+        style={{ backgroundColor: getDat?.backgroundColor ? getDat?.backgroundColor : '#9013FE' }}
+    // style={{ backgroundColor: '#9013FE' }}
+    >
         <div className="container">
-            <div className="registrationInfo">
+            {/* <div className="registrationInfo">
                 <div className="registerContent">
                     <div className="contentHeader">
                         <h3>Stay Updated on your professional world</h3>
-                        <p>Sign in with your mobile number to get started</p>
+                        <p>{getDat?.title}</p>
+                        <p>Help Line No: {getDat?.helplineNo}</p>
+                        <p>Help Line Email: {getDat?.helplineEmail}</p>
                     </div>
                     <div className="contentFooter">
-                        <img src={login} alt="Login" className="img-fluid" />
+                        <img style={{width:"170px"}} src={getDat?.logoImage?.url ? getDat?.logoImage?.url : login} alt="Login" className="img-fluid" />
                     </div>
                 </div>
                 <div className="registerForm">
@@ -251,16 +269,131 @@ function LoginSection({ setshow }) {
                     </div>
 
                 </div>
+            </div> */}
+
+
+
+
+            <div className="registrationInfo d-block">
+                <div className="registerContent" style={{ paddingBottom: '0' }}>
+                    <div className="contentFooter">
+                        <img style={{ width: "170px" }}
+                            src={getDat?.logoImage?.url ? getDat?.logoImage?.url : login}
+                            // src='https://res.cloudinary.com/ddk7r5yth/image/upload/v1700134795/owbjkxwcukld63odusm8.jpg'
+                            alt="Login" className="img-fluid" />
+                    </div>
+                    <div className="contentHeader">
+                        <h5 style={{ color: 'black', textAlign: 'center' }}>{getDat?.title}</h5>
+                        {/* <h5 style={{ color: 'black', textAlign: 'center' }}>Self-Employment To Divyangjan Through Various Businesses on
+                            Environmentally Friendly E-Vehicles / E-Cart</h5> */}
+                        {/* <p>{getDat?.title}</p>
+                        <p>Help Line No: {getDat?.helplineNo}</p>
+                        <p>Help Line Email: {getDat?.helplineEmail}</p> */}
+                    </div>
+
+                </div>
+                <div className="registerForm">
+                    <h4 className="mb-4"
+                        // style={{ color: '#9013FE', textAlign: "center" }}
+                        style={{ color: getDat?.backgroundColor ? getDat?.backgroundColor : '#9013FE',textAlign: "center"  }}
+                    >Login to your account.</h4>
+                    <form className="registerFormField">
+                        <div className="mb-3">
+                            <input
+                                type="email"
+                                placeholder="email"
+                                className="form-control"
+                                autoComplete="off"
+                                name="email"
+                                onChange={handleChangeLogin}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                className="form-control"
+                                autoComplete="off"
+                                name="password"
+                                onChange={handleChangeLogin}
+                            />
+                        </div>
+                        <div className="form-check mb-3 forgotInfo">
+                            <div className="rememberText">
+                                <input
+                                    className="form-check-input"
+                                    type="checkbox"
+                                    defaultValue
+                                    id="flexCheckDefault"
+                                />
+                                <label
+                                    className="form-check-label agreeCheck"
+                                    htmlFor="flexCheckDefault"
+                                >
+                                    Remember Me
+                                </label>
+                            </div>
+                            <div className="forgotText">
+                                <Link to="#">Forgot password?</Link>
+                            </div>
+                        </div>
+                        {isError && <h4 style={{ color: "red" }}>login Fail ! </h4>}
+                        {isSuccess && <h4>login Successfully !</h4>}
+                        {isSellerErr && <h4 style={{ color: "red" }}>login Fail ! </h4>}
+                        {isSellerSucc && <h4>login Successfully !</h4>}
+                        {!delevery ? <button className="btn btn-primary createAccount" type="button" onClick={sendDelevery} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            login Delivery Boy
+                        </button> : showSeller ? <button className="btn btn-primary createAccount" type="button" onClick={SendSellerInfo} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            login Seller
+                            {sellerLoading && <Spinner style={{ marginLeft: "7px" }} animation="border" />}
+                        </button> : <button className="btn btn-primary createAccount" type="button" onClick={handleLoginSubmit} style={{ display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: getDat?.backgroundColor ? getDat?.backgroundColor : '#9013FE' }}>
+                            login
+                            {isLoading && <Spinner style={{ marginLeft: "7px" }} animation="border" />}
+                        </button>}
+
+                    </form>
+                    {!showSeller ? <div className="forgotText" style={{ marginTop: "10px", display: "flex", justifyContent: "center" }}>
+                        <Link to="#" onClick={ShowSellerLogin}>Login Seller</Link>
+
+                    </div> : <div className="forgotText" style={{ marginTop: "10px", display: "flex", justifyContent: "center" }}>
+                        <Link to="#" onClick={ShowSellerLogin}>Login Admin</Link>
+                    </div>}
+
+                    {!delevery ? <Link to="#" onClick={showDelvery}>Login Admin</Link> : <Link to="#" onClick={showDelvery}>Login As Delivery Boy</Link>}
+                    {/* <div className="joinWith">
+                        <span>or login with</span>
+                    </div>
+                    <div className="connectWith">
+                        <ul>
+                            <li>
+                                <a href="https://mmslfashions.in/" className="facebook">
+                                    <FaFacebookF />
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="https://mmslfashions.in/" className="twitter">
+                                    <BsTwitter />
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="https://mmslfashions.in/" className="google">
+                                    <AiOutlineGoogle />
+                                </a>
+                            </li>
+                        </ul>
+                    </div> */}
+
+                </div>
             </div>
+
+
+
+
+
         </div>
     </div >
 
-    // return <div className="aiz-main-wrapper d-flex">
-    //     <div className="flex-grow-1">
-    //         <div className="h-100 bg-cover bg-center py-5 d-flex align-items-center" style={{background:}}>
-
-    //         </div>
-    //     </div>
-    // </div>
 }
 export default LoginSection

@@ -4,12 +4,12 @@ import { useEffect } from "react";
 
 function ListPurchase() {
 
-    const { isLoading, data } = useGetListPurchaseQuery();
+    const { isLoading, data } = useGetListPurchaseQuery(window.localStorage.getItem('token'));
 
     const [deleteListPurchase, response] = useDeleteRowPurchaseMutation();
 
     const deleteOrderData = (id) => {
-        deleteListPurchase(id)
+        deleteListPurchase({ id: id, token: window.localStorage.getItem('token') })
     };
 
     useEffect(() => {
@@ -17,7 +17,6 @@ function ListPurchase() {
             alert('ListPurchase deleted Successfully')
         }
     }, [response])
-
 
     return (
         <>
@@ -164,7 +163,7 @@ function ListPurchase() {
 
                                         <tbody>
 
-                                            {data && data.map((item, i) => {
+                                            {data && data?.map((item, i) => {
                                                 return <tr key={item?._id}>
                                                     <td
                                                         className="footable-first-visible"

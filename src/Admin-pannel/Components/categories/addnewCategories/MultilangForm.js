@@ -1,12 +1,14 @@
 
 
 import { useState } from "react"
-import { Form } from "react-router-dom"
+import Form from 'react-bootstrap/Form';
 import { token } from "../../../common/TokenArea";
 import { useGetCategoriesQuery } from "../../all-products/allproductsApi/allProductsApi";
+import ProductDescriptionWrapper from "../../productDescriptionWrapper/productDescriptionWrapper";
 
-function MultilangForm({ data, item, i, addNewAttributeData, onChangeHandler, setValue }) {
+function MultilangForm({ data, item, i, addNewAttributeData, onChangeHandler, setValue, onChangeHandlesr }) {
     const { data: valDAta } = useGetCategoriesQuery(token);
+    const idShow = window.localStorage.getItem('adminId')
     return <div className="card">
         <div className="card-header">
             <h5 className="mb-0 h6">Category Information ({item?.lable})</h5>
@@ -98,6 +100,12 @@ function MultilangForm({ data, item, i, addNewAttributeData, onChangeHandler, se
                 </div>
 
                 <div className="form-group row">
+                    <label className="col-md-3 col-form-label">Video Link</label>
+                    <div className="col-md-9">
+                        <input type="text" className="form-control" name="video_link" value={item?.video_link} placeholder="Video Link" onChange={(e) => { onChangeHandler(e, item.language_id) }} required />
+                    </div>
+                </div>
+                <div className="form-group row">
                     <label className="col-md-3 col-form-label">Meta Title</label>
                     <div className="col-md-9">
                         <input type="text" className="form-control" name="meta_title" value={item?.meta_title} placeholder="Meta Title" onChange={(e) => { onChangeHandler(e, item.language_id) }} required />
@@ -116,6 +124,22 @@ function MultilangForm({ data, item, i, addNewAttributeData, onChangeHandler, se
                         <textarea name="meta_description" rows={5} className="form-control" value={item?.meta_description} onChange={(e) => { onChangeHandler(e, item.language_id) }} required />
                     </div>
                 </div>
+                {idShow == '652918c6deec37bc9005abe3' && <div className="form-group row">
+                    <ProductDescriptionWrapper />
+                    <label className="col-md-3 col-form-label"></label>
+                    <div className="col-md-9">
+                        <div key={`default-checkbox`} className="mb-3">
+                            <Form.Check
+                                onClick={(e) => { onChangeHandlesr(item.language_id) }}
+                                type={'checkbox'}
+                                id={`default-checkbox`}
+                                label={`Click Here For save Description`}
+                            />
+
+                        </div>
+                    </div>
+                </div>}
+
 
                 <div className="form-group row">
                     <label className="col-md-3 col-form-label">Meta Keyword</label>

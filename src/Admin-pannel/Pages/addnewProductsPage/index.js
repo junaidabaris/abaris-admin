@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import 'react-toastify/dist/ReactToastify.css';
 import "./AddNewProduct.css";
 import ShippingConfigurationAdmin from "../../Components/addNewProductsComponents/ShippingConfigurationAdmin";
-import { useAddNewProductMutation, useEditProductMutation, useGetBrandsQuery, useGetCategoriesQuery, useGetCurrencyQuery, useGetLanguagesQuery, useGetPickupPointQuery, useGetProductByIdQuery, useGetSellersQuery, useGetUnitMasterQuery } from "../../Components/all-products/allproductsApi/allProductsApi";
+import { useAddNewProductMutation, useEditProductMutation, useGetBrandsQuery, useGetCategoriesQuery, useGetCurrencyQuery, useGetIndustryQuery, useGetLanguagesQuery, useGetPickupPointQuery, useGetProductByIdQuery, useGetSellersQuery, useGetUnitMasterQuery } from "../../Components/all-products/allproductsApi/allProductsApi";
 import { ToastContainer, toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import Multiselect from "multiselect-react-dropdown";
@@ -41,6 +41,7 @@ function AddNewProductsPage() {
     const [tags, setTags] = useState([]);
     const [categ, setCateg] = useState([]);
     const [finalCatD, setFinalCatD] = useState();
+    const [finalCatDIndus, setFinalCatDIndus] = useState();
 
     const [flashDeal, setFlashdeal] = useState({
         start_Date: '',
@@ -336,8 +337,21 @@ function AddNewProductsPage() {
     const [existPro, setExistPro] = useState(false)
 
     const onChangeHandler = async (e, id, bul) => {
-
-        if (bul) {
+        console.log('togglerrcheckType--', typeof (bul))
+        if (typeof (bul) === 'boolean') {
+            console.log('togglerrcheck--', bul)
+            const maped = val.map((item) => {
+                if (item.language_id == id) {
+                    // const obj = { ...item, [e.target.name]: e.target.value }
+                    const obj = { ...item, [e.target.name]: bul, variations: varianstData, flashDeal: flashDeal, variation_Form: attributesVal, tags: tags, category_id: finalCatD, productDescription: productDescription }
+                    return obj
+                } else {
+                    return item
+                }
+            })
+            setVal(maped)
+        }
+        else if (bul) {
             const maped = val.map((item) => {
                 if (item.language_id == id) {
                     // const obj = { ...item, [e.target.name]: e.target.value }
@@ -391,93 +405,9 @@ function AddNewProductsPage() {
         const url = 'https://onlineparttimejobs.in/api/product/add_product'
         const images = new FormData();
         let cloned = [...clonedObj]
-        let varclone1 = []
-        for (let indi = 0; indi < cloned?.length; indi++) {
-            const element3 = cloned[indi];
-            for (let ind = 0; ind < element3.images?.length; ind++) {
-                images.delete('image');
-                const element0 = element3?.images[ind];
-                images.append('image', element0);
-                try {
-                    const res = await axios.post(`https://onlineparttimejobs.in/api/cloudinaryImage/addImage`, images)
-                    const obj = { public_id: res.data.public_id, url: res.data.url }
-                    varclone1.push(obj)
-                } catch (error) {
-                    console.log("Gallery Image  not uploded --outer");
-                }
+        // console.log('ffiinnaal', cloned)
+        // return
 
-            }
-            cloned[indi].images = varclone1
-            varclone1 = []
-            images.delete('image');
-
-            images.append('image', element3?.mainImage_url);
-            if (element3?.mainImage_url) {
-                try {
-                    const res = await axios.post(`https://onlineparttimejobs.in/api/cloudinaryImage/addImage`, images)
-                    const obj = { public_id: res.data.public_id, url: res.data.url }
-                    cloned[indi].mainImage_url = obj
-                } catch (error) {
-                    console.log("Gallery Image  not uploded--outer");
-                }
-            }
-
-        }
-
-        let varclone = []
-
-        for (let ind = 0; ind < cloned?.length; ind++) {
-            let element = cloned[ind].variations;
-            for (let k = 0; k < element.length; k++) {
-                let varImgs = []
-                let element2 = element[k];
-                for (let indi = 0; indi < element2.images?.length; indi++) {
-                    images.delete('image');
-                    const element3 = element2?.images[indi];
-                    images.append('image', element3);
-                    try {
-                        const res = await axios.post(`https://onlineparttimejobs.in/api/cloudinaryImage/addImage`, images)
-                        const obj = { public_id: res.data.public_id, url: res.data.url }
-                        varImgs.push(obj)
-                    } catch (error) {
-                        console.log("Gallery Image  not uploded");
-                    }
-
-                }
-
-                images.delete('image');
-                images.append('image', element2.mainImage_url);
-                if (element2.mainImage_url) {
-                    try {
-                        const res2 = await axios.post(`https://onlineparttimejobs.in/api/cloudinaryImage/addImage`, images)
-                        varclone.push({ ...element2, images: varImgs, mainImage_url: { public_id: res2.data.public_id, url: res2.data.url } })
-                        varImgs = []
-                    } catch (error) {
-                        console.log("Thumnail Image  not uploded")
-                    }
-                }
-
-            }
-
-            if (varclone?.length) {
-                cloned[ind].variations = varclone
-            }
-            varclone = []
-        }
-
-        // const neClone = []
-        // for (let v = 0; v < cloned.length; v++) {
-        //     const element = cloned[v];
-        //     if (v == 0) {
-        //         neClone.push(element)
-        //     }
-        //     if (!element.name) {
-        //         const obj = { ...cloned[0], language_id: element.language_id }
-        //         neClone.push(obj)
-        //     }else{
-        //         neClone.push(element)
-        //     }
-        // }
         try {
             const res = await axios.post(url, { list: cloned }, {
                 headers: {
@@ -500,15 +430,9 @@ function AddNewProductsPage() {
         let clone2 = [...val]
 
         setspcOr(true)
-        // const maped = clone2.map((item) => {
-        //     if (item.language_id == id) {
-        //         const obj = { ...item, ...shoing, variations: varianstData, flashDeal: flashDeal, variation_Form: attributesVal, tags: tags, category_id: finalCatD, productDescription: productDescription, attributes: [proAtt?._id], attributeSet: proAtt?.values }
-        //         return obj
-        //     } else {
-        //         return item
-        //     }
-        // })
-        // setVal(maped)
+
+        console.log(clone2)
+        // return
         addFile(clone2, token)
 
     };
@@ -576,7 +500,7 @@ function AddNewProductsPage() {
     const SaveData = (i, str, id) => {
         const maped = val.map((item) => {
             if (item.language_id == id) {
-                const obj = { ...item, ...shoing, variations: varianstData, flashDeal: flashDeal, variation_Form: attributesVal, tags: tags, category_id: finalCatD ? finalCatD : item?.category_id, productDescription: productDescription ? productDescription : item.productDescription, attributes: [proAtt?._id], attributeSet: proAtt?.values }
+                const obj = { ...item, ...shoing, variations: varianstData, flashDeal: flashDeal, variation_Form: attributesVal, tags: tags, category_id: finalCatD ? finalCatD : item?.category_id, productDescription: productDescription ? productDescription : item.productDescription, attributes: [proAtt?._id], attributeSet: proAtt?.values, industry_id: finalCatDIndus }
                 return obj
             } else {
                 return item
@@ -585,7 +509,7 @@ function AddNewProductsPage() {
         setVal(maped)
         window.scrollTo(0, 0)
     }
-
+    const { data: industryData } = useGetIndustryQuery(token);
 
     return (
         <>
@@ -658,6 +582,31 @@ function AddNewProductsPage() {
                                                                                 return cat
                                                                             })
                                                                             setFinalCatD(selectedIds)
+                                                                        }}
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                            <div className="form-group row" id="category">
+                                                                <label className="col-md-3 col-from-label">Industry <span className="text-danger">*</span></label>
+                                                                <div className="col-md-8">
+                                                                    <Multiselect
+                                                                        isObject={true}
+                                                                        displayValue="name"
+
+                                                                        options={industryData}
+                                                                        showCheckbox
+                                                                        selectedValues={[]}
+                                                                        onRemove={(selectedCat) => {
+                                                                            const selectedIds = selectedCat.map((cat) => {
+                                                                                return cat._id
+                                                                            })
+                                                                            setFinalCatDIndus(selectedIds)
+                                                                        }}
+                                                                        onSelect={(selectedCat) => {
+                                                                            const selectedIds = selectedCat.map((cat) => {
+                                                                                return cat._id
+                                                                            })
+                                                                            setFinalCatDIndus(selectedIds)
                                                                         }}
                                                                     />
                                                                 </div>
@@ -1105,7 +1054,7 @@ function AddNewProductsPage() {
 
                                     </div>
                                     {val.length == i + 1 ? <div className="form-group mb-3 text-right">
-                                        {/* <button type="button" className="btn btn-primary" fdprocessedid="uzw7ye" onClick={() => { setTabs(i, 'pre', item.language_id) }}>Prev</button> */}
+                                        <button type="button" className="btn btn-primary" fdprocessedid="uzw7ye" onClick={() => { setValue(i + 1) }}>Prev</button>
                                         <button type="button" className="btn btn-primary" fdprocessedid="uzw7ye" onClick={(e) => { addNewAttributeData(e, item.language_id) }}>Save</button>
                                     </div>
                                         :

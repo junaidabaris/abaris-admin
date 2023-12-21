@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { toast, ToastContainer } from 'react-toastify';
-import { useAddNewCategoryMutation, useGetCategoriesQuery, useGetLanguagesQuery } from '../../all-products/allproductsApi/allProductsApi';
+import { useAddCategaryMutation, useAddNewCategoryMutation, useGetCategoriesQuery, useGetLanguagesQuery } from '../../all-products/allproductsApi/allProductsApi';
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
@@ -10,6 +10,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import MultilangForm from './MultilangForm';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 function AddnewCategories() {
@@ -21,6 +22,9 @@ function AddnewCategories() {
       position: "top-center"
     })
   };
+  const { productDescription } = useSelector((state) => {
+    return state.textEditorData
+  })
 
   const [value, setValue] = useState(0);
 
@@ -35,12 +39,12 @@ function AddnewCategories() {
     if (langData) {
       if (!params) {
         const maped = langData.map((item) => {
-          return { name: "", language_id: item._id, parent_id: '', lable: item.name, order_level: "", type: "", banner: "", meta_title: "", meta_description: '', commision_rate: "", level: "", top:false, featured: false, meta_keyword: "",slug:"" }
+          return { name: "", language_id: item._id, parent_id: '', lable: item.name, order_level: "", type: "", banner: "", meta_title: "", meta_description: '', commision_rate: "", level: "", top: false, featured: false, meta_keyword: "", slug: "", description: '', video_link: "" }
         })
         setVal(maped)
       } else {
         const maped = langData.map((item) => {
-          return { name: "", language_id: item._id, parent_id: '', lable: item.name, order_level: "", type: "", banner: "", meta_title: "", meta_description: '', commision_rate: "", level: "", top: false, featured: false, meta_keyword: "" ,slug:""}
+          return { name: "", language_id: item._id, parent_id: '', lable: item.name, order_level: "", type: "", banner: "", meta_title: "", meta_description: '', commision_rate: "", level: "", top: false, featured: false, meta_keyword: "", slug: "", description: '' , video_link: "" }
         })
         setVal(maped)
       }
@@ -49,7 +53,7 @@ function AddnewCategories() {
   const onChangeHandler = (e, id, bul) => {
 
     if (bul) {
-      if(bul == 'bul'){
+      if (bul == 'bul') {
         const maped = val.map((item) => {
           if (item.language_id == id) {
             const obj = { ...item, [e.target.name]: e.target.value }
@@ -84,30 +88,42 @@ function AddnewCategories() {
       }
 
     } else {
-     if (e.target.name == 'slug') {
-      const maped = val.map((item) => {
-        const newValue = e.target.value.replace(/\s/g, '');
-        if (item.language_id == id) {
-          const obj = { ...item, [e.target.name]: newValue }
-          return obj
-        } else {
-          return item
-        }
-      })
-      setVal(maped);
-     } else {
-      const maped = val.map((item) => {
-        if (item.language_id == id) {
-          const obj = { ...item, [e.target.name]: e.target.value }
-          return obj
-        } else {
-          return item
-        }
-      })
-      setVal(maped);
-     }
+      if (e.target.name == 'slug') {
+        const maped = val.map((item) => {
+          const newValue = e.target.value.replace(/\s/g, '');
+          if (item.language_id == id) {
+            const obj = { ...item, [e.target.name]: newValue }
+            return obj
+          } else {
+            return item
+          }
+        })
+        setVal(maped);
+      } else {
+        const maped = val.map((item) => {
+          if (item.language_id == id) {
+            const obj = { ...item, [e.target.name]: e.target.value }
+            return obj
+          } else {
+            return item
+          }
+        })
+        setVal(maped);
+      }
     }
 
+  }
+
+  const onChangeHandlesr = (id) => {
+    const maped = val.map((item) => {
+      if (item.language_id == id) {
+        const obj = { ...item, description: productDescription }
+        return obj
+      } else {
+        return item
+      }
+    })
+    setVal(maped);
   }
   const [spcOr, setspcOr] = useState(false)
   const submitEditCategoryData = async (data) => {
@@ -127,6 +143,19 @@ function AddnewCategories() {
       setspcOr(false)
     }
   }
+
+  const [addcategory, res] = useAddCategaryMutation()
+  useEffect(() => {
+    if (res.isSuccess) {
+      toastSuccessMessage()
+      setspcOr(false)
+    }
+    if (res.isError) {
+      setspcOr(false)
+      console.log(res)
+      alert(res.error?.data?.message)
+    }
+  }, [res.isSuccess, res.isError])
 
   const addNewAttributeData = async (e) => {
     e.preventDefault();
@@ -243,19 +272,22 @@ function AddnewCategories() {
       }
       const url = 'https://onlineparttimejobs.in/api/category/add_category'
 
-      try {
-        const res = await axios.post(url, { list: clone }, {
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        toastSuccessMessage()
-        setspcOr(false)
-      } catch (error) {
-        alert('Category Send Fail !')
-        setspcOr(false)
-      }
+      addcategory({ data: { list: clone }, token: token })
+
+      // try {
+      //   const res = await axios.post(url, { list: clone }, {
+      //     headers: {
+      //       "Content-type": "application/json; charset=UTF-8",
+      //       Authorization: `Bearer ${token}`,
+      //     },
+      //   });
+      //   console.log(res);
+      //   
+      // } catch (error) {
+      //   console.log(error);
+      //   alert(`${error?.response?.data?.message}`)
+      //   setspcOr(false)
+      // }
 
     }
   };
@@ -276,7 +308,7 @@ function AddnewCategories() {
 
       setVal(clone)
     }
-  }, [params, langData ,getDat])
+  }, [params, langData, getDat])
 
 
   const getDetailCat = async () => {
@@ -327,7 +359,7 @@ function AddnewCategories() {
                   {val && val.map((item, i) => {
                     return <TabPanel value={i}>
                       <div className="card">
-                        <MultilangForm setValue={setValue} data={val} item={item} i={i} addNewAttributeData={addNewAttributeData} onChangeHandler={onChangeHandler} />
+                        <MultilangForm setValue={setValue} data={val} item={item} i={i} addNewAttributeData={addNewAttributeData} onChangeHandler={onChangeHandler} onChangeHandlesr={onChangeHandlesr} />
                       </div>
 
                     </TabPanel>

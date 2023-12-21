@@ -62,7 +62,7 @@ function SerialCodeTracking({ str }) {
                                         <th scope="col">Date</th>
                                         <th scope="col">Serial No </th>
                                         <th scope="col">Product </th>
-                                        <th scope="col">SKU</th>
+                                        {/* <th scope="col">SKU</th> */}
                                         <th scope="col">variantId </th>
                                     </tr>
                                 </thead>
@@ -71,7 +71,7 @@ function SerialCodeTracking({ str }) {
                                         <td>{values?.stock?.createdAt}</td>
                                         <td>{values?.stock?.serialNo}</td>
                                         <td>{values?.name}</td>
-                                        <td>{values?.stock?.sku}</td>
+                                        {/* <td>{values?.stock?.sku}</td> */}
                                         <td>{values?.variant?.weight}</td>
                                     </tr>}
 

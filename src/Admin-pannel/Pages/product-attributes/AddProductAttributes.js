@@ -10,6 +10,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import { useGetLanguagesQuery } from '../../Components/all-products/allproductsApi/allProductsApi';
 import MutiformLang from './MutiformLang';
+import { useParams } from 'react-router-dom';
 function AddProductAttributes({ getDatas }) {
     const [finalCatD, setFinalCatD] = useState();
     const [categ, setCateg] = useState([]);
@@ -23,7 +24,8 @@ function AddProductAttributes({ getDatas }) {
         setState(clone)
     }
 
-    const token = window.localStorage.getItem('token')
+    const token = window.localStorage.getItem('token');
+    const params = useParams()
 
     const toastSuccessMessage = () => {
         toast.success("Attribute Set  added Successfully", {
@@ -76,26 +78,62 @@ function AddProductAttributes({ getDatas }) {
             }
         })
         setVal(maped)
-    }
+    };
+
+
+    const getByIdData = async () => {
+        const res = await axios.get(`https://onlineparttimejobs.in/api/attributeSetMaster/${params?.uid}`, {
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        setVal(res.data)
+    };
+
+    useEffect(() => {
+        if (params?.uid) {
+            getByIdData()
+        }
+    }, [params?.uid])
+
+
     const addNewAttributeData = async (e) => {
         e.preventDefault();
         const images = new FormData();
         const clone = [...val]
+        const url = 'https://onlineparttimejobs.in/api/attributeSetMaster/add_attributeSetMasters';
 
-        const url = 'https://onlineparttimejobs.in/api/attributeSetMaster/add_attributeSetMasters'
-        try {
-            const res = await axios.post(url, { list: clone }, {
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8",
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            toastSuccessMessage()
-        } catch (error) {
-            alert('Error Attribute Set not added !')
+        if (params?.uid) {
+            try {
+                const res = await axios.put(`https://onlineparttimejobs.in/api/attributeSetMaster/update_attributeSetMasters/${params?.uid}`, { list: clone }, {
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8",
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                alert('Attribute Set Updated')
+            } catch (error) {
+                alert('Attribute Set Not Updated!')
+            }
+        } else {
+            try {
+                const res = await axios.post(url, { list: clone }, {
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8",
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                toastSuccessMessage()
+            } catch (error) {
+                alert('Error Attribute Set not added !')
+            }
         }
 
+
     };
+
+
 
     const changeData = (cbv) => {
         setVal(cbv);
@@ -119,7 +157,7 @@ function AddProductAttributes({ getDatas }) {
                         {val && val.map((item, i) => {
                             return <TabPanel value={i}>
                                 <div className="card">
-                                    <MutiformLang setValue={setValue} data={val} changeData={changeData} item={item} i={i} addNewAttributeData={addNewAttributeData} onChangeHandler={onChangeHandler} />
+                                    <MutiformLang setValue={setValue} data={val} changeData={changeData} item={item} i={i} addNewAttributeData={addNewAttributeData} onChangeHandler={onChangeHandler} params={params} />
                                 </div>
 
                             </TabPanel>

@@ -74,7 +74,7 @@ function AllReviewsProducts() {
                             return <tr key={i}>
                                 <th scope="row">{i + 1}</th>
                                 <td>
-                                    <img style={{ width: "50px", height: "50px" }} src={item?.productImageUrl?.url} />
+                                    <img style={{ width: "50px", height: "50px" }} src={item?.variations[0]?.mainImage_url?.url} />
                                 </td>
                                 <td>{item?.productName}</td>
                                 {/* <td>{item?.variant?.weight}</td> */}

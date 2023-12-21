@@ -3,21 +3,21 @@ import { useUpdateListProductsMutation } from "../all-products/allproductsApi/al
 import { AiFillDelete } from "react-icons/ai";
 
 
-function GenerateTr({ item, index, pickUp,DeleteRow, setShowData, showData }) {
+function GenerateTr({ item, index, pickUp, DeleteRow, setShowData, showData ,changeSkuvalue}) {
 
     const [updateValue, { data, isSuccess }] = useUpdateListProductsMutation()
 
     const current_qty = useRef()
 
-    const updateQty = (i, id) => {
-        const clone = showData.map((item) => {
-            if (item.variant_id === id) {
-                return { ...item, qty: current_qty.current.value }
+    const updateQty = (ind, id, value) => {
+        const clone = showData.map((item, i) => {
+            if (i === ind) {
+                return { ...item, qty: value }
             } else {
                 return item
             }
         })
-        updateValue({ index: i, data: { qty: current_qty.current.value, purchase: clone } })
+        updateValue({ index: ind, data: { qty: value, purchase: clone },token:window.localStorage.getItem('token') })
     };
 
     useEffect(() => {
@@ -73,7 +73,7 @@ function GenerateTr({ item, index, pickUp,DeleteRow, setShowData, showData }) {
             <input type="text" disabled value={item?.variant?.weight} name="sku" className="form-control" />
         </td>
         <td>
-            <input type="text" value={item?.sku} name="sku" className="form-control" />
+            <input type="text" value={item?.sku} name="sku" onChange={(e) => { changeSkuvalue(e.target.value, index) }} className="form-control" />
         </td>
 
         {/* <td>
@@ -90,7 +90,7 @@ function GenerateTr({ item, index, pickUp,DeleteRow, setShowData, showData }) {
         </td>
 
         <td>
-            <input type="number" ref={current_qty} name="current_qty" className="form-control" onChange={() => { updateQty(index, item.variant_id) }} defaultValue='1' />
+            <input type="number" ref={current_qty} name="current_qty" className="form-control" onChange={(e) => { updateQty(index, item.variant_id, e.target.value) }} defaultValue='1' />
         </td>
 
     </tr>

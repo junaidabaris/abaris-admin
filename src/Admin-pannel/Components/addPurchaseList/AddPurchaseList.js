@@ -86,7 +86,7 @@ function AddPurchaseList() {
 
     const setTableItem = async (item) => {
         const obj = { purchase: showData, pickupPoints: finalCatD }
-        setCart({ id: item._id, data: obj })
+        setCart({ id: item._id, data: obj ,token:token})
         setShow(false)
     }
 
@@ -117,6 +117,16 @@ function AddPurchaseList() {
         deleteRow({ index: index, data: { purchase: showData } })
     }
 
+    const changeSkuvalue = (value, index) => {
+        const clone = showData.map((item, i) => {
+            if (i === index) {
+                return { ...item, sku: value }
+            } else {
+                return item
+            }
+        })
+        setShowData(clone)
+    }
 
     return (
         <>
@@ -209,8 +219,8 @@ function AddPurchaseList() {
                             <div className="row">
                                 <div className="col">
                                     <div>
-                                        <label>Products *</label>
-                                        <input className="form-control" onKeyDown={handelChange} placeholder="Please add products to order list" />
+                                        <label>Products * (Select Pickup Point First)</label>
+                                        <input className="form-control" disabled={!finalCatD?.length} onKeyDown={handelChange} placeholder="Please add products to order list" />
                                         {show && searchPro?.getSearchedProduct?.length > 0 && <div className="showList">
                                             <div style={{ fontSize: "19px" }} onClick={() => { setShow(false) }}><RxCross1 /></div>
                                             {searchPro?.getSearchedProduct.map((item) => {
@@ -256,7 +266,7 @@ function AddPurchaseList() {
                                                 <tbody>
 
                                                     {showData && showData.map((item, i) => {
-                                                        return <GenerateTr showData={showData} setShowData={setShowData} DeleteRow={DeleteRow} key={i} item={item} index={i} pickUp={pickUp} />
+                                                        return <GenerateTr changeSkuvalue={changeSkuvalue} showData={showData} setShowData={setShowData} DeleteRow={DeleteRow} key={i} item={item} index={i} pickUp={pickUp} />
                                                     })}
 
 

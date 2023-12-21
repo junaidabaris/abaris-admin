@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { MultiselectOption } from "../../common/MultiSelectOption";
 
 
-function MutiformLang({ data, item, i, addNewAttributeData, onChangeHandler, setValue, changeData }) {
+function MutiformLang({ data, item, i, addNewAttributeData, onChangeHandler, setValue, changeData, params }) {
     const [finalCatD, setFinalCatD] = useState(item.values);
     const token = window.localStorage.getItem('token')
     const [categ, setCateg] = useState([]);
@@ -37,7 +37,7 @@ function MutiformLang({ data, item, i, addNewAttributeData, onChangeHandler, set
     }
     return <div className="card" >
         <div className="card-header">
-            <h5 className="mb-0 h6">Add New Product Attribute {item?.lable}</h5>
+            <h5 className="mb-0 h6">{params?.uid ? 'Update' : 'Add'} New Product Attribute {item?.lable}</h5>
         </div>
         <div className="card-body">
             <form id="create-course-form" >

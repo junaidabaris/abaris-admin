@@ -27,16 +27,16 @@ function IndexPages() {
                 <div className="px-15px px-lg-25px">
                     <div className="aiz-titlebar text-left mt-2 mb-3">
                         <div className="align-items-center">
-                            <h1 className="h3">All Product Attributes</h1>
+                            <h1 className="h3"> Product Set Attributes</h1>
                         </div>
                     </div>
                     <div className="row">
-                    <AddProductAttributes getDatas={getDatas} />
-                       
+                        <AddProductAttributes getDatas={getDatas} />
+
                     </div>
                     <div className="row">
                         <ListinSide data={data} getDatas={getDatas} />
-                       
+
                     </div>
                 </div>
                 <div className="bg-white text-center py-3 px-15px px-lg-25px mt-auto">

@@ -2,12 +2,24 @@
 
 import axios from "axios";
 import { Link } from "react-router-dom";
-function ListinSide({ data,getDatas }) {
+function ListinSide({ data, getDatas }) {
+    const token = window.localStorage.getItem('token');
 
     const DeleteData = async (id) => {
-        const res = await axios.delete(`https://onlineparttimejobs.in/api/attributeSetMaster/delete_attributeSetMasters/${id}`)
-        getDatas()
-    }
+        try {
+            const res = await axios.delete(`https://onlineparttimejobs.in/api/attributeSetMaster/delete_attributeSetMasters/${id}`, {
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            getDatas()
+            alert('Deleted')
+        } catch (error) {
+            alert('Not Deleted')
+        }
+    };
+
     return (
         <>
             <div className=" col-lg-10 ">
@@ -38,15 +50,15 @@ function ListinSide({ data,getDatas }) {
                                         <td className="footable-first-visible" style={{ display: 'table-cell' }}>{i + 1}</td>
                                         <td style={{ display: 'table-cell' }}>{item.name}</td>
                                         <td style={{ display: 'table-cell' }}>
-                                            {item?.values?.map((item,i)=>{
+                                            {item?.values?.map((item, i) => {
                                                 return <div key={i}>{item?.name}</div>
                                             })}
                                         </td>
                                         <td className="text-right footable-last-visible" style={{ display: 'table-cell' }}>
-                                            <Link to={`#`} className="btn btn-soft-primary btn-icon btn-circle btn-sm">
+                                            <Link to={`edit/${item?.uid}`} className="btn btn-soft-primary btn-icon btn-circle btn-sm">
                                                 <i className="las la-edit" />
                                             </Link>
-                                            <button type="button" onClick={()=>DeleteData(item._id)} className="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete">
+                                            <button type="button" onClick={() => DeleteData(item?.uid)} className="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete">
                                                 <i className="las la-trash" />
                                             </button>
                                         </td>

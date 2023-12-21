@@ -77,11 +77,10 @@ function VtechPurchase() {
 
     const sendData = () => {
         const mapedData = showCombo.map((item) => {
-            console.log(item);
-            return { serialNo: item.serialNo, sku: item.sku, variantId: item.variantId._id, productId: item.productId.uid, pickupPoints: item.pickupPoints }
+            return { serialNo: item.serialNo, sku: item.sku, variantId: item.variantId.uid, productId: item.productId.uid, pickupPoints: item.pickupPoints }
         })
         const obj = { ...storeValue, products: mapedData, supplier: storeValue.seller_id, token: window.localStorage.getItem('adminToken') }
-        addPurchaseList(obj);
+        addPurchaseList({data:obj ,token:token});
     }
 
     const handelChange = (e) => {
@@ -137,9 +136,10 @@ function VtechPurchase() {
         setModalShow(false)
         const arr = [...showCombo, ...val]
         const sendArr = arr.map((item) => {
+            
             return { productId: item.productId, variantId: item.variant, sku: item.sku, qty: item.qty, purchase_rate: item?.purchase_Price, pickupPoints: item?.pickupPoint }
         })
-        cartPurchase({ products: sendArr, productList: showCombo });
+        cartPurchase({ data: { products: sendArr, productList: showCombo }, token: token });
     };
 
     useEffect(() => {
@@ -181,6 +181,7 @@ function VtechPurchase() {
 
                         <div className="container">
                             <div className="row devTols" >
+                                <h4>Add v-tech Purchase</h4>
                                 <div className="col-4 d-block">
                                     <div>
                                         <label>Date *</label>

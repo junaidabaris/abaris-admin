@@ -8,9 +8,14 @@ import { GrView } from "react-icons/gr"
 function RentProductList() {
 
     const [data, setdata] = useState(null)
-
+    const token = window.localStorage.getItem('token')
     const getData = async () => {
-        const res = await axios.get(`https://onlineparttimejobs.in/api/serviceProductRent/admin`)
+        const res = await axios.get(`https://onlineparttimejobs.in/api/serviceProductRent/admin`, {
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                Authorization: `Bearer ${token}`,
+            },
+        })
         setdata(res.data)
     }
 
@@ -20,7 +25,12 @@ function RentProductList() {
 
     const DeleteItems = async (id) => {
         try {
-            const res = await axios.delete(`https://onlineparttimejobs.in/api/serviceProductRent/delete_Product/${id}`)
+            const res = await axios.delete(`https://onlineparttimejobs.in/api/serviceProductRent/delete_Product/${id}`, {
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                    Authorization: `Bearer ${token}`,
+                },
+            })
             alert('Rent Product Delete Successfully')
             getData()
         } catch (error) {
@@ -53,7 +63,7 @@ function RentProductList() {
                                 <td>{item?.product_name}</td>
                                 {/* <td>{item?.variant?.weight}</td> */}
                                 <td>
-                                    <GrView style={{margin:"0 10px"}} />
+                                    <GrView style={{ margin: "0 10px" }} />
                                     <AiFillDelete onClick={() => DeleteItems(item._id)} />
                                 </td>
                             </tr>

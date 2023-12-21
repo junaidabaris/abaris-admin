@@ -7,7 +7,8 @@ import { useParams } from "react-router-dom";
 import ToggleStatus from "../toggleStatus/ToggleStatus";
 import { ColorParams } from "./ColorParams";
 // let sendPayload = [];
-function ProductParams({ handleVariantData, productData, setattributesVal, setVariantsData, item, onChangeHandler ,sellerD}) {
+function ProductParams({ handleVariantData, productData, setattributesVal, setVariantsData, item, onChangeHandler, sellerD }) {
+    // console.log('itaaaaammmm----', item)
     const [sendPayload, setsendPayload] = useState([])
     const token = window.localStorage.getItem('token')
     const [variationArr, setVariationArr] = useState([]);
@@ -30,7 +31,7 @@ function ProductParams({ handleVariantData, productData, setattributesVal, setVa
                         let clone2 = []
                         for (let j = 0; j < countryData?.length; j++) {
                             const val = countryData[j];
-                            const newClo = { country_id: val, mrp: "", purchase_rate: "", landing_rate: "", wholeSale_rate: "", retail_price: "", showRoom_rate: "", sale_price: "", discount: "", discount_type: "Amount", tax_type: "Inclusive", tax: "", sku: "", sale_rate: "",seller_id:"" }
+                            const newClo = { country_id: val, mrp: "", purchase_rate: "", landing_rate: "", wholeSale_rate: "", retail_price: "", showRoom_rate: "", sale_price: "", discount: "", discount_type: "Amount", tax_type: "Inclusive", tax: "", sku: "", sale_rate: "", seller_id: "" }
                             clone2.push(newClo)
                         }
                         element.prices = clone2
@@ -52,12 +53,12 @@ function ProductParams({ handleVariantData, productData, setattributesVal, setVa
                         if (element?.prices?.length) {
                             // element.prices = item?.prices
                             // clone.splice(i, 1, element)
-                            
+
                         } else if (countryData) {
                             let clone2 = []
                             for (let j = 0; j < countryData?.length; j++) {
                                 const val = countryData[j];
-                                const newClo = { country_id: val, mrp: "", purchase_rate: "", landing_rate: "", wholeSale_rate: "", retail_price: "", showRoom_rate: "", sale_price: "", discount: "",  discount_type: "Amount", tax_type: "Inclusive", tax: "", sku: "", sale_rate: "",seller_id:"" }
+                                const newClo = { country_id: val, mrp: "", purchase_rate: "", landing_rate: "", wholeSale_rate: "", retail_price: "", showRoom_rate: "", sale_price: "", discount: "", discount_type: "Amount", tax_type: "Inclusive", tax: "", sku: "", sale_rate: "", seller_id: "" }
                                 clone2.push(newClo)
                             }
                             element.prices = clone2
@@ -73,7 +74,7 @@ function ProductParams({ handleVariantData, productData, setattributesVal, setVa
 
 
         }
-    }, [isVariantLoading, variationsData, isSuccess, countryData,item])
+    }, [isVariantLoading, variationsData, isSuccess, countryData, item])
 
     const { data: attributesData } = useGetAttributesQuery(token)
     const [colorVariant, setColorVariant] = useState([]);
@@ -87,31 +88,37 @@ function ProductParams({ handleVariantData, productData, setattributesVal, setVa
             setAllAttributes(item.variation_Form)
             setAllChoices(item.variation_Form)
         }
-    }, [params,item])
+    }, [params, item])
 
     const getAttributes = (attributes) => {
         setAllAttributes([...attributes])
     }
     const getChoiceValues = (choiceValues, currentAttr) => {
         setAllChoices(choiceValues && [...choiceValues])
-        const clone = [...allAttributes]
-        let flag = true;
-        clone.map((item, i) => {
-            if (item._id === currentAttr.id) {
-                clone.splice(i, 1, currentAttr)
-                flag = false;
+        const clone = [...sendPayload]
+        for (let i = 0; i < clone.length; i++) {
+            const element = clone[i];
+            if (element._id !== choiceValues._id) {
+                clone.push(choiceValues)
             }
-        })
-        if (flag) {
-            clone.push(currentAttr)
         }
         setsendPayload(clone)
-
-        let filteredData = clone.filter(item => {
-            if (item?.data?.length) {
-                return item
+        let flag = true;
+        if (clone.length) {
+            clone.map((item, i) => {
+                if (item.id === currentAttr.id) {
+                    clone.splice(i, 1, currentAttr)
+                    flag = false;
+                }
+            })
+            if (flag) {
+                clone.push(currentAttr)
             }
-        })
+        } else {
+            clone.push(currentAttr)
+        }
+
+        let filteredData = clone.filter(item => item.data.length)
 
         if (filteredData.length) {
             form_variatio({ data: { attributes: filteredData, variations: updatedVariants }, token: token })
@@ -122,6 +129,7 @@ function ProductParams({ handleVariantData, productData, setattributesVal, setVa
         }
 
     }
+
     useEffect(() => {
         if (allChoices) {
             const finalAttributes = generateOb(colorVariant, allChoices)
@@ -202,7 +210,7 @@ function ProductParams({ handleVariantData, productData, setattributesVal, setVa
                             <label className="col-md-3 col-from-label">Global Attribute</label>
                             <div className="col-md-8">
                                 <label className="aiz-switch aiz-switch-success mb-0">
-                                    <input type="checkbox" name={'isGlobalAttribute'} checked={item.isGlobalAttribute} onChange={(e) => { onChangeHandler(e, item.language_id, !item.isGlobalAttribute) }} />
+                                    <input type="checkbox" name={'isGlobalAttribute'} checked={item?.isGlobalAttribute} onChange={(e) => { onChangeHandler(e, item.language_id, !item.isGlobalAttribute) }} />
                                     <span />
                                 </label>
                             </div>

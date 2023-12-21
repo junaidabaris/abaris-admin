@@ -87,7 +87,7 @@ function OrderDetails() {
     }
   }
   useEffect(() => {
-    if(isDeleveryBoy == 'true'){
+    if (isDeleveryBoy == 'true') {
       return
     }
     getPickupPoint()
@@ -217,6 +217,8 @@ function OrderDetails() {
       alert('Assign To Delevery Boy Failed')
     }
   }
+
+  console.log('orderdetailData--', data)
   return (
     <>
       {isLoading && (
@@ -240,19 +242,19 @@ function OrderDetails() {
                   </div>
                   <div className="card-header topCardHeader">
                     <h6 className="mb-0">
-                    Invoice Date  - {data[0]?.invoiceDate}
+                      Invoice Date  - {data[0]?.invoiceDate}
                     </h6>
                   </div>
                   <div className="card-header topCardHeader">
                     <h6 className="mb-0">
-                    Invoice No - {data[0]?.invoiceNo}
+                      Invoice No - {data[0]?.invoiceNo}
                     </h6>
                   </div>
                 </div>
                 <div className="col-lg-6">
                   <div className="card-header topCardHeader">
                     <h6 className="mb-0 order-creation-d">
-                      Order Created On - {data[0].date}
+                      Order Created On - {data[0]?.createdAt}
                     </h6>
                   </div>
                 </div>
@@ -290,8 +292,17 @@ function OrderDetails() {
                       <div className="customerName">
                         Customer Name:{" "}
                         <span>
-                          {data[0].user_firstname + " " +
-                            data[0].user_lastname}
+                          {data[0]?.user_firstname && data[0].user_lastname ? data[0]?.user_firstname + " " + data[0].user_lastname : data[0]?.billing?.bfirstname + " " + data[0]?.billing?.blastname}
+
+                        </span>
+                      </div>
+                    </div>
+                    <div className="small-text-wraper">
+                      <div className="customerName">
+                        Customer Contact No:{" "}
+                        <span>
+                          {data[0]?.contactDetail}
+
                         </span>
                       </div>
                     </div>
@@ -549,7 +560,7 @@ function OrderDetails() {
 
                           <li>
                             <strong>Name:</strong>
-                            {/* <span>{data[0].shipping?.firstname + " " + data[0].shipping?.lastname}</span> */}
+                            <span>{data[0]?.shipping?.bfirstname + " " + data[0]?.shipping?.blastname}</span>
 
 
                           </li>
@@ -636,7 +647,7 @@ function OrderDetails() {
 
                         <li>
                           <strong>Seller Name:</strong>
-                          {/* <span>{data[0].Seller[0]?.firstname} {data[0].Seller[0]?.lastname}</span> */}
+                          <span>{data[0]?.seller?.firstname + " " + data[0].Seller?.lastname}</span>
                         </li>
                         <li>
                           <strong>Seller Company Name</strong>
@@ -645,33 +656,33 @@ function OrderDetails() {
 
                         <li>
                           <strong>Address Line 1</strong>
-                          <span>k</span>
+                          <span>{data[0]?.seller?.addressLine1}</span>
 
                         </li>
                         <li>
                           <strong>Address line 2,</strong>
-                          <span>ad</span>
+                          <span>{data[0]?.seller?.addressLine2}</span>
 
                         </li>
                         <li>
                           <strong>City</strong>
-                          <span>ads</span>
+                          <span>{data[0]?.seller?.city}</span>
 
                         </li>
                         <li>
                           <strong>State</strong>
-                          <span>ads</span>
+                          <span>{data[0]?.seller?.state}</span>
 
                         </li>
 
                         <li>
                           <strong>Country</strong>
-                          <span>ads</span>
+                          <span>{data[0]?.seller?.country}</span>
 
                         </li>
                         <li>
                           <strong>Tax No</strong>
-                          <span>ads</span>
+                          <span>{data[0]?.seller?.tax_number}</span>
 
                         </li>
                       </ul>

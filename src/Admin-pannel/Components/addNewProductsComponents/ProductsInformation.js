@@ -17,7 +17,6 @@ function ProductsInformationAdmin({ dataSetNext, wholesaleProductDataById ,getDa
     const SaveData = (val) => {
         setModalShow(false)
         const arr = [...showCombo, ...val]
-        console.log(arr);
         setShowCombo(arr)
     }
 

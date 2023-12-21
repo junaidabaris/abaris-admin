@@ -24,7 +24,12 @@ function AssighOrderStatus() {
 
     const getDataDelevry = async () => {
         try {
-            const res = await axios.get(`https://onlineparttimejobs.in/api/assignDeliveryBoy/deliveryBoy/status/${DeleveryBoyId + '&' + params.id}`)
+            const res = await axios.get(`https://onlineparttimejobs.in/api/assignDeliveryBoy/deliveryBoy/status/${params.id}`,{
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                    'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+                },
+            })
             setData(res.data)
         } catch (error) {
             alert('Server Error Fail to load Assign Order')
@@ -132,12 +137,12 @@ function AssighOrderStatus() {
                                         <th style={{ display: "table-cell" }}>order ReferenceNo:</th>
                                         <th style={{ display: "table-cell" }}>Order Date:</th>
                                         {/* <th style={{ display: "table-cell" }}>Order Time:</th> */}
-                                        <th
+                                        {/* <th
                                             data-breakpoints="md"
                                             style={{ display: "table-cell" }}
                                         >
                                             Num. of Products
-                                        </th>
+                                        </th> */}
                                         <th
                                             data-breakpoints="md"
                                             style={{ display: "table-cell" }}
@@ -209,42 +214,42 @@ function AssighOrderStatus() {
                                                 {1 + i}
                                             </td>
                                             <td style={{ display: "table-cell" }}>
-                                                {item?.orderId._id}
+                                                {item?._id}
                                             </td>
                                             <td style={{ display: "table-cell" }}>
-                                                {item?.orderId?.order_referenceNo}
+                                                {item?.referenceNo}
                                             </td>
                                             <td style={{ display: "table-cell" }}>
                                                 {item?.createdAt}
                                             </td>
 
-                                            <td style={{ display: "table-cell" }}>
+                                            {/* <td style={{ display: "table-cell" }}>
                                                 {item?.orderId?.products.length}
+                                            </td> */}
+                                            <td style={{ display: "table-cell" }}>
+                                                {item?.user?.firstname ? item?.user.firstname : ''}
                                             </td>
                                             <td style={{ display: "table-cell" }}>
-                                                {item?.orderId?.user ? item?.orderId?.user.firstname : ''}
-                                            </td>
-                                            <td style={{ display: "table-cell" }}>
-                                                {item?.orderId?.user ? item?.orderId?.user.lastname : ''}
+                                                {item?.user?.lastname ? item?.user.lastname : ''}
                                             </td>
                                             <td style={{ display: "table-cell" }}>
 
-                                                {item?.orderId?.Seller[0]?.firstname + ' ' + item?.orderId?.Seller[0]?.lastname}
+                                                {item?.seller_id[0]?.firstname + ' ' + item?.seller_id[0]?.lastname}
                                             </td>
                                             <td style={{ display: "table-cell" }}>
-                                                {item?.orderId.currency ? item?.orderId.currency.symbol : 'ZK'} {item?.orderId?.grandTotal}
+                                                {item?.currency.symbol ? item?.currency.symbol : 'RS'} {item?.grandTotal}
                                             </td>
                                             <td style={{ display: "table-cell" }}>
-                                                {item?.orderId?.deliveryType}
+                                                {item?.deliveryType}
                                             </td>
                                             <td style={{ display: "table-cell" }}>
-                                                {item?.orderId?.orderStatusTrans ? item?.orderId?.orderStatusTrans[item?.orderId?.orderStatusTrans.length - 1].orderStatusId?.orderStatusName : ''}
+                                                {item?.status ? item?.status[item?.status.length - 1].orderStatusName : ''}
                                             </td>
                                             <td style={{ display: "table-cell" }}>
                                                 COD
                                             </td>
                                             <td style={{ display: "table-cell" }}>
-                                                {item?.orderId?.Payment_Status?.paymentStatusName}
+                                                {item?.paymentStatus?.paymentStatusName}
                                             </td>
 
 
@@ -255,7 +260,7 @@ function AssighOrderStatus() {
                                             >
                                                 <Link
                                                     className="btn btn-soft-primary btn-icon btn-circle btn-sm"
-                                                    to={`/admin/all_orders/order-Details/${item?.orderId._id}`}
+                                                    to={`/admin/all_orders/order-Details/${item._id}`}
                                                     title="View"
                                                 >
                                                     <i className="las la-eye" />

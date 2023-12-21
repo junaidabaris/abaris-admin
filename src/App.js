@@ -670,6 +670,32 @@ import RoboticMaster from "./Admin-pannel/Components/roboticMaster/RoboticMaster
 import RoboticMasterEdit from "./Admin-pannel/Components/roboticMaster/RoboticMasterEdit";
 import RoboticList from "./Admin-pannel/Components/roboticMaster/RoboticMasterList";
 import SellerFillupForm from "./Admin-pannel/Components/allSeller/SellerFillupForm";
+import SpecialSellerListPage from "./Admin-pannel/Pages/specialSellerList/Index";
+import SpecialSellerDetailsPage from "./Admin-pannel/Pages/specialSellerList/specialSellerDetails";
+import Division_and_districtAdd from "./Admin-pannel/Components/specialSeler/division_and_districts/Division_and_districtAdd";
+import Districs from "./Admin-pannel/Components/specialSeler/dstrict/Districs";
+import Application_track from "./Admin-pannel/Components/specialSeler/Tracker/Application_track";
+import Add_privacyPolicy from "./Admin-pannel/Pages/crmspages/privacyPolicy/Add_privacyPolicy";
+import AddTermsAndCondition from "./Admin-pannel/Pages/crmspages/TermsAndCondition/AddTermsAndCondition";
+import ContactMailInfo from "./Admin-pannel/Pages/contactMail/ContactMailInfo";
+import LoginSetting from "./Admin-pannel/Pages/loginsetting/LoginSetting";
+import AllQuestion from "./Admin-pannel/Pages/allReviews/AllQuestion";
+import ContactMessage from "./Admin-pannel/Pages/ContactMessage/ContactMessage";
+import ShippingCostArea from "./Admin-pannel/Pages/shippingCostArea/ShippingCostArea";
+import ShippingSetting from "./Admin-pannel/Pages/shippingCostArea/ShippingSetting";
+import JobDepartment from "./Admin-pannel/Pages/jobDescriptions/jobdepartment/JobDepartment";
+import JobGroup from "./Admin-pannel/Pages/jobDescriptions/jobgroup/JobGroup";
+import ReasionMaster from "./Admin-pannel/Pages/specialSellerList/ReasionMaster";
+import IndustryMaster from "./Admin-pannel/Pages/industry/IndustryMaster";
+import IndustryCreate from "./Admin-pannel/Pages/industry/IndustryCreate";
+import Category_Attributes from "./Admin-pannel/Pages/category_attributes/Category_Attributes";
+import AddCelebritiesPage from "./Admin-pannel/Pages/addCelebritiesPage";
+import ListCelebritiesPage from "./Admin-pannel/Pages/listCelebritiesPage";
+import AddCelebritiesTypePage from "./Admin-pannel/Pages/addCelebritiesTypePage";
+import GeneralCelebritiesListPage from "./Admin-pannel/Pages/generalCelebritiesPage";
+import ListChiragFoundationsOrders from "./Admin-pannel/Pages/listChiragFoundationOrders";
+import EditSetAttributesPage from "./pages/editSetAttributesPage";
+import ListChiragFoundationCustomersPage from "./Admin-pannel/Pages/listChiragFoundationCustomersPage";
 
 function App() {
   const [show, setshow] = useState(true);
@@ -692,6 +718,7 @@ function App() {
 
 
           {/* Mustafa Works */}
+          <Route path="login_setting" element={<LoginSetting />} />
           <Route path="robotic-master" element={<RoboticMaster />} />
           <Route path="robotic-master-list" element={<RoboticList />} />
           <Route path="robotic-master/edit/:id" element={<RoboticMasterEdit />} />
@@ -743,7 +770,8 @@ function App() {
           <Route path="bulk_import_inventory" element={<BulkInventry />} />
 
           {/* sales_Modules */}
-          <Route path="sales_entry" element={<SalesEntry />} />
+          <Route path="add_privacyPolicy" element={<Add_privacyPolicy />} />
+          <Route path="add_TermsAndCondition" element={<AddTermsAndCondition />} />
 
 
           {/* <Route path="products/all/products/edit/:id" element={<AddNewProductsPage />} /> */}
@@ -763,6 +791,7 @@ function App() {
           <Route path="list_banner/bannerEdit/:id" element={<AddNewBanner />} />
           <Route path="list_banner" element={<ListBanner />} />
 
+
           <Route path="add_faq" element={<AddFaq />} />
           <Route path="list_faq" element={<ListFaqAdmin />} />
           <Route path="faqsMaster" element={<FaqMaster />} />
@@ -771,6 +800,9 @@ function App() {
 
           <Route path="attributes" element={<AttributeAdminPage />} />
           <Route path="product_attributes" element={<IndexPages />} />
+          <Route path="product_attributes/edit/:uid" element={<EditSetAttributesPage />} />
+          <Route path="category_attributes" element={<Category_Attributes />} />
+          <Route path="/admin/category_attributes/edit/:id" element={<Category_Attributes />} />
 
           <Route path="attributes/edit/:id" element={<EditAttribute />} />
           <Route path="pos-activation" element={< PosConfigurationPage />} />
@@ -945,6 +977,9 @@ function App() {
           <Route path="carriers" element={<ShippingCarrierPage />} />
 
           <Route path="categories" element={<CategoriesPageAdmin />} />
+          <Route path="industry" element={<IndustryMaster />} />
+          <Route path="industry/create_industryMaster" element={<IndustryCreate />} />
+          <Route path="industry/create_industryMaster/edit/:id" element={<IndustryCreate />} />
           <Route path="categories/create" element={<AddnewCategories />} />
           <Route path="categories/edit/:id" element={<AddnewCategories />} />
 
@@ -1071,6 +1106,7 @@ function App() {
 
 
           <Route path="all/reviews" element={<AllReviewsProducts />} />
+          <Route path="all/question" element={<AllQuestion />} />
 
           <Route path="seller_packages_list" element={<ListParchaseList />} />
           <Route path="seller_packages_purchase_list" element={<Seller_packages_purchase_list />} />
@@ -1197,6 +1233,11 @@ function App() {
 
 
           <Route path="job-descriptions" element={<JobDesc />} />
+          <Route path="job-group" element={<JobGroup />} />
+          <Route path="job-departments" element={<JobDepartment />} />
+
+
+
           <Route path="group-management" element={<GroupManagement />} />
           <Route path="import-excel" element={<ImportExcel />} />
           <Route path="view-job" element={<ViewJob />} />
@@ -1207,7 +1248,9 @@ function App() {
           <Route path="import-from-excel" element={<ImportFromExcel />} />
           <Route path="view-hr-records" element={<ViewRecords />} />
 
-          {/* {Nizam Routes end} */}
+          {/* {my new Routes end} */}
+          {/* <Route path="add_privacyPolicy" element={<ViewRecords />} /> */}
+
 
           {/* {Shhaz Routes start} */}
           <Route path="drop-ship" element={<Dropships />} />
@@ -1271,7 +1314,22 @@ function App() {
           <Route path="email-mark" element={<EmailMarketing />} />
           <Route path="email-new" element={<NewMail />} />
 
+          {/* Mustafa Works */}
+          <Route path="special-seller-list" element={<SpecialSellerListPage />} />
+          <Route path="reasonMaster" element={<ReasionMaster />} />
+          <Route path="special-seller-list/:id" element={<SpecialSellerListPage />} />
+          <Route path="division" element={<Division_and_districtAdd />} />
+          <Route path="division/edit/:id" element={<Division_and_districtAdd />} />
+          <Route path="district" element={<Districs />} />
+          <Route path="district/edit/:id" element={<Districs />} />
+          <Route path="application_track" element={<Application_track />} />
+          <Route path="special-seller/details/:id" element={<SpecialSellerDetailsPage />} />
+          <Route path="contact_mail_info" element={<ContactMailInfo />} />
 
+          <Route path="ShippingCostArea" element={<ShippingCostArea />} />
+          <Route path="ShippingCostSetting" element={<ShippingSetting />} />
+
+          <Route path="contact_message" element={<ContactMessage />} />
 
 
           {/* by Sajid */}
@@ -1473,6 +1531,12 @@ function App() {
           <Route path="add-metal-type" element={<AddMetalTypePage />} />
           <Route path="metal-type" element={<MetalTypePage />} />
           <Route path="metal-type/edit/:uid" element={<EditMetalTypePage />} />
+          <Route path="add-celebrity" element={<AddCelebritiesPage />} />
+          <Route path="list-celebrity" element={<ListCelebritiesPage />} />
+          <Route path="add-celebrity-type" element={<AddCelebritiesTypePage />} />
+          <Route path="list-general-celebrity" element={<GeneralCelebritiesListPage />} />
+          <Route path="list-chiragFoundation-orders" element={<ListChiragFoundationsOrders />} />
+          <Route path="list-chiragFoundation-customers" element={<ListChiragFoundationCustomersPage />} />
 
 
 

@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 function Brands() {
     const [inputVal, setInputVal] = useState({ search: '' });
     const token = window.localStorage.getItem('token')
-    const { isLoading, data } = useGetBrandsQuery(token);
+    const { isLoading, data ,refetch } = useGetBrandsQuery(token);
     const copiedData = { ...data }
     const [blankArr, setBlankArr] = useState([])
 
@@ -38,6 +38,7 @@ function Brands() {
     useEffect(() => {
         if (response.isSuccess === true) {
             alert('Brand deleted Successfully')
+            refetch()
         }
     }, [response.isSuccess])
 

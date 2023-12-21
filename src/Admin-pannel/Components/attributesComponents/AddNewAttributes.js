@@ -7,6 +7,7 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import FormsMultiLanguage from "./FormsMultiLanguage";
+import axios from "axios";
 
 function AddNewAttributesAdmin() {
 
@@ -33,6 +34,7 @@ function AddNewAttributesAdmin() {
         }
 
     }, [response])
+
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
@@ -41,6 +43,7 @@ function AddNewAttributesAdmin() {
 
     const { data, refetch } = useGetLanguagesQuery(token);
     const [val, setVal] = useState(data)
+
     useEffect(() => {
         if (data) {
             const maped = data.map((item) => {
@@ -75,11 +78,33 @@ function AddNewAttributesAdmin() {
 
     }
 
+
+    const phohtoCHange = async (e, id) => {
+        const images = new FormData();
+        images.append('image', e.target.files[0]);
+        try {
+            const res = await axios.post(`https://onlineparttimejobs.in/api/cloudinaryImage/addImage`, images)
+            const obj = { public_id: res.data.public_id, url: res.data.url }
+            const maped = val?.map((item) => {
+                if (item.language_id == id) {
+                    return { ...item, image: obj }
+                } else {
+                    return item
+                }
+            })
+            setVal(maped)
+        } catch (error) {
+            console.log("Image  not uploded");
+        }
+    }
+
+
     const addNewAttributeData = (e) => {
         e.preventDefault();
         addNewAttribute({ data: { list: val }, token: token })
 
     };
+
     return (
         <>
             <div className="col-md-5">
@@ -97,7 +122,7 @@ function AddNewAttributesAdmin() {
                         {val && val.map((item, i) => {
                             return <TabPanel value={i}>
                                 <div className="card">
-                                    <FormsMultiLanguage setValue={setValue} data={val} item={item} i={i} addNewAttributeData={addNewAttributeData} onChangeHandler={onChangeHandler} />
+                                    <FormsMultiLanguage phohtoCHange={phohtoCHange} setValue={setValue} data={val} item={item} i={i} addNewAttributeData={addNewAttributeData} onChangeHandler={onChangeHandler} />
                                 </div>
 
                             </TabPanel>

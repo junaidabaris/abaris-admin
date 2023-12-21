@@ -41,7 +41,6 @@ function PriceStocCompkWholsaleProducts({ item, setMainVal, main, data }) {
             }
         })
         setRow(filterdRow)
-        // console.log(filterdRow);
     }
 
 
@@ -83,9 +82,6 @@ function PriceStocCompkWholsaleProducts({ item, setMainVal, main, data }) {
         arr.push(obj)
         clone.products = arr
         setMainVal(clone)
-        console.log(clone);
-        console.log(data);
-        console.log(state);
     }
 
 

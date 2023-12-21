@@ -1,10 +1,11 @@
 import React from "react";
-import { Editor,EditorState, RichUtils, getDefaultKeyBinding, convertToRaw } from "draft-js";
-import {stateToHTML} from 'draft-js-export-html'
+import { Editor, EditorState, RichUtils, getDefaultKeyBinding, convertToRaw } from "draft-js";
+import { stateToHTML } from 'draft-js-export-html'
 import "draft-js/dist/Draft.css";
 import './TextEditor.css'
 class TextEditor extends React.Component {
     constructor(props) {
+        console.log('props---', props?.item?.productDescription)
         super(props);
         this.state = { editorState: EditorState.createEmpty() };
 
@@ -60,13 +61,13 @@ class TextEditor extends React.Component {
         );
     }
 
-    componentDidUpdate(){
+    componentDidUpdate() {
         const blocks = convertToRaw(this.state.editorState.getCurrentContent()).blocks;
         const value = blocks.map(block => (!block.text.trim() && '\n') || block.text).join('\n');
         const htmlValue = stateToHTML(this.state.editorState.getCurrentContent())
         this.props.handleData(htmlValue)
     }
-    
+
     render() {
         const { editorState } = this.state;
         let className = 'RichEditor-editor';

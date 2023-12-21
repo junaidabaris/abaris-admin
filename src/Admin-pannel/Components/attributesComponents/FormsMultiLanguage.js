@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-function FormsMultiLanguage({ data, item, i, addNewAttributeData, onChangeHandler, setValue }) {
+function FormsMultiLanguage({ data, item, i, addNewAttributeData, onChangeHandler, setValue ,phohtoCHange}) {
 
     return <div className="card">
         <div className="card-header">
@@ -11,6 +11,11 @@ function FormsMultiLanguage({ data, item, i, addNewAttributeData, onChangeHandle
                 <div className="form-group mb-3">
                     <label htmlFor="name">Name</label>
                     <input type="text" placeholder="Name" id="name" name="name" value={item.name} className="form-control" required fdprocessedid="8s3s9v" onChange={(e) => { onChangeHandler(e, item.language_id) }} />
+                </div>
+                <div className="form-group mb-3">
+                    <label htmlFor="name">Image</label>
+                    <input type="file" name="image" className="form-control" required fdprocessedid="8s3s9v" onChange={(e) => { phohtoCHange(e, item.language_id) }} />
+                    {item?.image?.url && <img src={item?.image?.url} style={{width:"150px",height:'150px'}}/>}
                 </div>
                 <div className="form-group mb-3">
                     <label htmlFor="name">Approve</label>

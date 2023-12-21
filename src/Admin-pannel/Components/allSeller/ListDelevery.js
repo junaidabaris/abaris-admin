@@ -128,7 +128,7 @@ function ListDelevery(props) {
             margin: 'auto',
         }} onHide={handleClose} animation={false}>
             <Modal.Header closeButton>
-                <Modal.Title>Delevery Detail</Modal.Title>
+                <Modal.Title>Delivery Detail</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <h6>Order Id : {dataVal?.order_id}</h6>

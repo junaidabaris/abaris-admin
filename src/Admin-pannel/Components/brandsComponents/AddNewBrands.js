@@ -88,7 +88,7 @@ function AddnewBrandsAdmin() {
             }
         }
         const url = 'https://onlineparttimejobs.in/api/brand/add'
-        addBrand({ data: { list: clone }, token: token })
+        // addBrand({ data: { list: clone }, token: token })
         try {
             const res = await axios.post(url, { list: clone }, {
                 headers: {

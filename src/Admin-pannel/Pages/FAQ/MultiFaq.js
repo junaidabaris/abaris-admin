@@ -41,7 +41,7 @@ function MultiFaq({ data, item, i, addNewAttributeData, onChangeHandler, setValu
                         <select className="form-select" name='category_id' value={item?.category_id} onChange={(e) => { onChangeHandler(e, item.language_id) }} required>
                             <option>Select Parent Catagary</option>
                             {allList && allList.map((item, i) => {
-                                return <option key={item._id} value={item._id}>{item.title}</option>
+                                return <option key={item._id} value={item.uid}>{item.title}</option>
                             })}
                         </select>
                     </div>

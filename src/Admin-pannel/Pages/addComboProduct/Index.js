@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Spinner } from "react-bootstrap";
-import { useAddComboProductsMutation, useAddPurchaseCartMutation, useGetProductSearchQuery } from "../../Components/all-products/allproductsApi/allProductsApi";
+import { useAddComboProductsMutation, useAddPurchaseCartMutation, useGetCurrencyQuery, useGetProductSearchQuery, useGetSellersQuery } from "../../Components/all-products/allproductsApi/allProductsApi";
 import { RxCross1 } from "react-icons/rx";
 import { AiFillDelete } from "react-icons/ai";
 import ModalCombo from "./ModalCombo";
@@ -53,18 +53,27 @@ function AddComboProduct() {
         const arr = [...showCombo, ...val]
         setShowCombo(arr)
     }
+    const [val, setVal] = useState({ seller_id: "", currency_id: "" })
+    const getDat = (e) => {
+        const { name, value } = e.target
+        const clone = { ...val }
+        clone[name] = value
+        setVal(clone)
+    }
 
     const sendComboData = () => {
         const getData = showCombo.map((item) => {
-            return { productId: item.productId, variant: item._id, price: item?.mrp }
+            console.log('item', item)
+            return { productId: item.productId, variant: item.uid, price: item?.mrp }
         })
         const obj = {
+            ...val,
             products: getData,
             isActive: true,
             offer_Price: +comboRate
         }
 
-        addComboPro(obj)
+        addComboPro({ data: obj, token: token })
     }
 
     useEffect(() => {
@@ -86,14 +95,17 @@ function AddComboProduct() {
 
 
     const deleteItem = (index) => {
-        const filterd = showCombo.filter((item , i) => {
+        const filterd = showCombo.filter((item, i) => {
             if (i !== index) {
                 return item
             }
-           
+
         })
         setShowCombo(filterd);
     }
+
+    const { data } = useGetSellersQuery(token)
+    const { data: listi } = useGetCurrencyQuery(token)
 
 
     return <div>
@@ -117,19 +129,48 @@ function AddComboProduct() {
                             </div>
                         </div>}
 
-                        <div className="container-fluid">
-                            <div className="row devTols" >
-                                <div className="col-4 d-block">
-                                    <div>
-                                        <label>Date *</label>
-                                        <input value={storeValue.date} onChange={changeHandelVal} name="date" className="form-control" type="date" />
-                                    </div>
-                                </div>
+                        <div className="container">
 
+
+                            <div className="form-group row">
+                                <label className="col-md-3 col-from-label">Date *</label>
+                                <div className="col-md-8">
+
+                                    <input value={storeValue.date} onChange={changeHandelVal} name="date" className="form-control" type="date" />
+                                </div>
+                            </div>
+
+
+                            <div className="form-group row">
+                                <label className="col-md-3 col-from-label">Seller <span className="text-danger">*</span></label>
+                                <div className="col-md-8">
+
+                                    <select class="form-select" name="seller_id" onChange={getDat} value={val?.seller_id} aria-label="Default select example">
+                                        <option selected>Open this select menu</option>
+                                        {data && data.map((item) => {
+                                            return <option value={item?._id}>{item?.firstname + " " + item?.lastname}</option>
+                                        })}
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="form-group row">
+                                <label className="col-md-3 col-from-label">Currency <span className="text-danger">*</span></label>
+                                <div className="col-md-8">
+
+                                    <select class="form-select" name="currency_id" onChange={getDat} value={val?.currency_id} aria-label="Default select example">
+                                        <option selected>Open this select menu</option>
+                                        {listi && listi.map((item) => {
+                                            return <option value={item?._id}>{item?.name + " " + item?.symbol}</option>
+                                        })}
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
-                        <div className="container-fluid">
+
+                        <div className="container">
                             <div className="row">
                                 <div className="col">
                                     <div>
@@ -149,7 +190,7 @@ function AddComboProduct() {
                         </div>
 
 
-                        <div className="container-fluid">
+                        <div className="container">
                             <div className="card-header" style={{ padding: "0", marginTop: "10px" }}>
                                 <h4 className="mb-0">Add Combo Product</h4>
                             </div>

@@ -12,8 +12,8 @@ function AddVtechStockac() {
     const [show, setShow] = useState(false)
     const [searchs, setSearch] = useState('')
     const { data: searchPro } = useGetProductSearchQuery({ token: token, paylode: searchs })
-    const { data: pickUp } = useGetPickupPointQuery();
-    const { data: sellerD } = useGetSellersQuery()
+    const { data: pickUp } = useGetPickupPointQuery(token);
+    const { data: sellerD } = useGetSellersQuery(token)
 
     const [modalShow, setModalShow] = useState(false);
     const [showCombo, setShowCombo] = useState([])

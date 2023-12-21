@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import Select from 'react-select'
 import { FiRefreshCcw } from 'react-icons/fi'
 import { AiOutlineSearch } from 'react-icons/ai'
@@ -12,6 +12,8 @@ import { Link } from 'react-router-dom'
 
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import { Form } from 'react-bootstrap'
+import axios from 'axios'
 
 
 function JobDes() {
@@ -42,6 +44,149 @@ function JobDes() {
 
     const editor = useRef(null)
     const [content, setContent] = useState(" ")
+
+    const [state, setState] = useState({
+        jobDescription: '',
+        jobDepartment: '',
+        jobGroup: '',
+        name: '',
+        jobCode: '',
+
+    })
+
+    const onChangeHandle = (e) => {
+        const clone = { ...state }
+        clone[e.target.name] = e.target.value
+        setState(clone)
+    }
+
+
+    const [data, setData] = useState(null)
+    const [data2, setData2] = useState(null)
+
+    const getData = async () => {
+        try {
+            const res = await axios.get(`https://onlineparttimejobs.in/api/jobGroup`, {
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                    'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+                },
+            })
+            setData(res.data)
+        } catch (error) {
+        }
+    }
+    const getData2 = async () => {
+        try {
+            const res = await axios.get(`https://onlineparttimejobs.in/api/jobDepartment`, {
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                    'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+                },
+            })
+            setData2(res.data)
+        } catch (error) {
+        }
+    }
+    useEffect(() => {
+        getData()
+        getData2()
+    }, [])
+
+    const [updateBtn, setUpdateBtn] = useState(false)
+    const [idd, setidd] = useState(null)
+    const sendData = async () => {
+        if (updateBtn) {
+            try {
+                const res = await axios.put(`https://onlineparttimejobs.in/api/jobs/update_job/${idd}`, state, {
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8',
+                        'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+                    },
+                })
+                alert("Jon Update Successfully")
+                getData()
+                setUpdateBtn(false)
+                handleClose()
+            } catch (error) {
+                alert('Jon Update Failed!')
+            }
+        } else {
+            try {
+                const res = await axios.post(`https://onlineparttimejobs.in/api/jobs/add_job`, state, {
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8',
+                        'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+                    },
+                })
+                alert("Jon Added Successfully")
+                getData()
+                handleShow()
+                handleClose()
+            } catch (error) {
+                alert('Jon Not Added!')
+                return
+            }
+        }
+        getDatalist()
+        setState({
+            jobDescription: '',
+            jobDepartment: '',
+            jobGroup: '',
+            name: '',
+            jobCode: '',
+        })
+    }
+
+
+
+    const [datalist, setDatalist] = useState(null)
+
+    const getDatalist = async () => {
+        try {
+            const res = await axios.get(`https://onlineparttimejobs.in/api/jobs`, {
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                    'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+                },
+            })
+            setDatalist(res.data)
+        } catch (error) {
+
+        }
+    }
+
+    useEffect(() => {
+        getDatalist()
+    }, [])
+
+
+    const deleteItem = async (id) => {
+        try {
+            const res = await axios.delete(`https://onlineparttimejobs.in/api/jobs/delete_job/${id}`, {
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                    'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+                },
+            })
+            getDatalist()
+        } catch (error) {
+            alert('Jon Not Delete!')
+        }
+    }
+
+    const editDataJob = (item) => {
+        setState({
+            jobDescription: item.jobDescription,
+            jobDepartment: item.jobDepartment,
+            jobGroup: item.jobGroup,
+            name: item.name,
+            jobCode: item.jobCode,
+        })
+        setUpdateBtn(true)
+        setidd(item._id)
+        setShow(true)
+    }
     return (
         <>
             <div className='container'>
@@ -49,10 +194,11 @@ function JobDes() {
                     <div className='row '>
                         <div className='col-md-12 mt-3 d-flex'>
                             <button type='button' className='btn btn-primary' onClick={handleShow}>NEW JOB POSITION</button>
-                            <Modal className='popup' show={show} onHide={handleClose} style={{ width: 800, }}>
+
+                            <Modal className='popup' show={show} onHide={handleClose} >
                                 <Modal.Header closeButton>
                                     <Modal.Title>
-                                        New job
+                                        Add New Job
                                     </Modal.Title>
 
                                 </Modal.Header>
@@ -60,39 +206,44 @@ function JobDes() {
                                     <div className='row mt-3'>
                                         <div className="col-md-6 ">
                                             <label htmlFor="" className='form-label'><strong className='text-danger'>*</strong> Job Code</label>
-                                            <input type="text" className='form-control' />
+                                            <input type="text" className='form-control' name='jobCode' onChange={onChangeHandle} value={state.jobCode} />
                                         </div>
                                         <div className="col-md-6 ">
                                             <label htmlFor="" className='form-label'><strong className='text-danger'>*</strong> Name</label>
-                                            <input type="text" className='form-control' />
+                                            <input type="text" className='form-control' name='name' onChange={onChangeHandle} value={state.name} />
                                         </div>
                                     </div>
                                     <div className='row mt-3'>
                                         <div className="col-md-6 ">
                                             <label htmlFor="" className='form-label'> Job Group</label>
-                                            <Select options={options} defaultValue={value} placeholder="None Selected" onChange={setValue} isMulti></Select>
+                                            <Form.Select aria-label="Default select example" name='jobGroup' onChange={onChangeHandle} value={state.jobGroup} >
+                                                <option>Open this select menu</option>
+                                                {data && data?.map((item) => {
+                                                    return <option value={item._id}>{item?.name}</option>
+                                                })}
+                                            </Form.Select>
                                         </div>
                                         <div className="col-md-6 ">
                                             <label htmlFor="" className='form-label'> Departments</label>
-                                            <Select options={options} defaultValue={value} placeholder="None Selected" onChange={setValue} isMulti></Select>
+                                            <Form.Select aria-label="Default select example" name='jobDepartment' onChange={onChangeHandle} value={state.jobDepartment} >
+                                                <option>Open this select menu</option>
+                                                {data2 && data2?.map((item) => {
+                                                    return <option value={item?._id}>{item?.departmentName}</option>
+                                                })}
+                                            </Form.Select>
                                         </div>
                                     </div>
-                                    <div className='row mt-3'>
-                                        <div className='col-md-3'>
-                                            <label htmlFor=""><BsFillTagFill />Tags</label>
-                                        </div>
-                                    </div>
+
                                     <div className='row mt-3'>
                                         <div className='col-md-12'>
                                             <label htmlFor="" className='form-label'>Job Descriptions</label>
-                                            <JoditEditor
-                                                ref={editor}
-                                                value={content}
-                                                onChange={newContent => setContent(newContent)}
-                                            />
+                                            <div className="form-floating">
+                                                <textarea className="form-control" name='jobDescription' onChange={onChangeHandle} value={state.jobDescription} placeholder="Leave a comment here" id="floatingTextarea2" style={{ height: '100px' }}></textarea>
+                                                <label for="floatingTextarea2">Descriptions</label>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className='row mt-3'>
+                                    {/* <div className='row mt-3'>
                                         <div className='col-md-6  '>
                                             <label htmlFor="" className='form-label'>Attachment</label>
                                             <div className='d-flex'>
@@ -100,20 +251,24 @@ function JobDes() {
                                                 <button className=' btn-success' style={{ width: 40, height: 40, }}><AiOutlinePlus className="fs-5 " /></button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
 
                                 </Modal.Body>
 
                                 <Modal.Footer>
-                                    <Button variant="secondary" onClick={handleClose}>
-                                        Close
-                                    </Button>
-                                    <Button variant="primary" onClick={handleShow}>
+
+                                    <Button variant="primary" onClick={sendData}>
                                         Save
                                     </Button>
                                 </Modal.Footer>
 
                             </Modal>
+
+
+
+
+
+
                             <DropdownButton id="dropdown-basic-button" className='ml-2' title="GROUP">
                                 <Dropdown.Item onClick={handleShow1} eventKey="1" >New Group</Dropdown.Item>
                                 <Modal className='popup' show={show1} onHide={handleClose1} style={{ width: 700, }}>
@@ -220,16 +375,24 @@ function JobDes() {
                                     <th >Job Descriptions</th>
                                     <th >Department Name</th>
                                     <th >Job Group</th>
+                                    <th >Action</th>
 
                                 </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>#JOB00175 <br /><Link to='/admin/view-job'> View</Link> | Edit | <br />Delete</td>
-                                    <td>scssc</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
+                                {datalist && datalist?.map((item) => {
+                                    return <tr>
+                                        <td><input type="checkbox" /></td>
+                                        <td>{item?.jobCode}</td>
+                                        <td>{item?.name}</td>
+                                        <td>{item?.jobDescription}</td>
+                                        <td>{item?.jobDepartment?.departmentName}</td>
+                                        <td>{item?.jobGroup?.name}</td>
+                                        <td>
+                                            <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" onClick={() => { editDataJob(item) }} title="Edit" to="#"><i class="las la-edit"></i></a>
+                                            <button onClick={() => { deleteItem(item?._id) }} type="button" class="btn btn-soft-danger btn-icon btn-circle btn-sm"><i class="las la-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                })}
+
                             </tbody>
                         </table>
                     </div>

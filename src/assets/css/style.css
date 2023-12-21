@@ -5581,7 +5581,8 @@ Faq Area CSS
   padding-top: 15px;
   line-height: initial;
 }
-.form-control{
+
+.form-control {
   color: #000 !important;
 }
 
@@ -9782,12 +9783,15 @@ tbody tr td .modle-modle .svg {
 
 
 
+.bulkkk>div>input {
+  margin-left: 0;
+}
 
 
 /* Registration Start  */
 .registrationDetail {
   padding: 10px 0;
-  background: url("../img/product-detail//fertilizer-application-bg2.jpg") no-repeat left / cover;
+  /* background: url("../img/product-detail//fertilizer-application-bg2.jpg") no-repeat left / cover; */
   height: 100vh;
   position: relative;
 }
@@ -9820,7 +9824,7 @@ tbody tr td .modle-modle .svg {
 }
 
 .registerContent {
-  background: linear-gradient(to bottom, #2874f0, #1a55b7);
+  background: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -10584,14 +10588,16 @@ table tbody tr .show-table {
   cursor: pointer !important;
 }
 
-.classatt >div   {
+.classatt>div {
   flex: 1 !important;
 }
-.mainboxatt{
+
+.mainboxatt {
   display: flex;
   margin: 15px 0;
 }
-.sizzings >td >input{
+
+.sizzings>td>input {
   width: 100px;
 }
 
@@ -10599,112 +10605,235 @@ table tbody tr .show-table {
   width: 100% !important;
   height: 100% !important;
 }
-.htt > div {
+
+.htt>div {
   width: 990px;
 }
-.btnMain{
+
+.btnMain {
   margin: 10px 0;
 
 }
-.btnMain > button {
+
+.btnMain>button {
   margin: 0 4px;
 }
-.dayColor{
+
+.dayColor {
   background-color: rgb(239 223 198) !important;
 }
-.CashColor{
+
+.CashColor {
   background-color: rgb(207 238 207) !important;
 }
-.BankColor{
-  background-color: #f0f0cc !important ;
+
+.BankColor {
+  background-color: #f0f0cc !important;
 }
-.changeRouts{
+
+.changeRouts {
   cursor: pointer;
   padding: 10px 0;
 }
-.changeRouts:hover{
-  background-color:#1cb8ec;
+
+.changeRouts:hover {
+  background-color: #1cb8ec;
 }
-.extraMrHide{
+
+.extraMrHide {
   margin-left: 190px !important;
 }
-.Paymentcolor{
-  background-color:  #edf0d3 !important;
+
+.Paymentcolor {
+  background-color: #edf0d3 !important;
 }
-.Paymentcolorbtn{
-  background-color:  #edf0d3 !important;
+
+.Paymentcolorbtn {
+  background-color: #edf0d3 !important;
   color: black !important;
 }
-.Receiptcolor{
-  background-color:  #e7dbc7 !important;
+
+.Receiptcolor {
+  background-color: #e7dbc7 !important;
 }
-.Receiptcolorbtn{
-  background-color:  #e7dbc7 !important;
+
+.Receiptcolorbtn {
+  background-color: #e7dbc7 !important;
   color: black !important;
 }
-.Journalcolor{
-  background-color:  rgb(195 201 179) !important;
+
+.Journalcolor {
+  background-color: rgb(195 201 179) !important;
 }
-.Journalcolorbtn{
-  background-color:  rgb(195 201 179) !important;
+
+.Journalcolorbtn {
+  background-color: rgb(195 201 179) !important;
   color: black !important;
 }
-.Debitcolor{
-  background-color:  rgb(255 252 214) !important;
+
+.Debitcolor {
+  background-color: rgb(255 252 214) !important;
 }
-.Debitcolorbtn{
-  background-color:  rgb(255 252 214) !important;
+
+.Debitcolorbtn {
+  background-color: rgb(255 252 214) !important;
   color: black !important;
 }
-.Creditcolor{
-  background-color:  rgb(255 236 216) !important;
+
+.Creditcolor {
+  background-color: rgb(255 236 216) !important;
 }
-.Creditcolorbtn{
-  background-color:  rgb(255 236 216) !important;
+
+.Creditcolorbtn {
+  background-color: rgb(255 236 216) !important;
   color: black !important;
 }
-.innerAddr{
- padding: 10px;
- border-radius: 10px;
+
+.innerAddr {
+  padding: 10px;
+  border-radius: 10px;
 }
-.innerAddr:hover{
+
+.innerAddr:hover {
   cursor: pointer;
   box-shadow: 7px 7px lightblue;
 }
-.editoresec{
+
+.editoresec {
   display: flex;
   justify-content: end;
 }
-.mainbox{
+
+.mainbox {
   padding: 10px;
   background-color: white;
   border: 0px solid black;
 
 }
-.mainbox > div{
+
+.mainbox>div {
   padding: 10px;
   border: 1px solid black;
   border-radius: 6px;
   margin: 10px 0;
   color: #1a55b7;
 }
-.changeRoutss >td{
+
+.changeRoutss>td {
   padding: 10px;
   border: 1px solid black;
 }
-.simples >th{
+
+.simples>th {
   justify-content: center;
   padding: 5px;
   border: 1px solid gray;
 }
 
 
-.maiTa{
+.maiTa {
   width: 3000px !important;
 }
-.chBox > span > span{
+
+.chBox>span>span {
   padding: 15px;
 }
-.physical_product_show{
+
+.physical_product_show {
   width: 1400px;
+}
+
+.cusxel {
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .registrationInfo {
+    display: block !important;
+    width: 90%;
+    /* height: 100vh !important; */
+  }
+
+  .contentHeader>h3,
+  p {
+    font-size: 17px;
+  }
+
+  .registerForm>h4 {
+    font-size: 18px;
+  }
+
+  label.form-check-label.agreeCheck,
+  .forgotText a {
+    font-size: 12px !important;
+  }
+
+  .registrationDetail {
+    height: 147vh !important;
+  }
+}
+
+.table-to-pdf {
+  border: 1px solid black;
+  padding: 10px;
+  background-color: whitesmoke;
+}
+
+.headerpdf {
+  align-items: center;
+}
+
+.imgpdf {
+  display: flex;
+  justify-content: center;
+}
+
+.bodypdf>div>div {
+  font-size: 20px;
+  margin: 5px 0;
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+}
+
+.mr-2,
+.mx-2 {
+  margin-right: 0.5rem !important;
+}
+
+.fw-bold {
+  font-weight: 700 !important;
+}
+.ml-3,
+.mx-3 {
+  margin-left: 1rem !important;
+}
+
+.seller-checkbox {
+  height: 20px;
+  width: 20px;
+}
+.ml-3,
+.mx-3 {
+  margin-left: 1rem !important;
+}
+
+.seller-checkbox {
+  height: 20px;
+  width: 20px;
+}
+
+.ant-pagination-item-ellipsis{
+  display: flex !important;
+}
+.css-dev-only-do-not-override-14wwjjs{
+  display: flex !important;
+  justify-content: center !important;
+  margin: 10px 0 !important;
+}
+.ant-pagination-options-size-changer{
+  display: none !important;
 }

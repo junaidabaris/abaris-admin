@@ -38,7 +38,7 @@ function AddDiamondColor () {
                                     </div>
                                     
                                     <div className="col-lg-12 mt-3">
-                                        <textarea id="w3review" name="w3review" rows={4} cols={177} defaultValue={'Description'} />
+                                        <textarea id="w3review" name="w3review" rows={4} cols={177}  />
 
                                     </div>
                                     <div className="col-lg-3 mt-3">

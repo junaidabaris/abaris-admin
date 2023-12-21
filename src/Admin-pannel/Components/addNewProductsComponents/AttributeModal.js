@@ -11,10 +11,10 @@ import { RxCross1 } from 'react-icons/rx';
 function AttributeModal(props) {
     const [finalCatD, setFinalCatD] = useState();
     const token = window.localStorage.getItem('token')
-    console.log(props.formData);
+    // console.log(props.formData);
     const [data1, setData1] = useState()
     const getDatas = async () => {
-        const res = await axios.get('https://onlineparttimejobs.in/api/attributeSetMaster', {
+        const res = await axios.get('https://onlineparttimejobs.in/api/attributeSetMaster/admin', {
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
                 'Authorization': 'Bearer ' + token

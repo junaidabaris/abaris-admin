@@ -13,8 +13,9 @@ import { useAddWholeSaleMutation } from "../../Components/all-products/allproduc
 import { ToastContainer, toast } from "react-toastify";
 import RentSection from "./RentSection";
 import axios from "axios";
+
 function VtechRentProductAdd() {
-    const [main, setMainVal] = useState({ products: [] })
+    const [main, setMainVal] = useState({ products: [], currency_id: '', seller_id: '' })
     const [data, setData] = useState([])
     const issellerLog = window.localStorage.getItem('isSellerLogin')
     const id = window.localStorage.getItem('isSellerId')
@@ -32,15 +33,20 @@ function VtechRentProductAdd() {
     const [isSuccess, setisSuccess] = useState(false)
     const [isError, setisError] = useState(false)
     const sendData = async () => {
-        const val = { products: main.products }
+        const val = { products: main.products, currency_id: main.currency_id, seller_id: main.seller_id }
 
         try {
-            const res = await axios.post(`https://onlineparttimejobs.in/api/serviceProductRent/add_Rental`, val)
-           setisSuccess(true)
-        setisError(false)
+            const res = await axios.post(`https://onlineparttimejobs.in/api/serviceProductRent/add_Rental`, val, {
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                    Authorization: `Bearer ${window.localStorage.getItem('token')}`,
+                },
+            })
+            setisSuccess(true)
+            setisError(false)
         } catch (error) {
-           setisError(true)
-        setisSuccess(false)
+            setisError(true)
+            setisSuccess(false)
         }
     }
 
@@ -67,6 +73,12 @@ function VtechRentProductAdd() {
             toastErrorMessage2()
         };
     }, [isError])
+    const getDat = (e) => {
+        const clone = { ...main }
+        clone[e.target.name] = e.target.value
+        setMainVal(clone)
+        console.log(clone)
+    }
     return (
         <>
             <div className="aiz-main-content">
@@ -86,7 +98,7 @@ function VtechRentProductAdd() {
                             <div className="row gutters-5">
                                 <div className="col-lg-8">
                                     <input type="hidden" name="_token" defaultValue="6klBhNOhEcSYzHAP1WU8ctR90lIocmkKBETVGkNx" />                <input type="hidden" name="added_by" defaultValue="admin" />
-                                    <ProductsInformationAdmin dataSetNext={dataSetNext} />
+                                    <ProductsInformationAdmin dataSetNext={dataSetNext} val={main} getDat={getDat} />
 
                                     {data && data.map((item, i) => {
                                         return <RentSection key={i} item={item} setMainVal={setMainVal} main={main} data={data} />

@@ -38,8 +38,6 @@ function AddNewWholesaleProductsPage() {
     const sendData = () => {
         const tal = { seller_id: val.seller_id, currency_id: val.currency_id, productId: data[0]?.productId, products: main.products }
         sendDatas({data:tal,token:token})
-        console.log(tal);
-
     }
 
     const toastSuccessMessage2 = () => {

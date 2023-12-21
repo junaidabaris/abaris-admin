@@ -29,7 +29,10 @@ function AllOrders() {
   window.localStorage.setItem("invoice", "")
 
   let allTotal = 0;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  console.log('allOrdrsData----', data);
+
   return (
     <>
       <div className="aiz-main-content">
@@ -125,6 +128,12 @@ function AllOrders() {
                           style={{ display: "table-cell" }}
                         >
                           Buyer Name
+                        </th>
+                        <th
+                          data-breakpoints="md"
+                          style={{ display: "table-cell" }}
+                        >
+                          Buyer Mobile
                         </th>
                         <th
                           data-breakpoints="md"
@@ -227,8 +236,9 @@ function AllOrders() {
 
                           <td style={{ display: "table-cell" }}>{item.createdAt}</td>
                           <td style={{ display: "table-cell" }}>
-                            {item?.user?.firstname + " "+ item?.user?.lastname}
+                            {item?.user?.firstname + " " + item?.user?.lastname}
                           </td>
+                          <td style={{ display: "table-cell" }}>{item?.contactDetail}</td>
                           <td style={{ display: "table-cell" }}>
                             {item?.seller_id?.firstname}  {item?.seller_id?.lastname}
                           </td>

@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom"
 
 function createMarkup(data) {
@@ -7,10 +8,15 @@ function createMarkup(data) {
 }
 function ListPopups() {
     const [data, setData] = useState(null)
-
+    const token = window.localStorage.getItem('token')
     const getData = async () => {
         try {
-            const res = await axios.get(`https://onlineparttimejobs.in/api/popup`)
+            const res = await axios.get(`https://onlineparttimejobs.in/api/popup/admin`, {
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                    'Authorization': 'Bearer ' + token
+                },
+            })
             setData(res.data)
         } catch (error) {
             alert('Server Error ,Fail to Load Data !')
@@ -21,13 +27,36 @@ function ListPopups() {
         getData()
     }, [])
 
-    const deleteData = async (id)=>{
+    const deleteData = async (id) => {
         try {
-            const res = await axios.delete(`https://onlineparttimejobs.in/api/popup/delete_Popup/${id}`)
+            const res = await axios.delete(`https://onlineparttimejobs.in/api/popup/delete_Popup/${id}`, {
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                    'Authorization': 'Bearer ' + token
+                },
+            })
             alert('Popup Item Delete Successfully!')
             setTimeout(() => {
                 getData()
             }, 1000);
+        } catch (error) {
+            alert('Somting Went Wrong !')
+        }
+    }
+
+    const changeStatus = async (id, sta) => {
+        try {
+            const res = await axios.post(`https://onlineparttimejobs.in/api/popup/updateStatus`, {
+                popupId: id,
+                status: sta
+            }, {
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                    'Authorization': 'Bearer ' + token
+                },
+            })
+            alert('Popup Item Update Successfully!')
+            getData()
         } catch (error) {
             alert('Somting Went Wrong !')
         }
@@ -101,20 +130,25 @@ function ListPopups() {
                                             <div dangerouslySetInnerHTML={createMarkup(item.description)}></div>
                                         </td>
                                         <td style={{ display: "table-cell" }}>
-                                           {item.page}
+                                            {item.page}
                                         </td>
                                         <td style={{ display: "table-cell" }}>
-                                           {item.date_from} to {item.date_to}
+                                            {item.date_from} to {item.date_to}
                                         </td>
                                         <td style={{ display: "table-cell" }}>
-                                            {item.status ? 'Active' : 'In Active'}
+                                            <Form.Check
+                                                type="switch"
+                                                checked={item.status}
+                                                id="custom-switch"
+                                                onChange={() => { changeStatus( item._id, !item.status) }}
+                                            />
                                         </td>
                                         <td style={{ display: "table-cell" }}>
                                             <Link class="btn btn-soft-info btn-icon btn-circle btn-sm" title="Approved" to={`edit_popup/${item._id}`}>
                                                 <i class="las la-edit"></i>
                                             </Link>
 
-                                            <button type="button" onClick={()=>deleteData(item._id)} class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete">
+                                            <button type="button" onClick={() => deleteData(item._id)} class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete">
                                                 <i class="las la-trash"></i>
                                             </button>
                                         </td>

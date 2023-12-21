@@ -20,7 +20,7 @@ function AddPopups() {
         date_to: "",
         duration: "Always",
         description: "",
-        status: "",
+        status: true,
         image: "",
     })
 
@@ -29,26 +29,25 @@ function AddPopups() {
         clone[e.target.name] = e.target.value
         setState(clone)
     }
-    const [file, setFile] = useState()
 
-    const changePhoto = (e) => {
-        setFile(e.target.files[0])
+    const changePhoto = async (e) => {
+        const formData = new FormData();
+        formData.append('image', e.target.files[0]);
+
+        try {
+            const res = await axios.post(`https://onlineparttimejobs.in/api/cloudinaryImage/addImage`, formData)
+            const obj = { public_id: res.data.public_id, url: res.data.url }
+            const clone = { ...state, image: obj }
+            setState(clone)
+        } catch (error) {
+            console.log("Gallery Image  not uploded");
+        }
     }
 
     const [sendDataVal, response] = usePostPopupMutation()
 
     const sendData = async () => {
-        const formData = new FormData();
-        formData.append('page', state.page);
-        formData.append('url', state.url);
-        formData.append('date_from', state.date_from);
-        formData.append('duration', state.duration);
-        formData.append('date_to', state.date_to);
-        formData.append('image', file);
-        formData.append('status', state.status);
-        formData.append('description', productDescription);
-
-        sendDataVal(formData)
+        sendDataVal({ data: { ...state, description: productDescription }, token: window.localStorage.getItem('token') })
     }
 
     const toastSuccessMessage = () => {
@@ -80,7 +79,12 @@ function AddPopups() {
     const params = useParams()
     const getData = async () => {
         try {
-            const res = await axios.get(`https://onlineparttimejobs.in/api/popup/${params.id}`)
+            const res = await axios.get(`https://onlineparttimejobs.in/api/popup/${params.id}`, {
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                    Authorization: `Bearer ${window.localStorage.getItem('token')}`,
+                },
+            })
             setState(res.data)
             dispatch(setDataDescription(res.data.description))
         } catch (error) {
@@ -96,19 +100,8 @@ function AddPopups() {
 
     const [updateval, res2] = useUpdatePopupsMutation()
     const updateValue = () => {
-        const formData = new FormData();
-        let filesVal = file ? file : null
-        
-        formData.append('page', state.page);
-        formData.append('url', state.url);
-        formData.append('date_from', state.date_from);
-        formData.append('duration', state.duration);
-        formData.append('date_to', state.date_to);
-        formData.append('image',filesVal);
-        formData.append('status', state.status);
-        formData.append('description', productDescription);
 
-        updateval({ id: params.id, data: formData })
+        updateval({ id: params.id, data: { ...state, description: productDescription }, token: window.localStorage.getItem('token') })
     }
 
     const toastSuccessMessage2 = () => {
@@ -149,8 +142,8 @@ function AddPopups() {
                             <div className="row">
                                 <div className="col-4">
                                     <label className=" col-form-label">Select Page * </label>
-                                    <select className="form-select" name="page" onChange={onChange} aria-label="Default select example">
-                                        {params?.id ? <option selected>{state?.page}</option> : <option selected>Select Page *</option>}
+                                    <select className="form-select" value={state?.page} name="page" onChange={onChange} aria-label="Default select example">
+                                        {/* {params?.id ? <option selected>{state?.page}</option> : <option selected>Select Page *</option>} */}
 
                                         <option value="Home page">Home page</option>
                                         <option value="About">About</option>
@@ -185,7 +178,7 @@ function AddPopups() {
                                             className="form-control"
                                             placeholder="Valid From *"
                                             autoComplete="off"
-                                        // value={state.date_from}
+                                            value={state.date_from}
                                         />
                                     </div>
                                 </div>
@@ -199,7 +192,7 @@ function AddPopups() {
                                             className="form-control"
                                             placeholder="Valid To *"
                                             autoComplete="off"
-                                        // value={state.date_to}
+                                            value={state.date_to}
                                         />
                                     </div>
                                 </div>
@@ -217,7 +210,7 @@ function AddPopups() {
                                 <div className="col-4">
                                     <label className=" col-form-label">Duration </label>
 
-                                    <select className="form-select" onChange={onChange} name="duration" aria-label="Default select example">
+                                    <select className="form-select" onChange={onChange} value={state?.duration} name="duration" aria-label="Default select example">
                                         <option value="Always">ALWAYS</option>
                                         <option value="onTime"> ON TIME</option>
                                     </select>
@@ -233,7 +226,7 @@ function AddPopups() {
                                 <div className="col-5">
                                     <label className=" col-form-label">Status </label>
 
-                                    <select className="form-select" onChange={onChange} name="status" aria-label="Default select example">
+                                    <select className="form-select" onChange={onChange} value={state?.status} name="status" aria-label="Default select example">
                                         <option value={true}>ACTIVE</option>
                                         <option value={false}>IN ACTIVE</option>
                                     </select>
@@ -262,13 +255,18 @@ function AddPopups() {
                                         autoComplete="off"
                                         onChange={changePhoto}
                                     />
+                                    {state?.image?.url && <img style={{
+                                        width: "300px",
+                                        height: "200px"
+                                    }
+                                    }
+                                        src={state?.image?.url} />}
                                 </div>
 
                                 <div className="col-8">
                                     <TextAreas />
 
                                 </div>
-
 
 
                             </div>

@@ -71,7 +71,7 @@ function TopNavSeller({ showSidebar }) {
         </div>}
         <div className="d-flex justify-content-between align-items-stretch flex-grow-xl-1">
             <div className="d-flex justify-content-around align-items-center align-items-stretch">
-                <div className="d-flex justify-content-around align-items-center align-items-stretch">
+                {/* <div className="d-flex justify-content-around align-items-center align-items-stretch">
                     <div className="aiz-topbar-item">
                         <div className="d-flex align-items-center">
                             <a className="btn btn-icon btn-circle btn-light" href="#"
@@ -90,14 +90,14 @@ function TopNavSeller({ showSidebar }) {
                             </a>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
 
-            <div style={{ margin: "10px 0" }} className="mb-3 col-lg-6 d-flex align-center">
+            {/* <div style={{ margin: "10px 0" }} className="mb-3 col-lg-6 d-flex align-center">
                 <label htmlFor="number" className="form-label">Track Order</label>
                 <input type="text" name="courier_reference_no" aria-describedby="number" ref={refVal} placeholder="Courie Reference No / Order Id / Awb Number" className="form-control" id="number1" />
                 <button type="button" style={{ margin: "0 6px" }} class="btn btn-info" onClick={getData}>Search</button>
-            </div>
+            </div> */}
 
             <div className="d-flex justify-content-around align-items-center align-items-stretch">
 

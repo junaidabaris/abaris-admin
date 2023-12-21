@@ -49,7 +49,7 @@ function AllProducts() {
   const [deleteData, response] = useDeleteProductMutation();
 
   function deleteProductData(id) {
-    deleteData({id ,token})
+    deleteData({ id, token })
   };
 
   useEffect(() => {
@@ -61,7 +61,8 @@ function AllProducts() {
 
   const [updatePro, { isSuccess, isError }] = useProductActiveMutation()
   const changeStatus = (item) => {
-    const obj = { id: item._id, data: { approve: !item.approve } }
+
+    const obj = { id: item._id.uid, data: { approve: !item?.product?.approve } }
     updatePro(obj)
   }
 
@@ -155,7 +156,7 @@ function AllProducts() {
                         <th style={{ display: 'table-cell' }}>Category</th>
                         <th style={{ display: 'table-cell' }}>Brand</th>
                         <th style={{ display: 'table-cell' }}>Seller</th>
-                        <th style={{ display: 'table-cell' }}>Block</th>
+                        <th style={{ display: 'table-cell' }}>Active</th>
                         <th data-breakpoints="lg" style={{ display: 'none' }}>Added By</th>
                         <th data-breakpoints="sm" style={{ display: 'table-cell' }}>Info</th>
                         {/* <th data-breakpoints="md" style={{ display: 'none' }}>Total Stock</th> */}
@@ -174,31 +175,32 @@ function AllProducts() {
                           </td>
                           <td style={{ display: 'table-cell' }}>
                             <div className="row gutters-5 w-200px w-md-300px mw-100">
-                              {item?.variations?.length && <div className="col-auto w-50 ">
-                                {item?.variations[0]?.mainImage_url?.url ? <img src={item?.variations[0]?.mainImage_url?.url} alt="Image" className="img-fluid" /> : <img src="https://reactfront.mmslfashions.in/uploads/products/main/images/chlor.jpg" alt="Image" className="img-fluid" />}
+                              {item?.product?.variations?.length && <div className="col-auto w-50 ">
+                                {item?.product?.variations[0]?.mainImage_url?.url ? <img src={item?.product?.variations[0]?.mainImage_url?.url} alt="Image" className="img-fluid" /> : <img src="https://reactfront.mmslfashions.in/uploads/products/main/images/chlor.jpg" alt="Image" className="img-fluid" />}
                               </div>}
                               <div className="col">
-                                <span className="text-muted text-truncate-2" style={{ fontSize: "18px", marginBottom: "10px" }}>{item.name}</span>
-                                {item?.variations?.length && <div>
-                                  <span>Mrp : Rs {item?.variations[0]?.mrp}</span>,<br />
-                                  <span>Sale : Rate Rs  {item?.variations[0]?.sale_rate}</span>,<br />
-                                  <span>Discount : Rs {item?.variations[0]?.discount}</span>
-                                </div>}
+                                <span className="text-muted text-truncate-2" style={{ fontSize: "18px", marginBottom: "10px" }}>{item?.product?.name}</span>
+                                <span className="text-muted text-truncate-2">Languages : {item?.languages}</span>
+                                {/* {item?.product?.variations?.length && <div>
+                                  <span>Mrp : Rs {item?.product?.variations[0]?.mrp}</span>,<br />
+                                  <span>Sale : Rate Rs  {item?.product?.variations[0]?.sale_rate}</span>,<br />
+                                  <span>Discount : Rs {item?.product?.variations[0]?.discount}</span>
+                                </div>} */}
                               </div>
                             </div>
                           </td>
                           <td style={{ display: 'table-cell' }}>
-                            {item.category_id && item.category_id?.map((catItem, i) => {
-                              return <span>{catItem.meta_title}</span>
+                            {item?.categories && item?.categories?.map((catItem, i) => {
+                              return <span>{catItem.name}</span>
                             })}
                           </td>
 
                           <td style={{ display: 'table-cell' }}>
-                            {item.brand_id && item.brand_id.name}
+                            {item?.product?.brand_id && item?.product?.brand_id.name}
 
                           </td>
                           <td style={{ display: 'table-cell' }}>
-                            {item.seller_id && item.seller_id?.firstname + " " + item.seller_id && item.seller_id?.lastname}
+                            {item?.product?.seller_id && item?.product?.seller_id?.firstname + " " + item?.product?.seller_id && item?.product?.seller_id?.lastname}
 
                           </td>
 
@@ -207,7 +209,7 @@ function AllProducts() {
                               <input
                                 onChange={() => { changeStatus(item) }}
                                 type="checkbox"
-                                checked={item?.approve}
+                                checked={item?.product?.approve}
                               />
                               <span className="slider round" />
                             </label>
@@ -239,21 +241,21 @@ function AllProducts() {
                             </label>
                           </td>
                           <td className="text-right footable-last-visible" style={{ display: 'table-cell', whiteSpace: 'nowrap' }}>
-                            <Link to="#" className="btn btn-soft-success btn-icon btn-circle btn-sm" title="View">
+                            {/* <Link to="#" className="btn btn-soft-success btn-icon btn-circle btn-sm" title="View">
                               <i className="las la-eye" />
-                            </Link>
-                            <Link to={`edit/${item.uid}`} className="btn btn-soft-primary btn-icon btn-circle btn-sm" title="Edit">
+                            </Link> */}
+                            <Link to={`edit/${item._id.uid}`} className="btn btn-soft-primary btn-icon btn-circle btn-sm" title="Edit">
                               <i className="las la-edit" />
                             </Link>
                             {/* <a className="btn btn-soft-warning btn-icon btn-circle btn-sm" href="https://mmslfashions.in/admin/products/duplicate/73?type=All" title="Duplicate">
                               <i className="las la-copy" />
                             </a> */}
 
-                            <button type="button" onClick={() => { deleteProductData(item.uid) }} className="btn btn-soft-danger btn-icon btn-circle btn-sm">
+                            <button type="button" onClick={() => { deleteProductData(item._id.uid) }} className="btn btn-soft-danger btn-icon btn-circle btn-sm">
                               <i className="las la-trash" />
                             </button>
 
-                            <BsFillPrinterFill onClick={() => { changeRouting(item._id) }} className="btn btn-soft-primary btn-icon btn-circle btn-sm" />
+                            <BsFillPrinterFill onClick={() => { changeRouting(item._id.uid) }} className="btn btn-soft-primary btn-icon btn-circle btn-sm" />
 
                           </td>
                         </tr>
