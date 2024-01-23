@@ -37,7 +37,8 @@ function Profile() {
         company: "",
         country: "",
         state: "",
-        city: ""
+        city: "",
+        // profile_image: ''
     })
 
     const onchengeHandle = (e) => {
@@ -353,6 +354,21 @@ function Profile() {
                                             </div>
                                         </div>
 
+
+                                        {/* <div className="form-group row mb-3">
+                                            <label className="col-md-2 col-form-label">
+                                                Profile Image
+                                            </label>
+                                            <div className="col-md-10">
+                                                <input
+                                                    type="file"
+                                                    className="form-control"
+                                                    name="profile_image"
+                                                    onChange={onchengeHandle}
+                                                    value={state.profile_image}
+                                                />
+                                            </div>
+                                        </div> */}
 
                                     </div>
                                 </div>

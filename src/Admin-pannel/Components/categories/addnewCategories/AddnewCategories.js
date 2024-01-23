@@ -44,7 +44,7 @@ function AddnewCategories() {
         setVal(maped)
       } else {
         const maped = langData.map((item) => {
-          return { name: "", language_id: item._id, parent_id: '', lable: item.name, order_level: "", type: "", banner: "", meta_title: "", meta_description: '', commision_rate: "", level: "", top: false, featured: false, meta_keyword: "", slug: "", description: '' , video_link: "" }
+          return { name: "", language_id: item._id, parent_id: '', lable: item.name, order_level: "", type: "", banner: "", meta_title: "", meta_description: '', commision_rate: "", level: "", top: false, featured: false, meta_keyword: "", slug: "", description: '', video_link: "" }
         })
         setVal(maped)
       }

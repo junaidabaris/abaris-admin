@@ -574,3 +574,35 @@ section {
 .clearfix.activation-type-image img {
     height: 30px;
 }
+
+/* {dashboard css start} */
+.dashboardDataText .textD {
+    font-size: 34px;
+    font-weight: 700;
+    color: white;
+}
+
+.dashboardDataText .numberD {
+    font-size: 32px;
+    font-weight: 800;
+    color: #000000b0;
+}
+
+@media screen and (max-width: 480px) {
+    .dashboardDataText {
+        display: flex;
+        align-items: center;
+    }
+
+    .dashboardDataText .textD,
+    .dashboardDataText .numberD {
+        font-size: 18px;
+        font-weight: normal;
+        color: white;
+    }
+
+    .dashboardDataText .numberD {
+        color: #000000b0;
+        font-weight: bold;
+    }
+}

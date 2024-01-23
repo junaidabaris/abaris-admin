@@ -346,14 +346,14 @@ function DashboardAdminComp() {
             <div className="col-lg-12">
               <div className="row gutters-10">
 
-                <div className="col-6" onClick={() => { changeRoute('special-seller-list') }}>
+                <div className="col-lg-6 col-md-6" onClick={() => { changeRoute('special-seller-list') }}>
                   <div style={{ width: "100%", cursor: "pointer" }} className="bg-grad-2 text-white rounded-lg mb-4 overflow-hidden">
-                    <div className="px-3 pt-3">
-                      <div className="opacity-50">
-                        <span className="fs-12 d-block">Total</span>
-                        Aplication
+                    <div className="dashboardDataText px-3 pt-3" style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <div className="textD">
+                        {/* <span className="fs-12 d-block">Total</span> */}
+                        Total Applications
                       </div>
-                      <div className="h3 fw-700 mb-3">
+                      <div className="numberD mt-1">
                         {megoDash?.totalCount}
                       </div>
                     </div>
@@ -363,14 +363,14 @@ function DashboardAdminComp() {
                   </div>
                 </div>
 
-                <div className="col-6" onClick={() => { changeRoute('special-seller-list/65439fcb8e317e2508c9e734') }}>
+                <div className="col-lg-6 col-md-6" onClick={() => { changeRoute('special-seller-list/65439fcb8e317e2508c9e734') }}>
                   <div style={{ width: "100%", cursor: "pointer" }} className="bg-grad-2 text-white rounded-lg mb-4 overflow-hidden">
-                    <div className="px-3 pt-3">
-                      <div className="opacity-50">
-                        <span className="fs-12 d-block">Pending</span>
-                        Aplication
+                    <div className="dashboardDataText px-3 pt-3" style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <div className="textD">
+                        {/* <span className="fs-12 d-block">Pending</span> */}
+                        Pending Applications
                       </div>
-                      <div className="h3 fw-700 mb-3">
+                      <div className="numberD mt-1">
                         {megoDash?.totalPending}
                       </div>
                     </div>
@@ -380,14 +380,14 @@ function DashboardAdminComp() {
                   </div>
                 </div>
 
-                <div className="col-6" onClick={() => { changeRoute('special-seller-list/65439fe58e317e2508c9e736') }}>
+                <div className="col-lg-6 col-md-6" onClick={() => { changeRoute('special-seller-list/65439fe58e317e2508c9e736') }}>
                   <div style={{ width: "100%", cursor: "pointer" }} className="bg-grad-2 text-white rounded-lg mb-4 overflow-hidden">
-                    <div className="px-3 pt-3">
-                      <div className="opacity-50">
-                        <span className="fs-12 d-block">Approved</span>
-                        Aplication
+                    <div className="dashboardDataText px-3 pt-3" style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <div className="textD">
+                        {/* <span className="fs-12 d-block">Approved</span> */}
+                        Approved Applications
                       </div>
-                      <div className="h3 fw-700 mb-3">
+                      <div className="numberD mt-1">
                         {megoDash?.totalApproved}
                       </div>
                     </div>
@@ -397,14 +397,14 @@ function DashboardAdminComp() {
                   </div>
                 </div>
 
-                <div className="col-6" onClick={() => { changeRoute('special-seller-list/65439fdc8e317e2508c9e735') }}>
+                <div className="col-lg-6 col-md-6" onClick={() => { changeRoute('special-seller-list/65439fdc8e317e2508c9e735') }}>
                   <div style={{ width: "100%", cursor: "pointer" }} className="bg-grad-2 text-white rounded-lg mb-4 overflow-hidden">
-                    <div className="px-3 pt-3">
-                      <div className="opacity-50">
-                        <span className="fs-12 d-block">Rejected</span>
-                        Aplication
+                    <div className="dashboardDataText px-3 pt-3" style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <div className="textD">
+                        {/* <span className="fs-12 d-block">Rejected</span> */}
+                        Rejected Applications
                       </div>
-                      <div className="h3 fw-700 mb-3">
+                      <div className="numberD mt-1">
                         {megoDash?.totalRejected}
                       </div>
                     </div>

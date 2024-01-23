@@ -49,7 +49,7 @@ function TopNavSeller({ showSidebar }) {
         const setWindoOPCl = window.localStorage.getItem('setWindoOPCl')
         if (setWindoOPCl === 'true') {
             window.localStorage.setItem('setWindoOPCl', false)
-        }else{
+        } else {
             window.localStorage.setItem('setWindoOPCl', true)
         }
 
@@ -171,8 +171,10 @@ function TopNavSeller({ showSidebar }) {
                     <div className="align-items-stretch d-flex dropdown " id="lang-change">
                         <a className="dropdown-toggle no-arrow" data-toggle="dropdown" href="#"
                             role="button" aria-haspopup="false" aria-expanded="false">
-                            <span className="btn btn-icon">
-                                <img src="https://mmslfashions.in/public/assets/img/flags/en.png" height="11" />
+                            <span className="btn btn-icon" style={{ width: '50px' }}>
+                                {/* <img src="https://mmslfashions.in/public/assets/img/flags/sa.png"
+                                    className="mr-2" /> */}
+                                <img src="https://cdn.pixabay.com/photo/2018/08/28/12/41/avatar-3637425_1280.png" height="11" />
                             </span>
                         </a>
                         <ul className="dropdown-menu dropdown-menu-right dropdown-menu-animated dropdown-menu-xs">
@@ -186,7 +188,7 @@ function TopNavSeller({ showSidebar }) {
                             <li>
                                 <a href="#" data-flag="bd" className="dropdown-item ">
                                     <img src="https://mmslfashions.in/public/assets/img/flags/bd.png"
-                                        className="mr-2" />
+                                        className="mr-2" alt="" />
                                     <span className="language">Bangla</span>
                                 </a>
                             </li>
@@ -194,6 +196,7 @@ function TopNavSeller({ showSidebar }) {
                                 <a href="#" data-flag="sa" className="dropdown-item ">
                                     <img src="https://mmslfashions.in/public/assets/img/flags/sa.png"
                                         className="mr-2" />
+
                                     <span className="language">Arabic</span>
                                 </a>
                             </li>
@@ -208,7 +211,9 @@ function TopNavSeller({ showSidebar }) {
                             aria-expanded="false">
                             <span className="d-flex align-items-center">
                                 <span className="avatar avatar-sm mr-md-2">
-                                    <img src="https://mmslfashions.in/public/uploads/all/J3IHQMPrIal220S890WP4kxP1shTCJytvopboZrL.png"
+                                    {/* <img src="https://mmslfashions.in/public/uploads/all/J3IHQMPrIal220S890WP4kxP1shTCJytvopboZrL.png" alt=""
+                                    /> */}
+                                    <img src="https://evehicleform.mshfdc.co.in/static/media/logo-removebg-preview.89aa6ca988e65059e9ff.png" alt=""
                                     />
                                 </span>
                                 <span className="d-none d-md-block">

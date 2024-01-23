@@ -95,30 +95,24 @@ function ProductParams({ handleVariantData, productData, setattributesVal, setVa
     }
     const getChoiceValues = (choiceValues, currentAttr) => {
         setAllChoices(choiceValues && [...choiceValues])
-        const clone = [...sendPayload]
-        for (let i = 0; i < clone.length; i++) {
-            const element = clone[i];
-            if (element._id !== choiceValues._id) {
-                clone.push(choiceValues)
-            }
-        }
-        setsendPayload(clone)
+        const clone = [...allAttributes]
         let flag = true;
-        if (clone.length) {
-            clone.map((item, i) => {
-                if (item.id === currentAttr.id) {
-                    clone.splice(i, 1, currentAttr)
-                    flag = false;
-                }
-            })
-            if (flag) {
-                clone.push(currentAttr)
+        clone.map((item, i) => {
+            if (item._id === currentAttr.id) {
+                clone.splice(i, 1, currentAttr)
+                flag = false;
             }
-        } else {
+        })
+        if (flag) {
             clone.push(currentAttr)
         }
+        setsendPayload(clone)
 
-        let filteredData = clone.filter(item => item.data.length)
+        let filteredData = clone.filter(item => {
+            if (item?.data?.length) {
+                return item
+            }
+        });
 
         if (filteredData.length) {
             form_variatio({ data: { attributes: filteredData, variations: updatedVariants }, token: token })
@@ -127,8 +121,7 @@ function ProductParams({ handleVariantData, productData, setattributesVal, setVa
         if (!filteredData.length) {
             setVariationArr([])
         }
-
-    }
+    };
 
     useEffect(() => {
         if (allChoices) {
@@ -242,7 +235,7 @@ function ProductParams({ handleVariantData, productData, setattributesVal, setVa
                                         </tr>
 
                                     </thead>
-
+                                    
                                     <tbody>
                                         {isVariantLoading && (
                                             <tr>

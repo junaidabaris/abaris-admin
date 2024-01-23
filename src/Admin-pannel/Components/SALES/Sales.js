@@ -7,17 +7,16 @@ import Table from 'react-bootstrap/Table';
 function Sales() {
     const data = [
         {
-            name: 'Augest 2023',
+            name: 'August 2023',
             uv: 8000,
-
         },
         {
             name: 'September 2023',
             uv: 9000,
-
         },
 
     ];
+
     return (
         <>
             <div className='container' style={{ marginLeft: 60, marginRight: 60 }}>
